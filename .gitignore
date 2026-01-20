@@ -1,0 +1,21 @@
+# Editor and IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# OS files
+Thumbs.db
+desktop.ini
+
+# Backup files
+*.bak
+*.tmp
+
+# Log files
+*.log
+
+# Personal notes (user's notes.kb)
+notes.kb
