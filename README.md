@@ -20,6 +20,7 @@ This guide is organized into the following sections:
 12. **[Examples and Tutorials](12-examples.md)** - Real-world scenarios and walkthroughs
 13. **[AGENTS.md File Guide](13-agents-file.md)** - Configuring AI agent behavior for your project
 14. **[Skills System Guide](14-skills-system.md)** - Using and creating reusable skill modules
+15. **[.copilot Directory Guide](15-copilot-directory.md)** - Understanding config, sessions, and data storage
 
 ## 🎯 What is GitHub Copilot CLI?
 
@@ -87,6 +88,13 @@ Ready to start? Head over to [Getting Started](01-getting-started.md) to install
 ## 🔧 Configuration & Customization
 
 Learn how to customize and extend Copilot CLI:
+
+### Configuration Files
+- **[.copilot Directory](15-copilot-directory.md)** - Understanding `~/.copilot/` structure, config.json, and data storage
+- **config.json** - Main configuration (model, theme, trusted folders, etc.)
+- **mcp-config.json** - MCP server configuration
+
+### Instruction Files
 - **[Skills System](14-skills-system.md)** - Reusable expertise modules (Python expert, React patterns, etc.)
 - **[AGENTS.md](13-agents-file.md)** - Project-specific AI agent instructions
 - **.github/copilot-instructions.md** - Copilot CLI workflows  
@@ -94,12 +102,13 @@ Learn how to customize and extend Copilot CLI:
 
 ### Comparison
 
-| Feature | Skills | AGENTS.md | Instructions |
-|---------|--------|-----------|--------------|
-| Scope | Domain expertise | Project config | Coding style |
-| Reusable | ✅ Across projects | ❌ Project only | ❌ Project only |
-| Activatable | ✅ On/off | ❌ Always on | ❌ Always on |
-| Examples | "Python expert", "Security audit" | Architecture, business rules | Code formatting, naming |
+| Feature | Skills | AGENTS.md | config.json | Instructions |
+|---------|--------|-----------|-------------|--------------|
+| Scope | Domain expertise | Project config | CLI behavior | Coding style |
+| Location | ~/.copilot/skills/ | Project root | ~/.copilot/ | .github/ |
+| Reusable | ✅ Across projects | ❌ Project only | ✅ Global | ❌ Project only |
+| Activatable | ✅ On/off | ❌ Always on | N/A | ❌ Always on |
+| Examples | "Python expert" | Architecture | theme, model | Formatting |
 
 ---
 
