@@ -19,6 +19,7 @@ This guide is organized into the following sections:
 11. **[Troubleshooting](11-troubleshooting.md)** - Common issues and solutions
 12. **[Examples and Tutorials](12-examples.md)** - Real-world scenarios and walkthroughs
 13. **[AGENTS.md File Guide](13-agents-file.md)** - Configuring AI agent behavior for your project
+14. **[Skills System Guide](14-skills-system.md)** - Using and creating reusable skill modules
 
 ## 🎯 What is GitHub Copilot CLI?
 
@@ -83,12 +84,22 @@ To get the most out of this guide, you should have:
 
 Ready to start? Head over to [Getting Started](01-getting-started.md) to install and configure GitHub Copilot CLI.
 
-## 🔧 Configuration Files
+## 🔧 Configuration & Customization
 
-Learn about important configuration files:
+Learn how to customize and extend Copilot CLI:
+- **[Skills System](14-skills-system.md)** - Reusable expertise modules (Python expert, React patterns, etc.)
 - **[AGENTS.md](13-agents-file.md)** - Project-specific AI agent instructions
-- **.github/copilot-instructions.md** - Copilot CLI workflows
+- **.github/copilot-instructions.md** - Copilot CLI workflows  
 - **CLAUDE.md / GEMINI.md** - Model-specific preferences
+
+### Comparison
+
+| Feature | Skills | AGENTS.md | Instructions |
+|---------|--------|-----------|--------------|
+| Scope | Domain expertise | Project config | Coding style |
+| Reusable | ✅ Across projects | ❌ Project only | ❌ Project only |
+| Activatable | ✅ On/off | ❌ Always on | ❌ Always on |
+| Examples | "Python expert", "Security audit" | Architecture, business rules | Code formatting, naming |
 
 ---
 

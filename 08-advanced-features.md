@@ -221,86 +221,113 @@ Custom agents extend capabilities with:
 
 ## Skills System
 
-Skills add reusable capabilities to Copilot CLI.
+**Skills** are modular expertise packages that add specialized capabilities to Copilot CLI. Unlike AGENTS.md (project-specific) or instruction files (style guides), skills provide reusable domain expertise that can be activated across any project.
 
-### Listing Skills
+### What Skills Provide
+
+- **Domain expertise**: Python expert, React patterns, security auditing
+- **Cross-project reusability**: Use the same skill in different projects
+- **On-demand activation**: Enable only the skills you need
+- **Specialized knowledge**: Deep expertise in specific technologies
+
+### Key Differences
 
 ```
+Skills:              AGENTS.md:           Instructions:
+─────────────       ──────────────       ─────────────
+✅ Reusable          ❌ Project only      ❌ Project only
+✅ Enable/disable    ❌ Always active     ❌ Always active
+✅ Domain expertise  ✅ Project config    ✅ Code style
+📦 "Python expert"   🏗️  Architecture    📝 Formatting
+```
+
+### Basic Usage
+
+```
+# List available skills
 > /skills list
-```
 
-Shows:
-- Available skills
-- Installed skills
-- Skill descriptions
-
-### Viewing Skill Info
-
-```
-> /skills info python-expert
-```
-
-Shows:
-- Skill description
-- Capabilities
-- Requirements
-- Usage examples
-
-### Adding Skills
-
-```
+# Activate a skill
 > /skills add python-expert
 
-> /skills add database-admin
+# Get information about a skill
+> /skills info security-audit
 
-> /skills add security-audit
-```
-
-### Removing Skills
-
-```
+# Deactivate a skill
 > /skills remove python-expert
-```
 
-### Reloading Skills
-
-After modifying skill files:
-
-```
+# Reload after editing skill files
 > /skills reload
+```
+
+### Example Workflow
+
+```
+# Working on Python API
+> /skills add python-expert
+> /skills add fastapi-expert
+> Create a FastAPI endpoint for user registration
+
+# Switch to React frontend
+> /skills remove python-expert
+> /skills remove fastapi-expert
+> /skills add react-patterns
+> /skills add typescript-expert
+> Create a user registration form component
 ```
 
 ### Creating Custom Skills
 
-Skills are defined in:
+Skills are stored in:
 ```
-~/.copilot/skills/
+~/.copilot/skills/           # Global skills
+<project>/.copilot/skills/   # Project-specific
 ```
 
-Example skill file `python-expert.skill.md`:
+Minimal skill file `~/.copilot/skills/my-skill.skill.md`:
 ```markdown
-# Python Expert Skill
+# My Custom Skill
+
+## Metadata
+- **ID**: my-skill
+- **Version**: 1.0.0
+- **Category**: Development
+- **Tags**: python, backend
 
 ## Description
-Expert in Python development, best practices, and optimization.
+Brief description of the skill's purpose.
 
 ## Capabilities
-- Python code review
-- Performance optimization
-- Type hint recommendations
-- Modern Python patterns
+- What this skill can do
+- Expertise it provides
+- Problems it solves
 
 ## Instructions
-When working with Python code:
-1. Use type hints for all functions
-2. Follow PEP 8 style guide
-3. Prefer f-strings for formatting
-4. Use dataclasses for data structures
-5. Apply SOLID principles
 
-## Examples
-[Include example code and patterns]
+### Core Principles
+[Key principles this skill follows]
+
+### Patterns
+```python
+# ✅ Preferred pattern
+def example():
+    pass
+
+# ❌ Avoid this
+def bad_example():
+    pass
 ```
+
+### Best Practices
+- Practice 1
+- Practice 2
+
+## Checklists
+- [ ] Check 1
+- [ ] Check 2
+```
+
+**For comprehensive guidance on creating and using skills, see the [Skills System Guide](14-skills-system.md).**
 
 ## Custom Instructions
 

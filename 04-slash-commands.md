@@ -479,10 +479,25 @@ Manage skills for enhanced capabilities.
 ```
 
 **Skills are:**
-- Pre-packaged capabilities
-- Reusable patterns
-- Domain expertise
-- Custom instructions
+- Modular expertise packages (e.g., "Python expert", "React patterns")
+- Reusable across any project
+- Can be enabled/disabled as needed
+- Domain-focused specialized knowledge
+- Different from AGENTS.md (project-specific) and instructions (style guides)
+
+**Example use cases:**
+```
+> /skills add python-expert
+# Now get Python best practices
+
+> /skills add security-audit  
+# Audit code for vulnerabilities
+
+> /skills add react-patterns
+# Get React component guidance
+```
+
+**For comprehensive details, see [Skills System Guide](14-skills-system.md).**
 
 ### /share [file|gist] [path]
 
