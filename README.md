@@ -18,6 +18,7 @@ This guide is organized into the following sections:
 10. **[Best Practices](10-best-practices.md)** - Tips and tricks for effective use
 11. **[Troubleshooting](11-troubleshooting.md)** - Common issues and solutions
 12. **[Examples and Tutorials](12-examples.md)** - Real-world scenarios and walkthroughs
+13. **[AGENTS.md File Guide](13-agents-file.md)** - Configuring AI agent behavior for your project
 
 ## 🎯 What is GitHub Copilot CLI?
 
@@ -82,6 +83,13 @@ To get the most out of this guide, you should have:
 
 Ready to start? Head over to [Getting Started](01-getting-started.md) to install and configure GitHub Copilot CLI.
 
+## 🔧 Configuration Files
+
+Learn about important configuration files:
+- **[AGENTS.md](13-agents-file.md)** - Project-specific AI agent instructions
+- **.github/copilot-instructions.md** - Copilot CLI workflows
+- **CLAUDE.md / GEMINI.md** - Model-specific preferences
+
 ---
 
-**Note:** This guide is based on GitHub Copilot CLI version 0.0.387. Features may vary in different versions.
+**Note:** This guide is based on GitHub Copilot CLI version 0.0.388. Features may vary in different versions.

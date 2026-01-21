@@ -329,6 +329,27 @@ export COPILOT_CUSTOM_INSTRUCTIONS_DIRS="/path/to/instructions:/another/path"
 
 ### Example Instructions
 
+**`AGENTS.md`:**
+```markdown
+# Project Architecture Guidelines
+
+## Technology Stack
+- Backend: Node.js + Express + TypeScript
+- Database: PostgreSQL with Prisma ORM
+- Authentication: JWT tokens
+
+## Coding Patterns
+- Use dependency injection
+- Repository pattern for data access
+- Service layer for business logic
+- Controller layer for HTTP handling
+
+## Security
+- All inputs validated with Zod
+- Passwords hashed with bcrypt (12 rounds)
+- JWT tokens expire in 24 hours
+```
+
 **`.github/copilot-instructions.md`:**
 ```markdown
 # Project Instructions
@@ -364,6 +385,8 @@ export COPILOT_CUSTOM_INSTRUCTIONS_DIRS="/path/to/instructions:/another/path"
 - Tabs for indentation
 - Double quotes for strings
 ```
+
+**For comprehensive guidance on AGENTS.md, see [AGENTS.md File Guide](13-agents-file.md).**
 
 ### Instruction Priority
 
