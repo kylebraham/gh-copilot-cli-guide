@@ -21,6 +21,7 @@ This guide is organized into the following sections:
 13. **[AGENTS.md File Guide](13-agents-file.md)** - Configuring AI agent behavior for your project
 14. **[Skills System Guide](14-skills-system.md)** - Using and creating reusable skill modules
 15. **[.copilot Directory Guide](15-copilot-directory.md)** - Understanding config, sessions, and data storage
+16. **[New Features in v0.405](16-v0.405-new-features.md)** - Latest features: `/init` and enhanced `/delegate`
 
 ## 🎯 What is GitHub Copilot CLI?
 
@@ -44,6 +45,26 @@ npm install -g @github/copilot
 # Launch the CLI
 copilot
 ```
+
+### 🔄 Upgrading to v0.405
+
+Already have Copilot CLI? Upgrade to get the latest features:
+
+```bash
+# Homebrew
+brew upgrade copilot-cli
+
+# npm
+npm update -g @github/copilot
+
+# Verify new version
+copilot --version  # Should show 0.0.405+
+```
+
+**New in v0.405:**
+- ✨ `/init` - Initialize complete projects with one command
+- 🚀 `/delegate` - Enhanced PR creation with test validation
+- [See all new features →](16-v0.405-new-features.md)
 
 ## 💡 What You'll Learn
 
@@ -112,4 +133,4 @@ Learn how to customize and extend Copilot CLI:
 
 ---
 
-**Note:** This guide is based on GitHub Copilot CLI version 0.0.388. Features may vary in different versions.
+**Note:** This guide is based on GitHub Copilot CLI version 0.0.405. Features may vary in different versions.

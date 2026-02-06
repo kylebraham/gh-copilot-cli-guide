@@ -202,36 +202,240 @@ Display all directories the CLI can access.
 
 ## GitHub Integration
 
+### /init [project-type]
+
+Initialize a new project with scaffolding, dependencies, and configuration.
+
+```
+# Interactive: Choose from templates
+> /init
+
+# Direct: Specify project type
+> /init react-app
+> /init express-api
+> /init python-flask
+> /init nextjs
+```
+
+**What happens:**
+1. AI asks clarifying questions about your project
+2. Creates appropriate directory structure
+3. Initializes package manager (npm, pip, etc.)
+4. Sets up configuration files
+5. Installs dependencies
+6. Creates starter files and examples
+
+**Supported project types:**
+- `react-app` - React with Vite or Create React App
+- `nextjs` - Next.js application
+- `express-api` - Express.js REST API
+- `python-flask` - Flask web application
+- `python-django` - Django project
+- `nodejs` - Basic Node.js project
+- `typescript` - TypeScript project
+- `rust` - Rust project with Cargo
+- `go` - Go module project
+- And many more...
+
+**Example workflow:**
+```
+> /init react-app
+
+AI: I'll create a new React application. A few questions:
+
+1. Project name?
+> my-awesome-app
+
+2. Use TypeScript?
+> yes
+
+3. Include React Router?
+> yes
+
+4. Testing library (Jest/Vitest/None)?
+> vitest
+
+AI: Creating React app with TypeScript, React Router, and Vitest...
+
+📁 Created directory structure
+📦 package.json configured
+⚙️  tsconfig.json created
+🧪 Test setup complete
+📝 README.md with instructions
+⬇️  Installing dependencies...
+
+✅ Project initialized! 
+   Run: cd my-awesome-app && npm run dev
+```
+
+**Advanced usage:**
+```
+# Initialize in specific directory
+> /cwd ~/projects
+> /init nextjs
+
+# Initialize with custom options
+> /init python-flask --with-db postgres --auth jwt
+
+# Initialize from GitHub template
+> /init from gh:user/template-repo
+```
+
+**Tips:**
+- Run in an empty directory or let the CLI create one
+- Review generated files before committing
+- Customize configuration after initialization
+- Use `/plan` mode for complex project setup
+
 ### /delegate <prompt>
 
 Create a PR in a remote repository with AI-generated changes.
 
 ```
 > /delegate Add user authentication to the API
+> /delegate Fix issue #123
+> /delegate Refactor database connection logic
 ```
 
 **What happens:**
-1. AI analyzes the request
-2. Creates a new branch
-3. Makes necessary changes
-4. Pushes to remote
-5. Creates a Pull Request
+1. AI analyzes the request and plans changes
+2. Creates a new branch (auto-named or custom)
+3. Makes necessary code changes
+4. Commits with descriptive message
+5. Pushes branch to remote
+6. Creates a Pull Request with description
+7. Links related issues automatically
 
 **Requirements:**
 - Must be in a Git repository
-- Remote must be configured
-- GitHub authentication required
+- Remote must be configured (`git remote -v`)
+- GitHub authentication required (`gh auth status`)
+- Write permissions on repository
 
-**Example flow:**
+**Basic example:**
 ```
 > /delegate Fix typo in README
 
 🔧 Creating branch: copilot-fix-readme-typo
 📝 Making changes...
-⬆️  Pushing to origin...
+   ✓ Updated README.md
+💾 Committing: "Fix typo in README"
+⬆️  Pushing to origin/copilot-fix-readme-typo...
 🔗 Created PR #42: Fix typo in README
    https://github.com/user/repo/pull/42
 ```
+
+**With issue reference:**
+```
+> /delegate Implement user profile page from issue #156
+
+🔍 Analyzing issue #156...
+📋 Plan:
+   - Create ProfilePage component
+   - Add routing
+   - Connect to user API
+   - Add tests
+   
+Proceed? (y/n) y
+
+🔧 Creating branch: feature/user-profile-156
+📝 Making changes...
+   ✓ src/components/ProfilePage.jsx
+   ✓ src/routes.js
+   ✓ tests/ProfilePage.test.js
+💾 Committing: "Implement user profile page (fixes #156)"
+⬆️  Pushing to origin/feature/user-profile-156...
+🔗 Created PR #157: Implement user profile page
+   Closes #156
+   https://github.com/user/repo/pull/157
+```
+
+**Advanced usage:**
+
+**Custom branch name:**
+```
+> /delegate --branch feature/new-auth Implement OAuth2 authentication
+```
+
+**Target different base branch:**
+```
+> /delegate --base develop Add new feature
+```
+
+**Draft PR:**
+```
+> /delegate --draft Experimental: try new caching strategy
+```
+
+**Multiple file changes:**
+```
+> /delegate Update all API endpoints to use async/await
+  Include error handling and logging
+
+🔧 Creating branch: refactor/async-api
+📝 Making changes...
+   ✓ src/api/users.js
+   ✓ src/api/products.js
+   ✓ src/api/orders.js
+   ✓ src/middleware/errorHandler.js
+   ✓ tests/api/integration.test.js
+💾 Committing: "Refactor: convert API to async/await"
+⬆️  Pushing to origin/refactor/async-api...
+🔗 Created PR #158: Refactor API endpoints to async/await
+```
+
+**With testing and validation:**
+```
+> /delegate Add input validation to login form
+  Run tests before creating PR
+
+🔧 Creating branch: fix/login-validation
+📝 Making changes...
+   ✓ src/components/LoginForm.jsx
+   ✓ src/utils/validators.js
+   ✓ tests/LoginForm.test.js
+   
+🧪 Running tests...
+   ✓ All tests passed (24/24)
+   
+💾 Committing: "Add input validation to login form"
+⬆️  Pushing to origin/fix/login-validation...
+🔗 Created PR #159: Add input validation to login form
+```
+
+**Best practices:**
+- Be specific in your prompt for better results
+- Reference issue numbers to auto-link PRs
+- Review the changes before approving push
+- Use descriptive prompts that explain the "why"
+- Test locally before using `/delegate` for critical changes
+
+**Common use cases:**
+```
+# Quick fixes
+> /delegate Fix broken link in footer
+
+# Bug fixes
+> /delegate Fix authentication timeout issue #234
+
+# Features
+> /delegate Add dark mode toggle to settings page
+
+# Refactoring
+> /delegate Extract database logic into repository pattern
+
+# Documentation
+> /delegate Update API docs with new endpoints
+
+# Tests
+> /delegate Add unit tests for UserService class
+```
+
+**Troubleshooting:**
+- **"Not a git repository"**: Initialize git with `git init`
+- **"No remote configured"**: Add remote with `git remote add origin <url>`
+- **"Permission denied"**: Authenticate with `gh auth login`
+- **"Branch already exists"**: Use custom branch name with `--branch`
 
 ### /login
 

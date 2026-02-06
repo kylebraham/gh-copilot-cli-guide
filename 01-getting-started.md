@@ -148,8 +148,51 @@ curl -fsSL https://gh.io/copilot-install | sudo bash
 curl -fsSL https://gh.io/copilot-install | PREFIX="$HOME/custom" bash
 
 # Install specific version
-curl -fsSL https://gh.io/copilot-install | VERSION="v0.0.369" bash
+curl -fsSL https://gh.io/copilot-install | VERSION="v0.0.405" bash
 ```
+
+## Upgrading Copilot CLI
+
+If you already have Copilot CLI installed and want to upgrade to v0.405:
+
+### Upgrade with Homebrew
+
+```bash
+brew update
+brew upgrade copilot-cli
+copilot --version  # Should show 0.0.405 or higher
+```
+
+### Upgrade with npm
+
+```bash
+npm update -g @github/copilot
+# Or for clean update
+npm uninstall -g @github/copilot
+npm install -g @github/copilot@latest
+copilot --version
+```
+
+### Upgrade with WinGet (Windows)
+
+```bash
+winget upgrade GitHub.Copilot
+copilot --version
+```
+
+### Verify Upgrade
+
+```bash
+# Check new version
+copilot --version
+
+# Test new features
+copilot
+> /init --help
+> /delegate --help
+```
+
+**For detailed upgrade instructions, troubleshooting, and rollback options, see [New Features in v0.405](16-v0.405-new-features.md#upgrading-to-v0405).**
 
 ## Verifying Installation
 
@@ -320,6 +363,58 @@ Available models include:
 - Claude Opus 4.5
 - GPT-5.2
 - And more
+
+## Quick Start Workflows (New in v0.405)
+
+### Initialize a New Project
+
+Use `/init` to scaffold a complete project:
+
+```
+> /init react-app
+
+# Answer a few questions:
+# - Project name?
+# - TypeScript?
+# - UI framework?
+# - Testing library?
+
+# CLI creates everything:
+# ✓ Project structure
+# ✓ Configuration files  
+# ✓ Dependencies installed
+# ✓ Starter code
+# ✓ Ready to run!
+```
+
+Supported project types:
+- `react-app`, `nextjs`, `vue`, `angular` - Frontend frameworks
+- `express-api`, `fastify`, `nestjs` - Node.js APIs
+- `python-flask`, `python-django`, `python-fastapi` - Python web
+- `rust`, `go`, `java-spring` - Backend languages
+- And many more!
+
+### Create a Pull Request
+
+Use `/delegate` to automatically create PRs:
+
+```
+> /delegate Fix the login button alignment issue
+
+# CLI will:
+# 1. Create a new branch
+# 2. Make the changes
+# 3. Run tests
+# 4. Commit and push
+# 5. Create a pull request
+# 6. Link related issues
+```
+
+Perfect for:
+- Bug fixes
+- Feature implementations
+- Documentation updates
+- Refactoring tasks
 
 ## Quick Start Checklist
 

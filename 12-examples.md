@@ -5,15 +5,17 @@ Practical, hands-on examples and tutorials to help you master GitHub Copilot CLI
 ## Table of Contents
 
 1. [Getting Started Examples](#getting-started-examples)
-2. [Web Development](#web-development)
-3. [API Development](#api-development)
-4. [Database Operations](#database-operations)
-5. [Testing](#testing)
-6. [Refactoring](#refactoring)
-7. [Debugging](#debugging)
-8. [Documentation](#documentation)
-9. [DevOps and Scripts](#devops-and-scripts)
-10. [Full Project Tutorials](#full-project-tutorials)
+2. [Project Initialization with /init](#project-initialization-with-init)
+3. [Pull Request Workflows with /delegate](#pull-request-workflows-with-delegate)
+4. [Web Development](#web-development)
+5. [API Development](#api-development)
+6. [Database Operations](#database-operations)
+7. [Testing](#testing)
+8. [Refactoring](#refactoring)
+9. [Debugging](#debugging)
+10. [Documentation](#documentation)
+11. [DevOps and Scripts](#devops-and-scripts)
+12. [Full Project Tutorials](#full-project-tutorials)
 
 ## Getting Started Examples
 
@@ -81,6 +83,751 @@ console.log("Hello, GitHub Copilot CLI!");
 
 > Run reader.js with filter "Alice"
 ```
+
+## Project Initialization with /init
+
+The `/init` command (new in v0.405) scaffolds complete projects with best practices built-in.
+
+### Example 4: React Application with TypeScript
+
+**Goal:** Create a production-ready React app.
+
+```bash
+mkdir ~/my-projects
+cd ~/my-projects
+copilot
+```
+
+```
+> /init react-app
+
+AI: I'll create a new React application. A few questions:
+
+📝 What's your project name?
+> react-dashboard
+
+📝 Use TypeScript?
+> yes
+
+📝 Include React Router?
+> yes
+
+📝 State management (Redux/Zustand/Context/None)?
+> zustand
+
+📝 UI library (Material-UI/Chakra/Tailwind/None)?
+> tailwind
+
+📝 Testing library?
+> vitest
+
+AI: Creating React + TypeScript app with:
+  ✓ Vite as build tool
+  ✓ React Router for navigation
+  ✓ Zustand for state management
+  ✓ Tailwind CSS for styling
+  ✓ Vitest + Testing Library for tests
+
+📁 Creating project structure...
+   ✓ react-dashboard/
+   ✓ src/
+     ✓ components/
+     ✓ pages/
+     ✓ store/
+     ✓ utils/
+     ✓ __tests__/
+   ✓ public/
+
+📦 Generating configuration...
+   ✓ package.json
+   ✓ tsconfig.json
+   ✓ vite.config.ts
+   ✓ tailwind.config.js
+   ✓ vitest.config.ts
+   ✓ .gitignore
+   ✓ .eslintrc.json
+
+📝 Creating starter files...
+   ✓ src/App.tsx
+   ✓ src/main.tsx
+   ✓ src/store/useStore.ts
+   ✓ src/components/Layout.tsx
+   ✓ src/pages/Home.tsx
+   ✓ README.md
+
+⬇️  Installing dependencies...
+   ✓ react, react-dom, react-router-dom
+   ✓ zustand
+   ✓ tailwindcss
+   ✓ vite, @vitejs/plugin-react
+   ✓ vitest, @testing-library/react
+   ✓ typescript, @types/react
+
+✅ Project created successfully!
+
+Next steps:
+  cd react-dashboard
+  npm run dev          # Start development server
+  npm run test         # Run tests
+  npm run build        # Build for production
+```
+
+**What you get:**
+- Fully configured TypeScript + React project
+- Pre-configured routing with example pages
+- State management setup with Zustand
+- Tailwind CSS with base configuration
+- Testing environment ready to use
+- ESLint and Prettier configured
+- Example components demonstrating best practices
+
+### Example 5: Express.js REST API
+
+**Goal:** Create a production-ready API server.
+
+```
+> /init express-api
+
+AI: Setting up Express.js REST API. Questions:
+
+📝 Project name?
+> user-api
+
+📝 Use TypeScript?
+> yes
+
+📝 Database (PostgreSQL/MySQL/MongoDB/None)?
+> postgresql
+
+📝 ORM (Prisma/TypeORM/Sequelize/None)?
+> prisma
+
+📝 Authentication (JWT/OAuth2/Passport/None)?
+> jwt
+
+📝 Include API documentation (Swagger)?
+> yes
+
+📝 Testing framework (Jest/Mocha/None)?
+> jest
+
+AI: Creating Express + TypeScript API with:
+  ✓ PostgreSQL database
+  ✓ Prisma ORM
+  ✓ JWT authentication
+  ✓ Swagger/OpenAPI docs
+  ✓ Jest for testing
+
+📁 Creating project structure...
+   ✓ user-api/
+   ✓ src/
+     ✓ controllers/
+     ✓ routes/
+     ✓ middleware/
+     ✓ models/
+     ✓ services/
+     ✓ utils/
+     ✓ __tests__/
+   ✓ prisma/
+
+📦 Generating configuration...
+   ✓ package.json
+   ✓ tsconfig.json
+   ✓ .env.example
+   ✓ .gitignore
+   ✓ jest.config.js
+   ✓ docker-compose.yml (for local PostgreSQL)
+
+📝 Creating application files...
+   ✓ src/index.ts (Server entry point)
+   ✓ src/app.ts (Express app configuration)
+   ✓ src/routes/index.ts
+   ✓ src/routes/users.ts
+   ✓ src/routes/auth.ts
+   ✓ src/controllers/userController.ts
+   ✓ src/controllers/authController.ts
+   ✓ src/middleware/auth.ts
+   ✓ src/middleware/errorHandler.ts
+   ✓ src/middleware/validator.ts
+   ✓ src/services/userService.ts
+   ✓ src/services/authService.ts
+   ✓ src/utils/jwt.ts
+   ✓ src/utils/logger.ts
+   ✓ prisma/schema.prisma
+   ✓ src/swagger.ts (API documentation)
+   ✓ README.md
+
+⬇️  Installing dependencies...
+   ✓ express, cors, helmet, dotenv
+   ✓ prisma, @prisma/client
+   ✓ jsonwebtoken, bcrypt
+   ✓ swagger-jsdoc, swagger-ui-express
+   ✓ winston (logging)
+   ✓ jest, supertest, @types/*
+
+✅ API project created!
+
+Next steps:
+  cd user-api
+  cp .env.example .env          # Configure environment
+  docker-compose up -d          # Start PostgreSQL
+  npx prisma migrate dev        # Run database migrations
+  npm run dev                   # Start API server
+  
+  API will be available at: http://localhost:3000
+  API docs at: http://localhost:3000/api-docs
+```
+
+**Generated API structure:**
+```
+GET    /api/v1/users          - List users
+GET    /api/v1/users/:id      - Get user by ID
+POST   /api/v1/users          - Create user
+PUT    /api/v1/users/:id      - Update user
+DELETE /api/v1/users/:id      - Delete user
+
+POST   /api/v1/auth/register  - Register new user
+POST   /api/v1/auth/login     - Login user
+POST   /api/v1/auth/refresh   - Refresh token
+POST   /api/v1/auth/logout    - Logout user
+```
+
+### Example 6: Python Flask Application
+
+**Goal:** Create a Flask web application.
+
+```
+> /init python-flask
+
+AI: Setting up Flask application. Questions:
+
+📝 Project name?
+> blog-app
+
+📝 Database (PostgreSQL/MySQL/SQLite)?
+> sqlite
+
+📝 ORM (SQLAlchemy/Peewee/None)?
+> sqlalchemy
+
+📝 Template engine (Jinja2/None - API only)?
+> jinja2
+
+📝 Authentication (Flask-Login/JWT/None)?
+> flask-login
+
+📝 Admin interface (Flask-Admin)?
+> yes
+
+AI: Creating Flask application with:
+  ✓ SQLite database
+  ✓ SQLAlchemy ORM
+  ✓ Jinja2 templates
+  ✓ Flask-Login authentication
+  ✓ Flask-Admin interface
+
+📁 Creating project structure...
+   ✓ blog-app/
+   ✓ app/
+     ✓ models/
+     ✓ routes/
+     ✓ templates/
+     ✓ static/
+       ✓ css/
+       ✓ js/
+     ✓ forms/
+   ✓ migrations/
+   ✓ tests/
+
+📦 Generating configuration...
+   ✓ requirements.txt
+   ✓ config.py
+   ✓ .env.example
+   ✓ .gitignore
+   ✓ pytest.ini
+
+📝 Creating application files...
+   ✓ run.py
+   ✓ app/__init__.py
+   ✓ app/models/user.py
+   ✓ app/models/post.py
+   ✓ app/routes/main.py
+   ✓ app/routes/auth.py
+   ✓ app/routes/posts.py
+   ✓ app/forms/login.py
+   ✓ app/forms/post.py
+   ✓ app/templates/base.html
+   ✓ app/templates/index.html
+   ✓ app/templates/login.html
+   ✓ app/static/css/style.css
+   ✓ README.md
+
+⬇️  Creating virtual environment...
+   ✓ python -m venv venv
+
+⬇️  Installing dependencies...
+   ✓ Flask
+   ✓ Flask-SQLAlchemy
+   ✓ Flask-Login
+   ✓ Flask-Admin
+   ✓ Flask-WTF
+   ✓ Flask-Migrate
+   ✓ python-dotenv
+   ✓ pytest
+
+✅ Flask app created!
+
+Next steps:
+  cd blog-app
+  source venv/bin/activate      # Activate virtual environment
+  cp .env.example .env          # Configure environment
+  flask db upgrade              # Initialize database
+  python run.py                 # Start development server
+  
+  App: http://localhost:5000
+  Admin: http://localhost:5000/admin
+```
+
+### Example 7: Next.js Full-Stack Application
+
+**Goal:** Create a Next.js app with API routes.
+
+```
+> /init nextjs
+
+AI: Creating Next.js application. Questions:
+
+📝 Project name?
+> ecommerce-store
+
+📝 Use TypeScript?
+> yes
+
+📝 App Router or Pages Router?
+> app
+
+📝 UI Framework (Tailwind/styled-components/CSS Modules)?
+> tailwind
+
+📝 Database (Supabase/Prisma+PostgreSQL/MongoDB/None)?
+> prisma
+
+📝 Authentication (NextAuth.js/Clerk/None)?
+> nextauth
+
+📝 Include (Select multiple):
+  ☑ ESLint
+  ☑ Prettier
+  ☑ Husky (Git hooks)
+  ☑ Testing (Jest + React Testing Library)
+  ☑ Storybook
+
+AI: Creating Next.js app with App Router...
+
+📁 Creating project structure...
+   ✓ ecommerce-store/
+   ✓ app/
+     ✓ api/
+     ✓ (auth)/
+     ✓ products/
+     ✓ cart/
+     ✓ layout.tsx
+     ✓ page.tsx
+   ✓ components/
+   ✓ lib/
+   ✓ prisma/
+   ✓ public/
+   ✓ __tests__/
+
+📦 Configuration files...
+   ✓ next.config.js
+   ✓ tsconfig.json
+   ✓ tailwind.config.ts
+   ✓ postcss.config.js
+   ✓ .eslintrc.json
+   ✓ .prettierrc
+   ✓ jest.config.js
+   ✓ prisma/schema.prisma
+   ✓ .env.example
+
+📝 Creating application files...
+   ✓ app/layout.tsx
+   ✓ app/page.tsx
+   ✓ app/api/auth/[...nextauth]/route.ts
+   ✓ app/api/products/route.ts
+   ✓ components/Navbar.tsx
+   ✓ components/ProductCard.tsx
+   ✓ lib/auth.ts
+   ✓ lib/db.ts
+   ✓ prisma/schema.prisma
+
+⬇️  Installing dependencies...
+   ✓ next, react, react-dom
+   ✓ next-auth
+   ✓ @prisma/client, prisma
+   ✓ tailwindcss
+   ✓ jest, @testing-library/react
+
+✅ Next.js app ready!
+
+Next steps:
+  cd ecommerce-store
+  cp .env.example .env
+  # Add DATABASE_URL and NEXTAUTH_SECRET to .env
+  npx prisma migrate dev
+  npm run dev
+  
+  Dev server: http://localhost:3000
+```
+
+## Pull Request Workflows with /delegate
+
+The `/delegate` command (enhanced in v0.405) automates the entire PR creation workflow.
+
+### Example 8: Quick Bug Fix
+
+**Goal:** Fix a bug and create PR in one command.
+
+```bash
+# Setup: You're in a git repository
+cd ~/my-project
+copilot
+```
+
+```
+> /delegate Fix the authentication timeout bug reported in issue #234
+
+AI: Analyzing issue #234...
+
+Issue #234: "Users are logged out after 5 minutes"
+- Reported by: @user123
+- Labels: bug, authentication
+- Mentioned files: src/auth/session.js
+
+AI: I found the issue. The session timeout is hardcoded to 5 minutes 
+instead of using the config value.
+
+Plan:
+1. Update src/auth/session.js to use config.SESSION_TIMEOUT
+2. Add fallback default of 30 minutes
+3. Update tests
+
+Proceed with these changes? (y/n)
+> y
+
+🔧 Creating branch: fix/auth-timeout-234
+📝 Making changes...
+   ✓ src/auth/session.js - Fixed timeout to use config
+   ✓ tests/auth.test.js - Added timeout tests
+   
+🧪 Running tests...
+   ✓ All tests passed (47/47)
+
+💾 Committing changes...
+   ✓ Commit: "Fix authentication timeout to use config value"
+   ✓ Body: "Fixes #234\n\n- Changed hardcoded 5min timeout to use SESSION_TIMEOUT config\n- Added default fallback of 30 minutes\n- Updated tests"
+
+⬆️  Pushing to origin/fix/auth-timeout-234...
+
+🔗 Creating Pull Request...
+   ✓ PR #235 created: "Fix authentication timeout bug"
+   ✓ Linked to issue #234
+   ✓ Added labels: bug, authentication
+   ✓ Requested review from @team-backend
+   
+   https://github.com/user/my-project/pull/235
+
+✅ Done! PR is ready for review.
+```
+
+### Example 9: Feature Implementation
+
+**Goal:** Implement a new feature with comprehensive changes.
+
+```
+> /delegate Implement user profile editing feature
+  Requirements:
+  - Allow users to update name, email, bio, avatar
+  - Add form validation
+  - Include API endpoint
+  - Add tests
+  - Update documentation
+
+AI: I'll implement the profile editing feature. Here's my plan:
+
+📋 Implementation Plan:
+1. Backend:
+   - Create PUT /api/users/:id/profile endpoint
+   - Add input validation middleware
+   - Implement avatar upload handling
+   - Add database migration if needed
+
+2. Frontend:
+   - Create ProfileEditForm component
+   - Add form validation (React Hook Form)
+   - Implement avatar upload with preview
+   - Add success/error notifications
+
+3. Testing:
+   - Unit tests for API endpoint
+   - Component tests for form
+   - Integration tests for full flow
+
+4. Documentation:
+   - Update API docs
+   - Add component documentation
+
+Estimated changes: ~12 files
+Continue? (y/n/customize plan)
+> y
+
+🔧 Creating branch: feature/profile-editing
+📝 Making changes...
+
+Backend:
+   ✓ src/api/routes/users.js - Added profile endpoint
+   ✓ src/middleware/validation.js - Added profile validators
+   ✓ src/services/upload.js - Avatar upload service
+   ✓ src/models/User.js - Updated schema
+   
+Frontend:
+   ✓ src/components/ProfileEditForm.jsx - New component
+   ✓ src/components/AvatarUpload.jsx - New component
+   ✓ src/hooks/useProfileUpdate.js - Custom hook
+   ✓ src/pages/ProfileEdit.jsx - New page
+   ✓ src/utils/validators.js - Form validation rules
+   
+Tests:
+   ✓ tests/api/profile.test.js - API tests
+   ✓ tests/components/ProfileEditForm.test.jsx - Component tests
+   ✓ tests/integration/profile-flow.test.js - E2E tests
+   
+Documentation:
+   ✓ docs/API.md - Updated endpoints
+   ✓ docs/components/ProfileEditForm.md - Component docs
+   ✓ README.md - Updated features list
+
+📊 Changes summary:
+   - 15 files changed
+   - 847 lines added
+   - 23 lines deleted
+   - 4 new files created
+
+🧪 Running test suite...
+   ✓ API tests: 12/12 passed
+   ✓ Component tests: 8/8 passed
+   ✓ Integration tests: 5/5 passed
+   ✓ Code coverage: 94%
+
+💾 Committing changes...
+   ✓ Commit: "feat: Add user profile editing feature"
+   ✓ Body includes detailed description
+
+⬆️  Pushing to origin/feature/profile-editing...
+
+🔗 Creating Pull Request...
+   ✓ PR #236: "Add user profile editing feature"
+   ✓ Description includes:
+     - Feature overview
+     - Implementation details
+     - Testing notes
+     - Screenshots (placeholder)
+     - Checklist for reviewers
+   ✓ Labels: feature, frontend, backend
+   ✓ Linked to project board
+   ✓ Requested reviews from @frontend-team, @backend-team
+   
+   https://github.com/user/my-project/pull/236
+
+✅ Feature PR created! Remember to add screenshots/demo.
+```
+
+### Example 10: Refactoring with Tests
+
+**Goal:** Refactor code while ensuring tests pass.
+
+```
+> /delegate Refactor authentication module to use dependency injection
+  Make sure all tests pass before creating PR
+
+AI: Analyzing authentication module...
+
+Current structure:
+- src/auth/AuthService.js - 450 lines, tightly coupled
+- src/auth/TokenManager.js - mixed responsibilities
+- src/auth/UserValidator.js - hard dependencies
+
+Refactoring plan:
+1. Extract interfaces for dependencies
+2. Implement dependency injection container
+3. Refactor AuthService to accept dependencies
+4. Update TokenManager with interface
+5. Ensure all tests pass
+6. No breaking changes to public API
+
+This is a significant refactor. Proceed? (y/n)
+> y
+
+🔧 Creating branch: refactor/auth-dependency-injection
+📝 Making changes...
+
+Phase 1: Create interfaces
+   ✓ src/auth/interfaces/ITokenManager.js
+   ✓ src/auth/interfaces/IUserRepository.js
+   ✓ src/auth/interfaces/IPasswordHasher.js
+
+Phase 2: Dependency injection setup
+   ✓ src/di/container.js - DI container
+   ✓ src/di/authModule.js - Auth module registration
+
+Phase 3: Refactor implementations
+   ✓ src/auth/AuthService.js - Now accepts dependencies
+   ✓ src/auth/TokenManager.js - Implements ITokenManager
+   ✓ src/auth/PasswordHasher.js - Implements IPasswordHasher
+   ✓ src/repositories/UserRepository.js - Implements IUserRepository
+
+Phase 4: Update consumers
+   ✓ src/api/routes/auth.js - Use DI container
+   ✓ src/middleware/auth.js - Use DI container
+
+Phase 5: Update tests
+   ✓ tests/auth/AuthService.test.js - Now uses mocks
+   ✓ tests/auth/TokenManager.test.js - Updated
+   ✓ tests/integration/auth.test.js - Updated
+
+🧪 Running full test suite...
+   ✓ Unit tests: 89/89 passed
+   ✓ Integration tests: 23/23 passed
+   ✓ No breaking changes detected
+   ✓ Code coverage: 96% (+2%)
+
+📊 Refactoring metrics:
+   - Cyclomatic complexity: 45 → 28 (↓ 38%)
+   - Coupling: High → Low
+   - Testability: Medium → High
+   - Lines changed: ~800
+
+💾 Committing changes...
+   ✓ Commit: "refactor: Implement dependency injection in auth module"
+   ✓ Detailed commit message with rationale
+
+⬆️  Pushing to origin/refactor/auth-dependency-injection...
+
+🔗 Creating Pull Request...
+   ✓ PR #237: "Refactor auth module with dependency injection"
+   ✓ Description includes:
+     - Refactoring rationale
+     - Before/after comparison
+     - Breaking changes: None
+     - Migration guide: Not needed
+     - Test coverage report
+   ✓ Labels: refactoring, tech-debt
+   ✓ Marked as: Ready for review
+   
+   https://github.com/user/my-project/pull/237
+
+✅ Refactoring PR created with all tests passing!
+```
+
+### Example 11: Multi-Repository Update
+
+**Goal:** Update a dependency across multiple repositories.
+
+```
+> I need to update the authentication library from v2 to v3 across all our services
+
+AI: I can help with that! However, /delegate works on one repository at a time.
+
+Here's the recommended approach:
+
+Option 1: Manual iteration (safer)
+1. List affected repositories
+2. Use /delegate for each repo individually
+3. Coordinate reviews and merges
+
+Option 2: Create a script
+Let me create a bash script to automate this.
+
+Which would you prefer?
+> Option 1, start with the user-service repo
+
+> /delegate Update auth-lib from v2.4.1 to v3.0.0
+  Check breaking changes and update code accordingly
+  Test all auth flows
+
+AI: Checking auth-lib v3.0.0 breaking changes...
+
+Breaking changes found:
+1. `login()` now returns Promise instead of callback
+2. `verifyToken()` signature changed
+3. Config format updated
+4. Deprecated methods removed
+
+I'll update all usage. Proceed? (y/n)
+> y
+
+🔧 Creating branch: deps/auth-lib-v3
+📝 Making changes...
+   ✓ package.json - Update dependency
+   ✓ src/services/authService.js - Convert to async/await
+   ✓ src/middleware/verifyToken.js - Update signature
+   ✓ config/auth.config.js - New config format
+   ✓ tests/**/*.test.js - Update all tests
+
+🧪 Running tests...
+   ✓ All auth tests passed
+   
+💾 Committing...
+⬆️  Pushing...
+🔗 Created PR #101: "Update auth-lib to v3.0.0"
+
+Next: Apply the same pattern to other repos
+```
+
+### Example 12: Documentation-Only PR
+
+**Goal:** Update documentation based on code changes.
+
+```
+> /delegate Update API documentation to reflect the new pagination format
+
+AI: Analyzing API endpoints for pagination usage...
+
+Found pagination in:
+- GET /api/users
+- GET /api/products
+- GET /api/orders
+- GET /api/transactions
+
+Current docs: Old format (page/limit)
+Actual code: New format (cursor-based)
+
+I'll update docs to match implementation.
+
+🔧 Creating branch: docs/update-pagination
+📝 Making changes...
+   ✓ docs/API.md - Updated pagination examples
+   ✓ docs/guides/pagination.md - New guide
+   ✓ README.md - Updated API overview
+   ✓ openapi.yaml - Updated schema
+
+💾 Committing: "docs: Update pagination documentation"
+⬆️  Pushing...
+🔗 Created PR #238: "Update API pagination documentation"
+   Label: documentation
+   
+   https://github.com/user/my-project/pull/238
+```
+
+**Tips for /delegate:**
+- Start with small, focused changes to build confidence
+- Review the AI's plan before approving
+- Use with issue numbers for automatic linking
+- Test complex changes locally first
+- Great for repetitive tasks across files
+- Always review the PR before merging
+
+
 
 ## Web Development
 

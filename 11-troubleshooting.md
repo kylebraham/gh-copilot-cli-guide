@@ -79,23 +79,89 @@ sudo npm install -g @github/copilot
 ### Version Conflicts
 
 **Problem:**
-Multiple versions installed or outdated version.
-
-**Solution:**
 ```bash
-# Check current version
-copilot --version
+$ copilot --version
+0.0.395  # Old version
 
-# Update to latest
-npm update -g @github/copilot
-
-# Or with Homebrew
-brew upgrade copilot-cli
-
-# Force reinstall
-npm uninstall -g @github/copilot
-npm install -g @github/copilot
+# But you just upgraded!
 ```
+
+**Solutions:**
+
+1. **Clear npm cache:**
+```bash
+npm cache clean --force
+npm uninstall -g @github/copilot
+npm install -g @github/copilot@latest
+```
+
+2. **Check for multiple installations:**
+```bash
+# Find all copilot installations
+which -a copilot
+
+# Remove duplicates, keep only one
+```
+
+3. **Force Homebrew update:**
+```bash
+brew update
+brew upgrade --force copilot-cli
+```
+
+4. **Restart terminal:**
+```bash
+# Close and reopen terminal
+# Or reload shell config
+source ~/.zshrc  # or ~/.bashrc
+```
+
+### Upgrade Issues
+
+**Problem:**
+Upgrade to v0.405 fails or new features not working.
+
+**Solutions:**
+
+1. **Complete upgrade verification:**
+```bash
+# Check version
+copilot --version
+# Must show 0.0.405 or higher
+
+# Test new features
+copilot
+> /init --help
+> /delegate --help
+```
+
+2. **Clean reinstall:**
+```bash
+# Remove completely
+brew uninstall copilot-cli
+# or
+npm uninstall -g @github/copilot
+
+# Clear caches
+rm -rf ~/.copilot/cache
+
+# Reinstall latest
+brew install copilot-cli
+# or
+npm install -g @github/copilot@latest
+```
+
+3. **GitHub CLI conflicts:**
+```bash
+# Update GitHub CLI first
+brew upgrade gh
+# or
+winget upgrade --id GitHub.cli
+
+# Then upgrade Copilot CLI
+```
+
+**For detailed upgrade instructions, see [New Features Guide - Upgrading to v0.405](16-v0.405-new-features.md#upgrading-to-v0405).**
 
 ## Authentication Issues
 
