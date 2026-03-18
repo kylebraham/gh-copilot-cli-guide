@@ -21,7 +21,7 @@ This guide is organized into the following sections:
 13. **[AGENTS.md File Guide](13-agents-file.md)** - Configuring AI agent behavior for your project
 14. **[Skills System Guide](14-skills-system.md)** - Using and creating reusable skill modules
 15. **[.copilot Directory Guide](15-copilot-directory.md)** - Understanding config, sessions, and data storage
-16. **[Latest Features](16-latest-features.md)** - Recent additions: `/init`, enhanced `/delegate`, autopilot mode, and more
+16. **[Latest Features](16-new-features.md)** - Recent additions: `/init`, enhanced `/delegate`, autopilot mode, and more
 
 ## 🎯 What is GitHub Copilot CLI?
 
@@ -68,7 +68,7 @@ npm update -g @github/copilot
 - 🌐 Fleet mode - coordinate work across multiple repositories
 - 🔍 LSP support - deep language-aware code intelligence
 - 🔬 Research command - investigate codebases and summarize findings
-- [See full feature details →](16-latest-features.md)
+- [See full feature details →](16-new-features.md)
 
 ## 💡 What You'll Learn
 

@@ -9,7 +9,7 @@ This document summarizes all documentation changes made for GitHub Copilot CLI v
 
 ## New Files Created
 
-### 16-v0.405-new-features.md (NEW)
+### 16-new-features.md (NEW)
 A comprehensive 20KB+ guide covering:
 
 **Project Initialization (`/init`):**
@@ -53,7 +53,7 @@ Repository-specific instructions for future Copilot sessions:
 
 ## Updated Files
 
-### 16-v0.405-new-features.md
+### 16-new-features.md
 **Added comprehensive upgrade section:**
 - Prerequisites and version checking
 - 5 upgrade methods:
@@ -155,7 +155,7 @@ Each example shows:
 
 ### New Content Added
 - **Total new documentation:** ~30,000 words
-- **New file:** 16-v0.405-new-features.md (20KB)
+- **New file:** 16-new-features.md (20KB)
 - **New file:** .github/copilot-instructions.md (5KB)
 - **Enhanced examples:** 12 detailed examples (15KB)
 - **Updated sections:** 4 major sections across 3 files
@@ -166,7 +166,7 @@ Each example shows:
 3. 01-getting-started.md - Added Quick Start section + Upgrading section
 4. 04-slash-commands.md - Major `/init` and `/delegate` expansion
 5. 12-examples.md - Added 12 new comprehensive examples
-6. 16-v0.405-new-features.md - Created comprehensive feature guide + detailed upgrade instructions
+6. 16-new-features.md - Created comprehensive feature guide + detailed upgrade instructions
 
 ## Key Features Documented
 
@@ -230,7 +230,7 @@ Guide (v0.405)
 
 ## Next Steps for Users
 
-1. Read [16-v0.405-new-features.md](16-v0.405-new-features.md) for complete feature overview
+1. Read [16-new-features.md](16-new-features.md) for complete feature overview
 2. Try `/init` for new projects (see examples in section 2)
 3. Use enhanced `/delegate` for PR workflows (see examples in section 3)
 4. Review updated [04-slash-commands.md](04-slash-commands.md) for command reference
@@ -248,7 +248,7 @@ Guide (v0.405)
 ### Comprehensive Upgrade Guide
 Added detailed upgrade instructions across multiple files:
 
-#### 16-v0.405-new-features.md - "Upgrading to v0.405" Section
+#### 16-new-features.md - "Upgrading to v0.405" Section
 **Complete upgrade documentation (~300 lines):**
 
 1. **Prerequisites checklist**
@@ -368,7 +368,7 @@ copilot
 
 ## Files Modified for Upgrade Documentation
 
-1. **16-v0.405-new-features.md** - Added ~300 lines of upgrade instructions
+1. **16-new-features.md** - Added ~300 lines of upgrade instructions
 2. **01-getting-started.md** - Added quick upgrade section
 3. **README.md** - Added upgrade quick reference
 4. **11-troubleshooting.md** - Added upgrade troubleshooting
@@ -377,7 +377,7 @@ copilot
 ## Complete Documentation Update Summary
 
 ### Total Changes
-- **Files created:** 2 (16-v0.405-new-features.md, .github/copilot-instructions.md)
+- **Files created:** 2 (16-new-features.md, .github/copilot-instructions.md)
 - **Files updated:** 5 (README.md, 01-getting-started.md, 04-slash-commands.md, 11-troubleshooting.md, 12-examples.md)
 - **New content:** ~35,000 words (including upgrade documentation)
 - **New sections:** 20+
