@@ -79,18 +79,28 @@ A comprehensive guide to using the `AGENTS.md` file for configuring AI agent beh
 
 ### Where to Place AGENTS.md
 
-Copilot CLI searches for `AGENTS.md` in these locations (in order):
+Copilot CLI reads custom instructions from multiple locations. All of the following are loaded when present:
 
-1. **Current working directory** (highest priority)
-   ```
-   ~/projects/my-app/AGENTS.md
-   ```
+| File / Pattern | Location | Notes |
+|----------------|----------|-------|
+| `AGENTS.md` | Git root & cwd | Primary agent config |
+| `CLAUDE.md` | Project root | Claude-specific instructions |
+| `GEMINI.md` | Project root | Gemini-specific instructions |
+| `.github/instructions/**/*.instructions.md` | Git root & cwd | **New** — granular instruction files |
+| `.github/copilot-instructions.md` | Project root | Copilot CLI workflows |
+| `$HOME/.copilot/copilot-instructions.md` | User home | Global user-level instructions |
+| `COPILOT_CUSTOM_INSTRUCTIONS_DIRS` | env var paths | **New** — additional directories via environment variable |
 
-2. **Git repository root**
-   ```
-   ~/projects/my-app/.git/
-   ~/projects/my-app/AGENTS.md
-   ```
+> **New: `.github/instructions/**/*.instructions.md`** — You can now place multiple focused instruction files under `.github/instructions/`. Copilot CLI picks up all `*.instructions.md` files recursively, making it easy to split instructions by topic (e.g., `backend.instructions.md`, `testing.instructions.md`).
+
+> **New: `COPILOT_CUSTOM_INSTRUCTIONS_DIRS`** — Set this environment variable to a colon-separated list of directories. Copilot CLI will load any `*.instructions.md` files found in those directories, allowing team-wide or machine-wide instruction sets outside the repository.
+
+`AGENTS.md` is still read from both the **current working directory** and the **git repository root**:
+
+```
+~/projects/my-app/AGENTS.md        # git root
+~/projects/my-app/src/AGENTS.md    # cwd (if you are in src/)
+```
 
 ### Multiple AGENTS.md Files
 
@@ -321,11 +331,12 @@ Description of system architecture and design patterns.
 
 ```
 Priority (Highest to Lowest):
-1. .github/instructions/**/*.instructions.md (most specific)
-2. .github/copilot-instructions.md (Copilot-specific)
-3. AGENTS.md (project agent config)
-4. CLAUDE.md / GEMINI.md (model-specific)
-5. ~/.copilot/copilot-instructions.md (user global)
+1. .github/instructions/**/*.instructions.md  (most specific; NEW)
+2. .github/copilot-instructions.md            (Copilot-specific)
+3. AGENTS.md                                  (project agent config; git root & cwd)
+4. CLAUDE.md / GEMINI.md                      (model-specific)
+5. ~/.copilot/copilot-instructions.md         (user global)
+6. COPILOT_CUSTOM_INSTRUCTIONS_DIRS           (additional dirs via env var; NEW)
 ```
 
 ### When to Use Each File
@@ -1366,11 +1377,12 @@ See [Security Policy](./SECURITY.md) for complete security requirements.
 
 1. **Understand priority**
 ```
-.github/instructions/**/*.instructions.md (highest)
+.github/instructions/**/*.instructions.md (highest; NEW)
 .github/copilot-instructions.md
 AGENTS.md
 CLAUDE.md / GEMINI.md
-~/.copilot/copilot-instructions.md (lowest)
+~/.copilot/copilot-instructions.md
+COPILOT_CUSTOM_INSTRUCTIONS_DIRS paths (NEW)
 ```
 
 2. **Be explicit about priority in file**

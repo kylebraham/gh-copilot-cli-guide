@@ -172,6 +172,105 @@ Add to config:
 }
 ```
 
+## LSP (Language Server Protocol) Support
+
+Copilot CLI integrates with LSP servers to provide code intelligence — giving the AI richer context about your codebase when generating or editing code.
+
+### What LSP Provides
+
+- **Go-to-definition**: Resolve symbols to their declarations
+- **Hover information**: Type signatures and documentation for identifiers
+- **Diagnostics**: Real-time errors and warnings from the language server
+- **Completion context**: Accurate type-aware suggestions
+
+### Installing LSP Servers
+
+LSP servers are not bundled with Copilot CLI — install them separately for each language you work with:
+
+```bash
+# TypeScript / JavaScript
+npm install -g typescript-language-server typescript
+
+# Python
+pip install python-lsp-server
+
+# Go
+go install golang.org/x/tools/gopls@latest
+
+# Rust
+rustup component add rust-analyzer
+```
+
+### Configuration Locations
+
+LSP servers can be configured at two levels:
+
+| Level | Path |
+|-------|------|
+| User (global) | `~/.copilot/lsp-config.json` |
+| Repository | `.github/lsp.json` |
+
+Repository-level config takes precedence and is useful for project-specific language server settings.
+
+### Example Configuration
+
+**`~/.copilot/lsp-config.json`:**
+```json
+{
+  "lspServers": {
+    "typescript": {
+      "command": "typescript-language-server",
+      "args": ["--stdio"],
+      "fileExtensions": {
+        ".ts": "typescript",
+        ".tsx": "typescript"
+      }
+    },
+    "python": {
+      "command": "pylsp",
+      "args": [],
+      "fileExtensions": {
+        ".py": "python"
+      }
+    },
+    "go": {
+      "command": "gopls",
+      "args": [],
+      "fileExtensions": {
+        ".go": "go"
+      }
+    }
+  }
+}
+```
+
+### Checking LSP Status
+
+```
+> /lsp
+```
+
+Displays:
+- Configured language servers
+- Server status (running / stopped / error)
+- File extensions mapped to each server
+
+### Benefits in Practice
+
+With LSP active, Copilot CLI can:
+```
+# Resolve types accurately when editing
+> Refactor this function to use the correct return type
+
+# Use real diagnostics as context
+> Fix all the TypeScript errors in this file
+
+# Navigate large codebases more effectively
+> Where is the UserService class defined?
+```
+
+---
+
 ## Custom Agents
 
 Agents are specialized AI assistants with specific capabilities.
@@ -471,6 +570,156 @@ Sessions:
 > /resume abc123
 ```
 
+## Experimental Mode & Autopilot
+
+Copilot CLI includes an experimental mode that unlocks cutting-edge features before they reach general availability.
+
+### Activating Experimental Mode
+
+**From the command line:**
+```bash
+copilot --experimental
+```
+
+**From within the CLI:**
+```
+> /experimental
+```
+
+Once activated, the setting persists in your config — you don't need to pass `--experimental` on every launch.
+
+### Autopilot Mode
+
+Autopilot is an experimental interaction mode that encourages Copilot to keep working autonomously until a task is fully complete, with minimal back-and-forth.
+
+**Cycling through modes:**
+
+Press `Shift+Tab` to cycle between the three modes:
+
+| Mode | Behavior |
+|------|----------|
+| **Interactive** (default) | Asks for confirmation before each significant action |
+| **Plan** | Produces a plan first, then acts after approval |
+| **Autopilot** | Continues working until the task is done; minimal interruptions |
+
+### When to Use Autopilot
+
+✅ **Good for:**
+- Long refactoring tasks across many files
+- Generating boilerplate or scaffolding
+- Writing comprehensive tests for existing code
+- Multi-step tasks with a clear end goal
+
+❌ **Avoid for:**
+- Security-sensitive changes
+- Tasks requiring nuanced human judgment at each step
+- Exploratory work where requirements are unclear
+
+### Example
+
+```
+# Switch to autopilot, then describe a complex task
+[Shift+Tab → Autopilot]
+
+> Refactor the authentication module to use JWT tokens,
+  update all tests, and fix any type errors that come up
+
+[Copilot works through the task end-to-end without prompting]
+```
+
+---
+
+## Fleet Mode
+
+Fleet mode enables parallel subagent execution — multiple background agents working on different tasks simultaneously.
+
+### Enabling Fleet Mode
+
+```
+> /fleet
+```
+
+This activates fleet mode and allows Copilot to spin up parallel subagents.
+
+### Viewing and Managing Tasks
+
+```
+> /tasks
+```
+
+Shows all active background tasks, including:
+- Running subagents and their current work
+- Background shell sessions
+- Task status (running / completed / failed)
+- Output from each task
+
+### What Fleet Mode Is Good For
+
+- **Large refactors**: Run code changes, test updates, and documentation in parallel
+- **Multi-component changes**: Work on frontend, backend, and database layers simultaneously
+- **Research + implementation**: One agent researches an API while another writes the code
+- **Independent analysis**: Analyze different parts of a codebase at the same time
+
+### Example Workflow
+
+```
+> /fleet
+
+# Kick off parallel tasks
+> Task 1: Migrate the users module to TypeScript
+> Task 2: Write unit tests for the auth service
+> Task 3: Update the API documentation
+
+# Monitor progress
+> /tasks
+
+Tasks:
+  [1] users-migration    ● running   - Converted 12/18 files
+  [2] auth-tests         ✓ done      - 24 tests written
+  [3] api-docs           ● running   - Updating endpoints
+```
+
+---
+
+## Plugin System
+
+Copilot CLI supports a plugin system that extends its capabilities through installable packages.
+
+### Managing Plugins
+
+```
+> /plugin
+```
+
+Opens the plugin manager, where you can:
+- **Browse** available plugins from configured marketplaces
+- **Install** plugins to add new tools, slash commands, or integrations
+- **Uninstall** plugins you no longer need
+- **Update** plugins to their latest versions
+
+### Plugin Marketplaces
+
+Plugins are sourced from marketplaces. You can manage marketplace sources from within the plugin manager:
+
+```
+> /plugin
+[Select "Manage marketplaces"]
+```
+
+This lets you:
+- Add marketplace URLs
+- Remove marketplaces
+- Refresh the plugin catalog
+
+### What Plugins Can Add
+
+- New slash commands (e.g., `/deploy`, `/storybook`)
+- MCP server integrations packaged as one-click installs
+- Domain-specific tools and workflows
+- Custom UI panels or output formatters
+
+---
+
 ## Advanced Configuration
 
 ### Environment Variables
@@ -758,6 +1007,9 @@ When designing APIs:
 /mcp add <name>        # Add server
 /mcp edit <name>       # Edit config
 
+# LSP
+/lsp                   # Check configured servers and status
+
 # Skills
 /skills list           # Available skills
 /skills add <skill>    # Add skill
@@ -766,10 +1018,24 @@ When designing APIs:
 # Agents
 /agent                 # Browse agents
 
+# Experimental & Autopilot
+copilot --experimental # Launch with experimental features
+/experimental          # Enable experimental mode in-session
+Shift+Tab              # Cycle: interactive → plan → autopilot
+
+# Fleet Mode
+/fleet                 # Enable parallel subagent execution
+/tasks                 # View and manage background tasks
+
+# Plugins
+/plugin                # Open plugin manager (browse/install/uninstall)
+
 # Configuration
-~/.copilot/config.json           # Global config
-~/.copilot/mcp-config.json       # MCP servers
-~/.copilot/skills/               # Custom skills
+~/.copilot/config.json              # Global config
+~/.copilot/mcp-config.json          # MCP servers
+~/.copilot/lsp-config.json          # LSP servers (user-level)
+.github/lsp.json                    # LSP servers (repo-level)
+~/.copilot/skills/                  # Custom skills
 ~/.copilot/copilot-instructions.md  # Instructions
 
 # Environment

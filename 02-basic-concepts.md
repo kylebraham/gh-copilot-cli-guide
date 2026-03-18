@@ -101,9 +101,8 @@ Copilot CLI supports multiple AI models:
 
 **Available models:**
 - **Claude Sonnet 4.5** - Balanced performance and cost (default)
-- **Claude Haiku 4.5** - Fast and efficient for simple tasks
-- **Claude Opus 4.5** - Most capable for complex reasoning
-- **GPT-5.2** - OpenAI's latest model
+- **Claude Sonnet 4** - Previous generation Sonnet
+- **GPT-5** - OpenAI's latest model
 - And more...
 
 Choose based on your task complexity and performance needs.
@@ -178,9 +177,9 @@ Manage sessions:
 
 ### 4. Planning vs. Direct Execution
 
-Copilot CLI can work in two modes:
+Copilot CLI can work in multiple modes, cycled with `Shift+Tab`:
 
-**Direct Mode (default):**
+**Interactive Mode (default):**
 ```
 > Create a README file
 ```
@@ -191,6 +190,9 @@ Immediate execution after your approval.
 > /plan Create a full CRUD API with authentication
 ```
 Creates a detailed plan first, then executes step-by-step.
+
+**Autopilot Mode** (requires experimental mode via `/experimental`):
+Encourages the agent to continue working autonomously until the task is completed, with minimal interruptions.
 
 Learn more in [Plan Mode](09-plan-mode.md).
 

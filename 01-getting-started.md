@@ -147,20 +147,20 @@ curl -fsSL https://gh.io/copilot-install | sudo bash
 # Install to custom directory
 curl -fsSL https://gh.io/copilot-install | PREFIX="$HOME/custom" bash
 
-# Install specific version
-curl -fsSL https://gh.io/copilot-install | VERSION="v0.0.405" bash
+# Install specific version (replace with desired version)
+curl -fsSL https://gh.io/copilot-install | VERSION="v0.0.369" PREFIX="$HOME/custom" bash
 ```
 
 ## Upgrading Copilot CLI
 
-If you already have Copilot CLI installed and want to upgrade to v0.405:
+To upgrade Copilot CLI to the latest version:
 
 ### Upgrade with Homebrew
 
 ```bash
 brew update
 brew upgrade copilot-cli
-copilot --version  # Should show 0.0.405 or higher
+copilot --version
 ```
 
 ### Upgrade with npm
@@ -192,7 +192,7 @@ copilot
 > /delegate --help
 ```
 
-**For detailed upgrade instructions, troubleshooting, and rollback options, see [New Features in v0.405](16-v0.405-new-features.md#upgrading-to-v0405).**
+**Tip:** You can also upgrade from within the CLI using `/update`.**
 
 ## Verifying Installation
 
@@ -360,11 +360,10 @@ By default, Copilot CLI uses Claude Sonnet 4.5. To switch models:
 Available models include:
 - Claude Sonnet 4.5 (default)
 - Claude Sonnet 4
-- Claude Opus 4.5
-- GPT-5.2
+- GPT-5
 - And more
 
-## Quick Start Workflows (New in v0.405)
+## Quick Start Workflows
 
 ### Initialize a New Project
 

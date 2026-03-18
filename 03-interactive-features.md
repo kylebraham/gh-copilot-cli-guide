@@ -8,7 +8,7 @@ When you launch Copilot CLI, you enter an interactive terminal session:
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│  GitHub Copilot CLI v0.0.387                                    │
+│  GitHub Copilot CLI v1.0.7                                      │
 │  Model: claude-sonnet-4.5                                       │
 │  Working Directory: ~/projects/my-app                           │
 │  Session: d8b676aa-6cd4-42aa-81c6-603f7f9c7300                 │
@@ -36,9 +36,11 @@ Mastering keyboard shortcuts makes you significantly more efficient:
 
 | Shortcut | Action | When to Use |
 |----------|--------|-------------|
-| `Ctrl+C` | Cancel / Clear / Exit | Stop AI thinking, clear input, or exit CLI |
+| `Ctrl+C` | Cancel / Clear / Copy | Stop AI, clear input, or copy selection; press twice to exit CLI |
+| `Ctrl+C ×2` | Exit CLI | Quit from the CLI |
 | `Ctrl+D` | Shutdown | Quickly exit the CLI |
 | `Ctrl+L` | Clear screen | Clean up visual clutter |
+| `Ctrl+T` | Toggle reasoning display | Show/hide model reasoning output *(new)* |
 | `Esc` | Cancel operation | Stop current AI operation |
 
 ### Navigation Shortcuts
@@ -47,8 +49,8 @@ Mastering keyboard shortcuts makes you significantly more efficient:
 |----------|--------|-------------|
 | `↑` | Previous command | Navigate command history backwards |
 | `↓` | Next command | Navigate command history forwards |
-| `Ctrl+A` | Start of line | Move cursor to beginning |
-| `Ctrl+E` | End of line | Move cursor to end (if supported) |
+| `Ctrl+A` | Start of line | Move cursor to beginning (when typing) |
+| `Ctrl+E` | End of line | Move cursor to end (when typing); see Timeline Shortcuts when input is empty |
 | `Meta+←` | Previous word | Jump cursor left by word (macOS/Linux) |
 | `Meta+→` | Next word | Jump cursor right by word (macOS/Linux) |
 
@@ -59,21 +61,53 @@ Mastering keyboard shortcuts makes you significantly more efficient:
 | `Ctrl+H` | Delete character | Delete previous character (like Backspace) |
 | `Ctrl+W` | Delete word | Delete previous word |
 | `Ctrl+U` | Delete to start | Delete from cursor to beginning of line |
-| `Ctrl+K` | Delete to end | Delete from cursor to end of line |
+| `Ctrl+K` | Delete to end | Delete from cursor to end of line (joins lines at end of line) |
+| `Ctrl+G` | Open external editor | Edit the current prompt in your `$EDITOR` *(new)* |
 
 ### Timeline Shortcuts
 
-| Shortcut | Action | Description |
-|----------|--------|-------------|
-| `Ctrl+O` | Toggle timeline | Expand recent/collapse timeline |
-| `Ctrl+E` | Toggle all timeline | Expand all/collapse timeline |
-
-### Plan Mode Shortcuts
+> **Note:** `Ctrl+O` and `Ctrl+E` behave differently depending on whether the input prompt is empty.
 
 | Shortcut | Action | Description |
 |----------|--------|-------------|
-| `Shift+Tab` | Toggle mode | Switch between interactive and plan modes |
+| `Ctrl+O` | Expand recent timeline | Expands the most recent timeline entries (when no input) |
+| `Ctrl+E` | Expand all timeline | Expands the entire conversation timeline (when no input) |
+| `Ctrl+X` → `O` | Open link | Open a link from the most recent timeline event *(new)* |
+
+### Mode Shortcuts
+
+| Shortcut | Action | Description |
+|----------|--------|-------------|
+| `Shift+Tab` | Cycle modes | Cycle through interactive → plan → autopilot (autopilot requires `/experimental`) |
 | `Ctrl+Y` | Open plan | Open plan.md in your editor |
+
+## Interaction Modes
+
+`Shift+Tab` cycles through the available interaction modes:
+
+| Mode | Description |
+|------|-------------|
+| **Interactive** (default) | Conversational mode — the AI responds to each message as you send it |
+| **Plan** | The AI drafts a `plan.md` before executing; you review and approve the plan |
+| **Autopilot** | The AI acts autonomously with minimal confirmation prompts *(requires experimental mode)* |
+
+The current mode is shown in the input prompt indicator.
+
+### Enabling Autopilot Mode
+
+Autopilot mode is gated behind the experimental features flag. Enable it first, then use `Shift+Tab` to cycle to it:
+
+```
+> /experimental
+```
+
+This unlocks the autopilot step in the `Shift+Tab` cycle. Disable at any time with:
+
+```
+> /experimental off
+```
+
+> **Use autopilot with care** — it will execute changes with fewer confirmation prompts.
 
 ## Command History
 
@@ -141,11 +175,14 @@ Timeline:
 ### Timeline Commands
 
 ```
-Ctrl+O          # Expand recent messages
+Ctrl+O          # Expand recent timeline (when input is empty)
 Ctrl+O again    # Collapse timeline
-Ctrl+E          # Expand entire history
+Ctrl+E          # Expand entire history (when input is empty)
 Ctrl+E again    # Collapse timeline
+Ctrl+X → O     # Open a link from the most recent timeline event
 ```
+
+> When the input prompt is **not** empty, `Ctrl+E` moves the cursor to the end of line and `Ctrl+O` runs the current command while preserving input.
 
 ### Why Use Timeline?
 
@@ -637,11 +674,28 @@ Verify write access to home directory
 
 ```
 Essential Shortcuts:
-  Ctrl+C    Cancel/Clear/Exit
-  Ctrl+D    Shutdown
-  Ctrl+L    Clear screen
-  Ctrl+O    Toggle timeline
-  ↑↓        Command history
+  Ctrl+C      Cancel/Clear/Copy selection (×2 to exit)
+  Ctrl+D      Shutdown
+  Ctrl+L      Clear screen
+  Ctrl+T      Toggle model reasoning display
+  Esc         Cancel current operation
+  ↑↓          Command history
+
+Timeline (when input is empty):
+  Ctrl+O      Expand recent timeline
+  Ctrl+E      Expand all timeline
+  Ctrl+X → O  Open link from most recent timeline event
+
+Editing (when typing):
+  Ctrl+A      Move to start of line
+  Ctrl+E      Move to end of line
+  Ctrl+G      Edit prompt in external editor
+  Ctrl+W      Delete previous word
+  Ctrl+U      Delete to start of line
+  Ctrl+K      Delete to end of line
+
+Modes (Shift+Tab to cycle):
+  Interactive → Plan → Autopilot (/experimental required)
 
 File References:
   @file.js          Single file
@@ -653,6 +707,7 @@ Commands:
   /context          Check context
   /clear            New conversation
   /usage            Check quota
+  /experimental     Enable experimental features (incl. autopilot)
   !command          Direct shell execution
 ```
 

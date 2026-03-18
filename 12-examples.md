@@ -86,7 +86,7 @@ console.log("Hello, GitHub Copilot CLI!");
 
 ## Project Initialization with /init
 
-The `/init` command (new in v0.405) scaffolds complete projects with best practices built-in.
+The `/init` command scaffolds complete projects with best practices built-in.
 
 ### Example 4: React Application with TypeScript
 
@@ -482,7 +482,7 @@ Next steps:
 
 ## Pull Request Workflows with /delegate
 
-The `/delegate` command (enhanced in v0.405) automates the entire PR creation workflow.
+The `/delegate` command automates the entire PR creation workflow.
 
 ### Example 8: Quick Bug Fix
 

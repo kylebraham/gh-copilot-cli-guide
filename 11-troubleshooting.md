@@ -81,7 +81,7 @@ sudo npm install -g @github/copilot
 **Problem:**
 ```bash
 $ copilot --version
-0.0.395  # Old version
+x.x.x  # Old version still showing
 
 # But you just upgraded!
 ```
@@ -119,7 +119,7 @@ source ~/.zshrc  # or ~/.bashrc
 ### Upgrade Issues
 
 **Problem:**
-Upgrade to v0.405 fails or new features not working.
+Upgrade fails or new features not working.
 
 **Solutions:**
 
@@ -127,7 +127,9 @@ Upgrade to v0.405 fails or new features not working.
 ```bash
 # Check version
 copilot --version
-# Must show 0.0.405 or higher
+
+# Update to latest
+> /update
 
 # Test new features
 copilot
@@ -161,7 +163,7 @@ winget upgrade --id GitHub.cli
 # Then upgrade Copilot CLI
 ```
 
-**For detailed upgrade instructions, see [New Features Guide - Upgrading to v0.405](16-v0.405-new-features.md#upgrading-to-v0405).**
+**Use `/update` to upgrade to the latest version and pick up new features.**
 
 ## Authentication Issues
 

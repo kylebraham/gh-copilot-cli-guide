@@ -5,8 +5,9 @@ Slash commands are special commands that start with `/` and provide quick access
 ## Command Categories
 
 - [Session Management](#session-management)
-- [Context & Model](#context--model)
-- [File System](#file-system)
+- [Models & Subagents](#context--model)
+- [Code](#code)
+- [Permissions & File System](#file-system)
 - [GitHub Integration](#github-integration)
 - [Configuration](#configuration)
 - [Information](#information)
@@ -75,6 +76,33 @@ Manage and view session information.
 - `plan` - Display plan.md if it exists
 - `rename <name>` - Give session a friendly name
 
+### /rename <name>
+
+Rename the current session. Alias for `/session rename`.
+
+```
+> /rename "My Feature Work"
+> /rename "Bug Fix - Auth Issue"
+```
+
+**Use when:**
+- You want a descriptive name for the current session
+- Organizing work across multiple sessions
+- Making it easier to find sessions with `/resume`
+
+### /copy
+
+Copy the last AI response to the clipboard.
+
+```
+> /copy
+```
+
+**Use when:**
+- Pasting the last response into another application
+- Copying generated code into your IDE
+- Saving output without exporting the full session
+
 ## Context & Model
 
 ### /model [model]
@@ -91,12 +119,10 @@ Select or change the AI model.
 ```
 
 **Available models:**
-- `claude-sonnet-4.5` (default) - Balanced
-- `claude-haiku-4.5` - Fast
-- `claude-opus-4.5` - Most capable
-- `gpt-5.2` - OpenAI flagship
-- `gpt-5.2-codex` - Optimized for code
-- And more...
+- `claude-sonnet-4.5` (default) - Balanced performance
+- `claude-sonnet-4` - Previous generation Sonnet
+- `gpt-5` - OpenAI flagship
+- And more available via `/model` selection menu...
 
 **Choose based on:**
 - Task complexity (use Opus for complex reasoning)
@@ -151,6 +177,43 @@ Compress conversation history to free up context space.
 - Long conversation with repetition
 - Before starting new major task
 
+### /fleet
+
+Enable fleet mode for parallel subagent execution.
+
+```
+> /fleet
+```
+
+**What it does:**
+- Splits complex tasks into parallel workstreams
+- Multiple subagents work simultaneously on independent subtasks
+- Results are synthesized when all subagents complete
+
+**Use when:**
+- Working on large tasks with independent components
+- Parallelizing research or analysis across multiple files
+- Running several operations (tests, file generation) concurrently
+
+### /tasks
+
+View and manage background tasks including running subagents and shell sessions.
+
+```
+> /tasks
+```
+
+**Shows:**
+- Active subagents and their current status
+- Background shell sessions
+- Task completion progress
+- Option to cancel individual tasks
+
+**Use when:**
+- `/fleet` is active and you want to monitor progress
+- Background operations are running
+- Need to cancel a stuck or unwanted task
+
 ## File System
 
 ### /cwd, /cd [directory]
@@ -199,6 +262,142 @@ Display all directories the CLI can access.
 - Current working directory
 - Additional allowed directories
 - Permissions status
+
+### /allow-all
+
+Enable all permissions — all tools, paths, and URLs — in one command.
+
+```
+> /allow-all
+```
+
+**What it enables:**
+- File system access for all paths (not just the working directory)
+- All tools and shell commands
+- All URL access
+- Disables permission prompts for the session
+
+**⚠️ Use with caution:**
+- Only use in fully trusted, local-only environments
+- Grants broad access; avoid with untrusted projects or shared machines
+- For fine-grained control, prefer `/add-dir` and explicit tool approvals
+
+## Code
+
+### /ide
+
+Connect to an IDE workspace for richer file access and editing context.
+
+```
+# Open IDE connection interface
+> /ide
+```
+
+**What it does:**
+- Establishes a connection to VS Code or another supported IDE
+- Enables file access via the IDE workspace
+- Provides richer editing context (open tabs, cursor position, etc.)
+
+**Use when:**
+- Working alongside an IDE session
+- Need IDE-level file awareness
+- Want AI suggestions that are aware of your open editor state
+
+### /diff
+
+Review the changes made in the current directory.
+
+```
+> /diff
+```
+
+**Shows:**
+- Staged and unstaged git changes
+- File modifications, additions, and deletions
+- Unified diff output
+- Summary of which files changed
+
+**Use when:**
+- Reviewing changes before committing
+- Understanding what the AI modified
+- Auditing edits after a long session
+
+### /pr
+
+Operate on pull requests for the current branch.
+
+```
+# View PR status for the current branch
+> /pr
+
+# Create a new PR
+> /pr create
+
+# Check CI/review status
+> /pr status
+```
+
+**Use when:**
+- Checking the state of an open PR
+- Creating a PR for the current branch directly from the CLI
+- Viewing review comments or CI run results
+
+### /review
+
+Run a code review agent to analyze current changes.
+
+```
+> /review
+```
+
+**What it does:**
+- Analyzes staged and unstaged code changes
+- Identifies bugs, security vulnerabilities, and logic errors
+- Provides actionable, high-signal review comments
+- Focuses on issues that genuinely matter — not style or formatting
+
+**Example output:**
+```
+> /review
+🔍 Analyzing changes...
+
+📋 Code Review:
+  src/auth.js
+    ⚠️  Line 42: Potential SQL injection — use parameterized queries
+  src/utils.js
+    ℹ️  Line 15: Missing null check before accessing .length
+```
+
+**Use when:**
+- Before committing or opening a PR
+- After large AI-assisted refactors
+- As a final sanity check on your changes
+
+### /lsp
+
+Manage language server configuration for enhanced code intelligence.
+
+```
+# Show LSP status
+> /lsp
+
+# Configure a language server
+> /lsp configure
+
+# Restart all language servers
+> /lsp restart
+```
+
+**What it provides:**
+- Symbol lookup and go-to-definition support
+- Type information and inline documentation
+- Diagnostics and error detection in context
+- Richer code completions
+
+**Use when:**
+- Working with typed languages (TypeScript, Rust, Go, etc.)
+- The AI is missing type or symbol information
+- After installing new language tooling
 
 ## GitHub Integration
 
@@ -519,6 +718,72 @@ Reset the list of tools the AI can use.
 - To restore full functionality
 - Troubleshooting permission issues
 
+### /instructions
+
+View and toggle custom instruction files.
+
+```
+# View all instruction files and their status
+> /instructions
+
+# Toggle an instruction file on or off
+> /instructions toggle <filename>
+```
+
+**What it shows:**
+- Active instruction files loaded into context
+- Available instruction files in `.copilot/`
+- Enable/disable individual files without deleting them
+
+**Instruction files provide:**
+- Project-specific coding conventions
+- Style guidelines and preferred patterns
+- Behavioral preferences for the AI
+
+See [Copilot Directory Guide](15-copilot-directory.md) for setup details.
+
+### /streamer-mode
+
+Toggle streamer mode to hide sensitive details during live streaming or screen sharing.
+
+```
+> /streamer-mode
+```
+
+**What it hides:**
+- Preview model names
+- Quota details and usage statistics
+- Other potentially sensitive session metadata
+
+**Use when:**
+- Screen sharing or live streaming your terminal
+- Presenting to an audience
+- You don't want quota or model details visible on screen
+
+### /plugin [subcommand]
+
+Manage plugins and plugin marketplaces.
+
+```
+# List installed plugins
+> /plugin list
+
+# Browse the plugin marketplace
+> /plugin marketplace
+
+# Install a plugin
+> /plugin install <name>
+
+# Remove a plugin
+> /plugin remove <name>
+```
+
+**Plugins extend CLI capabilities with:**
+- New slash commands
+- Specialized domain tools
+- Third-party integrations
+- Custom workflows and automations
+
 ## Information
 
 ### /help
@@ -583,6 +848,85 @@ Manage GitHub user accounts.
 - Multiple GitHub accounts
 - Switching between personal/work accounts
 - Team collaboration
+
+### /changelog [summarize]
+
+Display the changelog for CLI versions.
+
+```
+# View raw changelog
+> /changelog
+
+# Get an AI-generated summary of recent changes
+> /changelog summarize
+```
+
+**Shows:**
+- Recent version history
+- New features and enhancements
+- Bug fixes
+- Breaking changes
+
+**With `summarize`:** The AI provides a concise digest of what changed, highlighting the most important updates since your last version.
+
+### /update
+
+Update the CLI to the latest version.
+
+```
+> /update
+```
+
+**What it does:**
+1. Checks for the latest available release
+2. Downloads and installs the update
+3. Restarts with the updated binary
+
+**Use when:**
+- You see an "Update available" notification
+- You want the latest features or bug fixes
+
+### /version
+
+Display version information and check for available updates.
+
+```
+> /version
+```
+
+**Shows:**
+- Current CLI version number
+- Release date
+- Whether a newer version is available
+- Download URL if an update exists
+
+### /experimental [enable|disable|list]
+
+Show available experimental features, or enable/disable experimental mode.
+
+```
+# List experimental features
+> /experimental
+
+# Enable experimental mode
+> /experimental enable
+
+# Disable experimental mode
+> /experimental disable
+
+# Enable a specific experimental feature
+> /experimental enable <feature-name>
+```
+
+**Experimental features:**
+- Early access to new capabilities before general availability
+- May change behaviour or be removed in future releases
+- Feedback via `/feedback` is encouraged
+
+**Use when:**
+- You want cutting-edge features
+- You're willing to accept potential instability
+- You want to contribute feedback during a feature's development
 
 ## Advanced Features
 
@@ -746,6 +1090,44 @@ Opens confidential feedback survey in your browser.
 - User experience
 - Documentation
 
+### /research <query>
+
+Run a deep research investigation using GitHub search and web sources.
+
+```
+> /research How does Zod v3 validation work?
+> /research Best practices for React Query caching
+> /research OAuth2 PKCE flow implementation examples
+```
+
+**What it does:**
+- Searches GitHub repositories for real-world usage examples
+- Searches the web for relevant documentation and articles
+- Synthesizes findings from multiple sources
+- Provides a comprehensive, cited research report
+
+**Use when:**
+- Need authoritative, up-to-date information on a library or API
+- Looking for real-world open-source examples before implementing
+- Researching best practices or comparing approaches
+- Investigating an unfamiliar technology
+
+### /restart
+
+Restart the CLI while preserving the current session.
+
+```
+> /restart
+```
+
+**Use when:**
+- The CLI is behaving unexpectedly or feels stuck
+- You just ran `/update` and want to load the new version
+- You need to reload configuration or plugins
+- Recovering from a frozen or unresponsive state
+
+**Note:** Session data is preserved and automatically restored after restart.
+
 ### /exit, /quit
 
 Exit the CLI.
@@ -828,13 +1210,34 @@ Some commands affect subsequent prompts:
 | Command | Purpose | Example |
 |---------|---------|---------|
 | `/clear` | New conversation | `/clear` |
-| `/model` | Change AI model | `/model gpt-5.2` |
+| `/rename` | Rename session | `/rename "My Work"` |
+| `/copy` | Copy last response | `/copy` |
+| `/model` | Change AI model | `/model claude-sonnet-4.5` |
+| `/fleet` | Parallel subagents | `/fleet` |
+| `/tasks` | View background tasks | `/tasks` |
+| `/diff` | Review changes | `/diff` |
+| `/pr` | Operate on PRs | `/pr create` |
+| `/review` | Code review agent | `/review` |
+| `/lsp` | Language server | `/lsp restart` |
+| `/ide` | Connect to IDE | `/ide` |
 | `/cwd` | Change directory | `/cwd ~/projects` |
+| `/allow-all` | Enable all permissions | `/allow-all` |
 | `/context` | Check memory | `/context` |
+| `/compact` | Compress history | `/compact` |
 | `/plan` | Create plan | `/plan Build API` |
+| `/research` | Deep research | `/research Zod validation` |
+| `/delegate` | Create PR via AI | `/delegate Fix issue #123` |
 | `/usage` | Check quota | `/usage` |
+| `/changelog` | View changelog | `/changelog summarize` |
+| `/update` | Update CLI | `/update` |
+| `/version` | Show version | `/version` |
+| `/experimental` | Experimental features | `/experimental list` |
+| `/instructions` | Toggle instructions | `/instructions` |
+| `/streamer-mode` | Hide sensitive info | `/streamer-mode` |
+| `/plugin` | Manage plugins | `/plugin list` |
 | `/help` | Show help | `/help` |
 | `/share` | Export session | `/share file out.md` |
+| `/restart` | Restart CLI | `/restart` |
 | `/exit` | Quit CLI | `/exit` |
 
 ## Hidden Commands
