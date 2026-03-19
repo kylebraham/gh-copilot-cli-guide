@@ -6,7 +6,7 @@ This guide covers the latest and most recently added features in GitHub Copilot 
 
 1. [Autopilot Mode (Experimental)](#autopilot-mode-experimental) — [Full guide →](17-autopilot-mode.md)
 2. [Fleet Mode (`/fleet`)](#fleet-mode-fleet) — [Full guide →](18-fleet-mode.md)
-3. [Research Command (`/research`)](#research-command-research)
+3. [Research Command (`/research`)](#research-command-research) — [Full guide →](19-research-command.md)
 4. [LSP Support](#lsp-language-server-protocol-support)
 5. [Code Review Agent (`/review`)](#code-review-agent-review)
 6. [Plugin System (`/plugin`)](#plugin-system-plugin)
@@ -64,65 +64,30 @@ Monitor progress with `/tasks`. Navigate with `↑↓`, press `Enter` for detail
 
 ## Research Command (`/research`)
 
-### Overview
-
-The `/research` command runs a deep investigation using GitHub search, web sources, and local codebase analysis. It returns a comprehensive report useful for understanding unfamiliar codebases, evaluating dependencies, and planning large changes.
-
-### Basic Usage
+`/research` activates a **specialized research agent** that gathers information from your codebase, GitHub repos, and the web, then produces a comprehensive cited Markdown report. It is not a mode — it's a slash command for deep investigation work.
 
 ```
 > /research How does authentication work in this codebase?
 
-AI: Researching authentication patterns...
+[Agent searches codebase, GitHub, and web — compiles full report]
 
-📋 Research Report: Authentication
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Overview:
-  Authentication is handled by src/auth/ using JWT tokens.
-  Sessions are stored in Redis (see src/cache/session.js).
+Summary: Auth uses JWT tokens (src/auth/), sessions stored in Redis,
+         refresh tokens handled separately in src/auth/tokens.js.
 
-Key Files:
-  - src/auth/middleware.js   — JWT verification
-  - src/auth/login.js        — Login flow
-  - src/auth/tokens.js       — Token generation and refresh
-
-External Dependencies:
-  - jsonwebtoken ^9.0.0
-  - bcryptjs ^2.4.3
-
-Patterns:
-  - Tokens expire after 1 hour, refresh tokens after 7 days
-  - All protected routes use the `requireAuth` middleware
-
-Potential Issues:
-  - Token refresh logic does not handle concurrent requests
-  - No rate limiting on /login endpoint
+Full report: ~/.copilot/session-state/.../research/authentication.md
+Press Ctrl+Y to open.
 ```
 
-### Research with GitHub Search
+The agent classifies your query (process / conceptual / technical deep-dive) and adapts the report format. It uses a **fixed built-in model** regardless of your `/model` setting.
 
+**Share the report:**
 ```
-> /research Common patterns for rate limiting in Express APIs
-
-[Searches GitHub repositories and returns best practices with examples]
-```
-
-### Sharing Research Results
-
-After a research session, share the report:
-
-```
-> /share
-
-[Generates a shareable link or exports the report]
+> /share gist research      # Publish as a GitHub Gist
+> /share file research      # Save as a local Markdown file
 ```
 
-### When to Use `/research`
-
-- Before undertaking a large refactor (understand the current shape)
-- Evaluating whether to add a new dependency
-- Onboarding to an unfamiliar codebase
-- Investigating a bug's root cause across many files
+> **See the full guide:** [Research Command →](19-research-command.md)
+> Covers query-type classification, `Ctrl+Y`, sharing, finding past reports, and six example prompts with explanations.
 
 ---
 

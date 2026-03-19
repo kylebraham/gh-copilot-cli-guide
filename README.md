@@ -24,6 +24,7 @@ This guide is organized into the following sections:
 16. **[Latest Features](16-new-features.md)** - Recent additions: `/init`, enhanced `/delegate`, autopilot mode, and more
 17. **[Autopilot Mode](17-autopilot-mode.md)** - Complete guide to autonomous task execution
 18. **[Fleet Mode](18-fleet-mode.md)** - Running tasks in parallel with subagents
+19. **[Research Command](19-research-command.md)** - Deep investigation reports with `/research`
 
 ## 🎯 What is GitHub Copilot CLI?
 
@@ -69,7 +70,7 @@ npm update -g @github/copilot
 - 🤖 [Autopilot mode](17-autopilot-mode.md) (experimental) - fully autonomous task execution
 - 🌐 [Fleet mode](18-fleet-mode.md) - run subtasks in parallel with subagents
 - 🔍 LSP support - deep language-aware code intelligence
-- 🔬 Research command - investigate codebases and summarize findings
+- 🔬 [Research command](19-research-command.md) - investigate codebases and summarise findings
 - [See full feature details →](16-new-features.md)
 
 ## 💡 What You'll Learn
