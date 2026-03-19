@@ -4,7 +4,7 @@ This guide covers the latest and most recently added features in GitHub Copilot 
 
 ## Table of Contents
 
-1. [Autopilot Mode (Experimental)](#autopilot-mode-experimental)
+1. [Autopilot Mode (Experimental)](#autopilot-mode-experimental) — [Full guide →](17-autopilot-mode.md)
 2. [Fleet Mode (`/fleet`)](#fleet-mode-fleet)
 3. [Research Command (`/research`)](#research-command-research)
 4. [LSP Support](#lsp-language-server-protocol-support)
@@ -21,63 +21,25 @@ This guide covers the latest and most recently added features in GitHub Copilot 
 
 ## Autopilot Mode (Experimental)
 
-### Overview
-
-Autopilot mode is an **experimental** feature that instructs the agent to work autonomously until a task is fully completed, without pausing for confirmation at every step. It is ideal for long-running, complex tasks where you want minimal interruptions.
-
-### Enabling Experimental Features
-
-Autopilot is only available after activating experimental mode:
-
-```bash
-# Start Copilot CLI with experimental features enabled
-copilot --experimental
-```
-
-Or, once the CLI is running, toggle it with the slash command:
-
-```
-> /experimental
-```
-
-The setting persists in your config file after first activation — you do not need to pass `--experimental` on every launch.
-
-### Activating Autopilot
-
-The three execution modes cycle with **Shift+Tab**:
+Autopilot mode lets Copilot work end-to-end on a task without pausing for your input at every step. Enable experimental features, then press **Shift+Tab** to cycle to autopilot mode.
 
 ```
 interactive  →  plan  →  autopilot  →  (back to interactive)
 ```
 
-| Mode | Behavior |
-|------|----------|
-| **interactive** | Default. Responds to messages, asks for confirmation. |
-| **plan** | Creates a plan first, then awaits approval before executing. |
-| **autopilot** | Executes autonomously until the task is done, with minimal interruptions. |
+```bash
+# Enable experimental features first
+copilot --experimental
 
-### When to Use Autopilot
-
-```
+# Or from inside the CLI
 > /experimental
-> [Shift+Tab to switch to autopilot]
-
-> Refactor the entire authentication module to use JWTs,
-  update all tests, and fix any linting issues.
-
-[AI works autonomously across many files and steps without pausing]
-[Reports back when the full task is complete]
 ```
 
-**✅ Good for:**
-- Large refactoring across many files
-- End-to-end feature implementations
-- Tasks with clear success criteria
+**✅ Good for:** Large refactors, end-to-end feature work, CI fixes, batch operations with clear success criteria.  
+**❌ Avoid for:** Exploratory work, open-ended tasks, or sensitive production configs where you want step-by-step approval.
 
-**❌ Avoid for:**
-- Tasks requiring frequent human judgment
-- Exploratory work where direction may change
-- Changes in sensitive production configurations
+> **See the full guide:** [Autopilot Mode →](17-autopilot-mode.md)
+> Covers permissions, `--max-autopilot-continues`, the plan→autopilot workflow, and four detailed examples.
 
 ---
 

@@ -22,6 +22,7 @@ This guide is organized into the following sections:
 14. **[Skills System Guide](14-skills-system.md)** - Using and creating reusable skill modules
 15. **[.copilot Directory Guide](15-copilot-directory.md)** - Understanding config, sessions, and data storage
 16. **[Latest Features](16-new-features.md)** - Recent additions: `/init`, enhanced `/delegate`, autopilot mode, and more
+17. **[Autopilot Mode](17-autopilot-mode.md)** - Complete guide to autonomous task execution
 
 ## 🎯 What is GitHub Copilot CLI?
 
@@ -64,7 +65,7 @@ npm update -g @github/copilot
 **Latest features:**
 - ✨ `/init` - Initialize complete projects with one command
 - 🚀 `/delegate` - Enhanced PR creation with test validation
-- 🤖 Autopilot mode (experimental) - fully autonomous task execution
+- 🤖 [Autopilot mode](17-autopilot-mode.md) (experimental) - fully autonomous task execution
 - 🌐 Fleet mode - coordinate work across multiple repositories
 - 🔍 LSP support - deep language-aware code intelligence
 - 🔬 Research command - investigate codebases and summarize findings
