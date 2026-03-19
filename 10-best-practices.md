@@ -2,6 +2,42 @@
 
 Learn proven strategies and techniques for getting the most out of GitHub Copilot CLI. These best practices will help you work more efficiently and effectively.
 
+## Choosing the Right Tool
+
+With multiple autonomous modes available, it helps to know which to reach for:
+
+| Situation | Best tool |
+|-----------|-----------|
+| Exploring code, asking questions | Normal chat (interactive mode) |
+| Complex task, want to review a plan first | Plan mode (`Shift+Tab`) |
+| Well-defined task, want it done autonomously | [Autopilot mode](17-autopilot-mode.md) |
+| Multi-part task with independent pieces | [Fleet mode](18-fleet-mode.md) (`/fleet`) |
+| Automated PRs with full implementation | `/delegate` |
+| Deep investigation, architecture overview | [Research command](19-research-command.md) (`/research`) |
+| Pre-commit code review | `/review` |
+
+### When to chain them
+
+**Plan → Autopilot** (most common autonomous workflow):
+```
+[plan]      > Design a password reset flow with email tokens and tests
+[autopilot] > Implement the plan in plan.md
+```
+
+**Plan → Autopilot + Fleet** (fastest for large multi-part work):
+```
+[plan] > Add a notifications system with model, API, email service, and tests
+# Select "Accept plan and build on autopilot + /fleet"
+```
+
+**Research → Plan → Autopilot** (safest for unfamiliar codebases):
+```
+> /research How is authentication structured in this codebase?
+[Read report, understand the shape]
+[plan]      > Add refresh token support to the existing auth system
+[autopilot] > Implement the plan
+```
+
 ## General Principles
 
 ### 1. Be Specific and Clear
@@ -622,6 +658,8 @@ Always carefully review:
 5. > Implement the plan
 ```
 
+For larger tasks, consider switching to [Autopilot mode](17-autopilot-mode.md) after approving the plan, or using [Fleet mode](18-fleet-mode.md) if steps are independent.
+
 ### Pattern 2: Parallel Development
 
 ```
@@ -756,6 +794,18 @@ Key takeaways:
 6. **Test thoroughly** - Verify all changes
 7. **Document** - Keep docs up to date
 8. **Learn** - Understand AI suggestions
+
+## Key Dos and Don'ts
+
+### DO:
+✅ Use /research before large refactors in unfamiliar codebases  
+✅ Use plan mode + autopilot for well-defined multi-step tasks  
+✅ Use /fleet for tasks that can be split into independent pieces  
+✅ Use /review before every /delegate  
+
+### DON'T:
+❌ Don't use autopilot for open-ended or exploratory tasks  
+❌ Don't use /fleet for strictly sequential tasks  
 
 ---
 

@@ -4,27 +4,36 @@ Welcome to the comprehensive guide for GitHub Copilot CLI! This guide will help 
 
 ## 📚 Guide Structure
 
-This guide is organized into the following sections:
-
+### Foundation
 1. **[Getting Started](01-getting-started.md)** - Installation, authentication, and first steps
 2. **[Basic Concepts](02-basic-concepts.md)** - Understanding how the CLI works
+
+### Core Features
 3. **[Interactive Features](03-interactive-features.md)** - Working with the interactive interface
 4. **[Slash Commands](04-slash-commands.md)** - Complete reference of all commands
 5. **[File and Context Management](05-file-context.md)** - Managing files and context
 6. **[Code Editing and Development](06-code-editing.md)** - Writing and editing code
 7. **[GitHub Integration](07-github-integration.md)** - Working with repos, PRs, and issues
+
+### Advanced Features
 8. **[Advanced Features](08-advanced-features.md)** - MCP servers, custom agents, and more
 9. **[Plan Mode](09-plan-mode.md)** - Creating implementation plans
-10. **[Best Practices](10-best-practices.md)** - Tips and tricks for effective use
-11. **[Troubleshooting](11-troubleshooting.md)** - Common issues and solutions
-12. **[Examples and Tutorials](12-examples.md)** - Real-world scenarios and walkthroughs
-13. **[AGENTS.md File Guide](13-agents-file.md)** - Configuring AI agent behavior for your project
-14. **[Skills System Guide](14-skills-system.md)** - Using and creating reusable skill modules
-15. **[.copilot Directory Guide](15-copilot-directory.md)** - Understanding config, sessions, and data storage
-16. **[Latest Features](16-new-features.md)** - Recent additions: `/init`, enhanced `/delegate`, autopilot mode, and more
 17. **[Autopilot Mode](17-autopilot-mode.md)** - Complete guide to autonomous task execution
 18. **[Fleet Mode](18-fleet-mode.md)** - Running tasks in parallel with subagents
 19. **[Research Command](19-research-command.md)** - Deep investigation reports with `/research`
+
+### Reference
+10. **[Best Practices](10-best-practices.md)** - Tips and tricks for effective use
+11. **[Troubleshooting](11-troubleshooting.md)** - Common issues and solutions
+12. **[Examples and Tutorials](12-examples.md)** - Real-world scenarios and walkthroughs
+
+### Configuration
+13. **[AGENTS.md File Guide](13-agents-file.md)** - Configuring AI agent behavior for your project
+14. **[Skills System Guide](14-skills-system.md)** - Using and creating reusable skill modules
+15. **[.copilot Directory Guide](15-copilot-directory.md)** - Understanding config, sessions, and data storage
+
+### What's New
+16. **[Latest Features](16-new-features.md)** - Recent additions and experimental features
 
 ## 🎯 What is GitHub Copilot CLI?
 

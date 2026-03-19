@@ -1053,5 +1053,97 @@ When something goes wrong:
 
 ---
 
+## Autopilot Mode Issues
+
+### Autopilot won't start
+**Symptoms:** Shift+Tab doesn't cycle to autopilot, or it's not in the mode list.
+**Cause:** Experimental mode is not enabled.
+**Solution:**
+```
+> /experimental
+# or launch with:
+copilot --experimental
+```
+
+### Autopilot runs too many steps / costs too much
+**Symptoms:** Autopilot keeps continuing autonomously, consuming premium requests.
+**Solution:** Set a step cap:
+```bash
+copilot --max-autopilot-continues 10
+```
+Use `/usage` to check current consumption.
+
+### Autopilot makes unexpected changes
+**Symptoms:** Copilot modified files you didn't expect.
+**Solution:**
+- Press `Ctrl+C` to stop immediately
+- Run `> /diff` to see everything that changed
+- Use `git checkout -- .` to revert unwanted changes
+- Next time, use plan mode first to review the plan before switching to autopilot
+
+### Autopilot stops asking about permissions
+**Expected behaviour** — when you enter autopilot mode, Copilot prompts you to enable all permissions. Choose option 1 (Enable all permissions) for best results. See [Autopilot Mode — Permissions](17-autopilot-mode.md#permissions-prompt).
+
+---
+
+## Fleet Mode Issues
+
+### /fleet doesn't parallelize — everything runs sequentially
+**Cause:** The task has dependencies between subtasks, so the orchestrator runs them in order.
+**Solution:** This is correct behaviour. Fleet parallelises where possible; dependent steps always run sequentially.
+
+### A subagent gets stuck
+**Solution:**
+```
+> /tasks
+# Navigate to the stuck task with ↑↓
+# Press k to kill it
+# Press r to remove it from the list
+```
+Then decide whether to re-run that subtask manually.
+
+### /tasks shows no tasks
+**Cause:** Fleet hasn't been used in this session, or all tasks completed.
+**Solution:** `/tasks` only shows tasks from the current session.
+
+---
+
+## Research Command Issues
+
+### Ctrl+Y doesn't open the report
+**Cause:** No `COPILOT_EDITOR`, `VISUAL`, or `EDITOR` environment variable set.
+**Solution:**
+```bash
+export COPILOT_EDITOR=code    # VS Code
+export EDITOR=nano            # nano
+```
+Add to your shell profile (`~/.zshrc` or `~/.bashrc`) to persist.
+
+### Can't find a research report from a previous session
+**Cause:** `Ctrl+Y` and `/share` only surface reports from the **current session**.
+**Solution:** Find past reports on disk:
+```bash
+# List recent session directories
+ls -dtl ~/.copilot/session-state/*/ | head -10
+
+# Reports are inside each session folder
+ls ~/.copilot/session-state/<SESSION-ID>/research/
+```
+
+### Research report is too shallow / wrong format
+**Cause:** Query phrasing triggered the wrong query-type classification.
+**Solution:** Be explicit about the format you want:
+```
+# Instead of:
+> /research What is the auth system?
+
+# Try:
+> /research Give me a technical deep-dive into the auth system
+  with architecture diagrams and code examples.
+```
+See [Research Command — Query Types](19-research-command.md#query-types-and-report-formats).
+
+---
+
 **Next:** [Examples and Tutorials](12-examples.md)  
 **Previous:** [Best Practices](10-best-practices.md)

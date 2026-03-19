@@ -195,6 +195,8 @@ Enable fleet mode for parallel subagent execution.
 - Parallelizing research or analysis across multiple files
 - Running several operations (tests, file generation) concurrently
 
+> **Full guide:** See [Fleet Mode](18-fleet-mode.md) — orchestrator model, custom agents, monitoring with /tasks, and examples.
+
 ### /tasks
 
 View and manage background tasks including running subagents and shell sessions.
@@ -213,6 +215,8 @@ View and manage background tasks including running subagents and shell sessions.
 - `/fleet` is active and you want to monitor progress
 - Background operations are running
 - Need to cancel a stuck or unwanted task
+
+> **Related:** [Fleet Mode](18-fleet-mode.md) — full details on managing subagents.
 
 ## File System
 
@@ -282,45 +286,110 @@ Enable all permissions — all tools, paths, and URLs — in one command.
 - Grants broad access; avoid with untrusted projects or shared machines
 - For fine-grained control, prefer `/add-dir` and explicit tool approvals
 
+## Command-Line Flags
+
+### --no-ask-user
+
+Suppresses clarifying questions that Copilot would normally ask — the agent makes decisions autonomously rather than asking for your input. Unlike autopilot mode, this does not allow the agent to continue through multiple steps autonomously; it only skips the question-asking, not the waiting for your next prompt.
+
+```bash
+copilot --no-ask-user "Refactor src/api.js to use async/await"
+```
+
+**Comparison:**
+- `--no-ask-user` — skips clarifying questions, still waits for your next prompt
+- Autopilot mode — full autonomous execution end-to-end (see [Autopilot Mode](17-autopilot-mode.md))
+
+### --continue
+
+Resumes the most recently closed local Copilot CLI session, restoring context and conversation history.
+
+```bash
+# Resume most recent session instantly
+copilot --continue
+
+# Or from within a session
+> /resume
+```
+
+Useful when you close the terminal mid-task and want to pick up exactly where you left off.
+
 ## Code
 
 ### /ide
 
-Connect to an IDE workspace for richer file access and editing context.
+Connect Copilot CLI to an IDE workspace, giving it access to open files, editor context, and workspace information.
 
 ```
-# Open IDE connection interface
 > /ide
 ```
 
-**What it does:**
-- Establishes a connection to VS Code or another supported IDE
-- Enables file access via the IDE workspace
-- Provides richer editing context (open tabs, cursor position, etc.)
+**Supported IDEs:**
+- Visual Studio Code
+- JetBrains IDEs (IntelliJ, WebStorm, PyCharm, etc.)
 
-**Use when:**
-- Working alongside an IDE session
-- Need IDE-level file awareness
-- Want AI suggestions that are aware of your open editor state
+**What IDE connection enables:**
+- Copilot CLI can read which files you currently have open
+- Access to workspace-level context (open tabs, active file, cursor position)
+- Synchronized edits — changes made by Copilot CLI appear in your IDE
+- Richer context for suggestions based on what you're actively working on
+
+**Typical workflow:**
+```
+# 1. Open your project in VS Code
+# 2. In terminal, connect CLI to the workspace
+> /ide
+
+AI: Connected to VS Code workspace: my-project
+    Open files: src/app.js, src/auth.js, package.json
+
+# 3. Now Copilot CLI has context about your open editor state
+> Fix the bug in the file I currently have open
+
+AI: I can see you have src/auth.js open. Looking at the issue on line 42...
+```
+
+**Troubleshooting:**
+- Ensure the Copilot extension is installed and active in your IDE
+- The IDE must be open with the same project directory
+- If connection fails, try restarting both the IDE and CLI
 
 ### /diff
 
-Review the changes made in the current directory.
+Review all changes made in the current directory — staged, unstaged, and new files. Uses your git config's diff tool with syntax highlighting.
 
 ```
 > /diff
 ```
 
-**Shows:**
-- Staged and unstaged git changes
-- File modifications, additions, and deletions
-- Unified diff output
-- Summary of which files changed
+**What it shows:**
+- All modified files with a summary of additions/deletions
+- Syntax-highlighted diff output
+- Staged vs unstaged changes
 
-**Use when:**
-- Reviewing changes before committing
-- Understanding what the AI modified
-- Auditing edits after a long session
+**Pre-commit workflow:**
+```
+# 1. Make changes with Copilot
+> Add input validation to the login endpoint
+
+# 2. Review everything before committing
+> /diff
+
+# 3. Run code review agent
+> /review
+
+# 4. Create PR when satisfied
+> /delegate Add input validation to login endpoint
+```
+
+**Tip:** Use `/diff` before `/delegate` to make sure you understand exactly what Copilot changed, especially after autopilot sessions.
+
+```bash
+# Disable rich syntax highlighting (plain diff)
+copilot --plain-diff
+# Or set env var permanently
+export PLAIN_DIFF=true
+```
 
 ### /pr
 
@@ -344,34 +413,61 @@ Operate on pull requests for the current branch.
 
 ### /review
 
-Run a code review agent to analyze current changes.
+Run the code review agent on your current changes. Focuses exclusively on high-signal issues — bugs, security vulnerabilities, and logic errors — not style or formatting.
 
 ```
 > /review
 ```
-
-**What it does:**
-- Analyzes staged and unstaged code changes
-- Identifies bugs, security vulnerabilities, and logic errors
-- Provides actionable, high-signal review comments
-- Focuses on issues that genuinely matter — not style or formatting
 
 **Example output:**
 ```
-> /review
-🔍 Analyzing changes...
+Code Review
+────────────────────────────────────────
+🔴 CRITICAL: src/auth/login.js (line 42)
+   SQL query built with string concatenation — SQL injection risk.
+   Fix: Use parameterized queries.
 
-📋 Code Review:
-  src/auth.js
-    ⚠️  Line 42: Potential SQL injection — use parameterized queries
-  src/utils.js
-    ℹ️  Line 15: Missing null check before accessing .length
+🟡 WARNING: src/api/upload.js (line 18)
+   No file size validation before writing to disk.
+   Fix: Check Content-Length and enforce a max size.
+
+✅ src/utils/format.js — No issues found.
 ```
 
-**Use when:**
-- Before committing or opening a PR
-- After large AI-assisted refactors
-- As a final sanity check on your changes
+**Review specific files:**
+```
+> /review @src/payments/processor.js
+```
+
+**Pre-PR workflow:**
+```
+> /diff      # See what changed
+> /review    # Get high-signal review
+> /delegate  # Create PR when clean
+```
+
+**How it differs from CI:**
+- Runs locally before you push — catches issues before CI even sees them
+- Focused on logic/security, not formatting (CI often checks both)
+- Uses AI reasoning, not static analysis rules
+
+### /research <query>
+
+Run a specialized research agent that gathers information from your codebase, GitHub repositories, and the web, producing a comprehensive cited Markdown report.
+
+```
+> /research What is the architecture of this codebase?
+
+> /research How does React implement concurrent rendering?
+
+> /research What are best practices for rate limiting in Node.js?
+```
+
+The agent classifies your query (process / conceptual / technical deep-dive) and adapts the report format. It uses a fixed built-in model regardless of your `/model` setting. When complete, Copilot shows a summary and a link to the full Markdown report.
+
+Press **Ctrl+Y** to open the most recent research report in your editor.
+
+> **Full guide:** See [Research Command](19-research-command.md)
 
 ### /lsp
 
@@ -683,6 +779,19 @@ Configure terminal for enhanced multiline input.
 - Windows Terminal
 - Most modern terminal emulators
 
+**Troubleshooting by terminal:**
+
+| Terminal | Common issue | Fix |
+|----------|-------------|-----|
+| **iTerm2** | Shift+Enter submits instead of newlines | Run `/terminal-setup` — it patches your iTerm2 profile |
+| **Terminal.app** | Multiline not working | `/terminal-setup` modifies key bindings; may need restart |
+| **Windows Terminal** | `Ctrl+Enter` not responding | Ensure PowerShell v6+ and run `/terminal-setup` |
+| **tmux** | Key sequences not passing through | Add `set -g xterm-keys on` to `~/.tmux.conf` |
+| **VS Code terminal** | Modifier keys intercepted | Use the external terminal or disable conflicting VS Code keybindings |
+| **SSH sessions** | No effect | `/terminal-setup` configures the local terminal; run it locally before SSH |
+
+If multiline still doesn't work after setup, restart the terminal emulator and relaunch `copilot`.
+
 ### /theme [show|set|list] [theme]
 
 Manage the CLI visual theme.
@@ -717,6 +826,63 @@ Reset the list of tools the AI can use.
 - After restricting tools for safety
 - To restore full functionality
 - Troubleshooting permission issues
+
+### Tool Permission System
+
+Copilot CLI uses an explicit permission model. By default, the agent asks before using tools that modify files or execute commands. You can pre-approve or deny specific tools using flags.
+
+#### Permission flags
+
+| Flag | Purpose |
+|------|---------|
+| `--allow-all` | Allow all tools, paths, and URLs (alias: `--yolo`) |
+| `--allow-tool=PATTERN` | Pre-approve specific tools |
+| `--deny-tool=PATTERN` | Always deny specific tools (takes precedence over allow) |
+| `--allow-all-paths` | Allow file access to any path |
+| `--allow-all-tools` | Allow all tools without confirmation |
+| `--allow-all-urls` | Allow all URL access |
+
+#### Permission patterns
+
+Patterns use the format `Kind(argument)` — the argument is optional (omitting it matches all tools of that kind):
+
+| Pattern | Matches |
+|---------|---------|
+| `shell` | All shell commands |
+| `shell(git push)` | Only `git push` |
+| `shell(git:*)` | All git commands (`git push`, `git pull`, etc.) |
+| `write` | All file writes |
+| `write(src/*.ts)` | Writes to .ts files in src/ only |
+| `read(.env)` | Reads of .env files |
+| `MyMCP(create_issue)` | Specific MCP server tool |
+| `url(github.com)` | Access to github.com |
+
+> **Note:** Deny rules always take precedence over allow rules, even when `--allow-all` is set.
+
+#### Examples
+
+```bash
+# Allow all git commands except git push
+copilot --allow-tool='shell(git:*)' --deny-tool='shell(git push)'
+
+# Full permissions for autopilot sessions
+copilot --allow-all --max-autopilot-continues 20
+
+# Allow a specific MCP tool only
+copilot --allow-tool='MyMCP(create_issue)'
+
+# Restrict to read-only (no writes or shell execution)
+copilot --deny-tool='write' --deny-tool='shell'
+```
+
+#### In-session permission commands
+
+```
+> /allow-all          # Grant all permissions for this session
+> /reset-allowed-tools  # Reset tool permissions to default
+> /list-dirs          # Show which directories Copilot can access
+> /add-dir PATH       # Add a directory to the allowed list
+```
 
 ### /instructions
 
@@ -776,6 +942,12 @@ Manage plugins and plugin marketplaces.
 
 # Remove a plugin
 > /plugin remove <name>
+
+# Add a custom marketplace
+> /plugin marketplace add <url>
+
+# Update all plugins
+> /plugin update
 ```
 
 **Plugins extend CLI capabilities with:**
@@ -783,6 +955,17 @@ Manage plugins and plugin marketplaces.
 - Specialized domain tools
 - Third-party integrations
 - Custom workflows and automations
+
+**Example plugins:**
+
+| Plugin | What it adds |
+|--------|-------------|
+| `copilot-jira` | `/jira` — link PRs to Jira tickets, view issues |
+| `copilot-datadog` | Query metrics and logs from the CLI |
+| `copilot-terraform` | Terraform plan/apply assistance |
+| `copilot-k8s` | Kubernetes cluster management |
+
+**Plugin structure** (for plugin authors): Plugins are npm packages that export a manifest declaring new slash commands, tools, and instructions. Publish to the npm registry or host a private marketplace JSON registry and add it with `/plugin marketplace add <url>`.
 
 ## Information
 
@@ -928,6 +1111,8 @@ Show available experimental features, or enable/disable experimental mode.
 - You're willing to accept potential instability
 - You want to contribute feedback during a feature's development
 
+> **Autopilot full guide:** See [Autopilot Mode](17-autopilot-mode.md) — permissions, --max-autopilot-continues, plan→autopilot workflow, and examples.
+
 ## Advanced Features
 
 ### /plan [prompt]
@@ -958,20 +1143,48 @@ See [Plan Mode Guide](09-plan-mode.md) for details.
 
 ### /agent
 
-Browse and select from available agents.
+Browse, select, and invoke custom agents — specialized versions of Copilot optimized for particular types of work.
 
 ```
 > /agent
 ```
 
-**Shows:**
-- Custom MCP agents
-- Specialized agents
-- Agent capabilities
-- Selection interface
+**Built-in agents:**
 
-**What are agents?**
-Agents are specialized AI assistants with specific capabilities or knowledge domains.
+| Agent | Description |
+|-------|-------------|
+| `explore` | Fast codebase analysis — ask questions without adding to main context |
+| `task` | Run commands (tests, builds, lints) — brief summary on success, full output on failure |
+| `general-purpose` | Complex multi-step tasks in a separate context window |
+| `code-review` | High-signal code review — bugs, security, logic errors only |
+
+**Selecting an agent:**
+```
+> /agent
+
+Available agents:
+  1. explore         — Codebase analysis
+  2. task            — Command execution
+  3. general-purpose — Complex tasks
+  4. code-review     — Code review
+  5. @test-writer    — Custom: write unit tests (if configured)
+
+Select: _
+```
+
+**Using agents in fleet mode:**
+```
+> /fleet Use @test-writer to add tests for src/services/,
+         use @doc-generator to add JSDoc to src/utils/
+```
+
+**Using a specific agent for a prompt:**
+```
+> /agent explore
+> What are all the API endpoints in this codebase?
+```
+
+> **See also:** [Fleet Mode](18-fleet-mode.md) for using custom agents with parallel subagent execution.
 
 ### /mcp [subcommand] [server-name]
 
@@ -1090,27 +1303,7 @@ Opens confidential feedback survey in your browser.
 - User experience
 - Documentation
 
-### /research <query>
 
-Run a deep research investigation using GitHub search and web sources.
-
-```
-> /research How does Zod v3 validation work?
-> /research Best practices for React Query caching
-> /research OAuth2 PKCE flow implementation examples
-```
-
-**What it does:**
-- Searches GitHub repositories for real-world usage examples
-- Searches the web for relevant documentation and articles
-- Synthesizes findings from multiple sources
-- Provides a comprehensive, cited research report
-
-**Use when:**
-- Need authoritative, up-to-date information on a library or API
-- Looking for real-world open-source examples before implementing
-- Researching best practices or comparing approaches
-- Investigating an unfamiliar technology
 
 ### /restart
 
@@ -1213,7 +1406,7 @@ Some commands affect subsequent prompts:
 | `/rename` | Rename session | `/rename "My Work"` |
 | `/copy` | Copy last response | `/copy` |
 | `/model` | Change AI model | `/model claude-sonnet-4.5` |
-| `/fleet` | Parallel subagents | `/fleet` |
+| `/fleet` | Parallel subagents | `/fleet` — see [Fleet Mode](18-fleet-mode.md) |
 | `/tasks` | View background tasks | `/tasks` |
 | `/diff` | Review changes | `/diff` |
 | `/pr` | Operate on PRs | `/pr create` |
@@ -1225,7 +1418,7 @@ Some commands affect subsequent prompts:
 | `/context` | Check memory | `/context` |
 | `/compact` | Compress history | `/compact` |
 | `/plan` | Create plan | `/plan Build API` |
-| `/research` | Deep research | `/research Zod validation` |
+| `/research <query>` | Deep investigation report | `/research How does auth work?` |
 | `/delegate` | Create PR via AI | `/delegate Fix issue #123` |
 | `/usage` | Check quota | `/usage` |
 | `/changelog` | View changelog | `/changelog summarize` |

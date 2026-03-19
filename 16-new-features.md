@@ -1,12 +1,15 @@
 # Latest Features in GitHub Copilot CLI
 
-This guide covers the latest and most recently added features in GitHub Copilot CLI, from experimental modes and parallel execution to LSP integration and extended instruction support.
+This file covers recent additions to GitHub Copilot CLI. Features marked with "Full guide →" have their own dedicated documentation file — the entries here are summaries with links. Features without a dedicated file are covered in full below.
 
 ## Table of Contents
 
-1. [Autopilot Mode (Experimental)](#autopilot-mode-experimental) — [Full guide →](17-autopilot-mode.md)
+### Features with dedicated guides
+1. [Autopilot Mode](#autopilot-mode-experimental) — [Full guide →](17-autopilot-mode.md)
 2. [Fleet Mode (`/fleet`)](#fleet-mode-fleet) — [Full guide →](18-fleet-mode.md)
 3. [Research Command (`/research`)](#research-command-research) — [Full guide →](19-research-command.md)
+
+### Features covered in this file
 4. [LSP Support](#lsp-language-server-protocol-support)
 5. [Code Review Agent (`/review`)](#code-review-agent-review)
 6. [Plugin System (`/plugin`)](#plugin-system-plugin)

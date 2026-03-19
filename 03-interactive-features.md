@@ -79,7 +79,9 @@ Mastering keyboard shortcuts makes you significantly more efficient:
 | Shortcut | Action | Description |
 |----------|--------|-------------|
 | `Shift+Tab` | Cycle modes | Cycle through interactive → plan → autopilot (autopilot requires `/experimental`) |
-| `Ctrl+Y` | Open plan | Open plan.md in your editor |
+| `Ctrl+Y` | Open plan/report | Open `plan.md` or most recent research report in your editor |
+
+> **Ctrl+T** toggles the display of model reasoning tokens inline in the response — useful for understanding how the AI arrived at a decision.
 
 ## Interaction Modes
 
@@ -696,6 +698,7 @@ Editing (when typing):
 
 Modes (Shift+Tab to cycle):
   Interactive → Plan → Autopilot (/experimental required)
+  Ctrl+Y      Open plan.md or most recent research report in editor
 
 File References:
   @file.js          Single file

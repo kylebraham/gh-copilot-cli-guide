@@ -1709,6 +1709,118 @@ copilot
 > Add documentation
 ```
 
+## Modern Autonomous Workflows
+
+These examples use autopilot, fleet, and research — added in recent versions of Copilot CLI. See [Autopilot Mode](17-autopilot-mode.md), [Fleet Mode](18-fleet-mode.md), and [Research Command](19-research-command.md) for full details.
+
+### Example: Research Before a Refactor
+
+Before touching unfamiliar code, use `/research` to understand what you're changing:
+
+```
+> /research Give me a technical deep-dive into how the payment module
+  is structured — dependencies, data flows, error handling patterns,
+  and any security considerations.
+
+[Research agent searches codebase, GitHub, and web]
+[Produces full Markdown report with architecture diagram]
+
+Press Ctrl+Y to open the report.
+```
+
+After reading the report:
+
+```
+[plan] > Refactor the payment module to extract the retry logic
+         into a separate service, based on the architecture in plan.md.
+         Preserve all existing error handling patterns.
+
+[Review plan.md — confirm it matches what the research found]
+
+[autopilot] > Implement the plan in plan.md
+
+Continuing autonomously (2 premium requests)
+🔧 Creating src/services/payment-retry.service.js...
+🔧 Updating src/payments/processor.js to use new service...
+🧪 Running: npm test... ✅ All 34 tests passing
+
+✅ Task complete.
+```
+
+---
+
+### Example: Fleet Mode for Parallel Test Generation
+
+When you need to add tests across many files simultaneously:
+
+```bash
+copilot --allow-all
+```
+
+```
+> /fleet Add comprehensive unit tests for every file in src/services/.
+         Each test file should sit alongside the source, use Vitest,
+         and cover all exported functions including error paths.
+
+[Orchestrator creates one subagent per service file]
+
+> /tasks
+
+Background Tasks
+  [1] ✅  auth.service.js       (done — 12 tests)
+  [2] ✅  user.service.js       (done — 9 tests)
+  [3] 🔄  payment.service.js   (in progress)
+  [4] 🔄  email.service.js     (in progress)
+  [5] 🔄  order.service.js     (in progress)
+
+[All complete in parallel — much faster than sequential]
+
+✅ 47 new tests added across 5 service files.
+```
+
+---
+
+### Example: Full Plan → Autopilot + Fleet Workflow
+
+The most powerful workflow — plan first, then execute autonomously in parallel:
+
+```bash
+copilot --allow-all --max-autopilot-continues 25
+```
+
+```
+[plan] > Add a rate limiting system to all public API routes.
+         Use the existing Redis client in src/cache/client.js.
+         Apply per-IP and per-user limits.
+         Add integration tests.
+
+AI: Drafting plan.md...
+
+Plan:
+  1. Create src/middleware/rate-limit.js
+  2. Apply middleware to all routes in src/routes/
+  3. Add Redis key patterns for IP and user limits
+  4. Write integration tests
+
+Plan complete. How would you like to proceed?
+  1. Accept plan and build on autopilot + /fleet   ← choose this
+
+[Steps 1-3 run in parallel via subagents]
+[Step 4 queued — waits for steps 1-3 to complete]
+
+Background Tasks
+  [1] ✅  Create rate-limit middleware            (done)
+  [2] ✅  Apply to 12 route files                (done)
+  [3] ✅  Add Redis key patterns                 (done)
+  [4] ✅  Write integration tests (8 tests)      (done — all passing)
+
+✅ Rate limiting complete. Middleware applied to 12 routes.
+
+> /diff     # Review all changes
+> /review   # Check for issues
+> /delegate Add rate limiting to all public API routes
+```
+
 ---
 
 **Previous:** [Troubleshooting](11-troubleshooting.md)  

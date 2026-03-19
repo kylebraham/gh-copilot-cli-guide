@@ -2,6 +2,16 @@
 
 Explore advanced capabilities of GitHub Copilot CLI including MCP servers, custom agents, skills, and extended configurations.
 
+## Advanced Feature Overview
+
+This section covers MCP servers, custom agents, and the Skills system. For the other major advanced features, see their dedicated guides:
+
+| Feature | Guide | What it does |
+|---------|-------|-------------|
+| **Autopilot mode** | [17-autopilot-mode.md](17-autopilot-mode.md) | Autonomous end-to-end task execution |
+| **Fleet mode** | [18-fleet-mode.md](18-fleet-mode.md) | Parallel subagent execution |
+| **Research command** | [19-research-command.md](19-research-command.md) | Deep investigation reports |
+
 ## Model Context Protocol (MCP)
 
 MCP is an open protocol that allows Copilot CLI to connect to external data sources and tools.
@@ -311,6 +321,31 @@ Shows available agents:
 ```
 
 ### Creating Custom Agents
+
+Custom agents are defined in your `.copilot/` directory or referenced via the `/agent` command. They let you create specialized personas with specific instructions, tools, and model preferences.
+
+**Built-in agents available to all sessions:**
+
+| Agent | Best for |
+|-------|---------|
+| `explore` | Codebase questions without polluting main context |
+| `task` | Running builds, tests, lints — clean success/failure output |
+| `general-purpose` | Complex multi-step tasks needing full reasoning |
+| `code-review` | Security, bugs, logic — high signal, no style comments |
+
+**Custom agent use cases:**
+- `@test-writer` — specialized in your test framework and conventions
+- `@doc-generator` — generates JSDoc/docstrings following your style guide
+- `@security-auditor` — focused on OWASP, SQL injection, auth patterns
+- `@migration-helper` — knows your DB schema and migration patterns
+
+**Using custom agents with fleet:**
+```
+> /fleet Use @test-writer to add tests for all files in src/services/,
+         use @doc-generator to document src/utils/
+```
+
+See [Fleet Mode — Specialisation](18-fleet-mode.md#specialisation-custom-agents-and-models) for detailed examples.
 
 Custom agents extend capabilities with:
 - Specialized prompts
