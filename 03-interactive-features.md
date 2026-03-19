@@ -377,6 +377,106 @@ Resume a different session:
 
 Sessions persist across launches, so you can continue where you left off.
 
+## Advanced Context & Session Strategies
+
+Knowing *when* to use `/compact`, `/clear`, or `/resume` — and how to structure long-running project sessions — will make you significantly more effective.
+
+### When to /compact vs /clear vs /resume
+
+| Situation | Command | Effect |
+|-----------|---------|--------|
+| Conversation getting long, want to continue the same task | `/compact` | Summarises history, frees tokens, keeps working |
+| Switching to a completely different topic | `/clear` | Wipes history, fresh start in same session |
+| Picking up work from yesterday | `/resume` | Restores full session with history and context |
+| Context is confusing the AI | `/clear` then re-add only relevant files | Clean slate with targeted context |
+
+### Decision Tree
+
+```
+Is the AI giving confused or contradictory responses?
+  YES → /clear and start fresh with a focused prompt
+  NO  → Is the context window above 80% full? (/context to check)
+    YES → /compact to summarise and free space
+    NO  → Keep going
+
+Do you need to continue work from a previous session?
+  YES → /resume [session-id]  or  copilot --continue
+  NO  → Start a new session
+```
+
+### The Checkpoint System
+
+Copilot CLI automatically creates checkpoints at key moments. View them with:
+
+```
+> /session checkpoints       # List all checkpoints
+> /session checkpoints 5     # Last 5 checkpoints
+```
+
+Checkpoints capture the state of the conversation and workspace, allowing you to see what the session looked like at a specific point. Useful for understanding what changed during a long autopilot run.
+
+### Long-Running Project Patterns
+
+For projects that span multiple days or weeks:
+
+**Pattern 1: Daily resume**
+
+```bash
+# Start each day by resuming your last session
+copilot --continue
+
+# Or pick a specific session interactively
+> /resume
+```
+
+**Pattern 2: Session-per-feature**
+
+```bash
+# Name your session for easy retrieval
+> /session rename "auth-refactor-sprint-5"
+
+# Tomorrow, resume it by name
+> /resume auth-refactor-sprint-5
+```
+
+**Pattern 3: Compact at the start of each day**
+
+```
+# Resume, then compact to summarise the old conversation
+> /resume
+> /compact
+# Now you have a fresh context window with the key history preserved
+```
+
+### Context Window Tips
+
+```
+> /context          # See current usage and which files are loaded
+
+# Target context: keep below 50% for best results
+# Above 80%: /compact immediately
+# Above 95%: /clear and reload only what you need
+
+# Check what files are loaded
+> /session files
+```
+
+### Recovering from a Bloated Context
+
+If the AI starts repeating itself or losing track of what you're building:
+
+```
+> /context          # Check usage — if near limit:
+> /compact          # Try compact first
+# If still confused:
+> /clear            # Nuclear option — fresh start
+> Here's what we're building: [brief summary]
+> The key files are @src/app.js @src/auth.js
+> Continue from where we left off...
+```
+
+---
+
 ## Theming
 
 Customize the visual appearance:

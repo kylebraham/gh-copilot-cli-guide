@@ -4,6 +4,8 @@ Welcome to the comprehensive guide for GitHub Copilot CLI! This guide will help 
 
 ## 📚 Guide Structure
 
+> **In a hurry?** Jump straight to the **[⚡ Cheat Sheet](00-cheat-sheet.md)** for a one-page quick reference of every command, shortcut, and flag.
+
 ### Foundation
 1. **[Getting Started](01-getting-started.md)** - Installation, authentication, and first steps
 2. **[Basic Concepts](02-basic-concepts.md)** - Understanding how the CLI works
@@ -23,14 +25,19 @@ Welcome to the comprehensive guide for GitHub Copilot CLI! This guide will help 
 19. **[Research Command](19-research-command.md)** - Deep investigation reports with `/research`
 
 ### Reference
-10. **[Best Practices](10-best-practices.md)** - Tips and tricks for effective use
+10. **[Best Practices](10-best-practices.md)** - Tips, security, and effective use patterns
 11. **[Troubleshooting](11-troubleshooting.md)** - Common issues and solutions
-12. **[Examples and Tutorials](12-examples.md)** - Real-world scenarios and walkthroughs
+12. **[Examples and Tutorials](12-examples.md)** - Real-world scenarios and end-to-end walkthroughs
 
 ### Configuration
 13. **[AGENTS.md File Guide](13-agents-file.md)** - Configuring AI agent behavior for your project
 14. **[Skills System Guide](14-skills-system.md)** - Using and creating reusable skill modules
 15. **[.copilot Directory Guide](15-copilot-directory.md)** - Understanding config, sessions, and data storage
+
+### Teams and Automation
+20. **[CI/CD and Automation](20-cicd-automation.md)** - Non-interactive mode, GitHub Actions, scripting
+21. **[Team Setup](21-team-setup.md)** - Shared AGENTS.md, onboarding checklists, org configuration
+22. **[Models and Costs](22-models-and-costs.md)** - Model comparison, cost optimization, team budget strategy
 
 ### What's New
 16. **[Latest Features](16-new-features.md)** - Recent additions and experimental features
@@ -80,6 +87,7 @@ npm update -g @github/copilot
 - 🌐 [Fleet mode](18-fleet-mode.md) - run subtasks in parallel with subagents
 - 🔍 LSP support - deep language-aware code intelligence
 - 🔬 [Research command](19-research-command.md) - investigate codebases and summarise findings
+- ⚡ [Cheat sheet](00-cheat-sheet.md) - one-page quick reference
 - [See full feature details →](16-new-features.md)
 
 ## 💡 What You'll Learn
@@ -109,7 +117,8 @@ To get the most out of this guide, you should have:
 - **New to GitHub Copilot CLI?** Start with [Getting Started](01-getting-started.md) and work through each section sequentially.
 - **Looking for specific features?** Jump to the relevant section using the links above.
 - **Want hands-on practice?** Each section includes runnable examples you can try immediately.
-- **Need quick reference?** Check the [Slash Commands](04-slash-commands.md) reference.
+- **Need quick reference?** Check the [⚡ Cheat Sheet](00-cheat-sheet.md) or [Slash Commands](04-slash-commands.md) reference.
+- **Setting up for a team?** Go straight to [Team Setup](21-team-setup.md).
 
 ## 🆘 Getting Help
 

@@ -38,6 +38,115 @@ With multiple autonomous modes available, it helps to know which to reach for:
 [autopilot] > Implement the plan
 ```
 
+## Security and Privacy
+
+Understanding what data Copilot CLI sends to the model — and how to control it — is essential for safe day-to-day use.
+
+### What Data is Sent to the Model
+
+**Sent when you reference it:**
+- File contents when you use `@filename` in a prompt
+- Code snippets you paste directly into your messages
+- Git context (branch name, recent commits) when relevant
+- GitHub context (PR descriptions, issue details) for GitHub operations
+
+**NOT sent by default:**
+- Your entire file system
+- Environment variables (unless you explicitly reference a file that contains them)
+- Files outside your working directory
+- The contents of `.env` or credential files unless you explicitly `@`-reference them
+
+### Protecting Sensitive Files
+
+Use `--deny-tool` flags to prevent Copilot from reading sensitive files, even if you accidentally reference them:
+
+```bash
+# Prevent reading .env files
+copilot --deny-tool='read(.env)'
+
+# Prevent reading all credential files
+copilot --deny-tool='read(.env)' --deny-tool='read(.env.*)' --deny-tool='read(*credentials*)'
+
+# Prevent reading private keys
+copilot --deny-tool='read(*.pem)' --deny-tool='read(*.key)' --deny-tool='read(id_rsa)'
+```
+
+Reinforce this in your `AGENTS.md`:
+
+```markdown
+## Security Rules
+- Never read or reference .env files, .env.local, or any credentials files
+- Never include API keys, tokens, or passwords in code examples
+- If you encounter a hardcoded secret, flag it rather than reproduce it
+```
+
+### What's Stored Locally
+
+| Location | Contents |
+|----------|---------|
+| `~/.copilot/session-state/` | Conversation history, research reports |
+| `~/.copilot/logs/` | CLI logs — may contain prompts |
+| `~/.copilot/config.json` | Settings (no secrets) |
+| Auth token | Stored by OS keychain / `gh` CLI credential store |
+
+**To clear session data:**
+
+```bash
+# Clear a specific session
+rm -rf ~/.copilot/session-state/<SESSION-ID>/
+
+# Clear all sessions (careful — removes all history)
+rm -rf ~/.copilot/session-state/
+
+# Clear logs
+rm -rf ~/.copilot/logs/
+```
+
+### .gitignore Recommendations
+
+```gitignore
+# Don't commit Copilot session data
+.copilot/session-state/
+.copilot/logs/
+
+# Personal config — don't commit
+.copilot/config.json
+```
+
+### Working with Secrets in Code
+
+```
+# BAD: sends the .env contents to the model
+> Explain @.env
+
+# GOOD: describe what you need without exposing the file
+> The auth service uses env vars for JWT_SECRET and DB_URL.
+  Add validation that these are set at startup.
+
+# GOOD: use --deny-tool to be safe in autopilot/unattended sessions
+copilot --deny-tool='read(.env)' --allow-all-tools
+```
+
+### Privacy Considerations
+
+- Prompts and code are processed by GitHub's AI infrastructure
+- Review GitHub's [Copilot privacy policy](https://docs.github.com/en/copilot/responsible-use-of-github-copilot-features/privacy-policies-for-github-copilot) for data retention details
+- Use `--no-custom-instructions` to prevent instruction files from being sent if needed
+- Enterprise accounts may have additional data governance options via org settings
+
+### Quick Security Checklist
+
+```
+✅ Add sensitive file patterns to --deny-tool in CI scripts
+✅ Add security rules to AGENTS.md (never read .env, flag hardcoded secrets)
+✅ Add ~/.copilot/session-state/ and logs/ to .gitignore
+✅ Use a fine-grained PAT with minimal permissions for CI auth
+✅ Review what /context shows before sharing sessions with /share gist
+✅ Clear session state on shared or temporary machines
+```
+
+---
+
 ## General Principles
 
 ### 1. Be Specific and Clear

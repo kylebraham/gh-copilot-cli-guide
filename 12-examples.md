@@ -16,6 +16,7 @@ Practical, hands-on examples and tutorials to help you master GitHub Copilot CLI
 10. [Documentation](#documentation)
 11. [DevOps and Scripts](#devops-and-scripts)
 12. [Full Project Tutorials](#full-project-tutorials)
+13. [End-to-End Project Walkthroughs](#end-to-end-project-walkthroughs)
 
 ## Getting Started Examples
 
@@ -1820,6 +1821,338 @@ Background Tasks
 > /review   # Check for issues
 > /delegate Add rate limiting to all public API routes
 ```
+
+---
+
+## End-to-End Project Walkthroughs
+
+These walkthroughs follow a task from start to finish — not just individual commands, but the full workflow you'd actually use. Each one uses multiple Copilot CLI features together.
+
+---
+
+### Walkthrough 1: Build a REST API Feature from Scratch to Merged PR
+
+**Scenario:** You've been asked to add a "forgot password" flow to an existing Express + PostgreSQL API. You'll go from blank to merged PR using plan → autopilot → review → delegate.
+
+**Time:** ~45 minutes of AI work, ~5 minutes of your time
+
+```bash
+# Start with full permissions
+copilot --allow-all --max-autopilot-continues 20
+```
+
+**Step 1 — Understand the existing auth system**
+```
+> /research How is authentication currently implemented in this codebase?
+  Give me a technical deep-dive including the database schema,
+  JWT handling, and any existing email infrastructure.
+
+[Research agent explores codebase, database schema, and email service]
+[Produces report: auth uses passport-jwt, emails via nodemailer, users table has email column]
+
+Press Ctrl+Y to read the full report
+```
+
+**Step 2 — Create an implementation plan**
+```
+[Shift+Tab to plan mode]
+
+[plan] > Add a forgot password flow based on the architecture in the research report.
+         The flow should:
+         - POST /auth/forgot-password — sends reset email with 1-hour token
+         - POST /auth/reset-password — validates token, updates password
+         - Store tokens in a password_reset_tokens table
+         - Use the existing nodemailer setup in src/email/
+         - Include unit tests for all new functions
+         - Include integration tests for both endpoints
+
+AI: Drafting plan.md...
+
+Plan:
+  1. Create migration: add password_reset_tokens table
+  2. Create src/auth/password-reset.js (token generation, validation)
+  3. Create src/email/templates/password-reset.js (email template)
+  4. Add routes to src/routes/auth.js
+  5. Write unit tests: tests/unit/auth/password-reset.test.js
+  6. Write integration tests: tests/integration/auth/password-reset.test.js
+
+Plan complete. How would you like to proceed?
+  1. Accept plan and build on autopilot + /fleet
+```
+
+**Step 3 — Execute the plan**
+```
+> 1
+
+[Subagents run steps 1-4 in parallel]
+[Steps 5-6 queued until step 2 completes]
+
+Background Tasks
+  [1] ✅  Database migration created
+  [2] ✅  src/auth/password-reset.js created (token generation + validation)
+  [3] ✅  Email template created
+  [4] ✅  Routes added to auth.js
+  [5] ✅  Unit tests written (11 tests — all passing)
+  [6] 🔄  Integration tests...
+  
+Continuing autonomously (4 premium requests)
+
+  [6] ✅  Integration tests written (8 tests — all passing)
+
+✅ Task complete.
+```
+
+**Step 4 — Review before creating the PR**
+```
+> /diff          # Review all changes — 6 files, +287 -12
+
+> /review        # High-signal code review
+
+Code Review:
+  🟡 WARNING: src/auth/password-reset.js (line 34)
+     Token expiry hardcoded to 3600 seconds.
+     Recommendation: make configurable via environment variable.
+
+> Make the token expiry configurable via PASSWORD_RESET_TTL_SECONDS
+  env var, defaulting to 3600
+
+[AI makes the change]
+
+> /review        # Clean — no issues found
+```
+
+**Step 5 — Create the PR**
+```
+> /delegate Add forgot password flow with email tokens
+
+✅ Branch: feature/forgot-password
+✅ Committed: 6 files changed, +291 -12
+✅ PR #183 created: "Add forgot password flow with email tokens"
+🔗 https://github.com/org/repo/pull/183
+```
+
+---
+
+### Walkthrough 2: Debug a Failing Production Test
+
+**Scenario:** CI is failing on main. Three tests are broken after a merge. You need to diagnose the root cause and fix without breaking anything else.
+
+```bash
+copilot --allow-all
+```
+
+**Step 1 — Understand what's failing**
+```
+> Our CI is failing on main. The test suite shows 3 failures.
+  Run the tests locally and tell me what's broken.
+
+🔧 Running: npm test
+  ❌ tests/api/orders.test.js — "should calculate total with tax" (line 47)
+  ❌ tests/api/orders.test.js — "should apply discount codes" (line 89)
+  ❌ tests/unit/pricing.test.js — "rounds to 2 decimal places" (line 23)
+
+All 3 failures are in the pricing/orders area.
+```
+
+**Step 2 — Diagnose the root cause**
+```
+> Analyze the 3 failures. Look at recent commits to find what changed,
+  trace the root cause, and explain it before making any fixes.
+
+AI: Examining git log and diff for pricing-related files...
+
+Root cause found:
+  Commit a4f2c1b (merged 2 hours ago) changed src/utils/pricing.js
+  to use Math.round() instead of Math.ceil() for tax calculation.
+  
+  This breaks 3 tests that expected ceiling rounding.
+  The change was intentional (fixing a customer complaint about 
+  overcharging) but the tests weren't updated.
+
+  Options:
+  1. Update the tests to expect the new rounded behaviour (correct fix)
+  2. Revert the pricing change (not recommended — it was intentional)
+
+> Option 1 — update the tests to match the new rounding behaviour
+
+🔧 Updating tests/api/orders.test.js (lines 47, 89)...
+🔧 Updating tests/unit/pricing.test.js (line 23)...
+🧪 Running: npm test... ✅ All 47 tests passing
+```
+
+**Step 3 — Verify nothing else broke**
+```
+> /review        # Check the test changes look sensible
+
+✅ No issues — test expectations correctly updated to match new rounding.
+
+> /diff          # Confirm only 2 test files changed
+
+> git commit -m "test: update pricing tests to match floor rounding fix"
+> git push
+```
+
+---
+
+### Walkthrough 3: Onboard to an Unfamiliar Codebase
+
+**Scenario:** You've just joined a new team and have been assigned your first ticket. You don't know the codebase. Use Copilot CLI to get up to speed before writing a single line of code.
+
+```bash
+copilot
+```
+
+**Step 1 — Understand the overall architecture**
+```
+> /research What is the overall architecture of this codebase?
+  Include: main components, data flows, key design decisions,
+  technology choices, and anything a new engineer should know.
+
+[Research agent reads the full codebase — takes 2-3 minutes]
+
+Summary:
+  • Monorepo: packages/api (Express), packages/web (React), packages/shared
+  • API uses event-driven architecture with Redis pub/sub
+  • PostgreSQL with Prisma ORM; migrations in packages/api/prisma/
+  • Auth: OAuth2 via GitHub + Google, sessions in Redis
+  • Feature flags: uses packages/shared/feature-flags.ts
+
+Press Ctrl+Y to open the full report (62 lines)
+```
+
+**Step 2 — Understand your specific ticket**
+```
+> /research How is the notifications system currently implemented?
+  I've been asked to add email digest notifications (daily summary).
+  What patterns should I follow and what infrastructure already exists?
+
+[Agent searches for notification-related code across the repo]
+
+Key findings:
+  • src/notifications/ — notification types, dispatch logic
+  • src/email/ — existing email service using Resend
+  • NotificationPreference model in Prisma schema
+  • Background jobs run via packages/api/src/jobs/ (BullMQ)
+  • Pattern to follow: src/jobs/weekly-report.job.ts
+
+Press Ctrl+Y to open full report
+```
+
+**Step 3 — Ask targeted follow-up questions**
+```
+> Looking at the research report, I see weekly-report.job.ts as a pattern.
+  Walk me through how that job works, step by step.
+
+[AI explains the job pattern in detail]
+
+> What tests exist for the existing notification jobs?
+  What testing patterns does the team use?
+
+[AI shows test examples and patterns]
+```
+
+**Step 4 — Start building with confidence**
+```
+[plan mode]
+
+[plan] > Add daily email digest notifications following the patterns
+         identified in the research. Use the existing email service,
+         BullMQ for scheduling, and the NotificationPreference model
+         to let users opt out. Follow the weekly-report.job.ts pattern.
+
+[Review and approve plan]
+
+[autopilot] > Implement the plan
+```
+
+---
+
+### Walkthrough 4: Migrate a Codebase to a New Pattern
+
+**Scenario:** The team has decided to migrate from Mongoose (MongoDB) to Prisma (PostgreSQL). You need to migrate the entire data layer across 40+ files without breaking anything.
+
+```bash
+copilot --allow-all --max-autopilot-continues 30
+```
+
+**Step 1 — Research the full scope**
+```
+> /research Give me a complete technical inventory of all Mongoose usage
+  in this codebase: every model, every query pattern, every populate() call,
+  every middleware, and every place we use Mongoose-specific features.
+  I need to understand the full scope before migrating.
+
+[30+ minutes of AI research across the full codebase]
+[Full report: 14 models, 127 query locations, 8 middleware hooks, 
+ 4 virtual fields, 3 custom validators]
+
+> /share file research migration-inventory.md
+```
+
+**Step 2 — Plan the migration in phases**
+```
+[plan mode]
+
+[plan] > Plan a phased migration from Mongoose to Prisma based on the
+         inventory in migration-inventory.md.
+         
+         Phase 1: Schema (Prisma schema + initial migration)
+         Phase 2: Models (replace Mongoose models with Prisma client)
+         Phase 3: Queries (migrate all query patterns)
+         Phase 4: Tests (update all tests)
+         Phase 5: Cleanup (remove Mongoose dependency)
+         
+         Each phase should be independently deployable and testable.
+
+[Detailed multi-phase plan created]
+[Review plan.md carefully — this is a big migration]
+```
+
+**Step 3 — Execute Phase 1 with fleet**
+```
+[autopilot + /fleet]
+
+> /fleet implement Phase 1 from plan.md:
+  Generate the complete Prisma schema from the 14 Mongoose models,
+  create the initial migration SQL, and set up the Prisma client.
+
+Background Tasks:
+  [1] ✅  Prisma schema generated (14 models, all relations)
+  [2] ✅  Initial migration SQL created
+  [3] ✅  Prisma client configured in src/lib/prisma.ts
+  [4] ✅  Environment variables documented in .env.example
+
+> npm run prisma:migrate dev     # Run migration
+> /review                        # Review schema before proceeding
+```
+
+**Step 4 — Execute remaining phases**
+```
+# Phase 2-4 run with similar fleet+autopilot pattern
+# Review /diff and /review after each phase
+# Run tests after each phase before proceeding
+
+> /fleet implement Phase 2 from plan.md
+[... etc ...]
+
+> npm test        # Full test suite after each phase
+✅ 156 tests passing after Phase 4
+```
+
+**Step 5 — Final cleanup and PR**
+```
+> /review         # Final check before PR
+
+> /delegate Migrate data layer from Mongoose to Prisma (PostgreSQL)
+  All 156 tests passing. Phased migration — safe to merge.
+```
+
+---
+
+> **Related guides:**
+> - [Autopilot Mode](17-autopilot-mode.md) — autonomous execution details
+> - [Fleet Mode](18-fleet-mode.md) — parallel subagent workflows
+> - [/research Command](19-research-command.md) — deep codebase exploration
 
 ---
 

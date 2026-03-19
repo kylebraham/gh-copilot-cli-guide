@@ -14,7 +14,7 @@ This section covers MCP servers, custom agents, and the Skills system. For the o
 
 ## Model Context Protocol (MCP)
 
-MCP is an open protocol that allows Copilot CLI to connect to external data sources and tools.
+MCP is an open protocol that allows Copilot CLI to connect to external data sources and tools. This section is a complete setup guide — from the built-in GitHub MCP server to writing your own.
 
 ### What is MCP?
 
@@ -25,162 +25,206 @@ MCP is an open protocol that allows Copilot CLI to connect to external data sour
 - Domain-specific knowledge
 - Third-party service access
 
-### Viewing MCP Servers
+---
 
-```
-> /mcp show
-```
+### GitHub MCP Server (Built-in)
 
-Shows:
-- Active MCP servers
-- Server status
-- Available tools/resources
-- Configuration details
+The GitHub MCP server ships **built-in** with Copilot CLI. You don't need to install anything — it's active automatically and gives the AI access to:
+- Pull request operations (create, review, merge, comment)
+- Issue management (create, update, close, search)
+- Repository search and metadata
+- Code search across GitHub
 
-### Adding MCP Servers
+By default, only a subset of GitHub tools are enabled. You can expand them:
 
-```
-> /mcp add my-database-server
-```
+```bash
+# Enable ALL GitHub MCP tools
+copilot --enable-all-github-mcp-tools
 
-You'll be prompted to configure:
-- Server type
-- Connection details
-- Authentication
-- Available tools
+# Enable specific toolsets
+copilot --add-github-mcp-toolset=issues
+copilot --add-github-mcp-toolset=pull_requests
 
-### MCP Server Configuration
-
-MCP servers are configured in:
-```
-~/.copilot/mcp-config.json
+# Enable individual tools
+copilot --add-github-mcp-tool=create_issue
+copilot --add-github-mcp-tool=search_repositories
 ```
 
-Example configuration:
+**Common usage with the GitHub MCP active:**
+
+```
+> Create an issue for the login bug we just found
+> Show me all open PRs in this repo
+> Find repositories using Next.js and Prisma
+> Summarise the last 5 commits on the main branch
+> Search GitHub for examples of rate-limiting middleware in Express
+```
+
+---
+
+### Setting Up an External MCP Server (PostgreSQL Example)
+
+**Step 1 — Install the server package:**
+
+```bash
+npm install -g @modelcontextprotocol/server-postgres
+```
+
+**Step 2 — Add to `~/.copilot/mcp-config.json`:**
+
 ```json
 {
   "mcpServers": {
     "postgres": {
       "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-postgres"],
+      "args": ["-y", "@modelcontextprotocol/server-postgres",
+               "postgresql://localhost/mydb"],
       "env": {
-        "DATABASE_URL": "postgresql://user:pass@localhost/db"
-      }
-    },
-    "filesystem": {
-      "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-filesystem"],
-      "env": {
-        "ALLOWED_DIRS": "/home/user/projects"
+        "PGPASSWORD": "yourpassword"
       }
     }
   }
 }
 ```
 
-### Managing MCP Servers
+**Step 3 — Verify the server is running:**
 
 ```
-# Edit server configuration
-> /mcp edit postgres
-
-# Disable server temporarily
-> /mcp disable postgres
-
-# Re-enable server
-> /mcp enable postgres
-
-# Delete server
-> /mcp delete postgres
+> /mcp show
 ```
 
-### Available MCP Servers
-
-Common MCP servers:
-- **@modelcontextprotocol/server-postgres** - PostgreSQL database
-- **@modelcontextprotocol/server-sqlite** - SQLite database
-- **@modelcontextprotocol/server-filesystem** - Enhanced file access
-- **@modelcontextprotocol/server-github** - GitHub API (built-in)
-- **@modelcontextprotocol/server-memory** - Persistent memory
-- **Custom servers** - Build your own
-
-### Using MCP Tools
-
-Once configured, MCP tools are available automatically:
+**Step 4 — Use it in prompts:**
 
 ```
-# With postgres MCP server
-> Query the users table in the database
-
-> Run this SQL: SELECT * FROM orders WHERE status = 'pending'
-
-# With filesystem MCP server
-> Search all files in /opt/project for "TODO"
-
-# With memory MCP server
-> Remember that I prefer tabs over spaces
-
-> What's my preferred indentation?
+> Show me the schema of the users table
+> How many active users signed up this month?
+> Find all orders over $100 from the last 7 days
+> Which products have never been ordered?
 ```
 
-### Building Custom MCP Servers
+---
 
-Create your own MCP server:
+### Setting Up a Filesystem MCP Server
 
-```typescript
-// my-mcp-server.ts
+Gives the AI access to directories outside your working directory:
+
+```bash
+npm install -g @modelcontextprotocol/server-filesystem
+```
+
+```json
+{
+  "mcpServers": {
+    "filesystem": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-filesystem",
+               "/path/to/allowed/directory"]
+    }
+  }
+}
+```
+
+```
+> Search all files in /opt/logs for ERROR entries from today
+> Show me the contents of /etc/nginx/nginx.conf
+```
+
+---
+
+### Building a Simple Custom MCP Server
+
+Use the MCP SDK to expose any data source or tool to Copilot:
+
+```javascript
+// my-mcp-server.js
 import { Server } from '@modelcontextprotocol/sdk/server/index.js';
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
 
-const server = new Server({
-  name: 'my-custom-server',
-  version: '1.0.0',
-});
+const server = new Server(
+  { name: 'my-server', version: '1.0.0' },
+  { capabilities: { tools: {} } }
+);
 
-// Register tools
-server.setRequestHandler('tools/list', async () => {
-  return {
-    tools: [
-      {
-        name: 'my_tool',
-        description: 'Does something useful',
-        inputSchema: {
-          type: 'object',
-          properties: {
-            param: { type: 'string' }
-          }
-        }
-      }
-    ]
-  };
-});
+server.setRequestHandler('tools/list', async () => ({
+  tools: [{
+    name: 'get_deploy_status',
+    description: 'Get the current deployment status',
+    inputSchema: { type: 'object', properties: {} }
+  }]
+}));
 
-// Handle tool calls
-server.setRequestHandler('tools/call', async (request) => {
-  if (request.params.name === 'my_tool') {
-    // Your tool logic here
-    return {
-      content: [
-        { type: 'text', text: 'Tool result' }
-      ]
-    };
+server.setRequestHandler('tools/call', async (req) => {
+  if (req.params.name === 'get_deploy_status') {
+    // your logic here
+    return { content: [{ type: 'text', text: 'Deployed: v2.1.0 at 14:32 UTC' }] };
   }
 });
 
-// Start server
 const transport = new StdioServerTransport();
 await server.connect(transport);
 ```
 
-Add to config:
+Register it in `~/.copilot/mcp-config.json`:
+
 ```json
 {
-  "my-server": {
-    "command": "node",
-    "args": ["my-mcp-server.js"]
+  "mcpServers": {
+    "my-server": {
+      "command": "node",
+      "args": ["/path/to/my-mcp-server.js"]
+    }
   }
 }
 ```
+
+---
+
+### Session-Only MCP Servers
+
+Add a temporary MCP server without modifying your config file — useful for CI runs or one-off tasks:
+
+```bash
+copilot --additional-mcp-config='{"mcpServers":{"temp-db":{"command":"npx","args":["-y","@mcp/postgres","postgresql://localhost/testdb"]}}}'
+```
+
+---
+
+### MCP Management Commands
+
+```
+> /mcp show                    # List configured servers and status
+> /mcp add my-server           # Add a server interactively
+> /mcp edit my-server          # Edit server configuration
+> /mcp disable my-server       # Disable without removing
+> /mcp enable my-server        # Re-enable a disabled server
+> /mcp delete my-server        # Remove permanently
+```
+
+---
+
+### Available MCP Servers
+
+Common off-the-shelf servers:
+
+| Package | Purpose |
+|---------|---------|
+| `@modelcontextprotocol/server-postgres` | PostgreSQL database |
+| `@modelcontextprotocol/server-sqlite` | SQLite database |
+| `@modelcontextprotocol/server-filesystem` | Enhanced file access |
+| `@modelcontextprotocol/server-memory` | Persistent cross-session memory |
+| `@modelcontextprotocol/server-github` | GitHub API (built-in) |
+
+---
+
+### MCP Troubleshooting
+
+| Issue | Cause | Fix |
+|-------|-------|-----|
+| Server not showing in `/mcp show` | Config file malformed | Validate JSON in `~/.copilot/mcp-config.json` |
+| "Connection failed" | Server binary not found | Check `command` path; ensure package is installed |
+| Tools not available to model | Server disabled | Run `/mcp enable server-name` |
+| Credentials exposed in config | Hardcoded passwords | Use `env` block with environment variable references |
+| Server crashes on startup | Incompatible version | Check MCP SDK version compatibility |
 
 ## LSP (Language Server Protocol) Support
 
