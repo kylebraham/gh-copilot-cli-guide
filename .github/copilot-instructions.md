@@ -175,3 +175,7 @@ This guide is based on Copilot CLI version 0.0.405. When updating:
 - Markdown proficiency
 - Experience with terminal-based tools
 - Familiarity with AI assistant concepts
+
+## Commit Message Style
+
+When creating git commits, do not add a `Co-authored-by` trailer to the commit message.
