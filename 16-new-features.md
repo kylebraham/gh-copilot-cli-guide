@@ -5,7 +5,7 @@ This guide covers the latest and most recently added features in GitHub Copilot 
 ## Table of Contents
 
 1. [Autopilot Mode (Experimental)](#autopilot-mode-experimental) — [Full guide →](17-autopilot-mode.md)
-2. [Fleet Mode (`/fleet`)](#fleet-mode-fleet)
+2. [Fleet Mode (`/fleet`)](#fleet-mode-fleet) — [Full guide →](18-fleet-mode.md)
 3. [Research Command (`/research`)](#research-command-research)
 4. [LSP Support](#lsp-language-server-protocol-support)
 5. [Code Review Agent (`/review`)](#code-review-agent-review)
@@ -45,54 +45,20 @@ copilot --experimental
 
 ## Fleet Mode (`/fleet`)
 
-### Overview
-
-Fleet mode enables **parallel subagent execution**, letting the CLI run multiple background tasks concurrently. Instead of sequential work, fleet mode spawns specialized agents that operate at the same time — useful for large refactors, multi-component features, or tasks that can be naturally divided.
-
-### Enabling Fleet Mode
+Fleet mode enables **parallel subagent execution** — the main Copilot agent acts as an orchestrator, breaking your request into independent subtasks and running them concurrently via subagents. Useful for large refactors, test generation, and any multi-part work with independent pieces.
 
 ```
-> /fleet
+> /fleet Add unit tests for every service in src/services/
+
+[Orchestrator spawns one subagent per file — all run concurrently]
 ```
 
-Fleet mode is enabled per session. Once active, tasks you describe can be broken up and executed in parallel.
+Monitor progress with `/tasks`. Navigate with `↑↓`, press `Enter` for details, `k` to kill, `r` to remove.
 
-### Viewing and Managing Background Tasks
+**Best combined with plan mode:** draft a plan, then choose **Accept plan and build on autopilot + /fleet** for fully autonomous parallel execution.
 
-```
-> /tasks
-```
-
-Shows all running and completed background tasks, their status, and output:
-
-```
-Active Tasks:
-  [1] ✅ Refactor: src/api/users.js     (done)
-  [2] 🔄 Refactor: src/api/products.js  (in progress)
-  [3] 🔄 Add tests: src/api/orders.js   (in progress)
-  [4] ⏳ Update docs: API.md             (queued)
-```
-
-### Example: Parallel Refactoring
-
-```
-> /fleet
-> Refactor the following in parallel:
-  - Update all API handlers to use async/await
-  - Add JSDoc comments to all service files
-  - Run the test suite and fix any failures
-
-[Fleet spawns 3 concurrent agents working simultaneously]
-[All three complete faster than sequential execution]
-```
-
-### Concurrent Operation Types
-
-Fleet mode is well-suited for running these simultaneously:
-- **Code changes** across different modules
-- **Research and analysis** (codebase scanning, pattern detection)
-- **Test execution** in parallel test suites
-- **Documentation updates** alongside code changes
+> **See the full guide:** [Fleet Mode →](18-fleet-mode.md)
+> Covers the orchestrator model, custom agents, per-subtask model selection, cost considerations, and four detailed examples.
 
 ---
 
