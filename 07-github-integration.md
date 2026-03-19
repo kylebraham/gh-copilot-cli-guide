@@ -122,6 +122,102 @@ AI: Pull Request #123: "Add user authentication"
 > What did reviewers say about PR #123?
 ```
 
+## The `/pr` Command
+
+The `/pr` command is a dedicated shortcut for operating on the **pull request associated with your current branch**. Rather than writing natural language prompts or dropping into `gh pr` commands, `/pr` gives you a fast, focused interface for common PR actions without leaving the CLI.
+
+### What `/pr` Does
+
+```
+> /pr
+```
+
+When run without arguments, `/pr` detects the PR open for your current branch and presents a summary, or offers to create one if none exists.
+
+### Checking PR Status
+
+```
+> /pr
+
+PR #147: "Add password reset flow"
+Branch:  feature/password-reset → main
+Status:  Open
+Checks:  ✅ CI passing (4/4)
+Reviews: 1 approved, 1 requesting changes
+```
+
+### Viewing the PR Diff
+
+```
+> /pr diff
+
+Changes in PR #147:
+  src/auth/password-reset.js      +89  -0
+  src/routes/auth.js              +22  -3
+  tests/auth/password-reset.test  +54  -0
+```
+
+### Checking CI / Review Status
+
+```
+> /pr checks
+
+Check runs for PR #147:
+  ✅ build (2m 14s)
+  ✅ test (1m 48s)
+  ✅ lint (0m 32s)
+  ✅ security-scan (3m 01s)
+```
+
+### Reviewing PR Comments
+
+```
+> /pr comments
+
+Review comments on PR #147:
+  @reviewer1 [approved]:
+    "Looks good overall, nice clean implementation."
+
+  @reviewer2 [changes requested] on src/auth/password-reset.js line 42:
+    "Token expiry should be configurable, not hardcoded."
+```
+
+### Common `/pr` Patterns
+
+```
+# View PR for current branch
+> /pr
+
+# See what changed
+> /pr diff
+
+# Check CI status
+> /pr checks
+
+# Read review feedback
+> /pr comments
+
+# Ask Copilot to address a review comment
+> /pr comments
+[Copilot shows the comment requesting changes]
+> Fix the issue raised by @reviewer2 about the hardcoded token expiry
+
+[Copilot edits the code]
+> /diff     # Confirm the fix looks right
+```
+
+### `/pr` vs `/delegate` vs `/review`
+
+| Command | Purpose |
+|---------|---------|
+| `/pr` | Operate on the **existing** PR for the current branch: status, diff, checks, comments |
+| `/delegate` | **Create** a new PR — implements changes, commits, pushes, and opens the PR |
+| `/review` | Run the **code review agent** locally on your uncommitted changes |
+
+> **Tip:** A natural workflow is `/delegate` to create the PR, then `/pr` to monitor it as reviewers respond.
+
+---
+
 ## Creating Pull Requests with /delegate
 
 The `/delegate` command creates PRs automatically:
@@ -716,9 +812,13 @@ AI: Found 3 PRs:
 
 ```bash
 # Pull Requests
+/pr                        # Status of PR for current branch
+/pr diff                   # Show PR diff
+/pr checks                 # CI check results
+/pr comments               # Review comments
 Show PR #<number>
 Show open PRs
-/delegate <description>
+/delegate <description>    # Create a new PR
 
 # Issues
 Show issue #<number>
