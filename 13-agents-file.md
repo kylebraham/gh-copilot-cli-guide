@@ -318,11 +318,27 @@ Description of system architecture and design patterns.
 
 ### AGENTS.md vs Other Files
 
+The key practical difference between `AGENTS.md` and `.github/copilot-instructions.md` is **which tools read them**:
+
+| Tool | `AGENTS.md` | `.github/copilot-instructions.md` |
+|------|-------------|-----------------------------------|
+| Copilot CLI | ✅ | ✅ |
+| **Copilot Chat in VS Code / JetBrains** | ❌ | ✅ |
+| **Copilot coding agent on github.com** | ❌ | ✅ |
+| Claude Code | ✅ (reads `CLAUDE.md` first) | ❌ |
+| OpenAI Codex | ✅ | ❌ |
+
+This means:
+- **`AGENTS.md`** is the cross-tool standard — use it for coding standards and conventions that should apply regardless of which AI tool a team member uses.
+- **`.github/copilot-instructions.md`** is needed when you want instructions to reach **Copilot Chat in the IDE** or the **Copilot coding agent on github.com** — not just the CLI.
+
+> **Default recommendation:** Put project coding standards in `AGENTS.md`. Only add `.github/copilot-instructions.md` if your team uses Copilot Chat in IDEs or the Copilot coding agent on github.com and you want those tools to follow the same instructions.
+
 | Aspect | AGENTS.md | .github/copilot-instructions.md | CLAUDE.md / GEMINI.md |
 |--------|-----------|----------------------------------|------------------------|
-| **Scope** | Project-specific agent behavior | GitHub/project integration | Model-specific instructions |
-| **Focus** | Architecture, patterns, rules | Copilot-specific workflows | Model capabilities/preferences |
-| **Audience** | AI agent + team | Copilot CLI | Specific AI model |
+| **Scope** | Project-specific agent behavior | GitHub Copilot ecosystem | Model-specific instructions |
+| **Focus** | Architecture, patterns, rules | Copilot CLI + Chat + coding agent | Model capabilities/preferences |
+| **Audience** | Any AI coding tool | GitHub Copilot only | Specific AI model |
 | **Location** | Project root or git root | .github/ directory | Project root |
 | **Priority** | Medium | High (more specific) | Low (model-specific) |
 | **Version Control** | Yes, always | Yes, always | Yes, always |
@@ -332,8 +348,8 @@ Description of system architecture and design patterns.
 ```
 Priority (Highest to Lowest):
 1. .github/instructions/**/*.instructions.md  (most specific; NEW)
-2. .github/copilot-instructions.md            (Copilot-specific)
-3. AGENTS.md                                  (project agent config; git root & cwd)
+2. .github/copilot-instructions.md            (Copilot ecosystem: CLI + Chat + coding agent)
+3. AGENTS.md                                  (cross-tool: CLI + Claude Code + Codex)
 4. CLAUDE.md / GEMINI.md                      (model-specific)
 5. ~/.copilot/copilot-instructions.md         (user global)
 6. COPILOT_CUSTOM_INSTRUCTIONS_DIRS           (additional dirs via env var; NEW)
@@ -349,25 +365,19 @@ Priority (Highest to Lowest):
 ✅ Technology stack decisions
 ✅ Development workflow
 ✅ Testing and quality requirements
+✅ Anything that should apply regardless of AI tool
 ```
 
 #### Use `.github/copilot-instructions.md` for:
 ```markdown
-✅ Copilot CLI-specific workflows
-✅ GitHub integration preferences
-✅ PR and issue templates
-✅ CI/CD interaction patterns
-✅ Repository-specific automation
+✅ Instructions you need in Copilot Chat in the IDE (not just CLI)
+✅ Instructions for the Copilot coding agent on github.com
+✅ GitHub integration preferences (PR templates, review workflows)
+✅ CI/CD interaction patterns specific to Copilot
+✅ Repository-specific Copilot automation
 ```
 
-#### Use `CLAUDE.md` or `GEMINI.md` for:
-```markdown
-✅ Model-specific optimizations
-✅ Token usage preferences
-✅ Output format preferences
-✅ Model capability utilization
-✅ Fallback behaviors
-```
+> **Note:** If an instruction only matters for the CLI, `AGENTS.md` is simpler. If a teammate uses Copilot Chat in VS Code and needs to follow the same rules, add it to `.github/copilot-instructions.md` too (or instead).
 
 ### Example Comparison
 
