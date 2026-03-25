@@ -8,7 +8,7 @@ When you launch Copilot CLI, you enter an interactive terminal session:
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│  GitHub Copilot CLI v1.0.7                                      │
+│  GitHub Copilot CLI v1.0.11                                     │
 │  Model: claude-sonnet-4.5                                       │
 │  Working Directory: ~/projects/my-app                           │
 │  Session: d8b676aa-6cd4-42aa-81c6-603f7f9c7300                 │
@@ -78,10 +78,10 @@ Mastering keyboard shortcuts makes you significantly more efficient:
 
 | Shortcut | Action | Description |
 |----------|--------|-------------|
-| `Shift+Tab` | Cycle modes | Cycle through interactive → plan → autopilot (autopilot requires `/experimental`) |
-| `Ctrl+Y` | Open plan/report | Open `plan.md` or most recent research report in your editor |
+| `Shift+Tab` | Cycle modes | Cycle through interactive → plan (enable `/experimental` to also access autopilot) |
 
 > **Ctrl+T** toggles the display of model reasoning tokens inline in the response — useful for understanding how the AI arrived at a decision.
+> **Ctrl+S** runs your current prompt while keeping the input intact, so you can quickly send similar follow-up prompts without retyping.
 
 ## Interaction Modes
 
@@ -91,7 +91,7 @@ Mastering keyboard shortcuts makes you significantly more efficient:
 |------|-------------|
 | **Interactive** (default) | Conversational mode — the AI responds to each message as you send it |
 | **Plan** | The AI drafts a `plan.md` before executing; you review and approve the plan |
-| **Autopilot** | The AI acts autonomously with minimal confirmation prompts *(requires experimental mode)* |
+| **Autopilot** | The AI acts autonomously with minimal confirmation prompts *(requires `/experimental` first, then `Shift+Tab`)* |
 
 The current mode is shown in the input prompt indicator.
 

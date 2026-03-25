@@ -673,13 +673,15 @@ Autopilot is an experimental interaction mode that encourages Copilot to keep wo
 
 **Cycling through modes:**
 
-Press `Shift+Tab` to cycle between the three modes:
+Press `Shift+Tab` to cycle between modes. With experimental mode enabled, autopilot is added to the cycle:
 
 | Mode | Behavior |
 |------|----------|
 | **Interactive** (default) | Asks for confirmation before each significant action |
 | **Plan** | Produces a plan first, then acts after approval |
-| **Autopilot** | Continues working until the task is done; minimal interruptions |
+| **Autopilot** | Continues working until the task is done; minimal interruptions *(requires `/experimental`)* |
+
+> **Note:** Without experimental mode active, `Shift+Tab` only cycles between interactive and plan.
 
 ### When to Use Autopilot
 
@@ -1100,7 +1102,7 @@ When designing APIs:
 # Experimental & Autopilot
 copilot --experimental # Launch with experimental features
 /experimental          # Enable experimental mode in-session
-Shift+Tab              # Cycle: interactive → plan → autopilot
+Shift+Tab              # Cycle: interactive → plan (→ autopilot with /experimental)
 
 # Fleet Mode
 /fleet                 # Enable parallel subagent execution

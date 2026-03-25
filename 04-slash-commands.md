@@ -90,6 +90,21 @@ Rename the current session. Alias for `/session rename`.
 - Organizing work across multiple sessions
 - Making it easier to find sessions with `/resume`
 
+### /rewind, /undo
+
+Rewind the last turn and revert any file changes made during that turn.
+
+```
+> /rewind
+```
+
+**Use when:**
+- The AI made edits you want to undo
+- You want to retry a prompt with different wording
+- You accidentally ran a destructive operation
+
+> **Tip:** `/undo` is an alias for `/rewind` — both work identically.
+
 ### /copy
 
 Copy the last AI response to the clipboard.
@@ -1404,6 +1419,7 @@ Some commands affect subsequent prompts:
 |---------|---------|---------|
 | `/clear` | New conversation | `/clear` |
 | `/rename` | Rename session | `/rename "My Work"` |
+| `/rewind` | Undo last turn + file changes | `/rewind` |
 | `/copy` | Copy last response | `/copy` |
 | `/model` | Change AI model | `/model claude-sonnet-4.5` |
 | `/fleet` | Parallel subagents | `/fleet` — see [Fleet Mode](18-fleet-mode.md) |
@@ -1452,8 +1468,9 @@ Some commands are less commonly used but powerful:
 Some commands have shorter aliases:
 
 ```
-/new  = /clear
-/cd   = /cwd
+/new    = /clear
+/cd     = /cwd
+/undo   = /rewind
 /h    = /help (if supported)
 /q    = /quit (if supported)
 ```

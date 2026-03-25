@@ -81,8 +81,12 @@ npm update -g @github/copilot
 ```
 
 **Latest features:**
-- ✨ `/init` - Initialize complete projects with one command
-- 🚀 `/delegate` - Enhanced PR creation with test validation
+- 🔄 `/rewind` / `/undo` — undo the last turn and revert file changes
+- 🧠 `/context` — visualize context window token usage
+- 🗜️ `/compact` — summarize conversation history to save tokens
+- ✨ New models: Claude Sonnet 4.6, Claude Opus 4.6, GPT-5.4 mini, GPT-4.1
+- ⌨️ Updated keyboard shortcuts (`Ctrl+S`, `Ctrl+T`, `Ctrl+O`, `Ctrl+E`)
+- 🎙️ `/streamer-mode` — hide model/quota details while screen-sharing
 - 🤖 [Autopilot mode](17-autopilot-mode.md) (experimental) - fully autonomous task execution
 - 🌐 [Fleet mode](18-fleet-mode.md) - run subtasks in parallel with subagents
 - 🔍 LSP support - deep language-aware code intelligence
@@ -158,4 +162,4 @@ Learn how to customize and extend Copilot CLI:
 
 ---
 
-**Note:** This guide covers the latest GitHub Copilot CLI features. Some capabilities may vary by version — run `/update` to stay current.
+**Note:** This guide covers GitHub Copilot CLI v1.0.11. Some capabilities may vary by version — run `/update` to stay current.

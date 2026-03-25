@@ -1,4 +1,4 @@
-# Latest Features in GitHub Copilot CLI
+# Latest Features in GitHub Copilot CLI — v1.0.11
 
 This file covers recent additions to GitHub Copilot CLI. Features marked with "Full guide →" have their own dedicated documentation file — the entries here are summaries with links. Features without a dedicated file are covered in full below.
 
@@ -10,25 +10,84 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 3. [Research Command (`/research`)](#research-command-research) — [Full guide →](19-research-command.md)
 
 ### Features covered in this file
-4. [LSP Support](#lsp-language-server-protocol-support)
-5. [Code Review Agent (`/review`)](#code-review-agent-review)
-6. [Plugin System (`/plugin`)](#plugin-system-plugin)
-7. [New Keyboard Shortcuts](#new-keyboard-shortcuts)
-8. [PAT Authentication](#pat-authentication)
-9. [Extended Instructions Support](#extended-instructions-support)
-10. [Project Initialization (`/init`)](#project-initialization-init)
-11. [Enhanced Pull Request Creation (`/delegate`)](#enhanced-pull-request-creation-delegate)
-12. [Staying Up to Date](#staying-up-to-date)
+4. [New in v1.0.11](#new-in-v1011)
+5. [LSP Support](#lsp-language-server-protocol-support)
+6. [Code Review Agent (`/review`)](#code-review-agent-review)
+7. [Plugin System (`/plugin`)](#plugin-system-plugin)
+8. [Keyboard Shortcuts Reference](#keyboard-shortcuts-reference)
+9. [PAT Authentication](#pat-authentication)
+10. [Extended Instructions Support](#extended-instructions-support)
+11. [Project Initialization (`/init`)](#project-initialization-init)
+12. [Enhanced Pull Request Creation (`/delegate`)](#enhanced-pull-request-creation-delegate)
+13. [Staying Up to Date](#staying-up-to-date)
+
+---
+
+## New in v1.0.11
+
+### `/rewind` / `/undo` — Undo Last Turn
+
+Rewind the last turn and revert all file changes made during it. Useful when an AI action went wrong.
+
+```
+> /rewind
+```
+
+Both `/rewind` and `/undo` do the same thing.
+
+### `/context` — Token Usage Visualization
+
+Show a breakdown of the context window token usage, including a visualization of what's taking up space.
+
+```
+> /context
+```
+
+### `/compact` — Summarize Conversation History
+
+Compress the current conversation to reduce context window usage while retaining key information.
+
+```
+> /compact
+```
+
+### New Model Lineup
+
+v1.0.11 adds several new models to the picker:
+
+| Model | ID |
+|-------|----|
+| Claude Sonnet 4.6 | `claude-sonnet-4.6` |
+| Claude Opus 4.6 | `claude-opus-4.6` |
+| Claude Opus 4.6 (fast) | `claude-opus-4.6-fast` |
+| GPT-5.4 mini | `gpt-5.4-mini` |
+| GPT-4.1 | `gpt-4.1` |
+
+Run `/model` to see all available models with current multipliers.
+
+### `/streamer-mode` — Safe Streaming
+
+Toggle streamer mode to hide preview model names and quota details — useful when screen-sharing or live streaming.
+
+```
+> /streamer-mode
+```
+
+### Keyboard Shortcut Updates
+
+Several keyboard shortcuts changed meaning in v1.0.11. See the full table in [Keyboard Shortcuts Reference](#keyboard-shortcuts-reference) below.
 
 ---
 
 ## Autopilot Mode (Experimental)
 
-Autopilot mode lets Copilot work end-to-end on a task without pausing for your input at every step. Enable experimental features, then press **Shift+Tab** to cycle to autopilot mode.
+Autopilot mode lets Copilot work end-to-end on a task without pausing for your input at every step. Enable experimental features first, then press **Shift+Tab** to cycle to autopilot mode.
 
 ```
 interactive  →  plan  →  autopilot  →  (back to interactive)
 ```
+
+> **Note:** Without experimental mode active, `Shift+Tab` only cycles between **interactive** and **plan**. Enabling `/experimental` adds autopilot to the cycle.
 
 ```bash
 # Enable experimental features first
@@ -298,16 +357,45 @@ Marketplace added. Run /plugin list to see new plugins.
 
 ---
 
-## New Keyboard Shortcuts
+## Keyboard Shortcuts Reference
 
-Several new keyboard shortcuts have been added to improve the interaction experience:
+The full list of keyboard shortcuts in v1.0.11:
+
+### Navigation & Control
 
 | Shortcut | Action |
 |----------|--------|
-| `Shift+Tab` | Cycle through modes: interactive → plan → autopilot |
+| `Ctrl+C` | Cancel current input / interrupt / copy selection |
+| `Ctrl+C` × 2 | Exit Copilot CLI |
+| `Ctrl+D` | Shutdown |
+| `Ctrl+L` | Clear screen |
+| `Esc` | Cancel the current operation |
+| `↑ / ↓` | Navigate command history |
+| `Shift+Tab` | Cycle modes: interactive → plan (autopilot requires `/experimental`) |
+| `Ctrl+S` | Run command while preserving input |
 | `Ctrl+T` | Toggle model reasoning display |
-| `Ctrl+G` | Open the current prompt in your external `$EDITOR` |
-| `Ctrl+X → O` | Open the link from the most recent timeline event |
+| `!` | Execute command in local shell (bypass Copilot) |
+
+### Timeline
+
+| Shortcut | Action |
+|----------|--------|
+| `Ctrl+O` | Expand recent timeline (when no input) |
+| `Ctrl+E` | Expand all timeline (when no input) |
+| `Ctrl+X → O` | Open link from most recent timeline event |
+
+### Text Editing
+
+| Shortcut | Action |
+|----------|--------|
+| `Ctrl+A` | Move cursor to beginning of line |
+| `Ctrl+E` | Move cursor to end of line (when typing) |
+| `Ctrl+W` | Delete previous word |
+| `Ctrl+U` | Delete from cursor to beginning of line |
+| `Ctrl+K` | Delete from cursor to end of line |
+| `Ctrl+H` | Delete previous character (backspace) |
+| `Meta+← / →` | Move cursor by word |
+| `Ctrl+G` | Edit prompt in external editor |
 
 ### Using `Ctrl+G` (External Editor)
 
@@ -616,23 +704,23 @@ AI: Found 23 files with API endpoints.
 
 ```bash
 copilot --version
-# Example: GitHub Copilot CLI version 0.0.410
+# Example: GitHub Copilot CLI version 1.0.11
 ```
 
 ### Updating
 
 ```bash
 # Homebrew (macOS/Linux)
-brew update && brew upgrade github/gh/gh-copilot
-
-# GitHub CLI extension
-gh extension upgrade gh-copilot
+brew update && brew upgrade copilot-cli
 
 # npm global install
 npm update -g @github/copilot
 
-# npx (always uses latest)
-npx @github/copilot@latest
+# WinGet (Windows)
+winget upgrade GitHub.Copilot
+
+# Or use the built-in update command
+> /update
 ```
 
 ### Checking for Experimental Features

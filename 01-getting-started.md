@@ -148,7 +148,7 @@ curl -fsSL https://gh.io/copilot-install | sudo bash
 curl -fsSL https://gh.io/copilot-install | PREFIX="$HOME/custom" bash
 
 # Install specific version (replace with desired version)
-curl -fsSL https://gh.io/copilot-install | VERSION="v0.0.369" PREFIX="$HOME/custom" bash
+curl -fsSL https://gh.io/copilot-install | VERSION="v1.0.11" PREFIX="$HOME/custom" bash
 ```
 
 ## Upgrading Copilot CLI
@@ -242,7 +242,7 @@ For automated environments or CI/CD:
 
 1. **Create a fine-grained PAT:**
    - Visit https://github.com/settings/personal-access-tokens/new
-   - Under "Permissions," add "Copilot Requests"
+   - Under "Permissions," click "add permissions" and select **"Copilot Requests"**
    - Generate your token
 
 2. **Set environment variable:**

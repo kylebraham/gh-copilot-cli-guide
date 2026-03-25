@@ -177,7 +177,7 @@ Manage sessions:
 
 ### 4. Planning vs. Direct Execution
 
-Copilot CLI can work in multiple modes, cycled with `Shift+Tab`:
+Copilot CLI works in multiple modes. Use `Shift+Tab` to cycle between:
 
 **Interactive Mode (default):**
 ```
@@ -191,10 +191,10 @@ Immediate execution after your approval.
 ```
 Creates a detailed plan first, then executes step-by-step.
 
-**Autopilot Mode** (requires experimental mode via `/experimental`):
+**Autopilot Mode** (experimental — enable with `/experimental`, then `Shift+Tab` again):
 Encourages the agent to continue working autonomously until the task is completed, with minimal interruptions.
 
-Learn more in [Plan Mode](09-plan-mode.md).
+Learn more in [Plan Mode](09-plan-mode.md) and [Autopilot Mode](17-autopilot-mode.md).
 
 ## Understanding Responses
 

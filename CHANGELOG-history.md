@@ -1,8 +1,63 @@
-# Documentation Updates for v0.405
+# Documentation Updates
 
-This document summarizes all documentation changes made for GitHub Copilot CLI version 0.405.
+## v1.0.11 (Latest)
 
-## Version Updates
+This document summarizes all documentation changes made for GitHub Copilot CLI version 1.0.11.
+
+### Version Updates
+
+- ✅ README.md: Updated to v1.0.11, refreshed "Latest Features" section
+- ✅ 16-new-features.md: Rewritten to cover v1.0.11 changes
+- ✅ All files: Aligned with official v1.0.11 help output
+
+### New Feature Documentation
+
+**`/rewind` / `/undo`** (16-new-features.md, 04-slash-commands.md):
+- New command: rewinds the last turn and reverts file changes
+- Added to Quick Reference Table and Command Aliases sections
+
+**`/context` token visualization** (16-new-features.md):
+- Documents context window token usage breakdown
+
+**Updated keyboard shortcuts** (00-cheat-sheet.md, 03-interactive-features.md, 16-new-features.md):
+- `Ctrl+S` = run command while preserving input (was "save/snapshot")
+- `Ctrl+T` = toggle model reasoning display (was "toggle terminal/conversation")
+- `Ctrl+O` = expand recent timeline (was "open current file in editor")
+- `Ctrl+E` = expand all timeline when no input (was "edit last message")
+- `Ctrl+G` = edit prompt in external editor (was "open file picker")
+- `Ctrl+C` × 2 = exit CLI (newly documented)
+- Removed `Ctrl+Y` (no longer in official help)
+
+**Mode cycling correction** (00-cheat-sheet.md, 02-basic-concepts.md, 03-interactive-features.md, 08-advanced-features.md, 16-new-features.md):
+- `Shift+Tab` cycles interactive → plan (not → autopilot)
+- Autopilot requires `/experimental` to be added to the cycle
+- Updated all references across the guide
+
+**New model lineup** (22-models-and-costs.md, 00-cheat-sheet.md):
+- Added: `claude-sonnet-4.6`, `claude-opus-4.6`, `claude-opus-4.6-fast`
+- Added: `gpt-5.4-mini`, `gpt-4.1`
+- Removed outdated `claude-sonnet-4` and `claude-opus-4.5` references
+- Updated decision tree and team policy tables
+
+**`/streamer-mode`** — toggle to hide model/quota for screen-sharing
+
+**PAT authentication** (01-getting-started.md, 16-new-features.md):
+- Permission is now called **"Copilot Requests"** (fine-grained PAT)
+
+**Install script version example** (01-getting-started.md):
+- Updated example version from `v0.0.369` to `v1.0.11`
+
+**Upgrade commands** (16-new-features.md):
+- Updated `brew upgrade` command to `copilot-cli` package
+- Removed obsolete `gh extension upgrade` command
+
+---
+
+## v0.405 (Previous)
+
+This section summarizes documentation changes made for GitHub Copilot CLI version 0.405.
+
+### Version Updates
 
 - ✅ README.md: Updated version reference from 0.0.388 to 0.0.405
 - ✅ .github/copilot-instructions.md: Updated version reference to 0.0.405

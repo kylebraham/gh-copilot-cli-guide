@@ -18,17 +18,20 @@ Understanding how to choose the right model — and when to switch — is one of
 
 ## 1. Available Models Overview
 
-| Model | Multiplier | Speed | Best for |
-|-------|-----------|-------|---------|
-| Claude Sonnet 4.5 | 1x | Fast | Default — general coding, balanced quality/cost |
-| Claude Opus 4.5 | 1x | Slower | Complex reasoning, architecture, security audits |
-| Claude Haiku 4.5 | 0.33x | Fastest | Quick tasks, fleet subagents, docs, formatting |
-| Claude Sonnet 4 | 1x | Fast | Stable alternative to Sonnet 4.5 |
-| GPT-5.x | varies | Fast | Alternative for code generation |
-| GPT-5.x-Codex | varies | Fast | Specialized code generation tasks |
-| GPT-5 Mini | 0x | Fastest | Ultra-cheap for trivial tasks |
+| Model | ID | Speed | Best for |
+|-------|-----|-------|---------|
+| Claude Sonnet 4.5 | `claude-sonnet-4.5` | Fast | Default — general coding, balanced quality/cost |
+| Claude Sonnet 4.6 | `claude-sonnet-4.6` | Fast | Latest Sonnet — improved reasoning over 4.5 |
+| Claude Opus 4.6 | `claude-opus-4.6` | Slower | Most capable — complex reasoning, architecture, security |
+| Claude Opus 4.6 (fast) | `claude-opus-4.6-fast` | Fast | Opus quality with faster response times |
+| Claude Haiku 4.5 | `claude-haiku-4.5` | Fastest | Quick tasks, fleet subagents, docs, formatting |
+| GPT-5.4 | `gpt-5.4` | Fast | Strong alternative for general code generation |
+| GPT-5.3-Codex | `gpt-5.3-codex` | Fast | Code-specialized tasks |
+| GPT-5.2-Codex | `gpt-5.2-codex` | Fast | Code-specialized, stable alternative |
+| GPT-5.4 mini | `gpt-5.4-mini` | Fastest | Ultra-cheap for trivial or bulk tasks |
+| GPT-4.1 | `gpt-4.1` | Fast | Fast, cost-effective general tasks |
 
-> **Note:** The multipliers shown above are examples. Multipliers can change as GitHub updates pricing. Always run `/model` to see current multipliers before committing to a long session.
+> **Note:** Multipliers can change as GitHub updates pricing. Always run `/model` to see current multipliers and available models before committing to a long session.
 
 ---
 
@@ -69,28 +72,30 @@ This shows how many premium requests you've consumed in the current session. Che
 
 | Task | Recommended Model | Why |
 |------|-------------------|-----|
-| Architecture planning | Claude Opus 4.5 | Deep reasoning, considers trade-offs and edge cases |
-| Security audit | Claude Opus 4.5 | Catches subtle vulnerabilities and attack vectors |
+| Architecture planning | Claude Opus 4.6 | Deep reasoning, considers trade-offs and edge cases |
+| Security audit | Claude Opus 4.6 | Catches subtle vulnerabilities and attack vectors |
 | General feature development | Claude Sonnet 4.5 | Good quality, standard cost — the safe default |
+| Latest capabilities | Claude Sonnet 4.6 | Improved reasoning over Sonnet 4.5 |
 | Writing tests | Claude Haiku 4.5 | Pattern-matching task, doesn't require deep reasoning |
 | Adding JSDoc/comments | Claude Haiku 4.5 | Templated output, no deep reasoning needed |
 | Code formatting / linting fixes | Claude Haiku 4.5 | Simple, repetitive, cheap to run |
-| Debugging complex issues | Claude Sonnet 4.5 or Opus | Depends on how deep the issue goes |
+| Debugging complex issues | Claude Sonnet 4.5 or Opus 4.6 | Depends on how deep the issue goes |
 | Refactoring a large codebase | Claude Sonnet 4.5 | Balance of quality and cost across many files |
-| CI/CD automation | Claude Haiku 4.5 | Cost-effective for automated / unattended runs |
+| CI/CD automation | Claude Haiku 4.5 or GPT-5.4 mini | Cost-effective for automated / unattended runs |
+| Code-specialized tasks | GPT-5.3-Codex or GPT-5.2-Codex | Optimized for code generation |
 | `/research` deep-dives | Fixed by research agent | The research command uses its own model — not configurable |
 
 ### Decision Tree
 
 ```
 Is this task complex reasoning, security, or architecture?
-  YES → Claude Opus 4.5
+  YES → Claude Opus 4.6
   NO → Is this a simple, repetitive task (docs, formatting, tests)?
-    YES → Claude Haiku 4.5  (save costs)
+    YES → Claude Haiku 4.5 or GPT-5.4 mini  (save costs)
     NO → Claude Sonnet 4.5  (default, balanced)
 ```
 
-When in doubt, start with **Sonnet 4.5**. Upgrade to Opus if the quality isn't sufficient; downgrade to Haiku if you just need bulk work done cheaply.
+When in doubt, start with **Sonnet 4.5**. Upgrade to Opus 4.6 if the quality isn't sufficient; downgrade to Haiku 4.5 if you just need bulk work done cheaply.
 
 ---
 
@@ -154,7 +159,7 @@ This opens a picker showing all available models with their current multipliers.
 ### Set for a Single Session (Flag)
 
 ```bash
-copilot --model claude-opus-4.5
+copilot --model claude-opus-4.6
 ```
 
 This sets the model for the duration of that CLI invocation. It does not persist between sessions.
@@ -186,8 +191,9 @@ When multiple people are using Copilot CLI, a consistent team policy prevents un
 | Scenario | Model | How enforced |
 |----------|-------|--------------|
 | Default daily coding | Claude Sonnet 4.5 | Team `.env.shared` or org default |
-| Architecture / security reviews | Claude Opus 4.5 | Opt-in per task (manual override) |
-| CI/CD pipelines | Claude Haiku 4.5 | Env var in pipeline config |
+| Latest capabilities | Claude Sonnet 4.6 | Opt-in per session |
+| Architecture / security reviews | Claude Opus 4.6 | Opt-in per task (manual override) |
+| CI/CD pipelines | Claude Haiku 4.5 or GPT-5.4 mini | Env var in pipeline config |
 | Fleet subagents | Claude Haiku 4.5 | Specify in `/fleet` prompt |
 
 ### Enforcing a Team Default
@@ -253,12 +259,14 @@ Available models:
 
   claude-haiku-4.5         0.33x  ⚡ Fastest
   claude-sonnet-4.5        1x     ✓ [current]
-  claude-sonnet-4          1x
-  claude-opus-4.5          1x     🔍 Most capable
-  gpt-5.4-mini             0x     ⚡ Free tier
+  claude-sonnet-4.6        1x     ✨ Latest Sonnet
+  claude-opus-4.6          1x     🔍 Most capable
+  claude-opus-4.6-fast     1x     🔍 Opus (fast)
+  gpt-5.4-mini             0.33x  ⚡ Fast/cheap
   gpt-5.4                  1x
-  gpt-5.3-codex            1x
-  gpt-5.2-codex            1x
+  gpt-5.3-codex            1x     💻 Code-specialized
+  gpt-5.2-codex            1x     💻 Code-specialized
+  gpt-4.1                  0.33x  ⚡ Fast/cheap
 
 Select a model or press Esc to cancel.
 ```
@@ -284,9 +292,11 @@ Check session usage:       > /usage
 Set model (this session):  copilot --model MODEL-ID
 Set model (global):        export COPILOT_MODEL=MODEL-ID
 
-Cheapest model:            Claude Haiku 4.5 (~0.33x)
-Best reasoning:            Claude Opus 4.5
+Cheapest model:            Claude Haiku 4.5 or GPT-5.4 mini (~0.33x)
+Best reasoning:            Claude Opus 4.6
+Latest Sonnet:             Claude Sonnet 4.6
 Safe default:              Claude Sonnet 4.5 (1x)
+Code-specialized:          GPT-5.3-Codex or GPT-5.2-Codex
 Research agent:            Fixed model (not configurable via /model)
 
 Cap autopilot steps:       copilot --max-autopilot-continues N

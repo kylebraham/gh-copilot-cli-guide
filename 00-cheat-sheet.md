@@ -6,28 +6,36 @@
 
 ## Keyboard Shortcuts
 
+### Navigation & Control
+
 | Shortcut | Action |
 |----------|--------|
-| `Ctrl+C` | Cancel current input / interrupt running task |
-| `Ctrl+D` | Exit Copilot CLI (EOF) |
+| `Ctrl+C` | Cancel current input / interrupt running task / copy selection |
+| `Ctrl+C` × 2 | Exit Copilot CLI |
+| `Ctrl+D` | Shutdown |
 | `Ctrl+L` | Clear the screen |
-| `Ctrl+T` | Toggle between conversation and terminal view |
-| `Ctrl+G` | Open file picker / context selector |
-| `Ctrl+Y` | Accept a suggestion |
-| `Ctrl+O` | Open current file in editor |
-| `Ctrl+E` | Edit last message |
-| `Ctrl+X → O` | Switch focus to output pane |
-| `Shift+Tab` | Cycle through modes (interactive → plan → autopilot) |
-| `Esc` | Cancel / dismiss picker |
-| `↑ / ↓` | Navigate history / picker options |
+| `Esc` | Cancel the current operation |
+| `↑ / ↓` | Navigate command history |
+| `Shift+Tab` | Cycle modes (interactive → plan) |
+| `Ctrl+S` | Run command while preserving input |
+| `Ctrl+T` | Toggle model reasoning display |
+| `Ctrl+O` | Expand recent timeline (when no input) |
+| `Ctrl+E` | Expand all timeline (when no input) |
+| `Ctrl+X → O` | Open link from most recent timeline event |
+| `!` | Execute command in local shell (bypass Copilot) |
+
+### Text Editing
+
+| Shortcut | Action |
+|----------|--------|
 | `Ctrl+A` | Move cursor to beginning of line |
-| `Ctrl+E` | Move cursor to end of line |
-| `Ctrl+W` | Delete word before cursor |
-| `Ctrl+U` | Delete entire line before cursor |
-| `Ctrl+K` | Delete from cursor to end of line |
-| `Ctrl+H` | Delete character before cursor (backspace) |
-| `Meta+← / →` | Move cursor word by word |
-| `Ctrl+S` | Save / snapshot current session state |
+| `Ctrl+E` | Move cursor to end of line (when typing) |
+| `Ctrl+W` | Delete previous word |
+| `Ctrl+U` | Delete from cursor to beginning of line |
+| `Ctrl+K` | Delete from cursor to end of line (joins lines at end) |
+| `Ctrl+H` | Delete previous character (backspace) |
+| `Meta+← / →` | Move cursor by word |
+| `Ctrl+G` | Edit prompt in external editor |
 
 ---
 
@@ -37,7 +45,7 @@
 |------|-------------|-------------|
 | **Interactive** | Default on launch | Conversational coding, exploration, Q&A |
 | **Plan** | `Shift+Tab` (first press) | Review a proposed implementation plan before executing |
-| **Autopilot** | `Shift+Tab` (second press) | Let Copilot implement autonomously with minimal interruption |
+| **Autopilot** | Enable `/experimental`, then `Shift+Tab` again | Let Copilot implement autonomously with minimal interruption |
 
 ---
 
@@ -202,7 +210,7 @@ Research before refactor:
   /research Give me a deep-dive on the authentication module before I refactor it
 
 Plan then autopilot:
-  [Shift+Tab → plan mode] → review plan → [Shift+Tab → autopilot] → implement
+  [Shift+Tab → plan mode] → review plan → [/experimental then Shift+Tab → autopilot] → implement
 
 Fleet for parallel test generation:
   /fleet Add unit tests for every file in src/services/
@@ -245,9 +253,10 @@ Add entire directory to context:
 ## Model Quick Pick
 
 ```
-Complex reasoning / security:   Claude Opus 4.5
+Complex reasoning / security:   Claude Opus 4.6
 Daily coding (default):         Claude Sonnet 4.5
-Cheap / CI / fleet subagents:   Claude Haiku 4.5
+Fast / CI / fleet subagents:    Claude Haiku 4.5
+Code-specialized:               GPT-5.3-Codex or GPT-5.2-Codex
 ```
 
 > See [Model Selection and Costs](22-models-and-costs.md) for a full breakdown with decision trees and team budget patterns.
