@@ -1,0 +1,237 @@
+name: Copilot CLI Release Doc Maintenance
+
+on:
+  schedule:
+    - cron: '0 9 * * *'  # Daily at 09:00 UTC
+  workflow_dispatch:       # Manual trigger for testing
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  check-and-update-docs:
+    name: Check for new copilot-cli release and update docs
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      # ── Step 1: Detect upstream release ──────────────────────────────────────
+
+      - name: Get latest github/copilot-cli release
+        id: upstream
+        run: |
+          LATEST=$(curl -sf https://api.github.com/repos/github/copilot-cli/releases/latest \
+            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+            | jq -r '.tag_name')
+
+          if [ -z "$LATEST" ] || [ "$LATEST" = "null" ]; then
+            echo "::error::Could not determine latest github/copilot-cli release."
+            exit 1
+          fi
+
+          echo "latest=$LATEST" >> "$GITHUB_OUTPUT"
+          echo "Upstream latest release: $LATEST"
+
+      - name: Read last processed release
+        id: last
+        run: |
+          LAST=$(cat .github/last-processed-release 2>/dev/null | tr -d '[:space:]')
+          echo "last=$LAST" >> "$GITHUB_OUTPUT"
+          echo "Last processed release: $LAST"
+
+      - name: Check whether release is new
+        id: release_check
+        run: |
+          LATEST="${{ steps.upstream.outputs.latest }}"
+          LAST="${{ steps.last.outputs.last }}"
+
+          if [ "$LATEST" = "$LAST" ]; then
+            echo "new_release=false" >> "$GITHUB_OUTPUT"
+            echo "No new release detected. Exiting cleanly."
+          else
+            echo "new_release=true" >> "$GITHUB_OUTPUT"
+            echo "New release detected: $LATEST (was: $LAST)"
+          fi
+
+      # ── Step 2: Check for an existing open PR for this release ───────────────
+
+      - name: Check for existing PR
+        id: existing_pr
+        if: steps.release_check.outputs.new_release == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          TAG="${{ steps.upstream.outputs.latest }}"
+          BRANCH="docs/copilot-cli-release-${TAG}"
+
+          EXISTING=$(gh pr list \
+            --head "$BRANCH" \
+            --state open \
+            --json number \
+            --jq '.[0].number // empty')
+
+          if [ -n "$EXISTING" ]; then
+            echo "pr_exists=true" >> "$GITHUB_OUTPUT"
+            echo "pr_number=$EXISTING" >> "$GITHUB_OUTPUT"
+            echo "Open PR #$EXISTING already exists for branch $BRANCH. Will push updates to that branch."
+          else
+            echo "pr_exists=false" >> "$GITHUB_OUTPUT"
+            echo "No open PR for $BRANCH. Will create one if changes are detected."
+          fi
+
+      # ── Step 3: Set up Copilot CLI and run doc-maintenance skill ─────────────
+
+      - name: Setup GitHub Copilot CLI
+        if: steps.release_check.outputs.new_release == 'true'
+        uses: mvkaran/setup-copilot-cli@v1
+        with:
+          version: latest
+          token: ${{ secrets.COPILOT_TOKEN }}
+
+      - name: Load doc-maintenance skill
+        if: steps.release_check.outputs.new_release == 'true'
+        run: |
+          mkdir -p ~/.copilot/skills
+          cp -r .github/skills/doc-maintenance ~/.copilot/skills/
+
+      - name: Run doc-maintenance skill for new release
+        if: steps.release_check.outputs.new_release == 'true'
+        run: |
+          TAG="${{ steps.upstream.outputs.latest }}"
+          copilot -i "You are running in a non-interactive CI environment. \
+          A new github/copilot-cli release has been published: ${TAG}. \
+          Use the doc-maintenance skill to update this documentation repository \
+          for that release. Follow the skill's doc file map to determine which \
+          files need updating. Apply all changes directly to the files — do not \
+          ask for confirmation and do not explain what you are doing. \
+          Specifically: bump the version note in README.md to ${TAG}, add a new \
+          section to 16-new-features.md, update 00-cheat-sheet.md for any new \
+          commands or shortcuts, update all feature-specific files per the doc \
+          file map, and add an entry at the top of CHANGELOG-history.md. \
+          Preserve all relative markdown links, the progressive learning flow, \
+          and existing terminology conventions (Copilot CLI, slash commands, \
+          @ syntax, MCP servers, Skills, Plan mode)."
+
+      # ── Step 4: Detect file changes ──────────────────────────────────────────
+
+      - name: Check for documentation changes
+        id: changes
+        if: steps.release_check.outputs.new_release == 'true'
+        run: |
+          if git diff --quiet && git diff --cached --quiet; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "No documentation changes detected — docs already reflect ${TAG}."
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+            echo "Documentation changes detected:"
+            git --no-pager diff --stat
+          fi
+        env:
+          TAG: ${{ steps.upstream.outputs.latest }}
+
+      # ── Step 5: Commit, push, and open/update PR ─────────────────────────────
+
+      - name: Configure git identity
+        if: steps.changes.outputs.changed == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Create or reuse release branch
+        if: steps.changes.outputs.changed == 'true'
+        run: |
+          TAG="${{ steps.upstream.outputs.latest }}"
+          BRANCH="docs/copilot-cli-release-${TAG}"
+
+          # Reuse existing remote branch if present, otherwise create fresh
+          if git ls-remote --exit-code origin "refs/heads/${BRANCH}" > /dev/null 2>&1; then
+            git checkout -b "$BRANCH" "origin/$BRANCH"
+          else
+            git checkout -b "$BRANCH"
+          fi
+
+          echo "BRANCH=$BRANCH" >> "$GITHUB_ENV"
+
+      - name: Update release state file
+        if: steps.changes.outputs.changed == 'true'
+        run: |
+          echo "${{ steps.upstream.outputs.latest }}" > .github/last-processed-release
+
+      - name: Commit changes
+        if: steps.changes.outputs.changed == 'true'
+        run: |
+          TAG="${{ steps.upstream.outputs.latest }}"
+          git add -A
+          git commit -m "docs: update documentation for github/copilot-cli ${TAG}
+
+          Automated documentation update triggered by new upstream release.
+
+          Upstream release: github/copilot-cli ${TAG}
+          Skill used: doc-maintenance
+          Trigger: ${{ github.event_name }}"
+
+      - name: Push branch
+        if: steps.changes.outputs.changed == 'true'
+        run: |
+          git push origin "$BRANCH"
+
+      - name: Create pull request (if none exists)
+        if: >
+          steps.changes.outputs.changed == 'true' &&
+          steps.existing_pr.outputs.pr_exists == 'false'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          TAG="${{ steps.upstream.outputs.latest }}"
+          CHANGED_FILES=$(git --no-pager diff --name-only HEAD~1 HEAD | grep '\.md$' | head -20 | sed 's/^/- `/' | sed 's/$/`/')
+
+          gh pr create \
+            --title "docs: update documentation for github/copilot-cli ${TAG}" \
+            --body "## Automated Documentation Update
+
+          A new [github/copilot-cli](https://github.com/github/copilot-cli/releases/tag/${TAG}) release was detected: **${TAG}**
+
+          The \`doc-maintenance\` skill was run to update this documentation repository accordingly.
+
+          ### Changed documentation files
+          ${CHANGED_FILES}
+
+          ### What was updated
+          - Version note in \`README.md\` bumped to ${TAG}
+          - New version section added to \`16-new-features.md\`
+          - \`00-cheat-sheet.md\` updated for any new commands or shortcuts
+          - Feature-specific files updated per the doc file map
+          - \`CHANGELOG-history.md\` updated with a new entry
+
+          ### Automation details
+          - Trigger: \`${{ github.event_name }}\`
+          - Upstream source: \`github/copilot-cli\`
+          - Skill: \`doc-maintenance\`
+          - Branch: \`${BRANCH}\`
+
+          > This PR was automatically generated. Please review the changes before merging." \
+            --base main \
+            --head "$BRANCH"
+
+      - name: Notify of updated PR (if PR already existed)
+        if: >
+          steps.changes.outputs.changed == 'true' &&
+          steps.existing_pr.outputs.pr_exists == 'true'
+        run: |
+          echo "Updated existing PR #${{ steps.existing_pr.outputs.pr_number }} with new commits on branch $BRANCH."
+
+      # ── Step 6: Clean exit when no changes ───────────────────────────────────
+
+      - name: Exit cleanly — no documentation changes
+        if: >
+          steps.release_check.outputs.new_release == 'true' &&
+          steps.changes.outputs.changed == 'false'
+        run: |
+          echo "New release ${{ steps.upstream.outputs.latest }} detected but no documentation changes were produced."
+          echo "Exiting cleanly. The last-processed-release marker will not be updated."
+          echo "The workflow will re-evaluate this release on the next scheduled run."
