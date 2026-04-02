@@ -145,6 +145,7 @@ This repo includes four [Copilot Skills](14-skills-system.md) in `.github/` — 
 | `doc-maintenance` | `.github/skills/doc-maintenance/SKILL.md` | Keep this docs repo current with new CLI releases |
 | `cli-expertise` | `.github/skills/cli-expertise/SKILL.md` | Deep CLI feature knowledge — slash commands, agents, MCP, and more |
 | `copilot-cli-guide-quickstart` | `.github/skills/quickstart/SKILL.md` | Interactive tutorial through all docs (works best with `cli-expertise`) |
+| `git-commit` | `.github/skills/git-commit/SKILL.md` | Stage, commit, and push changes with conventional commit messages |
 
 ### 🚀 Quick Start with the Tutorial
 
