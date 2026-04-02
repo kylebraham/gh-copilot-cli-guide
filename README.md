@@ -141,7 +141,7 @@ This repo includes four [Copilot Skills](14-skills-system.md) in `.github/` — 
 
 | Skill | Folder | What it does |
 |-------|--------|--------------|
-| `update-cli` | `.github/skills/update-cli/SKILL.md` | Upgrade/downgrade CLI, check versions, rollback |
+| `update-repo` | `.github/skills/update-repo/SKILL.md` | Pull the latest changes from the git remote (`git remote update` + `git pull main`) |
 | `doc-maintenance` | `.github/skills/doc-maintenance/SKILL.md` | Keep this docs repo current with new CLI releases |
 | `cli-expertise` | `.github/skills/cli-expertise/SKILL.md` | Deep CLI feature knowledge — slash commands, agents, MCP, and more |
 | `copilot-cli-guide-quickstart` | `.github/skills/quickstart/SKILL.md` | Interactive tutorial through all docs (works best with `cli-expertise`) |
@@ -168,9 +168,9 @@ The `quickstart` skill walks you through the entire guide interactively:
 ### Using Other Skills
 
 ```bash
-# Update/upgrade guidance
-cp -r .github/skills/update-cli ~/.copilot/skills/
-> /skills add update-cli
+# Sync repo with remote
+cp -r .github/skills/update-repo ~/.copilot/skills/
+> /skills add update-repo
 
 # Documentation maintenance help
 cp -r .github/skills/doc-maintenance ~/.copilot/skills/

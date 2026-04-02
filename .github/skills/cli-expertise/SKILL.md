@@ -328,6 +328,6 @@ Full troubleshooting guide: see `11-troubleshooting.md`.
 
 ## Related Skills
 
-- `update-cli` — for upgrading and managing CLI versions
+- `update-repo` — for pulling the latest changes from the git remote
 - `doc-maintenance` — for keeping this documentation guide current
 - `quickstart` — interactive tutorial that uses this skill as a knowledge companion

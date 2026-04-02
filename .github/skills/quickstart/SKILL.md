@@ -529,7 +529,7 @@ Show a final celebration:
 🚀 What's next?
 - Explore the full guide files referenced in each lesson
 - Activate the `cli-expertise` skill for deep feature Q&A anytime
-- Try `update-cli` skill to stay on the latest version
+- Try `update-repo` skill to pull the latest changes from the remote
 - Check `00-cheat-sheet.md` for a quick daily reference
 
 You're now a Copilot CLI pro! 🌟

@@ -251,5 +251,5 @@ Update any stale references found.
 
 ## Related Skills
 
-- `update-cli` — use to upgrade the CLI before auditing what changed
+- `update-repo` — use to pull the latest changes from the remote before auditing
 - `cli-expertise` — deep feature knowledge for understanding and documenting new capabilities
