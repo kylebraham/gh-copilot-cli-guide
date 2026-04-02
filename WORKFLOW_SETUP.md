@@ -33,28 +33,35 @@ built-in `GITHUB_TOKEN`. This requires write permissions to be enabled.
 
 ## Step 2 — Create a `COPILOT_TOKEN` secret
 
-The `mvkaran/setup-copilot-cli@v1` action requires a GitHub token that has
-access to GitHub Copilot to install and authenticate the Copilot CLI.
+The `mvkaran/setup-copilot-cli@v1` action requires a token to install and
+authenticate the Copilot CLI.
 
-### 2a — Generate a Personal Access Token (Classic)
+**Important:** `COPILOT_TOKEN` is used *only* to authenticate the Copilot CLI
+binary. All repository operations — checkout, branch push, and PR creation —
+are performed by the built-in `GITHUB_TOKEN`, which is already scoped to this
+repository. The `COPILOT_TOKEN` does **not** need any repository permissions.
 
-1. Go to **GitHub** → **Settings** → **Developer settings** → **Personal access tokens** → **Tokens (classic)**
-2. Click **Generate new token (classic)**
+### Recommended: Fine-grained Personal Access Token
+
+A fine-grained PAT is the least-privilege option. It grants only Copilot API
+access and nothing else.
+
+#### 2a — Generate a fine-grained PAT
+
+1. Go to **GitHub** → **Settings** → **Developer settings** → **Personal access tokens** → **Fine-grained tokens**
+2. Click **Generate new token**
 3. Give it a descriptive name, e.g. `copilot-cli-doc-maintenance`
-4. Set an expiration (recommended: 90 days or 1 year — remember to rotate it)
-5. Select these scopes:
+4. Set an expiration (recommended: 90 days — set a calendar reminder to rotate)
+5. Under **Resource owner**, select your personal account (not a specific repo — Copilot is an account-level resource)
+6. Under **Repository access**, select **No repository access** — none is needed
+7. Under **Account permissions**, find **GitHub Copilot** and set it to **Read-only**
+8. Click **Generate token** and **copy it immediately** — you won't see it again
 
-   | Scope | Why |
-   |---|---|
-   | `repo` | Full repository access (read/write) — needed for checkout and push |
-   | `read:user` | Required for Copilot CLI authentication |
-   | `copilot` | Grants access to GitHub Copilot API |
+> **Note:** The **GitHub Copilot** account permission only appears if your account has an active Copilot subscription (Individual, Business, or Enterprise).
 
-6. Click **Generate token** and **copy it immediately** — you won't see it again
+> **Compatibility note:** Fine-grained PATs work with `gh auth login` (which `mvkaran/setup-copilot-cli@v1` uses internally). If you encounter an authentication error specifically mentioning fine-grained token restrictions, fall back to the classic PAT option below.
 
-> **Note:** The `copilot` scope may appear as **"GitHub Copilot"** or **"Access GitHub Copilot"** depending on your GitHub plan. If you don't see it, ensure your account or organization has an active Copilot subscription.
-
-### 2b — Add the token as a repository secret
+#### 2b — Add the token as a repository secret
 
 1. Go to your repository on GitHub
 2. Click **Settings** → **Secrets and variables** → **Actions**
@@ -63,6 +70,27 @@ access to GitHub Copilot to install and authenticate the Copilot CLI.
    - **Name**: `COPILOT_TOKEN`
    - **Secret**: paste your token
 5. Click **Add secret**
+
+---
+
+### Fallback: Classic Personal Access Token (if fine-grained doesn't work)
+
+If `mvkaran/setup-copilot-cli@v1` rejects the fine-grained token, generate a
+classic PAT with the minimum scopes needed:
+
+1. Go to **GitHub** → **Settings** → **Developer settings** → **Personal access tokens** → **Tokens (classic)**
+2. Click **Generate new token (classic)**
+3. Name it `copilot-cli-doc-maintenance` and set an expiration
+4. Select only these scopes:
+
+   | Scope | Why |
+   |---|---|
+   | `read:user` | Required for Copilot CLI authentication |
+   | `copilot` | Grants access to the GitHub Copilot API |
+
+   > Do **not** add `repo` — all repository operations use `GITHUB_TOKEN`, not this token.
+
+5. Click **Generate token**, copy it, and add it as `COPILOT_TOKEN` following step 2b above
 
 ---
 
@@ -115,12 +143,12 @@ To test the full end-to-end flow without waiting for an actual new release:
 
 When your token expires:
 
-1. Generate a new PAT following Step 2a above
+1. Generate a new fine-grained PAT following Step 2a above (or classic if that's what you used)
 2. Go to **Settings** → **Secrets and variables** → **Actions**
 3. Click the **pencil icon** next to `COPILOT_TOKEN`
 4. Paste the new token and click **Update secret**
 
-> **Tip:** Set a calendar reminder a week before the expiry date.
+> **Tip:** Set a calendar reminder a week before the expiry date so the workflow doesn't silently fail on a Saturday morning.
 
 ---
 
