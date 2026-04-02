@@ -206,4 +206,33 @@ Learn how to customize and extend Copilot CLI:
 
 ---
 
+## ⚙️ Automation
+
+This repo includes a daily GitHub Actions workflow that uses the `doc-maintenance` skill to automatically keep the documentation current.
+
+### How It Works
+
+1. Runs every day at **9:00 AM UTC** (or manually via the Actions tab)
+2. Installs Copilot CLI using [`mvkaran/setup-copilot-cli@v1`](https://github.com/mvkaran/setup-copilot-cli)
+3. Loads the `doc-maintenance` skill
+4. Runs Copilot non-interactively to check for new CLI releases and update relevant markdown files
+5. If changes are detected → opens a **Pull Request** for review
+6. If no changes → exits cleanly
+
+### Required Secret
+
+The workflow requires a Personal Access Token (PAT) with **Copilot Requests** permission stored as a repository secret:
+
+| Secret name | Where to create |
+|-------------|----------------|
+| `COPILOT_TOKEN` | [github.com/settings/personal-access-tokens/new](https://github.com/settings/personal-access-tokens/new) → Permissions → Copilot Requests |
+
+> ℹ️ The default `GITHUB_TOKEN` does not have Copilot access — a PAT is required.
+
+### Manual Trigger
+
+Go to **Actions → Daily Doc Maintenance → Run workflow** to trigger it on demand.
+
+---
+
 **Note:** This guide covers GitHub Copilot CLI v1.0.15. Some capabilities may vary by version — run `/update` to stay current.
