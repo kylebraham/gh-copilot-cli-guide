@@ -92,7 +92,7 @@ Rename the current session. Alias for `/session rename`.
 
 ### /rewind, /undo
 
-Rewind the last turn and revert any file changes made during that turn.
+Rewind the last turn and revert any file changes made during that turn. In v1.0.13+, `/rewind` and double-Esc open a **timeline picker** to roll back to any point in conversation history — not just the previous snapshot.
 
 ```
 > /rewind
@@ -102,6 +102,7 @@ Rewind the last turn and revert any file changes made during that turn.
 - The AI made edits you want to undo
 - You want to retry a prompt with different wording
 - You accidentally ran a destructive operation
+- You need to roll back several turns at once (use the timeline picker)
 
 > **Tip:** `/undo` is an alias for `/rewind` — both work identically.
 
@@ -1275,9 +1276,9 @@ Manage skills for enhanced capabilities.
 
 **For comprehensive details, see [Skills System Guide](14-skills-system.md).**
 
-### /share [file|gist] [path]
+### /share [file|gist|html] [path]
 
-Share session to markdown file or GitHub Gist.
+Share session to markdown file, GitHub Gist, or self-contained interactive HTML file.
 
 ```
 # Share to file
@@ -1288,6 +1289,10 @@ Share session to markdown file or GitHub Gist.
 
 # Share to GitHub Gist
 > /share gist
+
+# Export as interactive HTML (v1.0.15+)
+> /share html
+> /share html ~/reports/session.html
 ```
 
 **File output includes:**
@@ -1301,6 +1306,11 @@ Share session to markdown file or GitHub Gist.
 - Creates public gist
 - Returns shareable URL
 - Includes all session content
+
+**HTML output:**
+- Self-contained interactive HTML file
+- No external dependencies
+- Shareable without a GitHub account
 
 ### /feedback
 
@@ -1345,7 +1355,7 @@ Exit the CLI.
 > /quit
 ```
 
-**Alternative:** Press `Ctrl+D` to quickly exit.
+**Alternative:** Press `Ctrl+D` to quickly shutdown (does not queue a message). Use `Ctrl+Q` or `Ctrl+Enter` to queue a message while the agent is running.
 
 **Note:** Sessions are automatically saved and can be resumed later.
 

@@ -205,4 +205,4 @@ Learn how to customize and extend Copilot CLI:
 
 ---
 
-**Note:** This guide covers GitHub Copilot CLI v1.0.11. Some capabilities may vary by version — run `/update` to stay current.
+**Note:** This guide covers GitHub Copilot CLI v1.0.15. Some capabilities may vary by version — run `/update` to stay current.

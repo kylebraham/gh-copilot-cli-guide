@@ -1,4 +1,4 @@
-# Latest Features in GitHub Copilot CLI — v1.0.11
+# Latest Features in GitHub Copilot CLI — v1.0.15
 
 This file covers recent additions to GitHub Copilot CLI. Features marked with "Full guide →" have their own dedicated documentation file — the entries here are summaries with links. Features without a dedicated file are covered in full below.
 
@@ -10,16 +10,102 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 3. [Research Command (`/research`)](#research-command-research) — [Full guide →](19-research-command.md)
 
 ### Features covered in this file
-4. [New in v1.0.11](#new-in-v1011)
-5. [LSP Support](#lsp-language-server-protocol-support)
-6. [Code Review Agent (`/review`)](#code-review-agent-review)
-7. [Plugin System (`/plugin`)](#plugin-system-plugin)
-8. [Keyboard Shortcuts Reference](#keyboard-shortcuts-reference)
-9. [PAT Authentication](#pat-authentication)
-10. [Extended Instructions Support](#extended-instructions-support)
-11. [Project Initialization (`/init`)](#project-initialization-init)
-12. [Enhanced Pull Request Creation (`/delegate`)](#enhanced-pull-request-creation-delegate)
-13. [Staying Up to Date](#staying-up-to-date)
+4. [New in v1.0.15](#new-in-v1015)
+5. [New in v1.0.13](#new-in-v1013)
+6. [New in v1.0.11](#new-in-v1011)
+7. [LSP Support](#lsp-language-server-protocol-support)
+8. [Code Review Agent (`/review`)](#code-review-agent-review)
+9. [Plugin System (`/plugin`)](#plugin-system-plugin)
+10. [Keyboard Shortcuts Reference](#keyboard-shortcuts-reference)
+11. [PAT Authentication](#pat-authentication)
+12. [Extended Instructions Support](#extended-instructions-support)
+13. [Project Initialization (`/init`)](#project-initialization-init)
+14. [Enhanced Pull Request Creation (`/delegate`)](#enhanced-pull-request-creation-delegate)
+15. [Staying Up to Date](#staying-up-to-date)
+
+---
+
+## New in v1.0.15
+
+Released: 2026-04-01
+
+### `/share html` — Export Session as Interactive HTML
+
+Export your session or research report as a self-contained interactive HTML file — no GitHub account required to view it.
+
+```
+> /share html
+> /share html ~/reports/my-session.html
+```
+
+**Why it matters:** Easily share Copilot sessions with teammates or stakeholders who don't have CLI access.
+
+### `/mcp auth` — MCP OAuth Re-authentication
+
+Authenticate or re-authenticate an MCP OAuth server, with account switching support.
+
+```
+> /mcp auth my-server
+```
+
+**Why it matters:** Fixes auth expiry without needing to remove and re-add a server.
+
+### Config Keys Now Use camelCase
+
+Config settings now prefer camelCase names. snake_case still works for backwards compatibility.
+
+| Old key | New key |
+|---------|---------|
+| `ask_user` | `askUser` |
+| `auto_update` | `autoUpdate` |
+| `store_token_plaintext` | `storeTokenPlaintext` |
+| `log_level` | `logLevel` |
+| `skill_directories` | `skillDirectories` |
+| `disabled_skills` | `disabledSkills` |
+
+### Autopilot No Longer Resumes After Cancel
+
+Pressing **Escape** or **Ctrl+C** now fully stops Autopilot. Previously, autopilot could continue after a cancel under some conditions.
+
+### Ctrl+D No Longer Queues Messages
+
+`Ctrl+D` is now shutdown-only. Use `Ctrl+Q` or `Ctrl+Enter` to queue a message while the agent is running.
+
+### Model Removals
+
+The following models were removed in v1.0.15:
+- `gpt-5.1-codex`
+- `gpt-5.1-codex-mini`
+- `gpt-5.1-codex-max`
+
+> ⚠️ **Removed in v1.0.15:** If you were using `gpt-5.1-codex*` models, switch to `gpt-5.3-codex` or `gpt-5.2-codex`. Run `/model` to see current options.
+
+---
+
+## New in v1.0.13
+
+Released: 2026-03-30
+
+### `/rewind` Timeline Picker
+
+`/rewind` and double-Esc now open a **timeline picker** to roll back to any point in conversation history — not just the previous snapshot.
+
+```
+> /rewind
+# or press Esc Esc to open the picker
+```
+
+**Why it matters:** Recover from mistakes several turns back without losing all context.
+
+### MCP Servers Can Request LLM Inference
+
+MCP servers can now request LLM inference (sampling) with user approval via a review prompt. This allows MCP tools to leverage AI reasoning as part of their workflows.
+
+### Model Removals
+
+`gemini-3-pro-preview` was removed in v1.0.13.
+
+> ⚠️ **Removed in v1.0.13:** If you were using `gemini-3-pro-preview`, switch to another available model via `/model`.
 
 ---
 

@@ -12,7 +12,8 @@
 |----------|--------|
 | `Ctrl+C` | Cancel current input / interrupt running task / copy selection |
 | `Ctrl+C` × 2 | Exit Copilot CLI |
-| `Ctrl+D` | Shutdown |
+| `Ctrl+D` | Shutdown (does not queue a message) |
+| `Ctrl+Q` / `Ctrl+Enter` | Queue message while agent is running |
 | `Ctrl+L` | Clear the screen |
 | `Esc` | Cancel the current operation |
 | `↑ / ↓` | Navigate command history |
@@ -60,7 +61,7 @@
 | `/session` | Show current session info |
 | `/resume` | Resume a previous session |
 | `/rename` | Rename the current session |
-| `/share` | Share session transcript |
+| `/share` | Share session as markdown, gist, or HTML (`/share html`) |
 | `/copy` | Copy last response to clipboard |
 
 ### Navigation

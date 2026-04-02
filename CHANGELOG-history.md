@@ -1,6 +1,31 @@
 # Documentation Updates
 
-## v1.0.11 (Latest)
+## v1.0.15 (Latest)
+
+Released: 2026-04-01 — Docs updated: 2026-04-02
+
+### Changes
+
+- `README.md`: Bumped version note to v1.0.15
+- `16-new-features.md`: Added sections for v1.0.15 and v1.0.13; renamed title to v1.0.15
+- `04-slash-commands.md`: Updated `/share` with `html` subcommand; updated `/rewind` with timeline picker; added `Ctrl+Q`/`Ctrl+Enter` note; added `/mcp auth`
+- `00-cheat-sheet.md`: Updated `Ctrl+D` description; updated `/share` entry with html option
+- `08-advanced-features.md`: Added `/mcp auth` and `/mcp reload` to MCP management commands
+- `17-autopilot-mode.md`: Updated stopping conditions — Escape now stops Autopilot; autopilot no longer resumes after cancel
+
+### Feature Summary
+- **New:** `/share html` — export sessions as self-contained interactive HTML
+- **New:** `/mcp auth` — OAuth re-authentication for MCP servers
+- **New:** `/rewind` timeline picker (v1.0.13) — roll back to any point in history
+- **Changed:** Autopilot stops on Escape/Ctrl+C and does not resume
+- **Changed:** `Ctrl+D` is now shutdown-only; use `Ctrl+Q`/`Ctrl+Enter` to queue messages
+- **Changed:** Config keys now prefer camelCase
+- **Removed:** `gpt-5.1-codex`, `gpt-5.1-codex-mini`, `gpt-5.1-codex-max` (v1.0.15)
+- **Removed:** `gemini-3-pro-preview` (v1.0.13)
+
+---
+
+## v1.0.11
 
 This document summarizes all documentation changes made for GitHub Copilot CLI version 1.0.11.
 

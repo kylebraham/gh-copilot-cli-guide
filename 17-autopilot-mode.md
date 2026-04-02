@@ -116,10 +116,10 @@ Autopilot runs until one of these conditions is met:
 |-----------|-------------|
 | Task complete | The agent determines it has finished |
 | Unresolvable error | A blocker it cannot work around |
-| `Ctrl+C` | You press Ctrl+C to stop the agent |
+| `Ctrl+C` or `Esc` | You press Ctrl+C or Escape to cancel |
 | Continuation limit | `--max-autopilot-continues` count reached |
 
-Pressing **Ctrl+C** cleanly stops the current autonomous step. You can then review what was done, switch back to interactive mode with Shift+Tab, and continue manually.
+Pressing **Ctrl+C** or **Escape** cleanly stops the current autonomous step and autopilot will not resume (v1.0.15+). You can then review what was done, switch back to interactive mode with Shift+Tab, and continue manually.
 
 ---
 
