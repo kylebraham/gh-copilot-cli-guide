@@ -1,3 +1,8 @@
+---
+name: update-cli
+description: Expertise in checking, upgrading, and managing GitHub Copilot CLI versions across all platforms and package managers.
+---
+
 # Update CLI Skill
 
 ## Metadata

@@ -141,10 +141,10 @@ This repo includes four [Copilot Skills](14-skills-system.md) in `.github/` — 
 
 | Skill | Folder | What it does |
 |-------|--------|--------------|
-| `update-cli` | `.github/update-cli/SKILL.md` | Upgrade/downgrade CLI, check versions, rollback |
-| `doc-maintenance` | `.github/doc-maintenance/SKILL.md` | Keep this docs repo current with new CLI releases |
-| `cli-expertise` | `.github/cli-expertise/SKILL.md` | Deep CLI feature knowledge — slash commands, agents, MCP, and more |
-| `copilot-cli-guide-quickstart` | `.github/quickstart/SKILL.md` | Interactive tutorial through all docs (works best with `cli-expertise`) |
+| `update-cli` | `.github/skills/update-cli/SKILL.md` | Upgrade/downgrade CLI, check versions, rollback |
+| `doc-maintenance` | `.github/skills/doc-maintenance/SKILL.md` | Keep this docs repo current with new CLI releases |
+| `cli-expertise` | `.github/skills/cli-expertise/SKILL.md` | Deep CLI feature knowledge — slash commands, agents, MCP, and more |
+| `copilot-cli-guide-quickstart` | `.github/skills/quickstart/SKILL.md` | Interactive tutorial through all docs (works best with `cli-expertise`) |
 
 ### 🚀 Quick Start with the Tutorial
 
@@ -152,8 +152,8 @@ The `quickstart` skill walks you through the entire guide interactively:
 
 1. Copy the skill folders to your skills directory:
    ```bash
-   cp -r .github/quickstart ~/.copilot/skills/
-   cp -r .github/cli-expertise ~/.copilot/skills/
+   cp -r .github/skills/quickstart ~/.copilot/skills/
+   cp -r .github/skills/cli-expertise ~/.copilot/skills/
    ```
 2. Activate both skills in Copilot CLI:
    ```
@@ -168,11 +168,11 @@ The `quickstart` skill walks you through the entire guide interactively:
 
 ```bash
 # Update/upgrade guidance
-cp -r .github/update-cli ~/.copilot/skills/
+cp -r .github/skills/update-cli ~/.copilot/skills/
 > /skills add update-cli
 
 # Documentation maintenance help
-cp -r .github/doc-maintenance ~/.copilot/skills/
+cp -r .github/skills/doc-maintenance ~/.copilot/skills/
 > /skills add doc-maintenance
 ```
 

@@ -1,15 +1,7 @@
-name
-
-copilot-cli-guide-quickstart
-
-description
-
-Use this skill to take an interactive guided tour of the GitHub Copilot CLI Guide. Walks through the full documentation set with hands-on exercises, audience-appropriate tracks (developer vs non-developer), and SQL-tracked progress. Works best alongside the cli-expertise skill for deep feature Q&A. Just say "start tutorial", "next lesson", or ask a question!
-
-allowed-tools
-
-ask_user, sql, fetch_copilot_cli_documentation
-
+---
+name: copilot-cli-guide-quickstart
+description: Use this skill to take an interactive guided tour of the GitHub Copilot CLI Guide. Walks through the full documentation set with hands-on exercises, audience-appropriate tracks (developer vs non-developer), and SQL-tracked progress. Works best alongside the cli-expertise skill for deep feature Q&A. Just say "start tutorial", "next lesson", or ask a question!
+allowed-tools: ask_user, sql, fetch_copilot_cli_documentation
 ---
 
 # Copilot CLI Guide — Quickstart Tutor

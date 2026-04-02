@@ -144,7 +144,7 @@ Skills are stored in `~/.copilot/skills/` on each engineer's machine. There is n
 
 Options for team skill distribution:
 
-1. **Committed to the repo** — store skill files in `.github/copilot-skills/` and document that engineers should copy them to `~/.copilot/skills/` during setup
+1. **Committed to the repo** — store skill files in `.github/skills/` and document that engineers should copy them to `~/.copilot/skills/` during setup
 2. **Internal wiki or runbook** — link to skill files for manual installation
 3. **Dotfiles repo** — engineers who use a shared dotfiles repo can include skills there
 4. **Setup script** — a `scripts/setup-copilot.sh` that copies skill files into place
@@ -203,7 +203,7 @@ Provide this checklist to every new engineer joining the team. It covers first-d
 - [ ] Verify AGENTS.md is loaded: start CLI, check it mentions our tech stack
 - [ ] Run /terminal-setup for multiline support
 - [ ] Set preferred model: /model → Claude Sonnet (default is fine to start)
-- [ ] Install team skills: `cp .github/copilot-skills/* ~/.copilot/skills/`
+- [ ] Install team skills: `cp -r .github/skills/* ~/.copilot/skills/`
 
 ### Week 1 — Core Workflows
 - [ ] Complete the interactive tutorial: ask Copilot "Explain this codebase to me"

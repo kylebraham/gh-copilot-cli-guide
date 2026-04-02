@@ -1,3 +1,8 @@
+---
+name: doc-maintenance
+description: Expertise in keeping this GitHub Copilot CLI guide up to date when new CLI versions release.
+---
+
 # Doc Maintenance Skill
 
 ## Metadata

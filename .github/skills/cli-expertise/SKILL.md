@@ -1,3 +1,8 @@
+---
+name: cli-expertise
+description: Deep expertise in all GitHub Copilot CLI features, workflows, and best practices.
+---
+
 # CLI Expertise Skill
 
 ## Metadata
