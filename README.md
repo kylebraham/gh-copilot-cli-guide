@@ -135,6 +135,49 @@ To get the most out of this guide, you should have:
 
 Ready to start? Head over to [Getting Started](01-getting-started.md) to install and configure GitHub Copilot CLI.
 
+## 🛠️ Skills in This Repo
+
+This repo includes four [Copilot Skills](14-skills-system.md) in `.github/` — modular expertise packages you can activate in Copilot CLI to get specialized help. Copy any skill folder to `~/.copilot/skills/` or `.copilot/skills/` in your project, then activate with `/skills add <name>`.
+
+| Skill | Folder | What it does |
+|-------|--------|--------------|
+| `update-cli` | `.github/update-cli/SKILL.md` | Upgrade/downgrade CLI, check versions, rollback |
+| `doc-maintenance` | `.github/doc-maintenance/SKILL.md` | Keep this docs repo current with new CLI releases |
+| `cli-expertise` | `.github/cli-expertise/SKILL.md` | Deep CLI feature knowledge — slash commands, agents, MCP, and more |
+| `copilot-cli-guide-quickstart` | `.github/quickstart/SKILL.md` | Interactive tutorial through all docs (works best with `cli-expertise`) |
+
+### 🚀 Quick Start with the Tutorial
+
+The `quickstart` skill walks you through the entire guide interactively:
+
+1. Copy the skill folders to your skills directory:
+   ```bash
+   cp -r .github/quickstart ~/.copilot/skills/
+   cp -r .github/cli-expertise ~/.copilot/skills/
+   ```
+2. Activate both skills in Copilot CLI:
+   ```
+   > /skills add copilot-cli-guide-quickstart
+   > /skills add cli-expertise
+   ```
+3. Say **"start tutorial"** to begin!
+
+> 💡 The quickstart skill works best with `cli-expertise` active — it uses that skill's deep feature knowledge to answer your Q&A questions during the tutorial.
+
+### Using Other Skills
+
+```bash
+# Update/upgrade guidance
+cp -r .github/update-cli ~/.copilot/skills/
+> /skills add update-cli
+
+# Documentation maintenance help
+cp -r .github/doc-maintenance ~/.copilot/skills/
+> /skills add doc-maintenance
+```
+
+For more on the Skills system, see [Skills System Guide](14-skills-system.md).
+
 ## 🔧 Configuration & Customization
 
 Learn how to customize and extend Copilot CLI:
