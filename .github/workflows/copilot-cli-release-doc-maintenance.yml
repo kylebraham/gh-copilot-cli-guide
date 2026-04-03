@@ -107,6 +107,8 @@ jobs:
 
       - name: Run doc-maintenance skill for new release
         if: steps.release_check.outputs.new_release == 'true'
+        env:
+          COPILOT_ALLOW_ALL: 'true'
         run: |
           TAG="${{ steps.upstream.outputs.latest }}"
           copilot -i "You are running in a non-interactive CI environment. \

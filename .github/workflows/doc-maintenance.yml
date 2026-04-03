@@ -37,6 +37,8 @@ jobs:
           echo '{"askUser": false}' > ~/.copilot/settings.json
 
       - name: Run doc-maintenance workflow
+        env:
+          COPILOT_ALLOW_ALL: 'true'
         run: |
           copilot -i "You are running in a non-interactive CI environment. \
           Use the doc-maintenance skill to check whether a new GitHub Copilot CLI \
