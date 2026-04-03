@@ -125,33 +125,16 @@ jobs:
           and existing terminology conventions (Copilot CLI, slash commands, \
           @ syntax, MCP servers, Skills, Plan mode)."
 
-      # ── Step 4: Detect file changes ──────────────────────────────────────────
-
-      - name: Check for documentation changes
-        id: changes
-        if: steps.release_check.outputs.new_release == 'true'
-        run: |
-          if git diff --quiet && git diff --cached --quiet; then
-            echo "changed=false" >> "$GITHUB_OUTPUT"
-            echo "No documentation changes detected — docs already reflect ${TAG}."
-          else
-            echo "changed=true" >> "$GITHUB_OUTPUT"
-            echo "Documentation changes detected:"
-            git --no-pager diff --stat
-          fi
-        env:
-          TAG: ${{ steps.upstream.outputs.latest }}
-
-      # ── Step 5: Commit, push, and open/update PR ─────────────────────────────
+      # ── Step 4: Prepare release branch and release state ─────────────────────
 
       - name: Configure git identity
-        if: steps.changes.outputs.changed == 'true'
+        if: steps.release_check.outputs.new_release == 'true'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
       - name: Create or reuse release branch
-        if: steps.changes.outputs.changed == 'true'
+        if: steps.release_check.outputs.new_release == 'true'
         run: |
           TAG="${{ steps.upstream.outputs.latest }}"
           BRANCH="docs/copilot-cli-release-${TAG}"
@@ -166,9 +149,28 @@ jobs:
           echo "BRANCH=$BRANCH" >> "$GITHUB_ENV"
 
       - name: Update release state file
-        if: steps.changes.outputs.changed == 'true'
+        if: steps.release_check.outputs.new_release == 'true'
         run: |
           echo "${{ steps.upstream.outputs.latest }}" > .github/last-processed-release
+
+      # ── Step 5: Detect file changes ──────────────────────────────────────────
+
+      - name: Check for repository changes
+        id: changes
+        if: steps.release_check.outputs.new_release == 'true'
+        run: |
+          if git diff --quiet && git diff --cached --quiet; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "No documentation or release-state changes detected — release branch already reflects ${TAG}."
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+            echo "Documentation or release-state changes detected:"
+            git --no-pager diff --stat
+          fi
+        env:
+          TAG: ${{ steps.upstream.outputs.latest }}
+
+      # ── Step 6: Commit, push, and open/update PR ─────────────────────────────
 
       - name: Commit changes
         if: steps.changes.outputs.changed == 'true'
@@ -233,13 +235,12 @@ jobs:
         run: |
           echo "Updated existing PR #${{ steps.existing_pr.outputs.pr_number }} with new commits on branch $BRANCH."
 
-      # ── Step 6: Clean exit when no changes ───────────────────────────────────
+      # ── Step 7: Clean exit when no changes ───────────────────────────────────
 
       - name: Exit cleanly — no documentation changes
         if: >
           steps.release_check.outputs.new_release == 'true' &&
           steps.changes.outputs.changed == 'false'
         run: |
-          echo "New release ${{ steps.upstream.outputs.latest }} detected but no documentation changes were produced."
-          echo "Exiting cleanly. The last-processed-release marker will not be updated."
-          echo "The workflow will re-evaluate this release on the next scheduled run."
+          echo "New release ${{ steps.upstream.outputs.latest }} detected but the release branch already contains all required updates."
+          echo "Exiting cleanly with nothing new to commit."
