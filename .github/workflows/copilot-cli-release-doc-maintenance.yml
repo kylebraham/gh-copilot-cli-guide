@@ -123,10 +123,7 @@ jobs:
           file map, and add an entry at the top of CHANGELOG-history.md. \
           Preserve all relative markdown links, the progressive learning flow, \
           and existing terminology conventions (Copilot CLI, slash commands, \
-          @ syntax, MCP servers, Skills, Plan mode). \
-          IMPORTANT: Do NOT run any git commands. Do NOT use the git-commit skill. \
-          Do NOT stage, commit, push, or create any branch. Only edit the markdown \
-          files on disk. The workflow will handle all git operations after you finish."
+          @ syntax, MCP servers, Skills, Plan mode)."
 
       # ── Step 4: Detect file changes ──────────────────────────────────────────
 
