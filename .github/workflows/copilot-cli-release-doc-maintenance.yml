@@ -125,7 +125,30 @@ jobs:
           and existing terminology conventions (Copilot CLI, slash commands, \
           @ syntax, MCP servers, Skills, Plan mode)."
 
-      # ── Step 4: Detect file changes ──────────────────────────────────────────
+      # ── Step 4: Prepare release branch and release state ─────────────────────
+
+      - name: Configure git identity
+        if: steps.release_check.outputs.new_release == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Create or reuse release branch
+        if: steps.release_check.outputs.new_release == 'true'
+        run: |
+          TAG="${{ steps.upstream.outputs.latest }}"
+          BRANCH="docs/copilot-cli-release-${TAG}"
+
+          # Reuse existing remote branch if present, otherwise create fresh
+          if git ls-remote --exit-code origin "refs/heads/${BRANCH}" > /dev/null 2>&1; then
+            git checkout -b "$BRANCH" "origin/$BRANCH"
+          else
+            git checkout -b "$BRANCH"
+          fi
+
+          echo "BRANCH=$BRANCH" >> "$GITHUB_ENV"
+
+      # ── Step 5: Detect file changes ──────────────────────────────────────────
 
       - name: Check for documentation changes
         id: changes
@@ -142,28 +165,7 @@ jobs:
         env:
           TAG: ${{ steps.upstream.outputs.latest }}
 
-      # ── Step 5: Commit, push, and open/update PR ─────────────────────────────
-
-      - name: Configure git identity
-        if: steps.changes.outputs.changed == 'true'
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-
-      - name: Create or reuse release branch
-        if: steps.changes.outputs.changed == 'true'
-        run: |
-          TAG="${{ steps.upstream.outputs.latest }}"
-          BRANCH="docs/copilot-cli-release-${TAG}"
-
-          # Reuse existing remote branch if present, otherwise create fresh
-          if git ls-remote --exit-code origin "refs/heads/${BRANCH}" > /dev/null 2>&1; then
-            git checkout -b "$BRANCH" "origin/$BRANCH"
-          else
-            git checkout -b "$BRANCH"
-          fi
-
-          echo "BRANCH=$BRANCH" >> "$GITHUB_ENV"
+      # ── Step 6: Commit, push, and open/update PR ─────────────────────────────
 
       - name: Update release state file
         if: steps.changes.outputs.changed == 'true'
@@ -233,7 +235,7 @@ jobs:
         run: |
           echo "Updated existing PR #${{ steps.existing_pr.outputs.pr_number }} with new commits on branch $BRANCH."
 
-      # ── Step 6: Clean exit when no changes ───────────────────────────────────
+      # ── Step 7: Clean exit when no changes ───────────────────────────────────
 
       - name: Exit cleanly — no documentation changes
         if: >
