@@ -148,29 +148,29 @@ jobs:
 
           echo "BRANCH=$BRANCH" >> "$GITHUB_ENV"
 
-      - name: Update release state file
-        if: steps.release_check.outputs.new_release == 'true'
-        run: |
-          echo "${{ steps.upstream.outputs.latest }}" > .github/last-processed-release
-
       # ── Step 5: Detect file changes ──────────────────────────────────────────
 
-      - name: Check for repository changes
+      - name: Check for documentation changes
         id: changes
         if: steps.release_check.outputs.new_release == 'true'
         run: |
           if git diff --quiet && git diff --cached --quiet; then
             echo "changed=false" >> "$GITHUB_OUTPUT"
-            echo "No documentation or release-state changes detected — release branch already reflects ${TAG}."
+            echo "No documentation changes detected — docs already reflect ${TAG}."
           else
             echo "changed=true" >> "$GITHUB_OUTPUT"
-            echo "Documentation or release-state changes detected:"
+            echo "Documentation changes detected:"
             git --no-pager diff --stat
           fi
         env:
           TAG: ${{ steps.upstream.outputs.latest }}
 
       # ── Step 6: Commit, push, and open/update PR ─────────────────────────────
+
+      - name: Update release state file
+        if: steps.changes.outputs.changed == 'true'
+        run: |
+          echo "${{ steps.upstream.outputs.latest }}" > .github/last-processed-release
 
       - name: Commit changes
         if: steps.changes.outputs.changed == 'true'
@@ -242,5 +242,6 @@ jobs:
           steps.release_check.outputs.new_release == 'true' &&
           steps.changes.outputs.changed == 'false'
         run: |
-          echo "New release ${{ steps.upstream.outputs.latest }} detected but the release branch already contains all required updates."
-          echo "Exiting cleanly with nothing new to commit."
+          echo "New release ${{ steps.upstream.outputs.latest }} detected but no documentation changes were produced."
+          echo "Exiting cleanly. The last-processed-release marker will not be updated."
+          echo "The workflow will re-evaluate this release on the next scheduled run."
