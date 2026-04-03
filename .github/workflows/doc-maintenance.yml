@@ -49,7 +49,10 @@ jobs:
           00-cheat-sheet.md, and update any feature-specific files as described \
           in the skill's doc file map. Update CHANGELOG-history.md with a new \
           entry. Do not ask for confirmation — make all changes directly to the \
-          files. Do not explain what you are doing — just do it."
+          files. Do not explain what you are doing — just do it. \
+          IMPORTANT: Do NOT run any git commands. Do NOT use the git-commit skill. \
+          Do NOT stage, commit, push, or create any branch. Only edit the markdown \
+          files on disk. The workflow will handle all git operations after you finish."
 
       - name: Check for changes
         id: changes
