@@ -350,9 +350,19 @@ Skills that complement this one:
 
 ## Built-in Skills
 
-While specific built-in skills may vary by version, common skill categories include:
+Starting in v1.0.17, the CLI ships with built-in skills included out of the box. These appear automatically in `/skills list` marked as `(built-in)` and require no manual installation.
 
-### Language Skills
+### Currently Shipped Built-in Skills
+
+| Skill | Purpose |
+|-------|---------|
+| `customizing-copilot-cloud-agents-environment` | Guide for customizing the Copilot cloud agent environment, including `copilot-setup-steps.yml`, preinstalling tools, runner configuration, and environment settings |
+
+Built-in skills are loaded from the CLI's internal package directory and do not appear under `~/.copilot/skills/`. You can disable them individually with `/skills disable <name>` if needed.
+
+### Community / Custom Skill Categories
+
+While specific custom skills vary by team and project, common categories include:
 ```
 python-expert       - Advanced Python development
 javascript-expert   - Modern JavaScript patterns

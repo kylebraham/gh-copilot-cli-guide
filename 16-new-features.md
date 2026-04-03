@@ -1,4 +1,4 @@
-# Latest Features in GitHub Copilot CLI — v1.0.15
+# Latest Features in GitHub Copilot CLI — v1.0.17
 
 This file covers recent additions to GitHub Copilot CLI. Features marked with "Full guide →" have their own dedicated documentation file — the entries here are summaries with links. Features without a dedicated file are covered in full below.
 
@@ -10,18 +10,113 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 3. [Research Command (`/research`)](#research-command-research) — [Full guide →](19-research-command.md)
 
 ### Features covered in this file
-4. [New in v1.0.15](#new-in-v1015)
-5. [New in v1.0.13](#new-in-v1013)
-6. [New in v1.0.11](#new-in-v1011)
-7. [LSP Support](#lsp-language-server-protocol-support)
-8. [Code Review Agent (`/review`)](#code-review-agent-review)
-9. [Plugin System (`/plugin`)](#plugin-system-plugin)
-10. [Keyboard Shortcuts Reference](#keyboard-shortcuts-reference)
-11. [PAT Authentication](#pat-authentication)
-12. [Extended Instructions Support](#extended-instructions-support)
-13. [Project Initialization (`/init`)](#project-initialization-init)
-14. [Enhanced Pull Request Creation (`/delegate`)](#enhanced-pull-request-creation-delegate)
-15. [Staying Up to Date](#staying-up-to-date)
+4. [New in v1.0.17](#new-in-v1017)
+5. [New in v1.0.16](#new-in-v1016)
+6. [New in v1.0.15](#new-in-v1015)
+7. [New in v1.0.13](#new-in-v1013)
+8. [New in v1.0.11](#new-in-v1011)
+9. [LSP Support](#lsp-language-server-protocol-support)
+10. [Code Review Agent (`/review`)](#code-review-agent-review)
+11. [Plugin System (`/plugin`)](#plugin-system-plugin)
+12. [Keyboard Shortcuts Reference](#keyboard-shortcuts-reference)
+13. [PAT Authentication](#pat-authentication)
+14. [Extended Instructions Support](#extended-instructions-support)
+15. [Project Initialization (`/init`)](#project-initialization-init)
+16. [Enhanced Pull Request Creation (`/delegate`)](#enhanced-pull-request-creation-delegate)
+17. [Staying Up to Date](#staying-up-to-date)
+
+---
+
+## New in v1.0.17
+
+Released: 2026-04-03
+
+### Built-in Skills Now Included with the CLI
+
+Starting in v1.0.17, the CLI ships with a set of built-in skills out of the box. The first included skill is a guide for customizing Copilot cloud agent's environment — available without any manual installation or configuration.
+
+```
+> /skills list
+```
+
+Look for skills marked `(built-in)` in the output. They are ready to use immediately on any install.
+
+**Why it matters:** Previously all skills had to be created or installed manually. Built-in skills provide useful capabilities with zero setup.
+
+### MCP OAuth: HTTPS Redirect URI Fallback
+
+MCP OAuth flows now support HTTPS redirect URIs via a self-signed certificate fallback. This improves compatibility with OAuth providers that require HTTPS (e.g., Slack).
+
+No configuration change is required — the fallback activates automatically when an OAuth provider rejects an HTTP redirect.
+
+**Why it matters:** Enables MCP OAuth with providers that mandate HTTPS, such as Slack, without needing a full TLS setup.
+
+### Faster `/resume` Session Picker
+
+The `/resume` session picker now loads significantly faster, especially for users with large session histories.
+
+```
+> /resume
+```
+
+**Why it matters:** Large session histories no longer cause a noticeable delay when picking up previous work.
+
+---
+
+## New in v1.0.16
+
+Released: 2026-04-02
+
+### PermissionRequest Hook
+
+A new `PermissionRequest` hook lets scripts programmatically approve or deny tool permission requests. This is particularly useful in CI/CD pipelines and automated workflows where interactive prompts aren't possible.
+
+```json
+{
+  "hooks": {
+    "PermissionRequest": [
+      {
+        "command": "scripts/approve-tool.sh"
+      }
+    ]
+  }
+}
+```
+
+The hook script receives the permission request details and exits `0` to approve or non-zero to deny.
+
+**Why it matters:** Enables fully automated, non-interactive Copilot runs without using `--allow-all`.
+
+### MCP Tool Calls Shown in Timeline
+
+MCP tool calls now display the tool name and a parameter summary directly in the session timeline, making it easier to audit exactly what each MCP server did during a session.
+
+**Why it matters:** Improved observability for sessions that use MCP servers heavily.
+
+### `postToolUseFailure` Hook
+
+A new `postToolUseFailure` hook fires when a tool call fails, enabling custom error-handling scripts. The existing `postToolUse` hook now only fires on successful tool calls (previously it fired on both success and failure).
+
+**Why it matters:** Lets you react specifically to tool errors — for example, logging failures or sending alerts — without duplicating logic in `postToolUse`.
+
+### Deprecated: `marketplaces` Config Key
+
+> ⚠️ **Removed in v1.0.16:** The `marketplaces` repository config setting has been removed. Use `extraKnownMarketplaces` instead.
+
+```json
+// ❌ Old (removed)
+{ "marketplaces": ["https://plugins.example.com/registry.json"] }
+
+// ✅ New
+{ "extraKnownMarketplaces": ["https://plugins.example.com/registry.json"] }
+```
+
+### Other Fixes and Improvements
+
+- SQL prompt tags no longer appear when the `sql` tool is excluded via `excludedTools` or `availableTools`
+- MCP servers reconnect correctly with valid authentication when the working directory changes
+- MCP servers load correctly after login, user switch, and `/mcp reload`
+- BYOK Anthropic provider now respects the configured `maxOutputTokens` limit
 
 ---
 

@@ -1,6 +1,29 @@
 # Documentation Updates
 
-## v1.0.15 (Latest)
+## 2026-04-03 — Docs updated for v1.0.17
+
+- `README.md`: Bumped version note to v1.0.17
+- `16-new-features.md`: Added sections for v1.0.17 and v1.0.16; updated title to v1.0.17
+- `14-skills-system.md`: Updated Built-in Skills section — CLI now ships skills out of the box starting v1.0.17
+- `08-advanced-features.md`: Added MCP OAuth HTTPS fallback note (v1.0.17); added auth-reload and working-directory reconnect fixes to MCP troubleshooting table (v1.0.16); added `extraKnownMarketplaces` migration note with deprecation callout for removed `marketplaces` key (v1.0.16)
+
+### Feature Summary (v1.0.17)
+- **New:** Built-in skills included with CLI — first skill is the Copilot cloud agent environment customization guide
+- **New:** MCP OAuth HTTPS redirect URI fallback (self-signed cert) for providers requiring HTTPS (e.g., Slack)
+- **Improved:** `/resume` session picker loads significantly faster with large session histories
+
+### Feature Summary (v1.0.16)
+- **New:** `PermissionRequest` hook — programmatically approve or deny tool permission requests
+- **New:** `postToolUseFailure` hook — fires on tool call failures; `postToolUse` now fires on success only
+- **New:** MCP tool calls show tool name and parameter summary in the session timeline
+- **Removed:** `marketplaces` config key — use `extraKnownMarketplaces` instead
+- **Fixed:** MCP servers reload auth correctly after login, user switch, and `/mcp reload`
+- **Fixed:** BYOK Anthropic provider respects configured `maxOutputTokens`
+- **Fixed:** SQL prompt tags hidden when `sql` tool excluded via `excludedTools`/`availableTools`
+
+---
+
+## v1.0.15 (Previous Latest)
 
 Released: 2026-04-01 — Docs updated: 2026-04-02
 

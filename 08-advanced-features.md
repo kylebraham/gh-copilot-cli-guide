@@ -227,6 +227,8 @@ Common off-the-shelf servers:
 | Tools not available to model | Server disabled | Run `/mcp enable server-name` |
 | Credentials exposed in config | Hardcoded passwords | Use `env` block with environment variable references |
 | Server crashes on startup | Incompatible version | Check MCP SDK version compatibility |
+| Server loses auth after `/mcp reload` or login | Auth state not persisted | Upgrade to v1.0.16+; servers now reload auth correctly |
+| OAuth provider rejects redirect URI | Provider requires HTTPS | v1.0.17+ automatically falls back to a self-signed HTTPS certificate |
 
 ## LSP (Language Server Protocol) Support
 
@@ -793,6 +795,16 @@ This lets you:
 - Add marketplace URLs
 - Remove marketplaces
 - Refresh the plugin catalog
+
+When configuring marketplaces in `config.json`, use the `extraKnownMarketplaces` key:
+
+```json
+{
+  "extraKnownMarketplaces": ["https://plugins.example.com/registry.json"]
+}
+```
+
+> ⚠️ **Removed in v1.0.16:** The `marketplaces` config key has been removed. Use `extraKnownMarketplaces` instead.
 
 ### What Plugins Can Add
 
