@@ -31,6 +31,11 @@ jobs:
           mkdir -p ~/.copilot/skills
           cp -r .github/skills/doc-maintenance ~/.copilot/skills/
 
+      - name: Configure Copilot CLI for CI
+        run: |
+          mkdir -p ~/.copilot
+          echo '{"askUser": false}' > ~/.copilot/settings.json
+
       - name: Run doc-maintenance workflow
         run: |
           copilot -i "You are running in a non-interactive CI environment. \
@@ -59,7 +64,7 @@ jobs:
       - name: Create branch, commit, and open PR
         if: steps.changes.outputs.changed == 'true'
         env:
-          GH_TOKEN: ${{ secrets.COPILOT_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           DATE=$(date +%Y-%m-%d)
           BRANCH="docs/auto-update-${DATE}"
