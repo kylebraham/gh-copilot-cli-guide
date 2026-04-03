@@ -99,6 +99,12 @@ jobs:
           mkdir -p ~/.copilot/skills
           cp -r .github/skills/doc-maintenance ~/.copilot/skills/
 
+      - name: Configure Copilot CLI for CI
+        if: steps.release_check.outputs.new_release == 'true'
+        run: |
+          mkdir -p ~/.copilot
+          echo '{"askUser": false}' > ~/.copilot/settings.json
+
       - name: Run doc-maintenance skill for new release
         if: steps.release_check.outputs.new_release == 'true'
         run: |
