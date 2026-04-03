@@ -12,6 +12,7 @@ jobs:
   update-docs:
     name: Update docs with doc-maintenance skill
     runs-on: ubuntu-latest
+    timeout-minutes: 60
 
     steps:
       - name: Checkout repository
