@@ -649,6 +649,35 @@ ls -la ~/.copilot/sessions/
 > Start from task 5
 ```
 
+## Critic Agent (Experimental)
+
+Available in v1.0.18+, the **Critic agent** automatically reviews plans using a complementary model before execution begins. It checks for logical gaps, missed dependencies, and architectural issues — catching problems that the primary agent may have overlooked.
+
+### Enabling the Critic Agent
+
+The Critic agent requires **experimental mode** and a **Claude model**:
+
+```
+> /experimental
+```
+
+Once enabled, the Critic activates automatically when you generate or review a plan. You will see a secondary review pass in the session timeline before Copilot asks you to approve the plan.
+
+### What the Critic Checks
+
+- Logical correctness of each plan step
+- Missing prerequisites or ordering problems
+- Scope creep or tasks that are too large to execute atomically
+- Potential edge cases or failure modes not addressed in the plan
+
+### Tips
+
+- ✅ Use the Critic for large, high-risk plans (migrations, new architecture, security changes)
+- ✅ Read the Critic's notes alongside the plan — they appear as a separate timeline entry
+- ❌ The Critic is not a replacement for your own plan review — treat its output as a second opinion
+
+---
+
 ## Quick Reference
 
 ```bash

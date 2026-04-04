@@ -34,26 +34,28 @@ Released: 2026-04-04
 
 ### Critic Agent (Experimental)
 
-A new **Critic agent** automatically reviews plans and complex implementations using a complementary AI model to catch errors early. The Critic runs in experimental mode and is currently available for Claude models only.
+A new **Critic agent** automatically reviews plans and complex implementations using a complementary model to catch errors early. The Critic runs alongside the primary agent and provides an independent second opinion before changes are finalized.
 
-Enable experimental features first, then the Critic will activate automatically during plan review and complex implementation steps:
+The Critic agent is available in **experimental mode for Claude models only**.
+
+**How to enable:**
 
 ```
 > /experimental
 ```
 
-When the Critic is active, it runs a second-pass review using a different model perspective, surfacing issues before execution begins.
+Once experimental mode is active, the Critic agent runs automatically during plan reviews and complex multi-step implementations — no additional configuration required.
 
-**Why it matters:** Reduces implementation errors by having a complementary model challenge assumptions and flag problems in plans before any code is written.
+**Why it matters:** An independent model reviewing the work catches logical errors, missed edge cases, and architectural mistakes before they become code — without requiring you to manually review every step.
 
-### `notification` Hook Event
+### Notification Hook Event
 
-A new `notification` hook event fires asynchronously when notable events occur during a session. It triggers on:
+A new `notification` hook event fires **asynchronously** when significant events occur during a session:
 
-- Shell command completion
-- Permission prompts
-- Elicitation dialogs
-- Agent completion
+- Shell command completes
+- Permission prompt appears
+- Elicitation dialog opens
+- Agent completes a task
 
 ```json
 {
@@ -67,13 +69,13 @@ A new `notification` hook event fires asynchronously when notable events occur d
 }
 ```
 
-The hook fires in the background without blocking the agent, making it safe for things like desktop notifications or logging.
+Because the hook fires asynchronously, it does not block the agent or add latency to the session.
 
-**Why it matters:** Enables passive monitoring and alerting without interfering with the agent's workflow.
+**Why it matters:** Lets you wire up desktop notifications, Slack alerts, or custom logging for any significant event during a long-running Copilot session.
 
-### `preToolUse` Hook: `allow` Suppresses Approval Prompt
+### `preToolUse` Hook: `allow` Now Suppresses Approval Prompt
 
-The `preToolUse` hook's `permissionDecision` field now supports `"allow"` as a value that fully suppresses the interactive tool approval prompt — no confirmation dialog appears for that tool call.
+When a `preToolUse` hook returns `permissionDecision: 'allow'`, the tool approval prompt is now fully suppressed. Previously the hook could grant approval programmatically, but the UI still displayed the confirmation prompt.
 
 ```json
 {
@@ -87,19 +89,11 @@ The `preToolUse` hook's `permissionDecision` field now supports `"allow"` as a v
 }
 ```
 
-When the hook script returns `permissionDecision: "allow"`, the tool proceeds immediately and silently.
+**Why it matters:** Enables seamless, prompt-free tool approvals in automated workflows without requiring `--allow-all`.
 
-**Why it matters:** Enables fine-grained, script-controlled tool approval without requiring `--allow-all`, giving you selective automation with full control.
+### Other Fixes
 
-### Session Resume: Branch and Repository Grouping
-
-The `/resume` session picker now correctly groups sessions by branch and repository on first use, making it easier to find the right session when you have many active projects.
-
-```
-> /resume
-```
-
-**Why it matters:** Cleaner session organization when working across multiple repositories and branches simultaneously.
+- Session resume picker now correctly groups sessions by branch and repository on first use.
 
 ---
 

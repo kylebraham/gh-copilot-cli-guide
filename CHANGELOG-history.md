@@ -5,6 +5,7 @@
 - `README.md`: Bumped version note to v1.0.18
 - `16-new-features.md`: Added v1.0.18 section covering Critic agent, `notification` hook, `preToolUse` allow suppression, and session resume grouping; updated title and TOC
 - `09-plan-mode.md`: Added Critic Agent section (experimental, v1.0.18+)
+- `17-autopilot-mode.md`: Added Critic Agent section with inline example and tips
 - `00-cheat-sheet.md`: Added Critic + Plan mode row to Mode Comparison table; added Critic workflow to Common Workflows
 
 ### Feature Summary (v1.0.18)

@@ -346,6 +346,40 @@ Continuing autonomously (2 premium requests)
 
 ---
 
+## Critic Agent (Experimental)
+
+Available in v1.0.18+, the **Critic agent** adds an automatic second-opinion review for complex implementations running in autopilot. A complementary model reviews the work in progress and flags potential issues before they are committed — without pausing the agent for your input.
+
+### Requirements
+
+- Experimental mode enabled (`/experimental` or `--experimental`)
+- A Claude model active for the session
+
+### How It Works
+
+When autopilot is executing a complex multi-step task, the Critic agent runs asynchronously alongside it. At key decision points — completing a major step, before a destructive operation, after a test failure — the Critic reviews the current state and surfaces concerns in the session timeline.
+
+```
+[autopilot] > Migrate the payment module to use Stripe's new SDK
+
+Continuing autonomously (2 premium requests)
+
+🔧 Updating src/payments/stripe-client.js...
+🔍 Critic: Warning — stripe.charges.create is deprecated in the new SDK; use stripe.paymentIntents.create instead
+🔧 Using stripe.paymentIntents.create as suggested...
+🧪 Running: npm test... ✅ All passing
+
+✅ Task complete.
+```
+
+### Tips
+
+- ✅ The Critic is most valuable for autopilot runs on unfamiliar codebases
+- ✅ Critic notes appear inline in the timeline — review them when the task completes
+- ❌ Does not replace running tests — always verify the output with your own test suite
+
+---
+
 ## Quick Reference
 
 ```
