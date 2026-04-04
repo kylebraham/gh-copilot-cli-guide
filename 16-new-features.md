@@ -1,4 +1,4 @@
-# Latest Features in GitHub Copilot CLI — v1.0.17
+# Latest Features in GitHub Copilot CLI — v1.0.18
 
 This file covers recent additions to GitHub Copilot CLI. Features marked with "Full guide →" have their own dedicated documentation file — the entries here are summaries with links. Features without a dedicated file are covered in full below.
 
@@ -10,20 +10,96 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 3. [Research Command (`/research`)](#research-command-research) — [Full guide →](19-research-command.md)
 
 ### Features covered in this file
-4. [New in v1.0.17](#new-in-v1017)
-5. [New in v1.0.16](#new-in-v1016)
-6. [New in v1.0.15](#new-in-v1015)
-7. [New in v1.0.13](#new-in-v1013)
-8. [New in v1.0.11](#new-in-v1011)
-9. [LSP Support](#lsp-language-server-protocol-support)
-10. [Code Review Agent (`/review`)](#code-review-agent-review)
-11. [Plugin System (`/plugin`)](#plugin-system-plugin)
-12. [Keyboard Shortcuts Reference](#keyboard-shortcuts-reference)
-13. [PAT Authentication](#pat-authentication)
-14. [Extended Instructions Support](#extended-instructions-support)
-15. [Project Initialization (`/init`)](#project-initialization-init)
-16. [Enhanced Pull Request Creation (`/delegate`)](#enhanced-pull-request-creation-delegate)
-17. [Staying Up to Date](#staying-up-to-date)
+4. [New in v1.0.18](#new-in-v1018)
+5. [New in v1.0.17](#new-in-v1017)
+6. [New in v1.0.16](#new-in-v1016)
+7. [New in v1.0.15](#new-in-v1015)
+8. [New in v1.0.13](#new-in-v1013)
+9. [New in v1.0.11](#new-in-v1011)
+10. [LSP Support](#lsp-language-server-protocol-support)
+11. [Code Review Agent (`/review`)](#code-review-agent-review)
+12. [Plugin System (`/plugin`)](#plugin-system-plugin)
+13. [Keyboard Shortcuts Reference](#keyboard-shortcuts-reference)
+14. [PAT Authentication](#pat-authentication)
+15. [Extended Instructions Support](#extended-instructions-support)
+16. [Project Initialization (`/init`)](#project-initialization-init)
+17. [Enhanced Pull Request Creation (`/delegate`)](#enhanced-pull-request-creation-delegate)
+18. [Staying Up to Date](#staying-up-to-date)
+
+---
+
+## New in v1.0.18
+
+Released: 2026-04-04
+
+### Critic Agent (Experimental)
+
+A new **Critic agent** automatically reviews plans and complex implementations using a complementary AI model to catch errors early. The Critic runs in experimental mode and is currently available for Claude models only.
+
+Enable experimental features first, then the Critic will activate automatically during plan review and complex implementation steps:
+
+```
+> /experimental
+```
+
+When the Critic is active, it runs a second-pass review using a different model perspective, surfacing issues before execution begins.
+
+**Why it matters:** Reduces implementation errors by having a complementary model challenge assumptions and flag problems in plans before any code is written.
+
+### `notification` Hook Event
+
+A new `notification` hook event fires asynchronously when notable events occur during a session. It triggers on:
+
+- Shell command completion
+- Permission prompts
+- Elicitation dialogs
+- Agent completion
+
+```json
+{
+  "hooks": {
+    "notification": [
+      {
+        "command": "scripts/notify.sh"
+      }
+    ]
+  }
+}
+```
+
+The hook fires in the background without blocking the agent, making it safe for things like desktop notifications or logging.
+
+**Why it matters:** Enables passive monitoring and alerting without interfering with the agent's workflow.
+
+### `preToolUse` Hook: `allow` Suppresses Approval Prompt
+
+The `preToolUse` hook's `permissionDecision` field now supports `"allow"` as a value that fully suppresses the interactive tool approval prompt — no confirmation dialog appears for that tool call.
+
+```json
+{
+  "hooks": {
+    "preToolUse": [
+      {
+        "command": "scripts/auto-approve-safe-tools.sh"
+      }
+    ]
+  }
+}
+```
+
+When the hook script returns `permissionDecision: "allow"`, the tool proceeds immediately and silently.
+
+**Why it matters:** Enables fine-grained, script-controlled tool approval without requiring `--allow-all`, giving you selective automation with full control.
+
+### Session Resume: Branch and Repository Grouping
+
+The `/resume` session picker now correctly groups sessions by branch and repository on first use, making it easier to find the right session when you have many active projects.
+
+```
+> /resume
+```
+
+**Why it matters:** Cleaner session organization when working across multiple repositories and branches simultaneously.
 
 ---
 

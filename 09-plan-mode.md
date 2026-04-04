@@ -580,6 +580,36 @@ AI creates comprehensive plan with:
 - [How to revert if needed]
 ```
 
+## Critic Agent (Experimental, v1.0.18+)
+
+The **Critic agent** is an experimental feature that automatically reviews plans and complex implementations using a complementary AI model. When active, the Critic performs a second-pass review before execution begins, catching logical errors, missed edge cases, and architectural issues.
+
+### Enabling the Critic
+
+The Critic requires experimental mode and is available for Claude models only:
+
+```
+> /experimental
+```
+
+Once experimental mode is on, the Critic activates automatically during plan review and complex multi-step implementations.
+
+### What the Critic Reviews
+
+- Logical gaps or contradictions in the plan
+- Missing error handling or edge cases
+- Incorrect step ordering or missing dependencies
+- Architectural concerns before code is written
+
+### Tips
+
+- ✅ Use the Critic for high-stakes plans (migrations, API changes, security work)
+- ✅ The Critic's feedback appears inline before execution — read it carefully
+- ❌ Not available with non-Claude models (GPT, Gemini, etc.)
+- ❌ May increase latency on complex plans — disable via `/experimental` if speed is critical
+
+---
+
 ## Troubleshooting
 
 ### Plan Not Saving

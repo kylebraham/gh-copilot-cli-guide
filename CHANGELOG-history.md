@@ -1,5 +1,20 @@
 # Documentation Updates
 
+## 2026-04-04 — Docs updated for v1.0.18
+
+- `README.md`: Bumped version note to v1.0.18
+- `16-new-features.md`: Added v1.0.18 section covering Critic agent, `notification` hook, `preToolUse` allow suppression, and session resume grouping; updated title and TOC
+- `09-plan-mode.md`: Added Critic Agent section (experimental, v1.0.18+)
+- `00-cheat-sheet.md`: Added Critic + Plan mode row to Mode Comparison table; added Critic workflow to Common Workflows
+
+### Feature Summary (v1.0.18)
+- **New:** Critic agent — experimental second-model review of plans and implementations (Claude models only)
+- **New:** `notification` hook event — fires asynchronously on shell completion, permission prompts, elicitation dialogs, and agent completion
+- **Improved:** `preToolUse` hook `permissionDecision: "allow"` now suppresses the tool approval prompt entirely
+- **Fixed:** `/resume` session picker correctly groups sessions by branch and repository on first use
+
+---
+
 ## 2026-04-03 — Docs updated for v1.0.17
 
 - `README.md`: Bumped version note to v1.0.17

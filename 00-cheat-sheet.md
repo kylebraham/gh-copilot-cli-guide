@@ -186,6 +186,7 @@
 |------|----------|-----------|
 | **Interactive** | Exploration, Q&A, incremental edits, pair programming | Bulk tasks that would take many turns |
 | **Plan** | Reviewing a proposed approach before committing | Simple one-liner requests |
+| **Plan + Critic** | High-stakes plans needing a second-model review (experimental, Claude only) | Simple one-liner requests |
 | **Autopilot** | Implementing a clear, well-scoped task end-to-end | Ambiguous requirements, sensitive codebases |
 | **Fleet** | Parallel work across many files or modules | Tasks with complex interdependencies between files |
 | **`/research`** | Deep knowledge gathering before a major change | Quick factual questions (use interactive instead) |
@@ -212,6 +213,9 @@ Research before refactor:
 
 Plan then autopilot:
   [Shift+Tab → plan mode] → review plan → [/experimental then Shift+Tab → autopilot] → implement
+
+Plan with Critic review (experimental, Claude only):
+  /experimental → [Shift+Tab → plan mode] → Critic auto-reviews plan → implement
 
 Fleet for parallel test generation:
   /fleet Add unit tests for every file in src/services/
