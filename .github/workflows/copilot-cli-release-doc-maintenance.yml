@@ -173,9 +173,13 @@ jobs:
 
           if git ls-remote --exit-code origin "refs/heads/${BRANCH}" > /dev/null 2>&1; then
             git fetch origin "${BRANCH}"
-            git checkout -B "$BRANCH" "$CURRENT_HEAD"
+            git checkout -b "$BRANCH" "$CURRENT_HEAD"
             git branch --set-upstream-to="origin/${BRANCH}" "$BRANCH"
-            git merge --no-edit "origin/${BRANCH}"
+            git merge --no-edit "origin/${BRANCH}" || {
+              echo "::error::Failed to merge origin/${BRANCH} into local release updates."
+              echo "::error::Resolve the release branch manually before re-running this workflow."
+              exit 1
+            }
           else
             git checkout -b "$BRANCH" "$CURRENT_HEAD"
           fi
