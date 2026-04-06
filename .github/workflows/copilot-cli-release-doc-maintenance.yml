@@ -222,7 +222,7 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           TAG="${{ steps.upstream.outputs.latest }}"
-          CHANGED_FILES=$(git --no-pager diff --name-only "${{ github.sha }}..HEAD" | grep '\.md$' || true)
+          CHANGED_FILES=$(git --no-pager diff --name-only "${{ github.sha }}..HEAD" | awk '/\.md$/')
           CHANGED_FILES=$(printf '%s\n' "$CHANGED_FILES" | head -20 | sed '/^$/d' | sed 's/^/- `/' | sed 's/$/`/')
 
           gh pr create \
