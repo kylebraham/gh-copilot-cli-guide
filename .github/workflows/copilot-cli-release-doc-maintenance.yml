@@ -177,7 +177,7 @@ jobs:
             git branch --set-upstream-to="origin/${BRANCH}" "$BRANCH"
             git merge --no-edit "origin/${BRANCH}" || {
               echo "::error::Failed to merge origin/${BRANCH} into local release updates."
-              echo "::error::Resolve the release branch manually before re-running this workflow."
+              echo "::error::Resolve the release branch manually (for example: git checkout ${BRANCH} && git merge origin/${BRANCH}), then re-run this workflow."
               exit 1
             }
           else
@@ -222,7 +222,8 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           TAG="${{ steps.upstream.outputs.latest }}"
-          CHANGED_FILES=$(git --no-pager diff --name-only "${{ github.sha }}..HEAD" | grep '\.md$' | head -20 | sed 's/^/- `/' | sed 's/$/`/')
+          CHANGED_FILES=$(git --no-pager diff --name-only "${{ github.sha }}..HEAD" | grep '\.md$' || true)
+          CHANGED_FILES=$(printf '%s\n' "$CHANGED_FILES" | head -20 | sed '/^$/d' | sed 's/^/- `/' | sed 's/$/`/')
 
           gh pr create \
             --title "docs: update documentation for github/copilot-cli ${TAG}" \
