@@ -39,6 +39,8 @@ jobs:
         run: |
           mkdir -p ~/.copilot/skills
           cp -r .github/skills/doc-maintenance ~/.copilot/skills/
+          cp -r .github/skills/get-release-url ~/.copilot/skills/
+          cp -r .github/skills/git-commit ~/.copilot/skills/
 
       - name: Configure Copilot CLI for CI
         run: |
@@ -110,13 +112,10 @@ jobs:
             exit 0
           fi
 
-          CHANGED_FILES=$(git --no-pager diff --name-only origin/main..HEAD | sed 's/^/- `/' | sed 's/$/`/')
+          CHANGED_FILES=$(git --no-pager diff --name-only origin/main.."${BRANCH}" | sed 's/^/- `/' | sed 's/$/`/')
 
-          gh pr create \
-            --base main \
-            --head "${BRANCH}" \
-            --title "docs: update Copilot CLI guide" \
-            --body "## Automated Documentation Update
+          cat > /tmp/doc-maintenance-pr-body.md <<EOF
+          ## Automated Documentation Update
 
           This pull request tracks automated documentation updates on \`${BRANCH}\`.
 
@@ -129,4 +128,11 @@ jobs:
           - Target branch: \`main\`
           - Workflow: \`doc-maintenance\`
 
-          > This PR is kept open and updated automatically as new commits are pushed to \`${BRANCH}\`."
+          > This PR is kept open and updated automatically as new commits are pushed to \`${BRANCH}\`.
+          EOF
+
+          gh pr create \
+            --base main \
+            --head "${BRANCH}" \
+            --title "docs: update Copilot CLI guide" \
+            --body-file /tmp/doc-maintenance-pr-body.md
