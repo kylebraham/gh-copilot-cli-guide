@@ -176,7 +176,7 @@ jobs:
             git branch --set-upstream-to="origin/${BRANCH}" "$BRANCH"
             git merge --no-edit "origin/${BRANCH}" || {
               echo "::error::Failed to merge origin/${BRANCH} into local release updates."
-              echo "::error::Resolve the merge conflict on ${BRANCH}, push the resolved branch, then re-run this workflow."
+              echo "::error::Resolve the merge conflict on the existing ${BRANCH} release branch, then re-run this workflow."
               exit 1
             }
           else
