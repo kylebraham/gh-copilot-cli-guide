@@ -1,6 +1,6 @@
 ---
 name: update-repo
-description: Pulls the latest changes from the git remote by running git remote update and git pull main.
+description: Syncs the long-running release-updates branch with the latest remote state before automated changes.
 ---
 
 # Update Repo Skill
@@ -14,22 +14,24 @@ description: Pulls the latest changes from the git remote by running git remote 
 
 ## Description
 
-Pulls the latest changes from the git remote into the local repository. Runs
-`git remote update` to fetch all remote refs, then `git pull main` to merge
-the latest `main` into the current branch.
+Syncs the local repository with the latest remote state for this repo's
+long-running `release-updates` branch. Fetches remote refs, checks out
+`release-updates`, and fast-forwards it to `origin/release-updates` before any
+change detection or automated documentation updates run.
 
 ## Capabilities
 
 - Fetch all remote refs without merging
-- Pull the latest `main` branch changes into the working tree
+- Check out the local `release-updates` branch
+- Fast-forward `release-updates` to `origin/release-updates`
 - Report the result of both operations
 
 ## When to Use
 
 - Before starting work to ensure the local repo is up to date
 - After a PR is merged and you want to pull those changes locally
-- When another contributor has pushed to `main` and you need to sync
-- As a first step before running any doc-maintenance or other update workflow
+- When another contributor has pushed to `release-updates` and you need to sync
+- As the first step before running any doc-maintenance or other update workflow
 
 ## Instructions
 
@@ -43,38 +45,38 @@ This fetches all branches and tags from every configured remote without
 modifying the working tree. It updates the remote-tracking refs (e.g.
 `origin/main`) so you can see what has changed upstream.
 
-### Step 2 — Pull latest main
+### Step 2 — Reset the local release-updates branch to the remote
 
 ```bash
-git pull main
+git checkout -B release-updates origin/release-updates
+git reset --hard origin/release-updates
 ```
 
-This merges the latest `main` from the remote into the current branch.
-
-> If you are already on `main`, this fast-forwards your local branch to match
-> the remote. If you are on a feature branch, this merges `main` into it.
+This ensures the local long-running `release-updates` branch exactly matches the
+remote branch before any automated change detection begins.
 
 ### Running both together
 
 ```bash
-git remote update && git pull main
+git remote update && git checkout -B release-updates origin/release-updates && git reset --hard origin/release-updates
 ```
 
 ### Common Pitfalls
 
-- ❌ Running `git pull main` without `git remote update` first may work but
-  skips refreshing all remote-tracking refs — use both for a clean sync
+- ❌ Skipping the refresh step may leave `release-updates` behind the remote and
+  cause automation to compute changes from stale files
 - ❌ Running this while you have uncommitted local changes — stash first:
   ```bash
   git stash
-  git remote update && git pull main
+  git remote update && git checkout -B release-updates origin/release-updates && git reset --hard origin/release-updates
   git stash pop
   ```
-- ❌ Pulling into a branch that has diverged from `main` without first
-  reviewing the diff — check `git log HEAD..origin/main` first if unsure
+- ❌ Treating `release-updates` like a disposable feature branch — it is a
+  shared long-running branch and should stay aligned with the remote copy
 
 ### Best Practices
 
 - ✅ Run this at the start of every working session
 - ✅ Run this before triggering any workflow that depends on up-to-date docs
-- ✅ If `git pull main` reports merge conflicts, resolve them before continuing
+- ✅ Perform this sync before deciding whether any documentation changes are needed
+- ✅ Create or reuse a pull request from `release-updates` into `main` after pushing new commits
