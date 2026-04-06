@@ -145,7 +145,7 @@ chore: move skills to .github/skills/ directory
 - Separate from subject with a blank line
 
 **Release-driven updates:**
-- If the commit updates docs or automation for a specific GitHub Copilot CLI release, include the full GitHub release URL in the body
+- If the commit updates docs or automation for a specific GitHub Copilot CLI release, use the `get-release-url` skill to resolve the canonical GitHub release URL and include it in the body
 - Prefer a dedicated line such as `Release: https://github.com/github/copilot-cli/releases/tag/v1.0.18`
 - Use the exact tag from the commit subject/body so reviewers can jump straight to the upstream release notes
 
@@ -324,3 +324,4 @@ git push -u origin HEAD      # new branch
 
 - `cli-expertise` — for using Copilot CLI's `/diff` and `/pr` commands alongside git
 - `doc-maintenance` — uses this skill's commit conventions when updating documentation
+- `get-release-url` — resolve the exact upstream GitHub Copilot CLI release URL before writing a release-driven commit message

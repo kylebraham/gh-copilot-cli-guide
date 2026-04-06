@@ -137,7 +137,7 @@ Ready to start? Head over to [Getting Started](01-getting-started.md) to install
 
 ## 🛠️ Skills in This Repo
 
-This repo includes four [Copilot Skills](14-skills-system.md) in `.github/` — modular expertise packages you can activate in Copilot CLI to get specialized help. Copy any skill folder to `~/.copilot/skills/` or `.copilot/skills/` in your project, then activate with `/skills add <name>`.
+This repo includes five [Copilot Skills](14-skills-system.md) in `.github/` — modular expertise packages you can activate in Copilot CLI to get specialized help. Copy any skill folder to `~/.copilot/skills/` or `.copilot/skills/` in your project, then activate with `/skills add <name>`.
 
 | Skill | Folder | What it does |
 |-------|--------|--------------|
@@ -145,6 +145,7 @@ This repo includes four [Copilot Skills](14-skills-system.md) in `.github/` — 
 | `doc-maintenance` | `.github/skills/doc-maintenance/SKILL.md` | Keep this docs repo current with new CLI releases |
 | `cli-expertise` | `.github/skills/cli-expertise/SKILL.md` | Deep CLI feature knowledge — slash commands, agents, MCP, and more |
 | `copilot-cli-guide-quickstart` | `.github/skills/quickstart/SKILL.md` | Interactive tutorial through all docs (works best with `cli-expertise`) |
+| `get-release-url` | `.github/skills/get-release-url/SKILL.md` | Resolve the canonical GitHub Copilot CLI release URL for a version tag |
 | `git-commit` | `.github/skills/git-commit/SKILL.md` | Stage, commit, and push changes with conventional commit messages |
 
 ### 🚀 Quick Start with the Tutorial

@@ -30,6 +30,7 @@ jobs:
         run: |
           mkdir -p ~/.copilot/skills
           cp -r .github/skills/doc-maintenance ~/.copilot/skills/
+          cp -r .github/skills/get-release-url ~/.copilot/skills/
           cp -r .github/skills/git-commit ~/.copilot/skills/
 
       - name: Configure Copilot CLI for CI
@@ -58,5 +59,6 @@ jobs:
           files. Do not explain what you are doing — just do it. \
           After making all documentation changes, use the git-commit skill to \
           stage all changed files, commit them with a descriptive commit message, \
-          include the full github/copilot-cli release URL in the commit body for \
-          release-driven updates, and push directly to main."
+          use the get-release-url skill to resolve the full github/copilot-cli \
+          release URL for release-driven updates, include that URL in the commit \
+          body, and push directly to main."
