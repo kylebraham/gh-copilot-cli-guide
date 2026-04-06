@@ -328,4 +328,4 @@ git push -u origin HEAD      # new branch
 - `cli-expertise` — for using Copilot CLI's `/diff` and `/pr` commands alongside git
 - `doc-maintenance` — uses this skill's commit conventions when updating documentation
 - `get-release-url` — resolve the exact upstream GitHub Copilot CLI release URL before writing a release-driven commit message
-- `update-repo` — sync the local `release-updates` branch with `origin/release-updates` before making automated changes
+- `update-repo` — refresh all remote refs before syncing the branch you plan to update
