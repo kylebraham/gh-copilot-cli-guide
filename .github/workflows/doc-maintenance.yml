@@ -24,6 +24,7 @@ jobs:
       - name: Sync release-updates branch
         run: |
           BRANCH="release-updates"
+          # This long-running branch is expected to exist on origin.
           git fetch origin
           git checkout -B "${BRANCH}" "origin/${BRANCH}"
           echo "BRANCH=${BRANCH}" >> "$GITHUB_ENV"
@@ -109,7 +110,7 @@ jobs:
             exit 0
           fi
 
-          CHANGED_FILES=$(git --no-pager diff --name-only origin/main...HEAD | sed 's/^/- `/' | sed 's/$/`/')
+          CHANGED_FILES=$(git --no-pager diff --name-only origin/main..HEAD | sed 's/^/- `/' | sed 's/$/`/')
 
           gh pr create \
             --base main \

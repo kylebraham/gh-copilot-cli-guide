@@ -1,6 +1,6 @@
 ---
 name: update-repo
-description: Syncs the long-running release-updates branch with the latest remote state before automated changes.
+description: Syncs the long-running `release-updates` branch with the latest remote state before automated changes.
 ---
 
 # Update Repo Skill
