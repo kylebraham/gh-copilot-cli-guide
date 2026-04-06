@@ -46,6 +46,15 @@ https://github.com/github/copilot-cli/releases/tag/vX.Y.Z
 - If the version is provided as `1.0.18`, convert it to `v1.0.18`
 - If it is already `v1.0.18`, keep it as-is
 
+Example:
+
+```bash
+VERSION="1.0.18"
+TAG="${VERSION#v}"
+TAG="v${TAG}"
+echo "$TAG"
+```
+
 ### Step 2 — Build the URL
 
 Once you have the normalized tag, produce:
@@ -63,6 +72,9 @@ curl -sf https://api.github.com/repos/github/copilot-cli/releases/latest | jq -r
 ```
 
 Then build the URL using that tag.
+
+If the command fails or returns an empty tag, stop and report that the release
+tag could not be determined instead of guessing.
 
 ### Best Practices
 
