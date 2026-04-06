@@ -237,6 +237,9 @@ Update any stale references found.
 - [ ] Update CHANGELOG-history.md
 
 ### PR / Commit Checklist
+- [ ] Sync the local `release-updates` branch with `origin/release-updates` before checking for docs changes
+- [ ] Keep automated documentation commits on `release-updates`
+- [ ] Create or reuse the `release-updates` -> `main` pull request after pushing changes
 - [ ] All modified files listed in the commit description
 - [ ] Version number consistent across all files
 - [ ] No broken relative links

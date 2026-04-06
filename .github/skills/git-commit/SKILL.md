@@ -204,23 +204,25 @@ git push -u origin HEAD
 
 **Push to a specific remote and branch:**
 ```bash
-git push origin main
+git push origin release-updates
 git push origin feature/my-branch
 ```
+
+For this repository's automated documentation workflow, push updates to the long-lived `release-updates` branch and open or update a pull request from `release-updates` into `main` instead of pushing directly to `main`.
 
 **Force push after amend** (only on non-shared branches):
 ```bash
 git push --force-with-lease
 ```
 
-> ⚠️ Never force-push to `main` or any shared branch. Always prefer `--force-with-lease` over `--force` — it refuses if someone else has pushed in the meantime.
+> ⚠️ Never force-push to `main`, `release-updates`, or any other shared branch. Always prefer `--force-with-lease` over `--force` — it refuses if someone else has pushed in the meantime.
 
 ### Handling Push Rejections
 
 **Rejection: remote has new commits you don't have**
 
 ```
-! [rejected] main -> main (fetch first)
+! [rejected] release-updates -> release-updates (fetch first)
 ```
 
 Pull and rebase:
@@ -238,17 +240,17 @@ git push
 **Rejection: diverged branches**
 
 ```
-! [rejected] main -> main (non-fast-forward)
+! [rejected] release-updates -> release-updates (non-fast-forward)
 ```
 
 1. Fetch and inspect what's different:
    ```bash
    git fetch origin
-   git --no-pager log --oneline HEAD..origin/main
+   git --no-pager log --oneline HEAD..origin/release-updates
    ```
 2. Rebase onto the remote:
    ```bash
-   git rebase origin/main
+   git rebase origin/release-updates
    ```
 3. Resolve any conflicts, then:
    ```bash
@@ -292,6 +294,7 @@ git push -u origin HEAD      # new branch
 - ✅ Write the commit message for the person who will review it six months from now
 - ✅ Verify the push succeeded by checking the remote or running `git --no-pager log --oneline -5`
 - ✅ Use `git pull --rebase` instead of `git pull` to keep history linear
+- ✅ In this repo, treat `release-updates` as a shared long-running branch and merge it into `main` via pull request
 
 ## Checklists
 
@@ -325,3 +328,4 @@ git push -u origin HEAD      # new branch
 - `cli-expertise` — for using Copilot CLI's `/diff` and `/pr` commands alongside git
 - `doc-maintenance` — uses this skill's commit conventions when updating documentation
 - `get-release-url` — resolve the exact upstream GitHub Copilot CLI release URL before writing a release-driven commit message
+- `update-repo` — sync the local `release-updates` branch with `origin/release-updates` before making automated changes
