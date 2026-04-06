@@ -169,11 +169,10 @@ jobs:
         run: |
           TAG="${{ steps.upstream.outputs.latest }}"
           BRANCH="docs/copilot-cli-release-${TAG}"
-          CURRENT_HEAD=$(git rev-parse HEAD)
 
           if git ls-remote --exit-code origin "refs/heads/${BRANCH}" > /dev/null 2>&1; then
             git fetch origin "${BRANCH}"
-            git checkout -b "$BRANCH" "$CURRENT_HEAD"
+            git checkout -b "$BRANCH"
             git branch --set-upstream-to="origin/${BRANCH}" "$BRANCH"
             git merge --no-edit "origin/${BRANCH}" || {
               echo "::error::Failed to merge origin/${BRANCH} into local release updates."
@@ -181,7 +180,7 @@ jobs:
               exit 1
             }
           else
-            git checkout -b "$BRANCH" "$CURRENT_HEAD"
+            git checkout -b "$BRANCH"
           fi
 
           echo "BRANCH=$BRANCH" >> "$GITHUB_ENV"
@@ -222,7 +221,7 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           TAG="${{ steps.upstream.outputs.latest }}"
-          CHANGED_FILES=$(git --no-pager diff --name-only "${{ github.sha }}..HEAD" | awk '/\.md$/' | head -20 | sed '/^$/d' | sed 's/^/- `/' | sed 's/$/`/')
+          CHANGED_FILES=$(git --no-pager diff --name-only "${{ github.sha }}..HEAD" | awk '/\.md$/' | head -20 | sed 's/^/- `/' | sed 's/$/`/')
 
           gh pr create \
             --title "docs: update documentation for github/copilot-cli ${TAG}" \
