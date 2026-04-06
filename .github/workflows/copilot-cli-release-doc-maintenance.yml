@@ -134,39 +134,52 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-      - name: Create or reuse release branch
-        if: steps.release_check.outputs.new_release == 'true'
-        run: |
-          TAG="${{ steps.upstream.outputs.latest }}"
-          BRANCH="docs/copilot-cli-release-${TAG}"
-
-          # Reuse existing remote branch if present, otherwise create fresh
-          if git ls-remote --exit-code origin "refs/heads/${BRANCH}" > /dev/null 2>&1; then
-            git checkout -b "$BRANCH" "origin/$BRANCH"
-          else
-            git checkout -b "$BRANCH"
-          fi
-
-          echo "BRANCH=$BRANCH" >> "$GITHUB_ENV"
-
       # ── Step 5: Detect file changes ──────────────────────────────────────────
 
       - name: Check for documentation changes
         id: changes
         if: steps.release_check.outputs.new_release == 'true'
         run: |
-          if git diff --quiet && git diff --cached --quiet; then
-            echo "changed=false" >> "$GITHUB_OUTPUT"
-            echo "No documentation changes detected — docs already reflect ${TAG}."
-          else
+          BASE_SHA="${{ github.sha }}"
+          CURRENT_HEAD=$(git rev-parse HEAD)
+
+          if ! git diff --quiet || ! git diff --cached --quiet || [ "$CURRENT_HEAD" != "$BASE_SHA" ]; then
+            echo "Base SHA: $BASE_SHA"
+            echo "Current HEAD: $CURRENT_HEAD"
             echo "changed=true" >> "$GITHUB_OUTPUT"
             echo "Documentation changes detected:"
-            git --no-pager diff --stat
+            if [ "$CURRENT_HEAD" != "$BASE_SHA" ]; then
+              git --no-pager log --oneline "${BASE_SHA}..${CURRENT_HEAD}"
+              git --no-pager diff --stat "${BASE_SHA}..${CURRENT_HEAD}"
+            fi
+            if ! git diff --quiet || ! git diff --cached --quiet; then
+              git --no-pager diff --stat
+            fi
+          else
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "No documentation changes detected — docs already reflect ${TAG}."
           fi
         env:
           TAG: ${{ steps.upstream.outputs.latest }}
 
-      # ── Step 6: Commit, push, and open/update PR ─────────────────────────────
+      # ── Step 6: Prepare release branch and push updates ──────────────────────
+
+      - name: Create or reuse release branch
+        if: steps.changes.outputs.changed == 'true'
+        run: |
+          TAG="${{ steps.upstream.outputs.latest }}"
+          BRANCH="docs/copilot-cli-release-${TAG}"
+
+          if git ls-remote --exit-code origin "refs/heads/${BRANCH}" > /dev/null 2>&1; then
+            git fetch origin "${BRANCH}"
+            git checkout -B "$BRANCH"
+            git branch --set-upstream-to="origin/${BRANCH}" "$BRANCH"
+            git merge --no-edit "origin/${BRANCH}"
+          else
+            git checkout -b "$BRANCH"
+          fi
+
+          echo "BRANCH=$BRANCH" >> "$GITHUB_ENV"
 
       - name: Update release state file
         if: steps.changes.outputs.changed == 'true'
@@ -178,6 +191,11 @@ jobs:
         run: |
           TAG="${{ steps.upstream.outputs.latest }}"
           git add -A
+          if git diff --cached --quiet; then
+            echo "No additional tracked changes to commit."
+            exit 0
+          fi
+
           git commit -m "docs: update documentation for github/copilot-cli ${TAG}
 
           Automated documentation update triggered by new upstream release.
@@ -199,7 +217,7 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           TAG="${{ steps.upstream.outputs.latest }}"
-          CHANGED_FILES=$(git --no-pager diff --name-only HEAD~1 HEAD | grep '\.md$' | head -20 | sed 's/^/- `/' | sed 's/$/`/')
+          CHANGED_FILES=$(git --no-pager diff --name-only "${{ github.sha }}...HEAD" | grep '\.md$' | head -20 | sed 's/^/- `/' | sed 's/$/`/')
 
           gh pr create \
             --title "docs: update documentation for github/copilot-cli ${TAG}" \
