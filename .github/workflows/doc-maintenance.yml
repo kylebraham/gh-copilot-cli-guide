@@ -24,9 +24,8 @@ jobs:
       - name: Sync release-updates branch
         run: |
           BRANCH="release-updates"
-          git fetch origin main "${BRANCH}"
+          git fetch origin
           git checkout -B "${BRANCH}" "origin/${BRANCH}"
-          git reset --hard "origin/${BRANCH}"
           echo "BRANCH=${BRANCH}" >> "$GITHUB_ENV"
 
       - name: Setup GitHub Copilot CLI
