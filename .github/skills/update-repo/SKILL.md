@@ -43,7 +43,7 @@ git remote update
 
 This fetches all branches and tags from every configured remote without
 modifying the working tree. It updates the remote-tracking refs (e.g.
-`origin/main`) so you can see what has changed upstream.
+`origin/release-updates`) so you can see what has changed upstream.
 
 ### Step 2 — Reset the local release-updates branch to the remote
 

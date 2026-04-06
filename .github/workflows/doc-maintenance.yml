@@ -112,6 +112,7 @@ jobs:
             exit 0
           fi
 
+          git fetch origin main
           CHANGED_FILES=$(git --no-pager diff --name-only origin/main.."${BRANCH}" | sed 's/^/- `/' | sed 's/$/`/')
 
           cat > /tmp/doc-maintenance-pr-body.md <<EOF
