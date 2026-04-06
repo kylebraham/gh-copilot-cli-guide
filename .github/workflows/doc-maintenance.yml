@@ -58,4 +58,5 @@ jobs:
           files. Do not explain what you are doing — just do it. \
           After making all documentation changes, use the git-commit skill to \
           stage all changed files, commit them with a descriptive commit message, \
-          and push directly to main."
+          include the full github/copilot-cli release URL in the commit body for \
+          release-driven updates, and push directly to main."

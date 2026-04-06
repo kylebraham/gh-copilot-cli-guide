@@ -182,7 +182,7 @@ jobs:
 
           Automated documentation update triggered by new upstream release.
 
-          Upstream release: github/copilot-cli ${TAG}
+          Release: https://github.com/github/copilot-cli/releases/tag/${TAG}
           Skill used: doc-maintenance
           Trigger: ${{ github.event_name }}"
 
