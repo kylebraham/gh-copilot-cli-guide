@@ -22,6 +22,7 @@ Expertise in staging git changes, writing clear commit messages, and pushing to 
 - Inspect working tree status and diffs before committing
 - Stage all changes or selectively stage specific files/hunks
 - Write clear, conventional commit messages
+- Include upstream release links in release-driven commit messages
 - Amend or reword the most recent commit
 - Push to the correct remote branch
 - Handle diverged branches and upstream conflicts
@@ -117,7 +118,9 @@ feat(auth): add JWT refresh token rotation
 
 fix(api): handle null user in /profile endpoint
 
-docs: update README install instructions for v1.0.15
+docs: update guide for v1.0.18
+
+Release: https://github.com/github/copilot-cli/releases/tag/v1.0.18
 
 chore: move skills to .github/skills/ directory
 ```
@@ -141,6 +144,11 @@ chore: move skills to .github/skills/ directory
 - Explain *why* the change was made, not *what* (the diff shows the what)
 - Separate from subject with a blank line
 
+**Release-driven updates:**
+- If the commit updates docs or automation for a specific GitHub Copilot CLI release, use the `get-release-url` skill to resolve the canonical GitHub release URL and include it in the body
+- Prefer a dedicated line such as `Release: https://github.com/github/copilot-cli/releases/tag/v1.0.18`
+- Use the exact tag from the commit subject/body so reviewers can jump straight to the upstream release notes
+
 ### Step 4 — Commit
 
 **Standard commit:**
@@ -156,6 +164,13 @@ Longer explanation of why this change was made and any
 context that reviewers will find helpful.
 
 Closes #42"
+```
+
+**Release update commit:**
+```bash
+git commit -m "docs: update guide for v1.0.18
+
+Release: https://github.com/github/copilot-cli/releases/tag/v1.0.18"
 ```
 
 **Co-authored-by trailer** (required for commits made with Copilot in this repo):
@@ -291,6 +306,7 @@ git push -u origin HEAD      # new branch
 - [ ] Subject ≤ 50 characters
 - [ ] Imperative mood ("add", not "added")
 - [ ] Body explains *why* (if needed)
+- [ ] Release link included for release-driven updates
 - [ ] Co-authored-by trailer present (if applicable)
 
 ### After Pushing
@@ -308,3 +324,4 @@ git push -u origin HEAD      # new branch
 
 - `cli-expertise` — for using Copilot CLI's `/diff` and `/pr` commands alongside git
 - `doc-maintenance` — uses this skill's commit conventions when updating documentation
+- `get-release-url` — resolve the exact upstream GitHub Copilot CLI release URL before writing a release-driven commit message
