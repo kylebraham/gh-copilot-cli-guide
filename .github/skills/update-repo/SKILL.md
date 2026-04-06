@@ -49,7 +49,6 @@ modifying the working tree. It updates the remote-tracking refs (e.g.
 
 ```bash
 git checkout -B release-updates origin/release-updates
-git reset --hard origin/release-updates
 ```
 
 This ensures the local long-running `release-updates` branch exactly matches the
@@ -58,7 +57,7 @@ remote branch before any automated change detection begins.
 ### Running both together
 
 ```bash
-git remote update && git checkout -B release-updates origin/release-updates && git reset --hard origin/release-updates
+git remote update && git checkout -B release-updates origin/release-updates
 ```
 
 ### Common Pitfalls
@@ -68,7 +67,7 @@ git remote update && git checkout -B release-updates origin/release-updates && g
 - ❌ Running this while you have uncommitted local changes — stash first:
   ```bash
   git stash
-  git remote update && git checkout -B release-updates origin/release-updates && git reset --hard origin/release-updates
+  git remote update && git checkout -B release-updates origin/release-updates
   git stash pop
   ```
 - ❌ Treating `release-updates` like a disposable feature branch — it is a
