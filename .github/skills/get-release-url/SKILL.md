@@ -50,8 +50,7 @@ Example:
 
 ```bash
 VERSION="1.0.18"
-TAG="${VERSION#v}"
-TAG="v${TAG}"
+TAG="v${VERSION#v}"
 echo "$TAG"
 ```
 
@@ -68,10 +67,13 @@ Release: https://github.com/github/copilot-cli/releases/tag/v1.0.18
 If the version is unknown and you need the latest release, use:
 
 ```bash
-curl -sf https://api.github.com/repos/github/copilot-cli/releases/latest | jq -r '.tag_name'
+TAG=$(curl -fL https://api.github.com/repos/github/copilot-cli/releases/latest | jq -r '.tag_name') || {
+  echo "Failed to resolve the latest github/copilot-cli release tag" >&2
+  exit 1
+}
 ```
 
-Then build the URL using that tag.
+Then build the URL using `$TAG`.
 
 If the command fails or returns an empty tag, stop and report that the release
 tag could not be determined instead of guessing.
