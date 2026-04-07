@@ -25,7 +25,9 @@ jobs:
         run: |
           BRANCH="release-updates"
           if ! git fetch origin "${BRANCH}"; then
-            echo "::error::origin/${BRANCH} must exist first."
+            echo "::error::origin/${BRANCH} must exist before this workflow runs."
+            echo "::error::Create it with: git checkout -b ${BRANCH}"
+            echo "::error::Then push it with: git push -u origin ${BRANCH}"
             exit 1
           fi
           git checkout -B "${BRANCH}" "origin/${BRANCH}"
@@ -37,7 +39,7 @@ jobs:
           version: latest
           token: ${{ secrets.COPILOT_TOKEN }}
 
-      - name: Load doc-maintenance skill
+      - name: Load doc-maintenance skill only
         run: |
           mkdir -p ~/.copilot/skills
           cp -r .github/skills/doc-maintenance ~/.copilot/skills/
