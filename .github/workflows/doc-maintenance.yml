@@ -25,7 +25,7 @@ jobs:
         run: |
           BRANCH="release-updates"
           if ! git fetch origin "${BRANCH}"; then
-            echo "::error::origin/${BRANCH} must exist before this workflow runs."
+            echo "::error::origin/${BRANCH} must exist before this workflow runs"
             echo "::error::Create it with: git checkout -b ${BRANCH}"
             echo "::error::Then push it with: git push -u origin ${BRANCH}"
             exit 1
