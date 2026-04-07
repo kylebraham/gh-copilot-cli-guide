@@ -95,7 +95,7 @@ jobs:
             | jq -r '.tag_name')
 
           if [ -z "${LATEST}" ] || [ "${LATEST}" = "null" ]; then
-            echo "::error::Could not determine latest github/copilot-cli release."
+            echo "::error::Could not determine the latest Copilot CLI release."
             exit 1
           fi
 
