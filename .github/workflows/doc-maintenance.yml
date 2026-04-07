@@ -1,4 +1,3 @@
----
 name: Daily Doc Maintenance
 
 "on":
@@ -27,7 +26,6 @@ jobs:
           BRANCH="release-updates"
           git fetch origin "${BRANCH}"
           git checkout -B "${BRANCH}" "origin/${BRANCH}"
-          git pull --ff-only origin "${BRANCH}"
           echo "BRANCH=${BRANCH}" >> "$GITHUB_ENV"
 
       - name: Setup GitHub Copilot CLI
@@ -39,7 +37,6 @@ jobs:
       - name: Load doc-maintenance skill
         run: |
           mkdir -p ~/.copilot/skills
-          rm -rf ~/.copilot/skills/*
           cp -r .github/skills/doc-maintenance ~/.copilot/skills/
 
       - name: Configure Copilot CLI for CI
@@ -193,7 +190,7 @@ jobs:
           EOF
 
           gh pr create \
-          --base main \
-          --head "${BRANCH}" \
+            --base main \
+            --head "${BRANCH}" \
             --title "docs: update Copilot CLI guide" \
             --body-file /tmp/doc-maintenance-pr-body.md
