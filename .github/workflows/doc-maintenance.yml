@@ -2,7 +2,7 @@ name: Daily Doc Maintenance
 
 on:
   schedule:
-    - cron: "0 9 * * *" # 9:00 AM UTC daily
+    - cron: "0 9 * * *"  # 9:00 AM UTC daily
   workflow_dispatch:
 
 permissions:
@@ -25,7 +25,7 @@ jobs:
         run: |
           BRANCH="release-updates"
           if ! git fetch origin "${BRANCH}"; then
-            echo "::error::origin/${BRANCH} must exist before this workflow runs."
+            echo "::error::origin/${BRANCH} must exist first."
             exit 1
           fi
           git checkout -B "${BRANCH}" "origin/${BRANCH}"
