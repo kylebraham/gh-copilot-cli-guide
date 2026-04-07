@@ -1,8 +1,8 @@
 name: Daily Doc Maintenance
 
-"on":
+on:
   schedule:
-    - cron: "0 9 * * *"
+    - cron: "0 9 * * *" # 9:00 AM UTC daily
   workflow_dispatch:
 
 permissions:
@@ -24,7 +24,10 @@ jobs:
       - name: Sync release-updates branch
         run: |
           BRANCH="release-updates"
-          git fetch origin "${BRANCH}"
+          if ! git fetch origin "${BRANCH}"; then
+            echo "::error::origin/${BRANCH} must exist before this workflow runs."
+            exit 1
+          fi
           git checkout -B "${BRANCH}" "origin/${BRANCH}"
           echo "BRANCH=${BRANCH}" >> "$GITHUB_ENV"
 
@@ -159,7 +162,8 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          git fetch origin main "${BRANCH}"
+          git fetch origin main
+          git fetch origin "${BRANCH}"
           CHANGED_FILES=$(git --no-pager diff --name-only \
             "origin/main...origin/${BRANCH}" \
             | sed 's/^/- `/' \
