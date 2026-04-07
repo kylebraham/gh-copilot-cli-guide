@@ -1,5 +1,28 @@
 # Documentation Updates
 
+## 2026-04-07 — Docs updated for v1.0.20
+
+- `README.md`: Bumped version note to v1.0.20
+- `16-new-features.md`: Updated title to v1.0.20; added TOC entries; added v1.0.20 section covering `copilot help monitoring`, `/yolo` persistence across `/restart`, Azure OpenAI BYOK versionless v1 default, and spinner improvements; added v1.0.19 section covering `/mcp enable`/`disable` session persistence, OpenTelemetry span improvements, and slash command timeline labels
+- `04-slash-commands.md`: Added `/yolo` slash command entry; updated `/mcp disable`/`enable` comments to note session persistence; added `/yolo` to quick reference table
+- `00-cheat-sheet.md`: Added `/yolo` to slash commands table
+- `08-advanced-features.md`: Updated `/mcp disable`/`enable` inline comments to note session persistence
+
+### Feature Summary (v1.0.20)
+- **New:** `copilot help monitoring` — built-in OpenTelemetry configuration guide
+- **Improved:** `/yolo` and `--yolo` now behave identically; `/yolo` state persists across `/restart`
+- **Improved:** Azure OpenAI BYOK defaults to GA versionless v1 route when no API version configured
+- **Improved:** Spinner stays active until all background agents and shell commands finish
+
+### Feature Summary (v1.0.19)
+- **Improved:** `/mcp enable` and `/mcp disable` now persist across sessions
+- **Improved:** OpenTelemetry subagent spans use INTERNAL kind; chat spans include `github.copilot.time_to_first_chunk`
+- **Improved:** Slash command timeline entries now include the command name
+- **Fixed:** Plugin hook scripts with missing execute permissions now run on macOS
+- **Fixed:** Custom agent properly restored on session resume when display name differs from filename
+
+---
+
 ## 2026-04-04 — Docs updated for v1.0.18
 
 - `README.md`: Bumped version note to v1.0.18

@@ -1,4 +1,4 @@
-# Latest Features in GitHub Copilot CLI — v1.0.18
+# Latest Features in GitHub Copilot CLI — v1.0.20
 
 This file covers recent additions to GitHub Copilot CLI. Features marked with "Full guide →" have their own dedicated documentation file — the entries here are summaries with links. Features without a dedicated file are covered in full below.
 
@@ -10,21 +10,96 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 3. [Research Command (`/research`)](#research-command-research) — [Full guide →](19-research-command.md)
 
 ### Features covered in this file
-4. [New in v1.0.18](#new-in-v1018)
-5. [New in v1.0.17](#new-in-v1017)
-6. [New in v1.0.16](#new-in-v1016)
-7. [New in v1.0.15](#new-in-v1015)
-8. [New in v1.0.13](#new-in-v1013)
-9. [New in v1.0.11](#new-in-v1011)
-10. [LSP Support](#lsp-language-server-protocol-support)
-11. [Code Review Agent (`/review`)](#code-review-agent-review)
-12. [Plugin System (`/plugin`)](#plugin-system-plugin)
-13. [Keyboard Shortcuts Reference](#keyboard-shortcuts-reference)
-14. [PAT Authentication](#pat-authentication)
-15. [Extended Instructions Support](#extended-instructions-support)
-16. [Project Initialization (`/init`)](#project-initialization-init)
-17. [Enhanced Pull Request Creation (`/delegate`)](#enhanced-pull-request-creation-delegate)
-18. [Staying Up to Date](#staying-up-to-date)
+4. [New in v1.0.20](#new-in-v1020)
+5. [New in v1.0.19](#new-in-v1019)
+6. [New in v1.0.18](#new-in-v1018)
+7. [New in v1.0.17](#new-in-v1017)
+8. [New in v1.0.16](#new-in-v1016)
+9. [New in v1.0.15](#new-in-v1015)
+10. [New in v1.0.13](#new-in-v1013)
+11. [New in v1.0.11](#new-in-v1011)
+12. [LSP Support](#lsp-language-server-protocol-support)
+13. [Code Review Agent (`/review`)](#code-review-agent-review)
+14. [Plugin System (`/plugin`)](#plugin-system-plugin)
+15. [Keyboard Shortcuts Reference](#keyboard-shortcuts-reference)
+16. [PAT Authentication](#pat-authentication)
+17. [Extended Instructions Support](#extended-instructions-support)
+18. [Project Initialization (`/init`)](#project-initialization-init)
+19. [Enhanced Pull Request Creation (`/delegate`)](#enhanced-pull-request-creation-delegate)
+20. [Staying Up to Date](#staying-up-to-date)
+
+---
+
+## New in v1.0.20
+
+Released: 2026-04-07
+
+### `copilot help monitoring` — OpenTelemetry Configuration Guide
+
+A new built-in help topic covers OpenTelemetry monitoring in detail, including configuration options, environment variables, and examples for wiring up tracing backends.
+
+```bash
+$ copilot help monitoring
+```
+
+**Why it matters:** All OpenTelemetry configuration details — span kinds, attribute names, exporter setup — are now a single command away without leaving the terminal.
+
+### `/yolo` Slash Command — Persists Across `/restart`
+
+`/yolo` and `--yolo` now behave identically. In addition, `/yolo` state **persists across `/restart`** — you no longer need to re-enable it after restarting the session.
+
+```
+> /yolo
+> /restart   # /yolo stays active
+```
+
+**Why it matters:** Avoids repeatedly re-enabling unrestricted mode during iterative autopilot sessions that use `/restart` to reset context.
+
+### Azure OpenAI BYOK: Versionless v1 Route Default
+
+When no API version is configured, Azure OpenAI BYOK connections now default to the GA **versionless v1 route** (`/openai/deployments/{deployment}/chat/completions?api-version=`). This eliminates errors caused by stale or missing API version strings.
+
+**Why it matters:** BYOK Azure setups that previously required explicit API version pinning now work correctly out of the box.
+
+### Spinner Active Until Background Work Completes
+
+The activity spinner now stays visible until all **background agents and shell commands** finish — not just until the model stops streaming. User input remains available throughout.
+
+**Why it matters:** Gives a clear visual signal that Copilot is still working, preventing premature follow-up messages that interrupt in-flight operations.
+
+---
+
+## New in v1.0.19
+
+Released: 2026-04-06
+
+### `/mcp enable` and `/mcp disable` Persist Across Sessions
+
+MCP server enable/disable state is now saved between sessions. Previously, disabling an MCP server with `/mcp disable` was session-local and the server would re-enable on next launch.
+
+```
+> /mcp disable heavy-server   # now saved permanently until re-enabled
+> /mcp enable heavy-server    # restore and save
+```
+
+**Why it matters:** No more re-running `/mcp disable` commands on startup for servers you rarely use.
+
+### OpenTelemetry Monitoring Improvements
+
+- Subagent spans now use **INTERNAL** span kind (previously unset), making agent hierarchy clearer in tracing backends.
+- Chat spans now include a `github.copilot.time_to_first_chunk` attribute for streaming sessions, enabling first-token latency tracking.
+
+### Slash Command Timeline Entries Now Include Command Name
+
+The session timeline now labels slash command entries with the command name (e.g., "Review", "Plan") instead of a generic entry.
+
+**Why it matters:** Makes session history and replays easier to navigate when a session contains multiple slash commands.
+
+### Other Fixes
+
+- Plugin hook scripts with missing execute permissions now run correctly on macOS.
+- Custom agent is properly restored when resuming a session where the agent display name differs from its filename.
+- IDE auto-connect is skipped when the session is already in use by another client.
 
 ---
 

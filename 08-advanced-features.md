@@ -195,8 +195,8 @@ copilot --additional-mcp-config='{"mcpServers":{"temp-db":{"command":"npx","args
 > /mcp show                    # List configured servers and status
 > /mcp add my-server           # Add a server interactively
 > /mcp edit my-server          # Edit server configuration
-> /mcp disable my-server       # Disable without removing
-> /mcp enable my-server        # Re-enable a disabled server
+> /mcp disable my-server       # Disable without removing (persists across sessions)
+> /mcp enable my-server        # Re-enable a disabled server (persists across sessions)
 > /mcp delete my-server        # Remove permanently
 > /mcp reload                  # Reload all MCP server configs
 > /mcp auth my-server          # Authenticate / re-authenticate an MCP OAuth server (v1.0.15+)

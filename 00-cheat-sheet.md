@@ -99,6 +99,7 @@
 | `/init` | Initialize Copilot configuration for the current repo |
 | `/experimental` | Toggle experimental features |
 | `/allow-all` | Allow all tool calls without per-call confirmation |
+| `/yolo` | Alias for `/allow-all`; state persists across `/restart` |
 | `/reset-allowed-tools` | Reset tool allowlist to default (prompt-per-use) |
 
 ### Info & Help
