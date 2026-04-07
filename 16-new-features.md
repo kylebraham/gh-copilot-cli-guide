@@ -1,4 +1,4 @@
-# Latest Features in GitHub Copilot CLI — v1.0.18
+# Latest Features in GitHub Copilot CLI — v1.0.19
 
 This file covers recent additions to GitHub Copilot CLI. Features marked with "Full guide →" have their own dedicated documentation file — the entries here are summaries with links. Features without a dedicated file are covered in full below.
 
@@ -10,7 +10,8 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 3. [Research Command (`/research`)](#research-command-research) — [Full guide →](19-research-command.md)
 
 ### Features covered in this file
-4. [New in v1.0.18](#new-in-v1018)
+4. [New in v1.0.19](#new-in-v1019)
+5. [New in v1.0.18](#new-in-v1018)
 5. [New in v1.0.17](#new-in-v1017)
 6. [New in v1.0.16](#new-in-v1016)
 7. [New in v1.0.15](#new-in-v1015)
@@ -25,6 +26,49 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 16. [Project Initialization (`/init`)](#project-initialization-init)
 17. [Enhanced Pull Request Creation (`/delegate`)](#enhanced-pull-request-creation-delegate)
 18. [Staying Up to Date](#staying-up-to-date)
+
+---
+
+## New in v1.0.19
+
+Released: 2026-04-06
+
+### Persistent `/mcp enable` and `/mcp disable`
+
+`/mcp enable` and `/mcp disable` now persist across sessions. Previously, toggling an MCP server's enabled state only lasted for the current session — after restarting the CLI the server would revert to its prior state. Now the enabled/disabled state is saved to your MCP configuration file and survives restarts.
+
+**How to use:**
+
+```
+> /mcp disable my-server
+Server "my-server" disabled (persists across sessions)
+
+> /mcp enable my-server
+Server "my-server" enabled (persists across sessions)
+```
+
+**Why it matters:** You can permanently disable a noisy or unused MCP server without it reappearing every time you start a new session.
+
+### Plugin Hook Scripts — macOS Execute Permission Fix
+
+Plugin hook scripts with missing execute permissions now run correctly on macOS. Previously, hook scripts that were present but lacked the executable bit (`chmod +x`) would silently fail on macOS. The CLI now handles this automatically, removing a common setup friction point.
+
+### Custom Agent Session Resume Fix
+
+The correct custom agent is now restored when resuming a session where the agent's display name differs from its filename. Previously, `/resume` could pick up the wrong agent in this scenario.
+
+### Slash Command Timeline Labels
+
+Slash command timeline entries now include the command name — for example, "Review", "Plan", "Research" — making it easier to scan the timeline and understand what each step did at a glance.
+
+### IDE Auto-Connect: Skip When Session Already in Use
+
+The CLI now skips the automatic IDE connection attempt when the current session is already in use by another client. This prevents conflicts when two IDE windows or CLI instances target the same session.
+
+### OpenTelemetry Monitoring Improvements
+
+- Subagent spans now use `INTERNAL` span kind for more accurate tracing hierarchies.
+- Chat spans include a new `github.copilot.time_to_first_chunk` attribute (streaming only), making latency visible in your OpenTelemetry backend.
 
 ---
 

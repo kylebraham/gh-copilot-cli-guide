@@ -92,7 +92,7 @@
 ### Config & Tools
 | Command | Description |
 |---------|-------------|
-| `/mcp` | Manage MCP (Model Context Protocol) server connections |
+| `/mcp` | Manage MCP servers; `enable`/`disable` persist across sessions |
 | `/lsp` | Manage language server connections |
 | `/skills` | List or manage available skills |
 | `/plugin` | Manage installed plugins |
@@ -234,6 +234,9 @@ Quick model check before long task:
 
 Switch model mid-session:
   /model claude-opus-4.5
+
+Permanently disable a noisy MCP server:
+  /mcp disable my-server   # saved to config, survives restart
 
 Add entire directory to context:
   /add-dir src/payments

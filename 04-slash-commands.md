@@ -1219,10 +1219,10 @@ Manage MCP (Model Context Protocol) server configuration.
 # Delete server
 > /mcp delete my-server
 
-# Disable server temporarily
+# Disable server (persists across sessions)
 > /mcp disable my-server
 
-# Re-enable server
+# Re-enable server (persists across sessions)
 > /mcp enable my-server
 ```
 
