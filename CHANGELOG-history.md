@@ -3,17 +3,18 @@
 ## 2026-04-07 — Docs updated for v1.0.19
 
 - `README.md`: Bumped version note to v1.0.19
-- `16-new-features.md`: Added v1.0.19 section covering persistent `/mcp enable`/`/mcp disable`, macOS plugin hook execute-permission fix, custom agent session resume fix, slash command timeline labels, IDE auto-connect conflict avoidance, and OpenTelemetry improvements; updated title and TOC
-- `04-slash-commands.md`: Updated `/mcp disable`/`/mcp enable` comments to note persistence across sessions
+- `16-new-features.md`: Added v1.0.19 section covering persistent `/mcp enable`/`/mcp disable`, slash command timeline labels, OpenTelemetry improvements, and bug fixes; updated title and TOC
+- `08-advanced-features.md`: Added persistence note to `/mcp enable` and `/mcp disable` commands (v1.0.19+)
+- `04-slash-commands.md`: Updated `/mcp disable`/`/mcp enable` comments to note persistence across sessions (v1.0.19+)
 - `00-cheat-sheet.md`: Updated `/mcp` description to note persistence; added persistent MCP disable workflow to Common Workflows
 
 ### Feature Summary (v1.0.19)
 - **Improved:** `/mcp enable` and `/mcp disable` now persist across sessions (saved to config file)
+- **Improved:** Slash command timeline entries now include the command name (e.g., "Review", "Plan") for better context
+- **Improved:** OpenTelemetry — subagent spans use `INTERNAL` span kind; chat spans include `github.copilot.time_to_first_chunk` attribute (streaming only)
 - **Fixed:** Plugin hook scripts with missing execute permissions now run correctly on macOS
 - **Fixed:** Custom agent correctly restored on session resume when display name differs from filename
-- **Improved:** Slash command timeline entries now include the command name (e.g., "Review", "Plan")
 - **Fixed:** IDE auto-connect skipped when session is already in use by another client
-- **Improved:** OpenTelemetry — subagent spans use `INTERNAL` kind; chat spans include `github.copilot.time_to_first_chunk`
 
 ---
 
