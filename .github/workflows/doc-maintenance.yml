@@ -26,8 +26,7 @@ jobs:
           BRANCH="release-updates"
           if ! git fetch origin "${BRANCH}"; then
             echo "::error::origin/${BRANCH} must exist before this workflow"
-            echo "::error::Create it with: git checkout -b ${BRANCH}"
-            echo "::error::Then push it with: git push -u origin ${BRANCH}"
+            echo "::error::Create and push ${BRANCH}, or create it in GitHub."
             exit 1
           fi
           git checkout -B "${BRANCH}" "origin/${BRANCH}"
@@ -58,7 +57,7 @@ jobs:
         env:
           COPILOT_ALLOW_ALL: 'true'
         run: |
-          copilot -i "$(cat <<'EOF'
+          copilot -i "$(cat <<EOF
           You are running in a non-interactive CI environment on the
           release-updates branch.
 
