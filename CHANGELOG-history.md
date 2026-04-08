@@ -1,5 +1,23 @@
 # Documentation Updates
 
+## 2026-04-08 — Docs updated for v1.0.21
+
+- `README.md`: Bumped version note to v1.0.21; added `copilot mcp` to "Latest features" list
+- `16-new-features.md`: Updated title to v1.0.21; added TOC entry; added v1.0.21 section covering `copilot mcp` CLI command, hook `snake_case` payload normalization, and UI/performance improvements
+- `08-advanced-features.md`: Documented `copilot mcp` top-level CLI command alongside `/mcp` slash commands
+
+### Feature Summary (v1.0.21)
+- **New:** `copilot mcp` — top-level CLI command for managing MCP servers outside an active session
+- **Improved:** Hook scripts with PascalCase event names now receive VS Code-compatible `snake_case` payloads with `hook_event_name`, `session_id`, and ISO 8601 timestamps
+- **Fixed:** Spinner no longer appears stuck during long-running async shell commands
+- **Fixed:** Enterprise GitHub URL input in login flow now accepts keyboard input and submits on Enter
+- **Fixed:** Slash command picker no longer flickers or shifts input while filtering
+- **Fixed:** Timeline no longer goes blank when content shrinks
+- **Fixed:** Plan mode timeline no longer shows a redundant "Plan" prefix
+- **Improved:** Idle shell sessions are automatically shut down to reduce memory usage
+
+---
+
 ## 2026-04-07 — Docs updated for v1.0.20
 
 - `README.md`: Bumped version note to v1.0.20

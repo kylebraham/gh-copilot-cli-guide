@@ -81,6 +81,7 @@ npm update -g @github/copilot
 ```
 
 **Latest features:**
+- 🔌 `copilot mcp` — manage MCP servers from the shell without starting a session
 - 🔄 `/rewind` / `/undo` — undo the last turn and revert file changes
 - 🧠 `/context` — visualize context window token usage
 - 🗜️ `/compact` — summarize conversation history to save tokens
@@ -236,4 +237,4 @@ Go to **Actions → Daily Doc Maintenance → Run workflow** to trigger it on de
 
 ---
 
-**Note:** This guide covers GitHub Copilot CLI v1.0.20. Some capabilities may vary by version — run `/update` to stay current.
+**Note:** This guide covers GitHub Copilot CLI v1.0.21. Some capabilities may vary by version — run `/update` to stay current.

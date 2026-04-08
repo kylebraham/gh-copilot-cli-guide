@@ -1,4 +1,4 @@
-# Latest Features in GitHub Copilot CLI — v1.0.20
+# Latest Features in GitHub Copilot CLI — v1.0.21
 
 This file covers recent additions to GitHub Copilot CLI. Features marked with "Full guide →" have their own dedicated documentation file — the entries here are summaries with links. Features without a dedicated file are covered in full below.
 
@@ -10,23 +10,63 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 3. [Research Command (`/research`)](#research-command-research) — [Full guide →](19-research-command.md)
 
 ### Features covered in this file
-4. [New in v1.0.20](#new-in-v1020)
-5. [New in v1.0.19](#new-in-v1019)
-6. [New in v1.0.18](#new-in-v1018)
-7. [New in v1.0.17](#new-in-v1017)
-8. [New in v1.0.16](#new-in-v1016)
-9. [New in v1.0.15](#new-in-v1015)
-10. [New in v1.0.13](#new-in-v1013)
-11. [New in v1.0.11](#new-in-v1011)
-12. [LSP Support](#lsp-language-server-protocol-support)
-13. [Code Review Agent (`/review`)](#code-review-agent-review)
-14. [Plugin System (`/plugin`)](#plugin-system-plugin)
-15. [Keyboard Shortcuts Reference](#keyboard-shortcuts-reference)
-16. [PAT Authentication](#pat-authentication)
-17. [Extended Instructions Support](#extended-instructions-support)
-18. [Project Initialization (`/init`)](#project-initialization-init)
-19. [Enhanced Pull Request Creation (`/delegate`)](#enhanced-pull-request-creation-delegate)
-20. [Staying Up to Date](#staying-up-to-date)
+4. [New in v1.0.21](#new-in-v1021)
+5. [New in v1.0.20](#new-in-v1020)
+6. [New in v1.0.19](#new-in-v1019)
+7. [New in v1.0.18](#new-in-v1018)
+8. [New in v1.0.17](#new-in-v1017)
+9. [New in v1.0.16](#new-in-v1016)
+10. [New in v1.0.15](#new-in-v1015)
+11. [New in v1.0.13](#new-in-v1013)
+12. [New in v1.0.11](#new-in-v1011)
+13. [LSP Support](#lsp-language-server-protocol-support)
+14. [Code Review Agent (`/review`)](#code-review-agent-review)
+15. [Plugin System (`/plugin`)](#plugin-system-plugin)
+16. [Keyboard Shortcuts Reference](#keyboard-shortcuts-reference)
+17. [PAT Authentication](#pat-authentication)
+18. [Extended Instructions Support](#extended-instructions-support)
+19. [Project Initialization (`/init`)](#project-initialization-init)
+20. [Enhanced Pull Request Creation (`/delegate`)](#enhanced-pull-request-creation-delegate)
+21. [Staying Up to Date](#staying-up-to-date)
+
+---
+
+## New in v1.0.21
+
+Released: 2026-04-07
+
+### `copilot mcp` — CLI Command for MCP Server Management
+
+A new top-level CLI subcommand lets you manage MCP servers directly from your shell, without needing to start an interactive session:
+
+```bash
+$ copilot mcp
+```
+
+**Why it matters:** Previously MCP servers could only be added, disabled, or removed via `/mcp` slash commands inside an active Copilot session. The `copilot mcp` command gives you full MCP management from the shell — useful for scripts, CI setup, and one-time configuration changes.
+
+> See [MCP Management Commands](08-advanced-features.md#mcp-management-commands) in the Advanced Features guide for the full list of subcommands.
+
+### Hook Payloads Normalized to `snake_case`
+
+Hook scripts that use **PascalCase event names** (e.g., `PreToolUse`, `PostToolUse`) now receive VS Code-compatible `snake_case` payloads. Each payload includes:
+
+- `hook_event_name` — the snake_case name of the event
+- `session_id` — the current session identifier
+- Timestamps formatted as **ISO 8601** strings
+
+Hooks already using `snake_case` event names are unaffected.
+
+**Why it matters:** Hook scripts can now be shared between VS Code and Copilot CLI without conditional payload-handling logic, since both environments produce the same payload shape.
+
+### Other Improvements
+
+- **Spinner**: No longer appears stuck when a long-running async shell command is active.
+- **Login flow**: Enterprise GitHub URL input now accepts keyboard input and submits on Enter.
+- **Slash command picker**: No longer flickers or shifts the input while filtering.
+- **Timeline**: No longer goes blank when content shrinks (e.g., after cancelling or tool completion).
+- **Plan mode**: Timeline display shows user text without a redundant "Plan" prefix.
+- **Memory**: Idle shell sessions are automatically shut down to reduce memory usage.
 
 ---
 

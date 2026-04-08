@@ -191,6 +191,14 @@ copilot --additional-mcp-config='{"mcpServers":{"temp-db":{"command":"npx","args
 
 ### MCP Management Commands
 
+In addition to the `/mcp` slash commands available inside a session, Copilot CLI provides a top-level `copilot mcp` command for managing MCP servers directly from your shell (v1.0.21+):
+
+```bash
+$ copilot mcp          # Show help and available subcommands
+```
+
+**Inside a session**, use the `/mcp` slash commands:
+
 ```
 > /mcp show                    # List configured servers and status
 > /mcp add my-server           # Add a server interactively
