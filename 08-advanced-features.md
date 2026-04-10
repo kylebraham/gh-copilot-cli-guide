@@ -179,6 +179,20 @@ Register it in `~/.copilot/mcp-config.json`:
 
 ---
 
+### MCP Config Source: `.mcp.json` Only (v1.0.22+)
+
+As of v1.0.22, Copilot CLI reads project-level MCP server configuration **only from `.mcp.json`** in the project root. The CLI no longer reads `.vscode/mcp.json` or `.devcontainer/devcontainer.json` as MCP config sources.
+
+If your project has a `.vscode/mcp.json` without a `.mcp.json`, the CLI will show a migration hint at startup. To migrate:
+
+```bash
+cp .vscode/mcp.json .mcp.json
+```
+
+> The global `~/.copilot/mcp-config.json` is unaffected — it continues to work as before.
+
+---
+
 ### Session-Only MCP Servers
 
 Add a temporary MCP server without modifying your config file — useful for CI runs or one-off tasks:
@@ -237,6 +251,7 @@ Common off-the-shelf servers:
 | Server crashes on startup | Incompatible version | Check MCP SDK version compatibility |
 | Server loses auth after `/mcp reload` or login | Auth state not persisted | Upgrade to v1.0.16+; servers now reload auth correctly |
 | OAuth provider rejects redirect URI | Provider requires HTTPS | v1.0.17+ automatically falls back to a self-signed HTTPS certificate |
+| Tools silently fail with certain models | Non-standard JSON schema | Upgrade to v1.0.22+; schemas are now sanitized automatically |
 
 ## LSP (Language Server Protocol) Support
 
@@ -408,6 +423,26 @@ Custom agents extend capabilities with:
 - Custom tools
 - Domain knowledge
 - Specific workflows
+
+### Eager Skill Loading via `skills` Field (v1.0.22+)
+
+Custom agents can declare a `skills` field in their frontmatter to pre-load skill content into the agent's context at startup:
+
+```yaml
+---
+name: backend-agent
+model: claude-sonnet-4.6
+skills:
+  - python-expert
+  - django-expert
+  - security-audit
+---
+This agent specialises in Django backend development with security best practices.
+```
+
+Skills listed here are injected before the first prompt — the agent starts with full domain expertise without requiring manual `/skills add` steps.
+
+> See [Skills System Guide](14-skills-system.md) for available skill names and file format.
 
 ## Skills System
 
@@ -725,6 +760,15 @@ Press `Shift+Tab` to cycle between modes. With experimental mode enabled, autopi
 ## Fleet Mode
 
 Fleet mode enables parallel subagent execution — multiple background agents working on different tasks simultaneously.
+
+### Sub-Agent Depth and Concurrency Limits (v1.0.22+)
+
+To prevent runaway agent trees, the CLI enforces:
+
+- **Depth limit** — maximum nesting level for spawned agents (agent → sub-agent → sub-sub-agent)
+- **Concurrency limit** — maximum number of agents running in parallel at any time
+
+When either limit is reached, the CLI surfaces a clear error rather than silently queuing more agents. These limits apply to fleet tasks, autopilot delegation chains, and any other sub-agent spawning.
 
 ### Enabling Fleet Mode
 

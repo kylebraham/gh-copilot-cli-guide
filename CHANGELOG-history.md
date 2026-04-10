@@ -1,5 +1,26 @@
 # Documentation Updates
 
+## 2026-04-10 — Docs updated for v1.0.22
+
+- `README.md`: Bumped version note to v1.0.22; updated "Latest features" list with `.mcp.json`-only config and custom agent `skills` field
+- `16-new-features.md`: Updated title to v1.0.22; added TOC entry; added v1.0.22 section covering MCP config consolidation to `.mcp.json`, `skills` field for custom agents, sub-agent depth/concurrency limits, plugin persistence and post-install messages, `sessionStart`/`sessionEnd` hooks firing once per session, and other fixes
+- `08-advanced-features.md`: Added `.mcp.json`-only MCP config note with migration instructions; added MCP troubleshooting row for non-standard JSON schemas; documented `skills` field for custom agents; added sub-agent depth and concurrency limits section under Fleet Mode
+- `14-skills-system.md`: Added "Pre-Loading Skills in Custom Agents" section documenting the `skills` frontmatter field (v1.0.22+)
+
+### Feature Summary (v1.0.22)
+- **Breaking:** MCP config now only reads `.mcp.json`; `.vscode/mcp.json` and `.devcontainer/devcontainer.json` removed as sources
+- **New:** Custom agents can declare a `skills` field to eagerly load skill content at startup
+- **New:** Sub-agent depth and concurrency limits prevent runaway agent spawning
+- **New:** Plugins persist across sessions and auto-install on startup; post-install messages supported
+- **Changed:** `sessionStart`/`sessionEnd` hooks fire once per session (not once per prompt) in interactive mode
+- **New:** Plugin agents respect the `model` field in their frontmatter
+- **Fixed:** MCP tools with non-standard JSON schemas sanitized for all model providers
+- **Fixed:** Permission checks and hooks now work correctly with Anthropic BYOM/BYOK
+- **Fixed:** Sub-agent activity no longer shows duplicated tool names
+- **Fixed:** CLI no longer crashes on V8 grapheme segmentation bug
+
+---
+
 ## 2026-04-08 — Docs updated for v1.0.21
 
 - `README.md`: Bumped version note to v1.0.21; added `copilot mcp` to "Latest features" list

@@ -1,4 +1,4 @@
-# Latest Features in GitHub Copilot CLI — v1.0.21
+# Latest Features in GitHub Copilot CLI — v1.0.22
 
 This file covers recent additions to GitHub Copilot CLI. Features marked with "Full guide →" have their own dedicated documentation file — the entries here are summaries with links. Features without a dedicated file are covered in full below.
 
@@ -10,15 +10,16 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 3. [Research Command (`/research`)](#research-command-research) — [Full guide →](19-research-command.md)
 
 ### Features covered in this file
-4. [New in v1.0.21](#new-in-v1021)
-5. [New in v1.0.20](#new-in-v1020)
-6. [New in v1.0.19](#new-in-v1019)
-7. [New in v1.0.18](#new-in-v1018)
-8. [New in v1.0.17](#new-in-v1017)
-9. [New in v1.0.16](#new-in-v1016)
-10. [New in v1.0.15](#new-in-v1015)
-11. [New in v1.0.13](#new-in-v1013)
-12. [New in v1.0.11](#new-in-v1011)
+4. [New in v1.0.22](#new-in-v1022)
+5. [New in v1.0.21](#new-in-v1021)
+6. [New in v1.0.20](#new-in-v1020)
+7. [New in v1.0.19](#new-in-v1019)
+8. [New in v1.0.18](#new-in-v1018)
+9. [New in v1.0.17](#new-in-v1017)
+10. [New in v1.0.16](#new-in-v1016)
+11. [New in v1.0.15](#new-in-v1015)
+12. [New in v1.0.13](#new-in-v1013)
+13. [New in v1.0.11](#new-in-v1011)
 13. [LSP Support](#lsp-language-server-protocol-support)
 14. [Code Review Agent (`/review`)](#code-review-agent-review)
 15. [Plugin System (`/plugin`)](#plugin-system-plugin)
@@ -28,6 +29,83 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 19. [Project Initialization (`/init`)](#project-initialization-init)
 20. [Enhanced Pull Request Creation (`/delegate`)](#enhanced-pull-request-creation-delegate)
 21. [Staying Up to Date](#staying-up-to-date)
+
+---
+
+## New in v1.0.22
+
+Released: 2026-04-09
+
+### MCP Config Source Consolidated to `.mcp.json`
+
+Copilot CLI now reads MCP server configuration **only from `.mcp.json`** in the project root. Support for `.vscode/mcp.json` and `.devcontainer/devcontainer.json` as MCP config sources has been removed.
+
+If you have a `.vscode/mcp.json` without a corresponding `.mcp.json`, the CLI will display a migration hint at startup.
+
+**Why it matters:** A single canonical config file eliminates ambiguity when multiple config sources existed in the same repository and makes MCP setup easier to audit and version-control.
+
+**Migration:** Copy or rename `.vscode/mcp.json` to `.mcp.json` in your project root:
+
+```bash
+cp .vscode/mcp.json .mcp.json
+```
+
+> See [MCP Management Commands](08-advanced-features.md#mcp-management-commands) for the full config reference.
+
+### Custom Agents: `skills` Field for Eager Skill Loading
+
+Custom agents can now declare a `skills` field in their frontmatter to **eagerly load skill content into the agent's context at startup**, rather than waiting for `/skills add` during a session.
+
+```yaml
+---
+name: backend-agent
+model: claude-sonnet-4.6
+skills:
+  - python-expert
+  - django-expert
+  - security-audit
+---
+This agent specialises in Django backend development.
+```
+
+**Why it matters:** Skills listed in `skills` are injected into the agent's context before the first prompt, so the agent starts with full domain expertise without manual activation steps.
+
+> See [Skills System Guide](14-skills-system.md) for skill file format and locations.
+
+### Sub-Agent Depth and Concurrency Limits
+
+The CLI now enforces configurable **depth and concurrency limits** on sub-agent spawning to prevent runaway agent trees:
+
+- **Depth limit** — caps how many levels of nested agents can be created (e.g., agent → sub-agent → sub-sub-agent).
+- **Concurrency limit** — caps how many agents can run in parallel at any given time.
+
+When either limit is hit, the CLI surfaces a clear error instead of silently spawning more agents.
+
+**Why it matters:** Long-running autopilot or fleet tasks that recursively delegated work could previously exhaust memory and API quota. These limits keep resource usage predictable.
+
+### Plugin Improvements
+
+- **Post-install messages**: Plugins can now display setup instructions immediately after installation, so you know exactly what to configure before using the plugin.
+- **Session persistence**: Plugins stay enabled across sessions and auto-install on startup based on your saved config — no need to re-enable plugins after restarting.
+- **Model respect**: Plugin agents now honour the `model` field in their frontmatter, so a plugin that declares `model: claude-haiku-4.5` will use that model rather than the session default.
+
+### `sessionStart` and `sessionEnd` Hooks: Once Per Session
+
+In interactive mode, `sessionStart` and `sessionEnd` hooks now fire **once per session** instead of once per prompt turn. This matches the expected lifecycle semantics and prevents double-firing when Copilot processes multiple prompts in the same session.
+
+**Why it matters:** Hook scripts that perform setup or teardown work (e.g., loading secrets, writing logs) no longer run redundantly on every prompt.
+
+### Other Improvements and Fixes
+
+- **MCP schema sanitization**: MCP tools with non-standard JSON schemas are now sanitized for compatibility across all model providers — these tools no longer silently fail when used with certain models.
+- **Large image handling**: Better handling of large images returned by MCP and extension tools, preventing crashes on high-resolution screenshots or diagrams.
+- **Rendering performance**: A new simplified inline renderer improves display performance in long sessions.
+- **Policy message**: A clear, actionable message now appears when remote sessions are blocked by an organization policy, directing users to contact their administrator.
+- **Sub-agent tool names**: Sub-agent activity no longer shows duplicated tool names (e.g., "view view the file…").
+- **BYOM/BYOK hooks**: Permission checks and hook scripts now work correctly when using Anthropic models via BYOM/BYOK configuration.
+- **Slash command picker**: Now appears above the text input for a more stable layout.
+- **Session conflict warning**: A warning is shown when resuming a session that is already open in another CLI instance or application.
+- **V8 crash fix**: The CLI no longer crashes on systems affected by a V8 engine bug in grapheme segmentation.
 
 ---
 

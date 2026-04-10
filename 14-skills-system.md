@@ -261,6 +261,26 @@ After modifying skill files:
 
 This refreshes all active skills from disk.
 
+### Pre-Loading Skills in Custom Agents (v1.0.22+)
+
+Custom agents can declare a `skills` field in their frontmatter to automatically load skills into the agent's context at startup — no manual `/skills add` required:
+
+```yaml
+---
+name: backend-agent
+model: claude-sonnet-4.6
+skills:
+  - python-expert
+  - django-expert
+  - security-audit
+---
+Specialised in Django backend development.
+```
+
+Skills listed in the `skills` field must be available in `~/.copilot/skills/` or `.copilot/skills/`. They are injected before the first prompt, so the agent is fully equipped from turn one.
+
+> See [Custom Agents](08-advanced-features.md#custom-agents) in the Advanced Features guide for the full agent frontmatter reference.
+
 ## Creating Custom Skills
 
 ### Skill File Location

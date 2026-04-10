@@ -81,6 +81,8 @@ npm update -g @github/copilot
 ```
 
 **Latest features:**
+- 🗂️ `.mcp.json` only — MCP config consolidated to one file; `.vscode/mcp.json` and `.devcontainer/devcontainer.json` no longer read
+- 🤖 Custom agents: `skills` field for eager skill loading at startup
 - 🔌 `copilot mcp` — manage MCP servers from the shell without starting a session
 - 🔄 `/rewind` / `/undo` — undo the last turn and revert file changes
 - 🧠 `/context` — visualize context window token usage
@@ -237,4 +239,4 @@ Go to **Actions → Daily Doc Maintenance → Run workflow** to trigger it on de
 
 ---
 
-**Note:** This guide covers GitHub Copilot CLI v1.0.21. Some capabilities may vary by version — run `/update` to stay current.
+**Note:** This guide covers GitHub Copilot CLI v1.0.22. Some capabilities may vary by version — run `/update` to stay current.
