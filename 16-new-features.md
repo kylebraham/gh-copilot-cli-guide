@@ -1,4 +1,4 @@
-# Latest Features in GitHub Copilot CLI — v1.0.22
+# Latest Features in GitHub Copilot CLI — v1.0.24
 
 This file covers recent additions to GitHub Copilot CLI. Features marked with "Full guide →" have their own dedicated documentation file — the entries here are summaries with links. Features without a dedicated file are covered in full below.
 
@@ -10,25 +10,136 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 3. [Research Command (`/research`)](#research-command-research) — [Full guide →](19-research-command.md)
 
 ### Features covered in this file
-4. [New in v1.0.22](#new-in-v1022)
-5. [New in v1.0.21](#new-in-v1021)
-6. [New in v1.0.20](#new-in-v1020)
-7. [New in v1.0.19](#new-in-v1019)
-8. [New in v1.0.18](#new-in-v1018)
-9. [New in v1.0.17](#new-in-v1017)
-10. [New in v1.0.16](#new-in-v1016)
-11. [New in v1.0.15](#new-in-v1015)
-12. [New in v1.0.13](#new-in-v1013)
-13. [New in v1.0.11](#new-in-v1011)
-13. [LSP Support](#lsp-language-server-protocol-support)
-14. [Code Review Agent (`/review`)](#code-review-agent-review)
-15. [Plugin System (`/plugin`)](#plugin-system-plugin)
-16. [Keyboard Shortcuts Reference](#keyboard-shortcuts-reference)
-17. [PAT Authentication](#pat-authentication)
-18. [Extended Instructions Support](#extended-instructions-support)
-19. [Project Initialization (`/init`)](#project-initialization-init)
-20. [Enhanced Pull Request Creation (`/delegate`)](#enhanced-pull-request-creation-delegate)
-21. [Staying Up to Date](#staying-up-to-date)
+4. [New in v1.0.24](#new-in-v1024)
+5. [New in v1.0.23](#new-in-v1023)
+6. [New in v1.0.22](#new-in-v1022)
+7. [New in v1.0.21](#new-in-v1021)
+8. [New in v1.0.20](#new-in-v1020)
+9. [New in v1.0.19](#new-in-v1019)
+10. [New in v1.0.18](#new-in-v1018)
+11. [New in v1.0.17](#new-in-v1017)
+12. [New in v1.0.16](#new-in-v1016)
+13. [New in v1.0.15](#new-in-v1015)
+14. [New in v1.0.13](#new-in-v1013)
+15. [New in v1.0.11](#new-in-v1011)
+16. [LSP Support](#lsp-language-server-protocol-support)
+17. [Code Review Agent (`/review`)](#code-review-agent-review)
+18. [Plugin System (`/plugin`)](#plugin-system-plugin)
+19. [Keyboard Shortcuts Reference](#keyboard-shortcuts-reference)
+20. [PAT Authentication](#pat-authentication)
+21. [Extended Instructions Support](#extended-instructions-support)
+22. [Project Initialization (`/init`)](#project-initialization-init)
+23. [Enhanced Pull Request Creation (`/delegate`)](#enhanced-pull-request-creation-delegate)
+24. [Staying Up to Date](#staying-up-to-date)
+
+---
+
+## New in v1.0.24
+
+Released: 2026-04-10
+
+### `preToolUse` Hooks: `modifiedArgs`, `updatedInput`, and `additionalContext`
+
+`preToolUse` hooks can now return three new fields to give the CLI richer control over tool execution:
+
+- **`modifiedArgs`** / **`updatedInput`** — rewrite the tool's input arguments before the tool runs (e.g., enforce path restrictions or inject extra flags).
+- **`additionalContext`** — inject a string of context that is appended to the model's tool result, letting hooks supply extra information the model should see after a tool call.
+
+**Example hook response:**
+```json
+{
+  "permissionDecision": "allow",
+  "modifiedArgs": { "command": "ls -la /safe/path" },
+  "additionalContext": "Note: this directory is read-only in production."
+}
+```
+
+**Why it matters:** Hooks can now act as middleware — sanitizing inputs before execution and enriching outputs without writing a full custom tool.
+
+> See [Advanced Features](08-advanced-features.md) for the full hook reference.
+
+### Custom Agent `model` Field Accepts VS Code Display Names
+
+The `model` field in a custom agent's frontmatter now accepts the friendly display names and vendor suffixes shown in VS Code, such as `"Claude Sonnet 4.5"` or `"GPT-5.4 (copilot)"`, in addition to canonical model IDs.
+
+```yaml
+---
+name: my-agent
+model: Claude Sonnet 4.5
+---
+```
+
+**Why it matters:** You can copy a model name directly from the VS Code model picker without needing to look up the exact API identifier.
+
+### Terminal State Restored After Crashes
+
+If the CLI crashes due to an OOM error or segfault, the terminal's alt-screen mode, cursor visibility, and raw-mode settings are now correctly restored. Previously a crash could leave the terminal in a broken state requiring a `reset` command.
+
+### `--remote` Flag Honoured at First-Run Sync Prompt
+
+The `--remote` flag is now respected when the session-sync prompt appears on the first run inside a GitHub repository. Previously the flag was ignored at that specific prompt, causing unexpected local-only behaviour.
+
+### Redesigned Exit Screen
+
+The exit screen has been redesigned with the Copilot mascot and a cleaner usage summary layout showing token consumption, model used, and session duration at a glance.
+
+---
+
+## New in v1.0.23
+
+Released: 2026-04-10
+
+### Launch Flags: `--mode`, `--autopilot`, `--plan`
+
+You can now start the CLI directly in a specific agent mode without going through interactive mode first:
+
+| Flag | Effect |
+|------|--------|
+| `--mode interactive` | Start in interactive mode (default) |
+| `--mode plan` | Start in plan mode — Copilot proposes a plan before acting |
+| `--mode autopilot` | Start in autopilot mode — Copilot acts autonomously |
+| `--autopilot` | Shorthand for `--mode autopilot` |
+| `--plan` | Shorthand for `--mode plan` |
+
+```bash
+# Start directly in autopilot mode for a one-shot task
+copilot --autopilot "Add input validation to all API handlers"
+
+# Start in plan mode to review the approach before executing
+copilot --plan "Refactor the auth module to use JWT"
+```
+
+**Why it matters:** CI pipelines and shell scripts can now invoke the right mode directly without needing `/experimental` toggles or `Shift+Tab` keypresses.
+
+> See [Autopilot Mode](17-autopilot-mode.md) and [Plan Mode](09-plan-mode.md) for full usage guides.
+
+### `Ctrl+L` Clears Screen Without Losing Conversation
+
+`Ctrl+L` now clears the visible terminal output while keeping the conversation session fully intact. Previously, clearing the screen could disrupt session state in some terminal emulators.
+
+### Slash Command Picker: Full Skill Descriptions and Refined Scrollbar
+
+The slash command picker (opened by typing `/`) now displays the **full description** of each skill alongside commands, and the scrollbar has been visually refined for better readability in long lists.
+
+### Slash Commands Available While Agent Is Running
+
+`/diff`, `/agent`, `/feedback`, `/ide`, and `/tuikit` can now be invoked while the agent is actively executing a task. Previously these commands were blocked until the agent finished.
+
+### Reasoning Token Usage in Per-Model Breakdown
+
+When a model uses reasoning tokens, the per-model token breakdown (accessible via `/usage`) now shows the reasoning token count separately when it is nonzero.
+
+### Remote Tab: Copilot Coding Agent Tasks and Steering via Tasks API
+
+The Remote tab now correctly lists Copilot coding agent tasks and supports sending steering messages to a running task via the Tasks API — without leaving the CLI.
+
+### MCP Migration Notice Includes `jq` Command
+
+The migration notice shown when a `.vscode/mcp.json` is detected now includes a ready-to-run `jq` command to copy the config to `.mcp.json`:
+
+```bash
+jq '.' .vscode/mcp.json > .mcp.json
+```
 
 ---
 

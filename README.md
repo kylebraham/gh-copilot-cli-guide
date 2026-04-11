@@ -81,6 +81,10 @@ npm update -g @github/copilot
 ```
 
 **Latest features:**
+- 🪝 `preToolUse` hooks: `modifiedArgs`/`updatedInput` rewrite tool inputs; `additionalContext` enriches model results
+- 🏷️ Custom agent `model` field accepts VS Code display names (e.g., `"Claude Sonnet 4.5"`)
+- 🚀 `--mode`, `--autopilot`, `--plan` flags — start the CLI directly in a specific agent mode
+- ⌨️ `Ctrl+L` clears screen while preserving the conversation session
 - 🗂️ `.mcp.json` only — MCP config consolidated to one file; `.vscode/mcp.json` and `.devcontainer/devcontainer.json` no longer read
 - 🤖 Custom agents: `skills` field for eager skill loading at startup
 - 🔌 `copilot mcp` — manage MCP servers from the shell without starting a session
@@ -239,4 +243,4 @@ Go to **Actions → Daily Doc Maintenance → Run workflow** to trigger it on de
 
 ---
 
-**Note:** This guide covers GitHub Copilot CLI v1.0.22. Some capabilities may vary by version — run `/update` to stay current.
+**Note:** This guide covers GitHub Copilot CLI v1.0.24. Some capabilities may vary by version — run `/update` to stay current.
