@@ -14,7 +14,7 @@
 | `Ctrl+C` × 2 | Exit Copilot CLI |
 | `Ctrl+D` | Shutdown (does not queue a message) |
 | `Ctrl+Q` / `Ctrl+Enter` | Queue message while agent is running |
-| `Ctrl+L` | Clear the screen |
+| `Ctrl+L` | Clear the terminal screen (conversation session preserved) |
 | `Esc` | Cancel the current operation |
 | `↑ / ↓` | Navigate command history |
 | `Shift+Tab` | Cycle modes (interactive → plan) |
@@ -99,6 +99,7 @@
 | `/init` | Initialize Copilot configuration for the current repo |
 | `/experimental` | Toggle experimental features |
 | `/allow-all` | Allow all tool calls without per-call confirmation |
+| `/yolo` | Alias for `/allow-all`; state persists across `/restart` |
 | `/reset-allowed-tools` | Reset tool allowlist to default (prompt-per-use) |
 
 ### Info & Help
@@ -138,11 +139,15 @@
 | `--silent` | Suppress all output except the final response |
 | `--model MODEL-ID` | Set the model for this session |
 | `--experimental` | Enable experimental features |
+| `--mode MODE` | Start in a specific mode: `interactive`, `plan`, or `autopilot` |
+| `--autopilot` | Shorthand for `--mode autopilot` — start in autopilot mode |
+| `--plan` | Shorthand for `--mode plan` — start in plan mode |
 | `--max-autopilot-continues N` | Cap the number of autonomous continuation steps |
 | `--no-ask-user` | Never pause to ask clarifying questions |
 | `--continue` / `--resume` | Resume the most recent session |
 | `--allow-tool TOOL` | Allow a specific tool without prompting |
 | `--deny-tool TOOL` | Block a specific tool |
+| `--remote` | Sync session with the remote GitHub repository |
 | `--no-auto-update` | Disable automatic CLI updates |
 | `--output-format FORMAT` | Set output format (e.g., `json`, `text`) |
 

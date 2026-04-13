@@ -302,6 +302,16 @@ Enable all permissions — all tools, paths, and URLs — in one command.
 - Grants broad access; avoid with untrusted projects or shared machines
 - For fine-grained control, prefer `/add-dir` and explicit tool approvals
 
+### /yolo
+
+Alias for `/allow-all` — enables all permissions in one command. `/yolo` state **persists across `/restart`**, so you do not need to re-enable it after restarting the session. Equivalent to the `--yolo` flag.
+
+```
+> /yolo
+```
+
+See [/allow-all](#allow-all) for the full list of what this enables.
+
 ## Command-Line Flags
 
 ### --no-ask-user
@@ -1219,10 +1229,10 @@ Manage MCP (Model Context Protocol) server configuration.
 # Delete server
 > /mcp delete my-server
 
-# Disable server temporarily
+# Disable server (persists across sessions)
 > /mcp disable my-server
 
-# Re-enable server
+# Re-enable server (persists across sessions)
 > /mcp enable my-server
 ```
 
@@ -1441,6 +1451,7 @@ Some commands affect subsequent prompts:
 | `/ide` | Connect to IDE | `/ide` |
 | `/cwd` | Change directory | `/cwd ~/projects` |
 | `/allow-all` | Enable all permissions | `/allow-all` |
+| `/yolo` | Alias for `/allow-all`; persists across `/restart` | `/yolo` |
 | `/context` | Check memory | `/context` |
 | `/compact` | Compress history | `/compact` |
 | `/plan` | Create plan | `/plan Build API` |

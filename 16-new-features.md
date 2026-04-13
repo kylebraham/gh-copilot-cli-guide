@@ -1,4 +1,4 @@
-# Latest Features in GitHub Copilot CLI — v1.0.18
+# Latest Features in GitHub Copilot CLI — v1.0.24
 
 This file covers recent additions to GitHub Copilot CLI. Features marked with "Full guide →" have their own dedicated documentation file — the entries here are summaries with links. Features without a dedicated file are covered in full below.
 
@@ -10,21 +10,325 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 3. [Research Command (`/research`)](#research-command-research) — [Full guide →](19-research-command.md)
 
 ### Features covered in this file
-4. [New in v1.0.18](#new-in-v1018)
-5. [New in v1.0.17](#new-in-v1017)
-6. [New in v1.0.16](#new-in-v1016)
-7. [New in v1.0.15](#new-in-v1015)
-8. [New in v1.0.13](#new-in-v1013)
-9. [New in v1.0.11](#new-in-v1011)
-10. [LSP Support](#lsp-language-server-protocol-support)
-11. [Code Review Agent (`/review`)](#code-review-agent-review)
-12. [Plugin System (`/plugin`)](#plugin-system-plugin)
-13. [Keyboard Shortcuts Reference](#keyboard-shortcuts-reference)
-14. [PAT Authentication](#pat-authentication)
-15. [Extended Instructions Support](#extended-instructions-support)
-16. [Project Initialization (`/init`)](#project-initialization-init)
-17. [Enhanced Pull Request Creation (`/delegate`)](#enhanced-pull-request-creation-delegate)
-18. [Staying Up to Date](#staying-up-to-date)
+4. [New in v1.0.24](#new-in-v1024)
+5. [New in v1.0.23](#new-in-v1023)
+6. [New in v1.0.22](#new-in-v1022)
+7. [New in v1.0.21](#new-in-v1021)
+8. [New in v1.0.20](#new-in-v1020)
+9. [New in v1.0.19](#new-in-v1019)
+10. [New in v1.0.18](#new-in-v1018)
+11. [New in v1.0.17](#new-in-v1017)
+12. [New in v1.0.16](#new-in-v1016)
+13. [New in v1.0.15](#new-in-v1015)
+14. [New in v1.0.13](#new-in-v1013)
+15. [New in v1.0.11](#new-in-v1011)
+16. [LSP Support](#lsp-language-server-protocol-support)
+17. [Code Review Agent (`/review`)](#code-review-agent-review)
+18. [Plugin System (`/plugin`)](#plugin-system-plugin)
+19. [Keyboard Shortcuts Reference](#keyboard-shortcuts-reference)
+20. [PAT Authentication](#pat-authentication)
+21. [Extended Instructions Support](#extended-instructions-support)
+22. [Project Initialization (`/init`)](#project-initialization-init)
+23. [Enhanced Pull Request Creation (`/delegate`)](#enhanced-pull-request-creation-delegate)
+24. [Staying Up to Date](#staying-up-to-date)
+
+---
+
+## New in v1.0.24
+
+Released: 2026-04-10
+
+### `preToolUse` Hooks: `modifiedArgs`, `updatedInput`, and `additionalContext`
+
+`preToolUse` hooks can now return three new fields to give the CLI richer control over tool execution:
+
+- **`modifiedArgs`** / **`updatedInput`** — rewrite the tool's input arguments before the tool runs (e.g., enforce path restrictions or inject extra flags).
+- **`additionalContext`** — inject a string of context that is appended to the model's tool result, letting hooks supply extra information the model should see after a tool call.
+
+**Example hook response:**
+```json
+{
+  "permissionDecision": "allow",
+  "modifiedArgs": { "command": "ls -la /safe/path" },
+  "additionalContext": "Note: this directory is read-only in production."
+}
+```
+
+**Why it matters:** Hooks can now act as middleware — sanitizing inputs before execution and enriching outputs without writing a full custom tool.
+
+> See [Advanced Features](08-advanced-features.md) for the full hook reference.
+
+### Custom Agent `model` Field Accepts VS Code Display Names
+
+The `model` field in a custom agent's frontmatter now accepts the friendly display names and vendor suffixes shown in VS Code, such as `"Claude Sonnet 4.5"` or `"GPT-5.4 (copilot)"`, in addition to canonical model IDs.
+
+```yaml
+---
+name: my-agent
+model: Claude Sonnet 4.5
+---
+```
+
+**Why it matters:** You can copy a model name directly from the VS Code model picker without needing to look up the exact API identifier.
+
+### Terminal State Restored After Crashes
+
+If the CLI crashes due to an OOM error or segfault, the terminal's alt-screen mode, cursor visibility, and raw-mode settings are now correctly restored. Previously a crash could leave the terminal in a broken state requiring a `reset` command.
+
+### `--remote` Flag Honoured at First-Run Sync Prompt
+
+The `--remote` flag is now respected when the session-sync prompt appears on the first run inside a GitHub repository. Previously the flag was ignored at that specific prompt, causing unexpected local-only behaviour.
+
+### Redesigned Exit Screen
+
+The exit screen has been redesigned with the Copilot mascot and a cleaner usage summary layout showing token consumption, model used, and session duration at a glance.
+
+---
+
+## New in v1.0.23
+
+Released: 2026-04-10
+
+### Launch Flags: `--mode`, `--autopilot`, `--plan`
+
+You can now start the CLI directly in a specific agent mode without going through interactive mode first:
+
+| Flag | Effect |
+|------|--------|
+| `--mode interactive` | Start in interactive mode (default) |
+| `--mode plan` | Start in plan mode — Copilot proposes a plan before acting |
+| `--mode autopilot` | Start in autopilot mode — Copilot acts autonomously |
+| `--autopilot` | Shorthand for `--mode autopilot` |
+| `--plan` | Shorthand for `--mode plan` |
+
+```bash
+# Start directly in autopilot mode for a one-shot task
+copilot --autopilot "Add input validation to all API handlers"
+
+# Start in plan mode to review the approach before executing
+copilot --plan "Refactor the auth module to use JWT"
+```
+
+**Why it matters:** CI pipelines and shell scripts can now invoke the right mode directly without needing `/experimental` toggles or `Shift+Tab` keypresses.
+
+> See [Autopilot Mode](17-autopilot-mode.md) and [Plan Mode](09-plan-mode.md) for full usage guides.
+
+### `Ctrl+L` Clears Screen Without Losing Conversation
+
+`Ctrl+L` now clears the visible terminal output while keeping the conversation session fully intact. Previously, clearing the screen could disrupt session state in some terminal emulators.
+
+### Slash Command Picker: Full Skill Descriptions and Refined Scrollbar
+
+The slash command picker (opened by typing `/`) now displays the **full description** of each skill alongside commands, and the scrollbar has been visually refined for better readability in long lists.
+
+### Slash Commands Available While Agent Is Running
+
+`/diff`, `/agent`, `/feedback`, `/ide`, and `/tuikit` can now be invoked while the agent is actively executing a task. Previously these commands were blocked until the agent finished.
+
+### Reasoning Token Usage in Per-Model Breakdown
+
+When a model uses reasoning tokens, the per-model token breakdown (accessible via `/usage`) now shows the reasoning token count separately when it is nonzero.
+
+### Remote Tab: Copilot Coding Agent Tasks and Steering via Tasks API
+
+The Remote tab now correctly lists Copilot coding agent tasks and supports sending steering messages to a running task via the Tasks API — without leaving the CLI.
+
+### MCP Migration Notice Includes `jq` Command
+
+The migration notice shown when a `.vscode/mcp.json` is detected now includes a ready-to-run `jq` command to copy the config to `.mcp.json`:
+
+```bash
+jq '.' .vscode/mcp.json > .mcp.json
+```
+
+---
+
+## New in v1.0.22
+
+Released: 2026-04-09
+
+### MCP Config Source Consolidated to `.mcp.json`
+
+Copilot CLI now reads MCP server configuration **only from `.mcp.json`** in the project root. Support for `.vscode/mcp.json` and `.devcontainer/devcontainer.json` as MCP config sources has been removed.
+
+If you have a `.vscode/mcp.json` without a corresponding `.mcp.json`, the CLI will display a migration hint at startup.
+
+**Why it matters:** A single canonical config file eliminates ambiguity when multiple config sources existed in the same repository and makes MCP setup easier to audit and version-control.
+
+**Migration:** Copy or rename `.vscode/mcp.json` to `.mcp.json` in your project root:
+
+```bash
+cp .vscode/mcp.json .mcp.json
+```
+
+> See [MCP Management Commands](08-advanced-features.md#mcp-management-commands) for the full config reference.
+
+### Custom Agents: `skills` Field for Eager Skill Loading
+
+Custom agents can now declare a `skills` field in their frontmatter to **eagerly load skill content into the agent's context at startup**, rather than waiting for `/skills add` during a session.
+
+```yaml
+---
+name: backend-agent
+model: claude-sonnet-4.6
+skills:
+  - python-expert
+  - django-expert
+  - security-audit
+---
+This agent specialises in Django backend development.
+```
+
+**Why it matters:** Skills listed in `skills` are injected into the agent's context before the first prompt, so the agent starts with full domain expertise without manual activation steps.
+
+> See [Skills System Guide](14-skills-system.md) for skill file format and locations.
+
+### Sub-Agent Depth and Concurrency Limits
+
+The CLI now enforces configurable **depth and concurrency limits** on sub-agent spawning to prevent runaway agent trees:
+
+- **Depth limit** — caps how many levels of nested agents can be created (e.g., agent → sub-agent → sub-sub-agent).
+- **Concurrency limit** — caps how many agents can run in parallel at any given time.
+
+When either limit is hit, the CLI surfaces a clear error instead of silently spawning more agents.
+
+**Why it matters:** Long-running autopilot or fleet tasks that recursively delegated work could previously exhaust memory and API quota. These limits keep resource usage predictable.
+
+### Plugin Improvements
+
+- **Post-install messages**: Plugins can now display setup instructions immediately after installation, so you know exactly what to configure before using the plugin.
+- **Session persistence**: Plugins stay enabled across sessions and auto-install on startup based on your saved config — no need to re-enable plugins after restarting.
+- **Model respect**: Plugin agents now honour the `model` field in their frontmatter, so a plugin that declares `model: claude-haiku-4.5` will use that model rather than the session default.
+
+### `sessionStart` and `sessionEnd` Hooks: Once Per Session
+
+In interactive mode, `sessionStart` and `sessionEnd` hooks now fire **once per session** instead of once per prompt turn. This matches the expected lifecycle semantics and prevents double-firing when Copilot processes multiple prompts in the same session.
+
+**Why it matters:** Hook scripts that perform setup or teardown work (e.g., loading secrets, writing logs) no longer run redundantly on every prompt.
+
+### Other Improvements and Fixes
+
+- **MCP schema sanitization**: MCP tools with non-standard JSON schemas are now sanitized for compatibility across all model providers — these tools no longer silently fail when used with certain models.
+- **Large image handling**: Better handling of large images returned by MCP and extension tools, preventing crashes on high-resolution screenshots or diagrams.
+- **Rendering performance**: A new simplified inline renderer improves display performance in long sessions.
+- **Policy message**: A clear, actionable message now appears when remote sessions are blocked by an organization policy, directing users to contact their administrator.
+- **Sub-agent tool names**: Sub-agent activity no longer shows duplicated tool names (e.g., "view view the file…").
+- **BYOM/BYOK hooks**: Permission checks and hook scripts now work correctly when using Anthropic models via BYOM/BYOK configuration.
+- **Slash command picker**: Now appears above the text input for a more stable layout.
+- **Session conflict warning**: A warning is shown when resuming a session that is already open in another CLI instance or application.
+- **V8 crash fix**: The CLI no longer crashes on systems affected by a V8 engine bug in grapheme segmentation.
+
+---
+
+## New in v1.0.21
+
+Released: 2026-04-07
+
+### `copilot mcp` — CLI Command for MCP Server Management
+
+A new top-level CLI subcommand lets you manage MCP servers directly from your shell, without needing to start an interactive session:
+
+```bash
+$ copilot mcp
+```
+
+**Why it matters:** Previously MCP servers could only be added, disabled, or removed via `/mcp` slash commands inside an active Copilot session. The `copilot mcp` command gives you full MCP management from the shell — useful for scripts, CI setup, and one-time configuration changes.
+
+> See [MCP Management Commands](08-advanced-features.md#mcp-management-commands) in the Advanced Features guide for the full list of subcommands.
+
+### Hook Payloads Normalized to `snake_case`
+
+Hook scripts that use **PascalCase event names** (e.g., `PreToolUse`, `PostToolUse`) now receive VS Code-compatible `snake_case` payloads. Each payload includes:
+
+- `hook_event_name` — the snake_case name of the event
+- `session_id` — the current session identifier
+- Timestamps formatted as **ISO 8601** strings
+
+Hooks already using `snake_case` event names are unaffected.
+
+**Why it matters:** Hook scripts can now be shared between VS Code and Copilot CLI without conditional payload-handling logic, since both environments produce the same payload shape.
+
+### Other Improvements
+
+- **Spinner**: No longer appears stuck when a long-running async shell command is active.
+- **Login flow**: Enterprise GitHub URL input now accepts keyboard input and submits on Enter.
+- **Slash command picker**: No longer flickers or shifts the input while filtering.
+- **Timeline**: No longer goes blank when content shrinks (e.g., after cancelling or tool completion).
+- **Plan mode**: Timeline display shows user text without a redundant "Plan" prefix.
+- **Memory**: Idle shell sessions are automatically shut down to reduce memory usage.
+
+---
+
+## New in v1.0.20
+
+Released: 2026-04-07
+
+### `copilot help monitoring` — OpenTelemetry Configuration Guide
+
+A new built-in help topic covers OpenTelemetry monitoring in detail, including configuration options, environment variables, and examples for wiring up tracing backends.
+
+```bash
+$ copilot help monitoring
+```
+
+**Why it matters:** All OpenTelemetry configuration details — span kinds, attribute names, exporter setup — are now a single command away without leaving the terminal.
+
+### `/yolo` Slash Command — Persists Across `/restart`
+
+`/yolo` and `--yolo` now behave identically. In addition, `/yolo` state **persists across `/restart`** — you no longer need to re-enable it after restarting the session.
+
+```
+> /yolo
+> /restart   # /yolo stays active
+```
+
+**Why it matters:** Avoids repeatedly re-enabling unrestricted mode during iterative autopilot sessions that use `/restart` to reset context.
+
+### Azure OpenAI BYOK: Versionless v1 Route Default
+
+When no API version is configured, Azure OpenAI BYOK connections now default to the GA **versionless v1 route** (`/openai/deployments/{deployment}/chat/completions?api-version=`). This eliminates errors caused by stale or missing API version strings.
+
+**Why it matters:** BYOK Azure setups that previously required explicit API version pinning now work correctly out of the box.
+
+### Spinner Active Until Background Work Completes
+
+The activity spinner now stays visible until all **background agents and shell commands** finish — not just until the model stops streaming. User input remains available throughout.
+
+**Why it matters:** Gives a clear visual signal that Copilot is still working, preventing premature follow-up messages that interrupt in-flight operations.
+
+---
+
+## New in v1.0.19
+
+Released: 2026-04-06
+
+### `/mcp enable` and `/mcp disable` Persist Across Sessions
+
+MCP server enable/disable state is now saved between sessions. Previously, disabling an MCP server with `/mcp disable` was session-local and the server would re-enable on next launch.
+
+```
+> /mcp disable heavy-server   # now saved permanently until re-enabled
+> /mcp enable heavy-server    # restore and save
+```
+
+**Why it matters:** No more re-running `/mcp disable` commands on startup for servers you rarely use.
+
+### OpenTelemetry Monitoring Improvements
+
+- Subagent spans now use **INTERNAL** span kind (previously unset), making agent hierarchy clearer in tracing backends.
+- Chat spans now include a `github.copilot.time_to_first_chunk` attribute for streaming sessions, enabling first-token latency tracking.
+
+### Slash Command Timeline Entries Now Include Command Name
+
+The session timeline now labels slash command entries with the command name (e.g., "Review", "Plan") instead of a generic entry.
+
+**Why it matters:** Makes session history and replays easier to navigate when a session contains multiple slash commands.
+
+### Other Fixes
+
+- Plugin hook scripts with missing execute permissions now run correctly on macOS.
+- Custom agent is properly restored when resuming a session where the agent display name differs from its filename.
+- IDE auto-connect is skipped when the session is already in use by another client.
 
 ---
 

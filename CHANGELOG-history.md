@@ -1,5 +1,94 @@
 # Documentation Updates
 
+## 2026-04-11 — Docs updated for v1.0.24
+
+- `README.md`: Bumped version note to v1.0.24; updated "Latest features" list with `preToolUse` hook fields and `--mode`/`--autopilot`/`--plan` flags
+- `16-new-features.md`: Updated title to v1.0.24; added TOC entries; added v1.0.24 section covering `preToolUse` `modifiedArgs`/`updatedInput`/`additionalContext`, VS Code display names in custom agent `model` field, terminal state restoration after crashes, `--remote` flag fix, and redesigned exit screen; added v1.0.23 section covering `--mode`/`--autopilot`/`--plan` launch flags, `Ctrl+L` screen-clear fix, slash command picker improvements, mid-run slash commands, reasoning token usage display, Remote tab Tasks API support, and MCP migration `jq` command
+- `00-cheat-sheet.md`: Updated `Ctrl+L` description; added `--mode`, `--autopilot`, `--plan`, and `--remote` flags to CLI flags table
+
+### Feature Summary (v1.0.24)
+- **New:** `preToolUse` hooks support `modifiedArgs`/`updatedInput` to rewrite tool inputs and `additionalContext` to inject context into model results
+- **New:** Custom agent `model` field accepts VS Code display names (e.g., `"Claude Sonnet 4.5"`, `"GPT-5.4 (copilot)"`)
+- **Fixed:** Terminal state (alt screen, cursor, raw mode) restored after CLI crashes (OOM/segfault)
+- **Fixed:** `--remote` flag now respected at the first-run session-sync prompt inside a GitHub repo
+- **Changed:** Exit screen redesigned with Copilot mascot and cleaner usage summary layout
+
+### Feature Summary (v1.0.23)
+- **New:** `--mode interactive|plan|autopilot`, `--autopilot`, and `--plan` launch flags start the CLI directly in a specific agent mode
+- **Fixed:** `Ctrl+L` clears terminal screen without clearing the conversation session
+- **New:** Slash command picker shows full skill descriptions and refined scrollbar
+- **New:** `/diff`, `/agent`, `/feedback`, `/ide`, and `/tuikit` available while agent is running
+- **New:** Reasoning token usage shown in per-model token breakdown when nonzero
+- **New:** Remote tab shows Copilot coding agent tasks and supports steering via Tasks API
+- **Improved:** MCP `.vscode/mcp.json` migration notice includes a ready-to-run `jq` command
+- **Fixed:** Agent no longer hangs on first turn when memory backend is unavailable
+- **Fixed:** Bazel/Buck build target labels no longer misidentified as file paths
+- **Fixed:** Shell output with BEL characters no longer causes repeated terminal beeping
+
+---
+
+## 2026-04-10 — Docs updated for v1.0.22
+
+- `README.md`: Bumped version note to v1.0.22; updated "Latest features" list with `.mcp.json`-only config and custom agent `skills` field
+- `16-new-features.md`: Updated title to v1.0.22; added TOC entry; added v1.0.22 section covering MCP config consolidation to `.mcp.json`, `skills` field for custom agents, sub-agent depth/concurrency limits, plugin persistence and post-install messages, `sessionStart`/`sessionEnd` hooks firing once per session, and other fixes
+- `08-advanced-features.md`: Added `.mcp.json`-only MCP config note with migration instructions; added MCP troubleshooting row for non-standard JSON schemas; documented `skills` field for custom agents; added sub-agent depth and concurrency limits section under Fleet Mode
+- `14-skills-system.md`: Added "Pre-Loading Skills in Custom Agents" section documenting the `skills` frontmatter field (v1.0.22+)
+
+### Feature Summary (v1.0.22)
+- **Breaking:** MCP config now only reads `.mcp.json`; `.vscode/mcp.json` and `.devcontainer/devcontainer.json` removed as sources
+- **New:** Custom agents can declare a `skills` field to eagerly load skill content at startup
+- **New:** Sub-agent depth and concurrency limits prevent runaway agent spawning
+- **New:** Plugins persist across sessions and auto-install on startup; post-install messages supported
+- **Changed:** `sessionStart`/`sessionEnd` hooks fire once per session (not once per prompt) in interactive mode
+- **New:** Plugin agents respect the `model` field in their frontmatter
+- **Fixed:** MCP tools with non-standard JSON schemas sanitized for all model providers
+- **Fixed:** Permission checks and hooks now work correctly with Anthropic BYOM/BYOK
+- **Fixed:** Sub-agent activity no longer shows duplicated tool names
+- **Fixed:** CLI no longer crashes on V8 grapheme segmentation bug
+
+---
+
+## 2026-04-08 — Docs updated for v1.0.21
+
+- `README.md`: Bumped version note to v1.0.21; added `copilot mcp` to "Latest features" list
+- `16-new-features.md`: Updated title to v1.0.21; added TOC entry; added v1.0.21 section covering `copilot mcp` CLI command, hook `snake_case` payload normalization, and UI/performance improvements
+- `08-advanced-features.md`: Documented `copilot mcp` top-level CLI command alongside `/mcp` slash commands
+
+### Feature Summary (v1.0.21)
+- **New:** `copilot mcp` — top-level CLI command for managing MCP servers outside an active session
+- **Improved:** Hook scripts with PascalCase event names now receive VS Code-compatible `snake_case` payloads with `hook_event_name`, `session_id`, and ISO 8601 timestamps
+- **Fixed:** Spinner no longer appears stuck during long-running async shell commands
+- **Fixed:** Enterprise GitHub URL input in login flow now accepts keyboard input and submits on Enter
+- **Fixed:** Slash command picker no longer flickers or shifts input while filtering
+- **Fixed:** Timeline no longer goes blank when content shrinks
+- **Fixed:** Plan mode timeline no longer shows a redundant "Plan" prefix
+- **Improved:** Idle shell sessions are automatically shut down to reduce memory usage
+
+---
+
+## 2026-04-07 — Docs updated for v1.0.20
+
+- `README.md`: Bumped version note to v1.0.20
+- `16-new-features.md`: Updated title to v1.0.20; added TOC entries; added v1.0.20 section covering `copilot help monitoring`, `/yolo` persistence across `/restart`, Azure OpenAI BYOK versionless v1 default, and spinner improvements; added v1.0.19 section covering `/mcp enable`/`disable` session persistence, OpenTelemetry span improvements, and slash command timeline labels
+- `04-slash-commands.md`: Added `/yolo` slash command entry; updated `/mcp disable`/`enable` comments to note session persistence; added `/yolo` to quick reference table
+- `00-cheat-sheet.md`: Added `/yolo` to slash commands table
+- `08-advanced-features.md`: Updated `/mcp disable`/`enable` inline comments to note session persistence
+
+### Feature Summary (v1.0.20)
+- **New:** `copilot help monitoring` — built-in OpenTelemetry configuration guide
+- **Improved:** `/yolo` and `--yolo` now behave identically; `/yolo` state persists across `/restart`
+- **Improved:** Azure OpenAI BYOK defaults to GA versionless v1 route when no API version configured
+- **Improved:** Spinner stays active until all background agents and shell commands finish
+
+### Feature Summary (v1.0.19)
+- **Improved:** `/mcp enable` and `/mcp disable` now persist across sessions
+- **Improved:** OpenTelemetry subagent spans use INTERNAL kind; chat spans include `github.copilot.time_to_first_chunk`
+- **Improved:** Slash command timeline entries now include the command name
+- **Fixed:** Plugin hook scripts with missing execute permissions now run on macOS
+- **Fixed:** Custom agent properly restored on session resume when display name differs from filename
+
+---
+
 ## 2026-04-04 — Docs updated for v1.0.18
 
 - `README.md`: Bumped version note to v1.0.18
