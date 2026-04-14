@@ -81,6 +81,10 @@ npm update -g @github/copilot
 ```
 
 **Latest features:**
+- 📋 `/env` — show all loaded environment details (instructions, MCP servers, skills, agents, plugins) at a glance
+- 🔌 Install MCP servers from the registry with guided configuration directly in the CLI
+- 🖥️ Remote control your CLI sessions using `--remote` or `/remote`
+- ⌨️ `Alt+D` deletes the word in front of the cursor in text input
 - 🪝 `preToolUse` hooks: `modifiedArgs`/`updatedInput` rewrite tool inputs; `additionalContext` enriches model results
 - 🏷️ Custom agent `model` field accepts VS Code display names (e.g., `"Claude Sonnet 4.5"`)
 - 🚀 `--mode`, `--autopilot`, `--plan` flags — start the CLI directly in a specific agent mode
@@ -243,4 +247,4 @@ Go to **Actions → Daily Doc Maintenance → Run workflow** to trigger it on de
 
 ---
 
-**Note:** This guide covers GitHub Copilot CLI v1.0.24. Some capabilities may vary by version — run `/update` to stay current.
+**Note:** This guide covers GitHub Copilot CLI v1.0.25. Some capabilities may vary by version — run `/update` to stay current.

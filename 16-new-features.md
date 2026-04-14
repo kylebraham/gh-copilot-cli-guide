@@ -1,4 +1,4 @@
-# Latest Features in GitHub Copilot CLI — v1.0.24
+# Latest Features in GitHub Copilot CLI — v1.0.25
 
 This file covers recent additions to GitHub Copilot CLI. Features marked with "Full guide →" have their own dedicated documentation file — the entries here are summaries with links. Features without a dedicated file are covered in full below.
 
@@ -10,18 +10,19 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 3. [Research Command (`/research`)](#research-command-research) — [Full guide →](19-research-command.md)
 
 ### Features covered in this file
-4. [New in v1.0.24](#new-in-v1024)
-5. [New in v1.0.23](#new-in-v1023)
-6. [New in v1.0.22](#new-in-v1022)
-7. [New in v1.0.21](#new-in-v1021)
-8. [New in v1.0.20](#new-in-v1020)
-9. [New in v1.0.19](#new-in-v1019)
-10. [New in v1.0.18](#new-in-v1018)
-11. [New in v1.0.17](#new-in-v1017)
-12. [New in v1.0.16](#new-in-v1016)
-13. [New in v1.0.15](#new-in-v1015)
-14. [New in v1.0.13](#new-in-v1013)
-15. [New in v1.0.11](#new-in-v1011)
+4. [New in v1.0.25](#new-in-v1025)
+5. [New in v1.0.24](#new-in-v1024)
+6. [New in v1.0.23](#new-in-v1023)
+7. [New in v1.0.22](#new-in-v1022)
+8. [New in v1.0.21](#new-in-v1021)
+9. [New in v1.0.20](#new-in-v1020)
+10. [New in v1.0.19](#new-in-v1019)
+11. [New in v1.0.18](#new-in-v1018)
+12. [New in v1.0.17](#new-in-v1017)
+13. [New in v1.0.16](#new-in-v1016)
+14. [New in v1.0.15](#new-in-v1015)
+15. [New in v1.0.13](#new-in-v1013)
+16. [New in v1.0.11](#new-in-v1011)
 16. [LSP Support](#lsp-language-server-protocol-support)
 17. [Code Review Agent (`/review`)](#code-review-agent-review)
 18. [Plugin System (`/plugin`)](#plugin-system-plugin)
@@ -31,6 +32,104 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 22. [Project Initialization (`/init`)](#project-initialization-init)
 23. [Enhanced Pull Request Creation (`/delegate`)](#enhanced-pull-request-creation-delegate)
 24. [Staying Up to Date](#staying-up-to-date)
+
+---
+
+## New in v1.0.25
+
+Released: 2026-04-13
+
+### `/env` Command
+
+A new `/env` command shows all loaded environment details for the current session at a glance:
+
+```
+> /env
+```
+
+**Displays:**
+- Active instruction files
+- Connected MCP servers and their status
+- Loaded skills
+- Available agents
+- Installed plugins
+
+**Why it matters:** Quickly audit the full set of context and tooling loaded into your session — essential for debugging why a tool isn't available or verifying that instructions are in effect.
+
+### Install MCP Servers from the Registry
+
+`/mcp install` opens an interactive browser of the MCP server registry with guided configuration — no manual JSON editing required:
+
+```
+> /mcp install
+```
+
+Select a server, answer the prompted questions, and the CLI adds the entry to `~/.copilot/mcp-config.json` automatically.
+
+**Why it matters:** Discovering and adding MCP servers is now a guided, in-CLI experience rather than a manual config file task.
+
+### Remote Session Control (`/remote` and `--remote`)
+
+You can now remote-control CLI sessions using the `/remote` slash command or the `--remote` startup flag:
+
+```
+> /remote
+```
+
+```bash
+copilot --remote
+```
+
+**Use cases:**
+- Monitor a long-running autopilot session from a second terminal
+- Steer an active session from a different machine
+- View session state without interrupting the active conversation
+
+### `Alt+D` Keyboard Shortcut
+
+`Alt+D` now deletes the word **in front of** the cursor in text input — the forward-delete complement to `Ctrl+W` (which deletes the word behind the cursor).
+
+| Shortcut | Action |
+|----------|--------|
+| `Ctrl+W` | Delete word behind cursor |
+| `Alt+D` | Delete word in front of cursor |
+
+### ACP Clients Can Provide MCP Servers
+
+ACP (Agent Communication Protocol) clients can now supply their own MCP servers (stdio, HTTP, or SSE) when starting or loading sessions. This allows external integrations to inject MCP tooling without requiring changes to the user's config files.
+
+### `/add-dir` Accepts Relative Paths
+
+`/add-dir` now resolves relative paths correctly:
+
+```
+> /add-dir ./src
+> /add-dir ../sibling-project
+```
+
+Paths like `./src` and `../sibling` are resolved to their absolute equivalents before being added to the allowed directory list.
+
+### `/share` File Extension Auto-Appended
+
+When a custom output path is provided without a file extension, `/share` automatically appends the correct extension:
+- `/share file ~/my-session` → saves as `~/my-session.md`
+- `/share html ~/my-session` → saves as `~/my-session.html`
+
+`/share html` also now displays a `file://` URL in the output so you can open the file directly, and supports `Ctrl+X O` to open it immediately.
+
+### `/logout` Warning for Non-OAuth Auth
+
+`/logout` now shows a clear warning when you are signed in via `gh` CLI, a Personal Access Token, an API key, or the `GH_TOKEN` environment variable — since `/logout` only clears OAuth sessions and cannot remove those credentials.
+
+### Other Improvements
+
+- **Model persistence:** The resolved model is now persisted in session history; model changes are deferred during active turns to avoid mid-turn switches.
+- **`--config-dir` respected for model selection:** The active model is now correctly read from the config directory specified by `--config-dir`.
+- **MCP remote retry:** Remote MCP server connections automatically retry on transient network failures.
+- **Skill picker scroll:** The skill picker list now scrolls correctly when the list exceeds terminal height.
+- **Skill instructions persist:** Skill instructions are now correctly maintained across all conversation turns.
+- **MCP client version:** The MCP client now reports the correct CLI version during the server handshake.
+- **`Esc` after failed `/resume`:** The `Esc` key now works correctly after a failed session lookup.
 
 ---
 

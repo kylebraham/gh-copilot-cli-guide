@@ -1,5 +1,30 @@
 # Documentation Updates
 
+## 2026-04-14 — Docs updated for v1.0.25
+
+- `README.md`: Bumped version note to v1.0.25; updated "Latest features" list with `/env`, MCP registry install, `/remote`, and `Alt+D`
+- `16-new-features.md`: Updated title to v1.0.25; added TOC entry; added v1.0.25 section covering `/env`, MCP registry install, `/remote` and `--remote`, `Alt+D` shortcut, ACP client MCP servers, `/add-dir` relative paths, `/share` file extension auto-append, `/logout` warning for non-OAuth auth, model persistence, `--config-dir` model fix, MCP remote retry, and minor fixes
+- `04-slash-commands.md`: Added `/env` command entry in Information section; added `/remote` command entry; updated `/logout` with warning for non-OAuth auth; updated `/add-dir` with relative path support; updated `/share` with file extension and HTML improvements
+- `00-cheat-sheet.md`: Added `Alt+D` to Text Editing shortcuts; added `/env` to Session & Context commands table; added `/remote` to Config & Tools commands table
+- `03-interactive-features.md`: Added `Alt+D` to Editing Shortcuts table
+- `08-advanced-features.md`: Added `/mcp install` registry command; added ACP client MCP servers section; added remote MCP retry to troubleshooting table
+
+### Feature Summary (v1.0.25)
+- **New:** `/env` command shows all loaded environment details (instructions, MCP servers, skills, agents, plugins)
+- **New:** `/mcp install` — browse MCP registry and install servers with guided configuration
+- **New:** `/remote` and `--remote` — remote control of CLI sessions
+- **New:** `Alt+D` keyboard shortcut deletes word in front of cursor
+- **New:** ACP clients can provide MCP servers (stdio, HTTP, SSE) when starting/loading sessions
+- **Improved:** `/add-dir` accepts relative paths (`./src`, `../sibling`)
+- **Improved:** `/share` auto-appends file extension; HTML share shows `file://` URL + `Ctrl+X O` to open
+- **Improved:** `/logout` warns when signed in via non-OAuth auth
+- **Fixed:** Resolved model persisted in session history; model changes deferred during active turns
+- **Fixed:** `--config-dir` flag respected for model selection
+- **Fixed:** Remote MCP server connections retry on transient network failures
+- **Fixed:** Multiple minor fixes (skill picker scroll, skill instructions persist, MCP version handshake, `Esc` after failed `/resume`)
+
+---
+
 ## 2026-04-11 — Docs updated for v1.0.24
 
 - `README.md`: Bumped version note to v1.0.24; updated "Latest features" list with `preToolUse` hook fields and `--mode`/`--autopilot`/`--plan` flags

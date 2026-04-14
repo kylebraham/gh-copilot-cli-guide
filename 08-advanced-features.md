@@ -201,6 +201,10 @@ Add a temporary MCP server without modifying your config file — useful for CI 
 copilot --additional-mcp-config='{"mcpServers":{"temp-db":{"command":"npx","args":["-y","@mcp/postgres","postgresql://localhost/testdb"]}}}'
 ```
 
+### ACP Client MCP Servers (v1.0.25+)
+
+ACP (Agent Communication Protocol) clients can now supply MCP servers (stdio, HTTP, or SSE transport) when starting or loading a session. This lets external tools and integrations inject their own MCP tooling into the CLI session without any manual config changes.
+
 ---
 
 ### MCP Management Commands
@@ -216,6 +220,7 @@ $ copilot mcp          # Show help and available subcommands
 ```
 > /mcp show                    # List configured servers and status
 > /mcp add my-server           # Add a server interactively
+> /mcp install                 # Browse the MCP registry and install a server with guided configuration
 > /mcp edit my-server          # Edit server configuration
 > /mcp disable my-server       # Disable without removing (persists across sessions)
 > /mcp enable my-server        # Re-enable a disabled server (persists across sessions)
@@ -223,6 +228,8 @@ $ copilot mcp          # Show help and available subcommands
 > /mcp reload                  # Reload all MCP server configs
 > /mcp auth my-server          # Authenticate / re-authenticate an MCP OAuth server (v1.0.15+)
 ```
+
+**Installing from the registry (v1.0.25+):** `/mcp install` opens an interactive browser of the MCP server registry. Select a server, answer the prompted configuration questions, and the CLI adds it to `~/.copilot/mcp-config.json` automatically — no manual JSON editing required.
 
 ---
 
@@ -252,6 +259,7 @@ Common off-the-shelf servers:
 | Server loses auth after `/mcp reload` or login | Auth state not persisted | Upgrade to v1.0.16+; servers now reload auth correctly |
 | OAuth provider rejects redirect URI | Provider requires HTTPS | v1.0.17+ automatically falls back to a self-signed HTTPS certificate |
 | Tools silently fail with certain models | Non-standard JSON schema | Upgrade to v1.0.22+; schemas are now sanitized automatically |
+| Remote server drops connection on network hiccup | Transient network failure | Upgrade to v1.0.25+; remote MCP connections now automatically retry |
 
 ## LSP (Language Server Protocol) Support
 

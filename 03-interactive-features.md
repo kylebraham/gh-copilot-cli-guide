@@ -60,6 +60,7 @@ Mastering keyboard shortcuts makes you significantly more efficient:
 |----------|--------|-------------|
 | `Ctrl+H` | Delete character | Delete previous character (like Backspace) |
 | `Ctrl+W` | Delete word | Delete previous word |
+| `Alt+D` | Delete next word | Delete the word in front of the cursor |
 | `Ctrl+U` | Delete to start | Delete from cursor to beginning of line |
 | `Ctrl+K` | Delete to end | Delete from cursor to end of line (joins lines at end of line) |
 | `Ctrl+G` | Open external editor | Edit the current prompt in your `$EDITOR` *(new)* |

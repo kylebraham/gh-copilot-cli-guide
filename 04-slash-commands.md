@@ -234,6 +234,23 @@ View and manage background tasks including running subagents and shell sessions.
 
 > **Related:** [Fleet Mode](18-fleet-mode.md) — full details on managing subagents.
 
+### /remote
+
+Remote control your CLI sessions — view and steer running sessions from another terminal or device.
+
+```
+> /remote
+```
+
+**Use cases:**
+- Monitor a long-running autopilot session from a second terminal
+- Steer an active session from a different machine
+- Inspect session state without interrupting the active conversation
+
+You can also pass `--remote` at startup to connect to an existing remote session immediately.
+
+> **Related:** The `--remote` flag is listed in [CLI Flags](00-cheat-sheet.md#most-useful-command-line-flags).
+
 ## File System
 
 ### /cwd, /cd [directory]
@@ -261,12 +278,16 @@ Add a directory to the allowed list for file access.
 ```
 > /add-dir /opt/my-libs
 > /add-dir ~/shared-code
+> /add-dir ./src
+> /add-dir ../sibling-project
 ```
 
 **Use when:**
 - Need to access files outside working directory
 - Working with multiple project roots
 - Accessing shared libraries
+
+Relative paths (e.g., `./src`, `../sibling`) are accepted and automatically resolved to their absolute equivalents.
 
 **Security note:** Only add trusted directories.
 
@@ -782,7 +803,9 @@ Sign out of GitHub Copilot.
 > /logout
 ```
 
-Clears authentication tokens. You'll need to `/login` again.
+Clears OAuth authentication tokens and signs you out. You'll need to `/login` again.
+
+> **Note:** `/logout` only manages OAuth sessions. If you authenticated via `gh` CLI, a Personal Access Token (PAT), an API key, or the `GH_TOKEN` environment variable, a warning is shown because `/logout` cannot remove those credentials. Remove them manually (e.g., unset `GH_TOKEN`, revoke the PAT in GitHub settings).
 
 ## Configuration
 
@@ -994,6 +1017,23 @@ Manage plugins and plugin marketplaces.
 **Plugin structure** (for plugin authors): Plugins are npm packages that export a manifest declaring new slash commands, tools, and instructions. Publish to the npm registry or host a private marketplace JSON registry and add it with `/plugin marketplace add <url>`.
 
 ## Information
+
+### /env
+
+Show all loaded environment details for the current session.
+
+```
+> /env
+```
+
+**Shows:**
+- Active instruction files
+- Connected MCP servers and their status
+- Loaded skills
+- Available agents
+- Installed plugins
+
+**Why use it:** Quickly audit everything the CLI has loaded before starting a task — especially useful when debugging unexpected behaviour or verifying that MCP servers and skills are connected correctly.
 
 ### /help
 
@@ -1321,6 +1361,10 @@ Share session to markdown file, GitHub Gist, or self-contained interactive HTML 
 - Self-contained interactive HTML file
 - No external dependencies
 - Shareable without a GitHub account
+- Displays a `file://` URL so you can open the file directly
+- Supports `Ctrl+X O` to open the HTML file immediately from the CLI
+
+**File extension handling:** If you provide a custom output path without a file extension, `/share` automatically appends `.md` (for file/gist output) or `.html` (for HTML output).
 
 ### /feedback
 

@@ -32,6 +32,7 @@
 | `Ctrl+A` | Move cursor to beginning of line |
 | `Ctrl+E` | Move cursor to end of line (when typing) |
 | `Ctrl+W` | Delete previous word |
+| `Alt+D` | Delete next word (word in front of cursor) |
 | `Ctrl+U` | Delete from cursor to beginning of line |
 | `Ctrl+K` | Delete from cursor to end of line (joins lines at end) |
 | `Ctrl+H` | Delete previous character (backspace) |
@@ -63,6 +64,7 @@
 | `/rename` | Rename the current session |
 | `/share` | Share session as markdown, gist, or HTML (`/share html`) |
 | `/copy` | Copy last response to clipboard |
+| `/env` | Show loaded environment details (instructions, MCP servers, skills, agents, plugins) |
 
 ### Navigation
 | Command | Description |
@@ -96,6 +98,7 @@
 | `/lsp` | Manage language server connections |
 | `/skills` | List or manage available skills |
 | `/plugin` | Manage installed plugins |
+| `/remote` | Remote control your CLI sessions |
 | `/init` | Initialize Copilot configuration for the current repo |
 | `/experimental` | Toggle experimental features |
 | `/allow-all` | Allow all tool calls without per-call confirmation |
