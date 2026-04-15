@@ -856,6 +856,12 @@ This lets you:
 - Remove marketplaces
 - Refresh the plugin catalog
 
+You can also refresh catalogs from the shell without starting a session:
+
+```bash
+copilot plugin marketplace update
+```
+
 When configuring marketplaces in `config.json`, use the `extraKnownMarketplaces` key:
 
 ```json

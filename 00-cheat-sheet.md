@@ -20,8 +20,8 @@
 | `Shift+Tab` | Cycle modes (interactive → plan) |
 | `Ctrl+S` | Run command while preserving input |
 | `Ctrl+T` | Toggle model reasoning display |
-| `Ctrl+O` | Expand recent timeline (when no input) |
-| `Ctrl+E` | Expand all timeline (when no input) |
+| `Ctrl+O` | Expand all timeline entries (when no input) |
+| `Ctrl+E` | Expand all timeline entries (when no input) |
 | `Ctrl+X → O` | Open link from most recent timeline event |
 | `!` | Execute command in local shell (bypass Copilot) |
 
@@ -65,6 +65,7 @@
 | `/share` | Share session as markdown, gist, or HTML (`/share html`) |
 | `/copy` | Copy last response to clipboard |
 | `/env` | Show loaded environment details (instructions, MCP servers, skills, agents, plugins) |
+| `/ask` | Ask a quick question without affecting conversation history |
 
 ### Navigation
 | Command | Description |

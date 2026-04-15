@@ -999,6 +999,12 @@ Manage plugins and plugin marketplaces.
 > /plugin update
 ```
 
+**Shell command — refresh plugin catalogs without starting a session:**
+
+```bash
+copilot plugin marketplace update
+```
+
 **Plugins extend CLI capabilities with:**
 - New slash commands
 - Specialized domain tools
@@ -1017,6 +1023,20 @@ Manage plugins and plugin marketplaces.
 **Plugin structure** (for plugin authors): Plugins are npm packages that export a manifest declaring new slash commands, tools, and instructions. Publish to the npm registry or host a private marketplace JSON registry and add it with `/plugin marketplace add <url>`.
 
 ## Information
+
+### /ask <question>
+
+Ask a quick question without adding it to your conversation history. The question and its answer are ephemeral — your next regular prompt resumes from the conversation state before the `/ask`.
+
+```
+> /ask What does the --allow-all flag do?
+> /ask How many tokens does a typical file read use?
+```
+
+**Use when:**
+- You want a quick lookup or clarification that shouldn't influence the conversation context
+- You're mid-task and need a side-question answered without derailing the thread
+- You want to check facts without the model carrying the question forward
 
 ### /env
 

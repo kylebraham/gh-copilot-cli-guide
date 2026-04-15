@@ -71,8 +71,8 @@ Mastering keyboard shortcuts makes you significantly more efficient:
 
 | Shortcut | Action | Description |
 |----------|--------|-------------|
-| `Ctrl+O` | Expand recent timeline | Expands the most recent timeline entries (when no input) |
-| `Ctrl+E` | Expand all timeline | Expands the entire conversation timeline (when no input) |
+| `Ctrl+O` | Expand all timeline | Expands all timeline entries (when no input) |
+| `Ctrl+E` | Expand all timeline | Expands all timeline entries (when no input) |
 | `Ctrl+X` → `O` | Open link | Open a link from the most recent timeline event *(new)* |
 
 ### Mode Shortcuts
@@ -178,9 +178,9 @@ Timeline:
 ### Timeline Commands
 
 ```
-Ctrl+O          # Expand recent timeline (when input is empty)
+Ctrl+O          # Expand all timeline entries (when input is empty)
 Ctrl+O again    # Collapse timeline
-Ctrl+E          # Expand entire history (when input is empty)
+Ctrl+E          # Expand all timeline entries (when input is empty)
 Ctrl+E again    # Collapse timeline
 Ctrl+X → O     # Open a link from the most recent timeline event
 ```
@@ -785,8 +785,8 @@ Essential Shortcuts:
   ↑↓          Command history
 
 Timeline (when input is empty):
-  Ctrl+O      Expand recent timeline
-  Ctrl+E      Expand all timeline
+  Ctrl+O      Expand all timeline entries
+  Ctrl+E      Expand all timeline entries
   Ctrl+X → O  Open link from most recent timeline event
 
 Editing (when typing):

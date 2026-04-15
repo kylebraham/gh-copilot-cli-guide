@@ -1,4 +1,4 @@
-# Latest Features in GitHub Copilot CLI — v1.0.25
+# Latest Features in GitHub Copilot CLI — v1.0.27
 
 This file covers recent additions to GitHub Copilot CLI. Features marked with "Full guide →" have their own dedicated documentation file — the entries here are summaries with links. Features without a dedicated file are covered in full below.
 
@@ -10,7 +10,9 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 3. [Research Command (`/research`)](#research-command-research) — [Full guide →](19-research-command.md)
 
 ### Features covered in this file
-4. [New in v1.0.25](#new-in-v1025)
+4. [New in v1.0.27](#new-in-v1027)
+5. [New in v1.0.26](#new-in-v1026)
+6. [New in v1.0.25](#new-in-v1025)
 5. [New in v1.0.24](#new-in-v1024)
 6. [New in v1.0.23](#new-in-v1023)
 7. [New in v1.0.22](#new-in-v1022)
@@ -32,6 +34,106 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 22. [Project Initialization (`/init`)](#project-initialization-init)
 23. [Enhanced Pull Request Creation (`/delegate`)](#enhanced-pull-request-creation-delegate)
 24. [Staying Up to Date](#staying-up-to-date)
+
+---
+
+## New in v1.0.27
+
+Released: 2026-04-15
+
+### `/ask` Command
+
+A new `/ask` command lets you ask a quick question without adding it to your conversation history.
+
+```
+> /ask What does the --allow-all flag do?
+```
+
+**Why it matters:** Use `/ask` for one-off lookups, quick clarifications, or exploratory questions when you don't want to pollute the conversation history that the model carries forward. Your next regular prompt will pick up exactly where the conversation left off before the question.
+
+### `copilot plugin marketplace update`
+
+Refresh all configured plugin marketplace catalogs from the shell without opening an interactive session:
+
+```bash
+copilot plugin marketplace update
+```
+
+**Why it matters:** Useful in CI or onboarding scripts to ensure the local plugin catalog is current before installing plugins non-interactively.
+
+### Status Bar Context Hints
+
+The status bar now shows contextual hints while you type:
+- **`@files`** and **`#issues`** hints appear in the status bar to remind you about file and issue references as you compose a prompt
+- **`/help`** hint appears in the status bar when the slash command picker is open
+
+### Improved Trial Account Error Messages
+
+When a Copilot Pro trial is paused, the CLI now shows a clear, actionable message instead of a generic policy error — including a direct link to upgrade or revert to Copilot Free.
+
+### WSL Clipboard Fix
+
+Clipboard copy on WSL no longer leaks an invisible BOM (byte-order mark) character into pasted text.
+
+---
+
+## New in v1.0.26
+
+Released: 2026-04-14
+
+### Remote Tab: Coding Agent Tasks
+
+The Remote tab now shows Copilot coding agent tasks and supports steering them without requiring an open pull request.
+
+### Duplicate Instruction File Deduplication
+
+When two instruction files (e.g., `copilot-instructions.md` and `CLAUDE.md`) contain identical content, only one copy is sent to the model — reducing wasted tokens per turn.
+
+### Instruction Files with `applyTo` Patterns: Table Format
+
+Instruction files that use specific `applyTo` patterns are now consolidated into a summary table in the context window rather than inlining their full content. This significantly reduces context window usage for repos with many scoped instruction files.
+
+### Plugin Hook Environment Variables
+
+Plugin hooks now receive three additional environment variables with the plugin's installation directory:
+
+| Variable | Value |
+|----------|-------|
+| `PLUGIN_ROOT` | Plugin installation directory |
+| `COPILOT_PLUGIN_ROOT` | Same as `PLUGIN_ROOT` |
+| `CLAUDE_PLUGIN_ROOT` | Same as `PLUGIN_ROOT` |
+
+### ACP Server Localhost Binding
+
+The ACP server now binds to `localhost` only, preventing unintended exposure on other network interfaces.
+
+### Enterprise Login: Hostname Without Scheme
+
+Enterprise login now accepts hostnames without a URL scheme — you can enter `github.example.com` instead of `https://github.example.com`:
+
+```bash
+copilot --enterprise-url github.example.com
+```
+
+### Session Scope Selector Improvements
+
+The session scope selector in the sync prompt is now more prominent and keyboard-navigable using left/right arrow keys.
+
+### `Ctrl+O`: Expand All Timeline Entries
+
+`Ctrl+O` now expands **all** timeline entries (same behaviour as `Ctrl+E`). Previously, `Ctrl+O` only expanded recent entries.
+
+### Bug Fixes
+
+- Escape key reliably dismisses `ask_user` and elicitation prompts without getting stuck
+- Spurious directory access prompts no longer appear for arguments inside `find -exec` blocks
+- Agent sessions no longer fail with unrecoverable errors when context compaction splits a tool call across a checkpoint boundary
+- Single-segment slash-prefixed tokens (e.g. `/help`, `/start`) no longer treated as file paths in bash commands
+- Anthropic BYOM correctly includes image data when viewing image files
+- Permission prompt notification hook only fires when a prompt is actually shown to the user
+- Relative paths in file edit operations resolve against the session working directory
+- LSP language servers correctly initialise on Windows using proper file URI paths
+- Installing a plugin named `git` from a marketplace no longer fails due to incorrect URL parsing
 
 ---
 
@@ -1034,8 +1136,8 @@ The full list of keyboard shortcuts in v1.0.11:
 
 | Shortcut | Action |
 |----------|--------|
-| `Ctrl+O` | Expand recent timeline (when no input) |
-| `Ctrl+E` | Expand all timeline (when no input) |
+| `Ctrl+O` | Expand all timeline entries (when no input) |
+| `Ctrl+E` | Expand all timeline entries (when no input) |
 | `Ctrl+X → O` | Open link from most recent timeline event |
 
 ### Text Editing

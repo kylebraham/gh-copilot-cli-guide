@@ -1,5 +1,33 @@
 # Documentation Updates
 
+## 2026-04-15 — Docs updated for v1.0.27
+
+- `README.md`: Bumped version note to v1.0.27; added `/ask` and `copilot plugin marketplace update` to "Latest features" list; added status bar hints entry
+- `16-new-features.md`: Updated title to v1.0.27; added TOC entries for v1.0.27 and v1.0.26; added v1.0.27 section covering `/ask`, `copilot plugin marketplace update`, status bar context hints, improved trial account error messages, and WSL clipboard BOM fix; added v1.0.26 section covering Remote tab coding agent tasks, duplicate instruction file deduplication, `applyTo` pattern table format, plugin hook env vars, ACP localhost binding, enterprise login hostname-without-scheme, session scope selector improvements, `Ctrl+O` all-entries expansion, and bug fixes
+- `04-slash-commands.md`: Added `/ask` command entry in Information section; added `copilot plugin marketplace update` shell command to `/plugin` section
+- `00-cheat-sheet.md`: Added `/ask` to Session & Context commands table; updated `Ctrl+O` description to "Expand all timeline entries" (matches `Ctrl+E` since v1.0.26)
+- `08-advanced-features.md`: Added `copilot plugin marketplace update` shell command to Plugin Marketplaces section
+
+### Feature Summary (v1.0.27)
+- **New:** `/ask` — quick ephemeral question that doesn't affect conversation history
+- **New:** `copilot plugin marketplace update` — refresh plugin catalogs from the shell
+- **Improved:** Status bar shows `@files`/`#issues` hints while typing and `/help` hint in slash command picker
+- **Improved:** Clear error message when Copilot Pro trial is paused
+- **Fixed:** WSL clipboard copy no longer leaks BOM character
+
+### Feature Summary (v1.0.26)
+- **Improved:** Remote tab shows Copilot coding agent tasks; supports steering without a PR
+- **Improved:** Duplicate instruction files deduplicated to reduce token waste
+- **Improved:** Instruction files with `applyTo` patterns consolidated into table to reduce context window usage
+- **Improved:** Plugin hooks receive `PLUGIN_ROOT`, `COPILOT_PLUGIN_ROOT`, `CLAUDE_PLUGIN_ROOT` env vars
+- **Improved:** ACP server binds to `localhost` only
+- **Improved:** Enterprise login accepts hostnames without URL scheme
+- **Improved:** Session scope selector more prominent and keyboard-navigable
+- **Improved:** `Ctrl+O` now expands all timeline entries (same as `Ctrl+E`)
+- **Fixed:** Multiple bug fixes (Escape key, directory prompts, context compaction, slash paths in bash, BYOM images, LSP Windows paths, relative file edit paths)
+
+---
+
 ## 2026-04-14 — Docs updated for v1.0.25
 
 - `README.md`: Bumped version note to v1.0.25; updated "Latest features" list with `/env`, MCP registry install, `/remote`, and `Alt+D`
