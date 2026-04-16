@@ -1,4 +1,4 @@
-# Latest Features in GitHub Copilot CLI — v1.0.27
+# Latest Features in GitHub Copilot CLI — v1.0.28
 
 This file covers recent additions to GitHub Copilot CLI. Features marked with "Full guide →" have their own dedicated documentation file — the entries here are summaries with links. Features without a dedicated file are covered in full below.
 
@@ -10,7 +10,8 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 3. [Research Command (`/research`)](#research-command-research) — [Full guide →](19-research-command.md)
 
 ### Features covered in this file
-4. [New in v1.0.27](#new-in-v1027)
+4. [New in v1.0.28](#new-in-v1028)
+5. [New in v1.0.27](#new-in-v1027)
 5. [New in v1.0.26](#new-in-v1026)
 6. [New in v1.0.25](#new-in-v1025)
 5. [New in v1.0.24](#new-in-v1024)
@@ -34,6 +35,56 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 22. [Project Initialization (`/init`)](#project-initialization-init)
 23. [Enhanced Pull Request Creation (`/delegate`)](#enhanced-pull-request-creation-delegate)
 24. [Staying Up to Date](#staying-up-to-date)
+
+---
+
+## New in v1.0.28
+
+Released: 2026-04-16
+
+### Remote Control Sessions in `--resume` Picker
+
+The `--resume` session picker now lists active CLI remote control sessions alongside local sessions, so you can connect to a running remote session directly from the picker:
+
+```bash
+copilot --resume
+```
+
+**Why it matters:** Previously, connecting to a remote session required knowing its ID in advance. Now all resumable sessions — local and remote — appear in one place.
+
+### `COPILOT_DISABLE_TERMINAL_TITLE` Environment Variable
+
+Set this environment variable to prevent Copilot CLI from updating the terminal window/tab title:
+
+```bash
+export COPILOT_DISABLE_TERMINAL_TITLE=1
+copilot
+```
+
+**Why it matters:** Useful in environments where dynamic terminal titles are distracting or interfere with tooling (e.g., multiplexers, CI dashboards).
+
+### Rewind Picker: Simplified Navigation
+
+The rewind picker (opened via `/rewind` or double-Esc) now uses **arrow keys and Enter only**. The previous 1–9 quick-select shortcut has been removed.
+
+```
+> /rewind
+# Use ↑ / ↓ to select a checkpoint, Enter to confirm
+```
+
+**Why it matters:** Removes a confusing shortcut that conflicted with other keybindings and makes the picker behaviour consistent with other pickers in the CLI.
+
+### MCP Migration Hint Links to Docs
+
+When the CLI detects a `.vscode/mcp.json` without a `.mcp.json`, the migration hint at startup now links to platform-specific documentation instead of embedding shell commands directly in the message.
+
+### Bug Fixes
+
+- Permission prompts now show the correct repository path when working inside git submodules
+- Background agent completion notifications are no longer sent redundantly when `read_agent` is already waiting for the result
+- Azure resource IDs no longer trigger false path security warnings when running `az` CLI commands
+- Clear error message is shown when the configured editor cannot be launched
+- Mascot plays a short blink sequence on startup instead of blinking continuously
 
 ---
 
