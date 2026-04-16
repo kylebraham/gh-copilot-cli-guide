@@ -92,7 +92,7 @@ Rename the current session. Alias for `/session rename`.
 
 ### /rewind, /undo
 
-Rewind the last turn and revert any file changes made during that turn. In v1.0.13+, `/rewind` and double-Esc open a **timeline picker** to roll back to any point in conversation history — not just the previous snapshot.
+Rewind the last turn and revert any file changes made during that turn. In v1.0.13+, `/rewind` and double-Esc open a **timeline picker** to roll back to any point in conversation history — not just the previous snapshot. Use **↑ / ↓** to select a checkpoint and **Enter** to confirm (v1.0.28+; the 1–9 quick-select shortcut was removed).
 
 ```
 > /rewind

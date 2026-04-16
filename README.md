@@ -81,9 +81,11 @@ npm update -g @github/copilot
 ```
 
 **Latest features:**
+- 🔗 `--resume` picker now includes remote control sessions
+- 🔇 `COPILOT_DISABLE_TERMINAL_TITLE` — opt out of terminal title updates
+- 🔀 Rewind picker navigation simplified to arrow keys + Enter
+- 🔧 MCP migration hint links to platform-specific docs instead of embedding shell commands
 - ❓ `/ask` — ask a quick question without affecting conversation history
-- 🔄 `copilot plugin marketplace update` — refresh plugin catalogs from the shell
-- 💬 Status bar shows `@files` / `#issues` hints while typing and `/help` hint in the slash command picker
 - 📋 `/env` — show all loaded environment details (instructions, MCP servers, skills, agents, plugins) at a glance
 - 🔌 Install MCP servers from the registry with guided configuration directly in the CLI
 - 🖥️ Remote control your CLI sessions using `--remote` or `/remote`
@@ -250,4 +252,4 @@ Go to **Actions → Daily Doc Maintenance → Run workflow** to trigger it on de
 
 ---
 
-**Note:** This guide covers GitHub Copilot CLI v1.0.27. Some capabilities may vary by version — run `/update` to stay current.
+**Note:** This guide covers GitHub Copilot CLI v1.0.28. Some capabilities may vary by version — run `/update` to stay current.

@@ -1009,6 +1009,9 @@ export COPILOT_LOG_FILE=/tmp/copilot.log
 
 # Config directory (advanced)
 export COPILOT_CONFIG_DIR=/custom/path
+
+# Disable terminal title updates
+export COPILOT_DISABLE_TERMINAL_TITLE=1
 ```
 
 ## Summary

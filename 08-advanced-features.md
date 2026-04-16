@@ -183,7 +183,7 @@ Register it in `~/.copilot/mcp-config.json`:
 
 As of v1.0.22, Copilot CLI reads project-level MCP server configuration **only from `.mcp.json`** in the project root. The CLI no longer reads `.vscode/mcp.json` or `.devcontainer/devcontainer.json` as MCP config sources.
 
-If your project has a `.vscode/mcp.json` without a `.mcp.json`, the CLI will show a migration hint at startup. To migrate:
+If your project has a `.vscode/mcp.json` without a `.mcp.json`, the CLI will show a migration hint at startup that links to platform-specific documentation. To migrate manually:
 
 ```bash
 cp .vscode/mcp.json .mcp.json

@@ -1,5 +1,22 @@
 # Documentation Updates
 
+## 2026-04-16 — Docs updated for v1.0.28
+
+- `README.md`: Bumped version note to v1.0.28; updated "Latest features" list with remote sessions in `--resume` picker, `COPILOT_DISABLE_TERMINAL_TITLE`, simplified rewind navigation, and MCP migration hint improvement
+- `16-new-features.md`: Updated title to v1.0.28; added TOC entry for v1.0.28; added v1.0.28 section covering `--resume` remote sessions, `COPILOT_DISABLE_TERMINAL_TITLE`, simplified rewind picker navigation, MCP migration hint docs link, and bug fixes
+- `04-slash-commands.md`: Updated `/rewind` entry to document simplified picker navigation (arrow keys + Enter; 1–9 removed in v1.0.28)
+- `08-advanced-features.md`: Updated MCP migration hint description — now links to platform-specific docs instead of embedding shell commands
+- `15-copilot-directory.md`: Added `COPILOT_DISABLE_TERMINAL_TITLE` to Environment Variables section
+
+### Feature Summary (v1.0.28)
+- **Improved:** `--resume` picker now lists remote control sessions alongside local sessions
+- **New:** `COPILOT_DISABLE_TERMINAL_TITLE` env var opts out of terminal title updates
+- **Changed:** Rewind picker navigation simplified to arrow keys + Enter (1–9 quick-select removed)
+- **Improved:** MCP migration hint links to platform-specific documentation
+- **Fixed:** Submodule paths in permission prompts, redundant background agent notifications, Azure resource ID false warnings, editor launch error messages
+
+---
+
 ## 2026-04-15 — Docs updated for v1.0.27
 
 - `README.md`: Bumped version note to v1.0.27; added `/ask` and `copilot plugin marketplace update` to "Latest features" list; added status bar hints entry
