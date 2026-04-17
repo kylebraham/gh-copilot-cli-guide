@@ -1012,6 +1012,10 @@ export COPILOT_CONFIG_DIR=/custom/path
 
 # Disable terminal title updates
 export COPILOT_DISABLE_TERMINAL_TITLE=1
+
+# Session ID — automatically set for shell commands and MCP servers invoked by Copilot CLI (v1.0.29+)
+# Read-only: identifies the calling Copilot session for logging/tracing
+# COPILOT_AGENT_SESSION_ID=<session-id>
 ```
 
 ## Summary

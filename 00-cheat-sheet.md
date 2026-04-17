@@ -129,6 +129,7 @@
 |---------|-------------|
 | `/theme` | Change the color theme |
 | `/streamer-mode` | Toggle streamer-safe mode (hides sensitive info) |
+| `/statusline` | Customize status bar items (alias: `/footer`) |
 | `/terminal-setup` | Configure terminal integration |
 | `/ide` | Configure IDE integration |
 
@@ -267,7 +268,7 @@ Add entire directory to context:
 ## Model Quick Pick
 
 ```
-Complex reasoning / security:   Claude Opus 4.6
+Complex reasoning / security:   Claude Opus 4.7
 Daily coding (default):         Claude Sonnet 4.5
 Fast / CI / fleet subagents:    Claude Haiku 4.5
 Code-specialized:               GPT-5.3-Codex or GPT-5.2-Codex

@@ -863,6 +863,34 @@ Manage the CLI visual theme.
 - `dark` - Dark mode
 - `light` - Light mode
 
+### /statusline [item]
+
+Customize which items appear in the status bar at the bottom of the CLI. Also available as `/footer`.
+
+```
+# Show current status bar configuration
+> /statusline
+
+# Toggle individual items on or off
+> /statusline directory
+> /statusline branch
+> /statusline effort
+> /statusline context
+> /statusline quota
+```
+
+**Available items:**
+
+| Item | What it shows |
+|------|---------------|
+| `directory` | Current working directory |
+| `branch` | Active git branch |
+| `effort` | Effort level indicator |
+| `context` | Context window usage |
+| `quota` | Premium request quota remaining |
+
+**Use when:** You want to declutter the status bar or focus on specific metrics during your workflow.
+
 ### /reset-allowed-tools
 
 Reset the list of tools the AI can use.
@@ -1528,6 +1556,7 @@ Some commands affect subsequent prompts:
 | `/experimental` | Experimental features | `/experimental list` |
 | `/instructions` | Toggle instructions | `/instructions` |
 | `/streamer-mode` | Hide sensitive info | `/streamer-mode` |
+| `/statusline` | Customize status bar items | `/statusline quota` |
 | `/plugin` | Manage plugins | `/plugin list` |
 | `/help` | Show help | `/help` |
 | `/share` | Export session | `/share file out.md` |
@@ -1556,6 +1585,7 @@ Some commands have shorter aliases:
 /new    = /clear
 /cd     = /cwd
 /undo   = /rewind
+/footer = /statusline
 /h    = /help (if supported)
 /q    = /quit (if supported)
 ```

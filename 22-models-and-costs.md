@@ -24,6 +24,7 @@ Understanding how to choose the right model — and when to switch — is one of
 | Claude Sonnet 4.6 | `claude-sonnet-4.6` | Fast | Latest Sonnet — improved reasoning over 4.5 |
 | Claude Opus 4.6 | `claude-opus-4.6` | Slower | Most capable — complex reasoning, architecture, security |
 | Claude Opus 4.6 (fast) | `claude-opus-4.6-fast` | Fast | Opus quality with faster response times |
+| Claude Opus 4.7 | `claude-opus-4.7` | Slower | Latest Opus — most capable model (v1.0.29+) |
 | Claude Haiku 4.5 | `claude-haiku-4.5` | Fastest | Quick tasks, fleet subagents, docs, formatting |
 | GPT-5.4 | `gpt-5.4` | Fast | Strong alternative for general code generation |
 | GPT-5.3-Codex | `gpt-5.3-codex` | Fast | Code-specialized tasks |
@@ -72,14 +73,14 @@ This shows how many premium requests you've consumed in the current session. Che
 
 | Task | Recommended Model | Why |
 |------|-------------------|-----|
-| Architecture planning | Claude Opus 4.6 | Deep reasoning, considers trade-offs and edge cases |
-| Security audit | Claude Opus 4.6 | Catches subtle vulnerabilities and attack vectors |
+| Architecture planning | Claude Opus 4.7 | Latest Opus — deepest reasoning, considers trade-offs and edge cases |
+| Security audit | Claude Opus 4.7 | Catches subtle vulnerabilities and attack vectors |
 | General feature development | Claude Sonnet 4.5 | Good quality, standard cost — the safe default |
 | Latest capabilities | Claude Sonnet 4.6 | Improved reasoning over Sonnet 4.5 |
 | Writing tests | Claude Haiku 4.5 | Pattern-matching task, doesn't require deep reasoning |
 | Adding JSDoc/comments | Claude Haiku 4.5 | Templated output, no deep reasoning needed |
 | Code formatting / linting fixes | Claude Haiku 4.5 | Simple, repetitive, cheap to run |
-| Debugging complex issues | Claude Sonnet 4.5 or Opus 4.6 | Depends on how deep the issue goes |
+| Debugging complex issues | Claude Sonnet 4.5 or Opus 4.7 | Depends on how deep the issue goes |
 | Refactoring a large codebase | Claude Sonnet 4.5 | Balance of quality and cost across many files |
 | CI/CD automation | Claude Haiku 4.5 or GPT-5.4 mini | Cost-effective for automated / unattended runs |
 | Code-specialized tasks | GPT-5.3-Codex or GPT-5.2-Codex | Optimized for code generation |
@@ -89,13 +90,13 @@ This shows how many premium requests you've consumed in the current session. Che
 
 ```
 Is this task complex reasoning, security, or architecture?
-  YES → Claude Opus 4.6
+  YES → Claude Opus 4.7
   NO → Is this a simple, repetitive task (docs, formatting, tests)?
     YES → Claude Haiku 4.5 or GPT-5.4 mini  (save costs)
     NO → Claude Sonnet 4.5  (default, balanced)
 ```
 
-When in doubt, start with **Sonnet 4.5**. Upgrade to Opus 4.6 if the quality isn't sufficient; downgrade to Haiku 4.5 if you just need bulk work done cheaply.
+When in doubt, start with **Sonnet 4.5**. Upgrade to Opus 4.7 if the quality isn't sufficient; downgrade to Haiku 4.5 if you just need bulk work done cheaply.
 
 ---
 
@@ -192,7 +193,7 @@ When multiple people are using Copilot CLI, a consistent team policy prevents un
 |----------|-------|--------------|
 | Default daily coding | Claude Sonnet 4.5 | Team `.env.shared` or org default |
 | Latest capabilities | Claude Sonnet 4.6 | Opt-in per session |
-| Architecture / security reviews | Claude Opus 4.6 | Opt-in per task (manual override) |
+| Architecture / security reviews | Claude Opus 4.7 | Opt-in per task (manual override) |
 | CI/CD pipelines | Claude Haiku 4.5 or GPT-5.4 mini | Env var in pipeline config |
 | Fleet subagents | Claude Haiku 4.5 | Specify in `/fleet` prompt |
 
@@ -223,9 +224,9 @@ A few key messages that prevent the most wasted spend:
 
 ## 7. Model-Specific Tips
 
-### Claude Opus 4.5 — Getting the Most Out of It
+### Claude Opus 4.7 — Getting the Most Out of It
 
-Opus is the most capable model but slowest. Use it when quality or depth of reasoning genuinely matters:
+Opus 4.7 is the latest and most capable Opus model (available from v1.0.29). Use it when quality or depth of reasoning genuinely matters:
 
 - **"Explain why this is wrong"** — Opus surfaces non-obvious issues
 - **"What are the security implications of this design?"** — Opus thinks through attack surfaces more thoroughly
@@ -293,7 +294,8 @@ Set model (this session):  copilot --model MODEL-ID
 Set model (global):        export COPILOT_MODEL=MODEL-ID
 
 Cheapest model:            Claude Haiku 4.5 or GPT-5.4 mini (~0.33x)
-Best reasoning:            Claude Opus 4.6
+Best reasoning:            Claude Opus 4.7
+Latest Opus:               Claude Opus 4.7
 Latest Sonnet:             Claude Sonnet 4.6
 Safe default:              Claude Sonnet 4.5 (1x)
 Code-specialized:          GPT-5.3-Codex or GPT-5.2-Codex

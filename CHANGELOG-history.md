@@ -1,5 +1,31 @@
 # Documentation Updates
 
+## 2026-04-17 — Docs updated for v1.0.31
+
+- `README.md`: Bumped version note to v1.0.31; updated "Latest features" list with `/statusline`, Claude Opus 4.7, and `COPILOT_AGENT_SESSION_ID`
+- `16-new-features.md`: Updated title to v1.0.31; added TOC entries for v1.0.31, v1.0.30, and v1.0.29; added v1.0.31 section (prompt frame rendering fix); added v1.0.30 section covering `/statusline`/`/footer`, `/undo` improved messaging, and image paste fix; added v1.0.29 section covering Claude Opus 4.7, `COPILOT_AGENT_SESSION_ID`, and optional remote MCP `type` field
+- `04-slash-commands.md`: Added `/statusline` command entry in Configuration section; added to Quick Reference Table; added `/footer = /statusline` alias
+- `00-cheat-sheet.md`: Added `/statusline` to Display commands table
+- `22-models-and-costs.md`: Added Claude Opus 4.7 to model table; updated decision tree, task table, team policy, model tips, and quick reference to reflect Opus 4.7 as the latest/most capable Opus model
+- `08-advanced-features.md`: Added section on optional remote MCP `type` field (v1.0.29+); added section on `COPILOT_AGENT_SESSION_ID` env var (v1.0.29+)
+- `15-copilot-directory.md`: Added `COPILOT_AGENT_SESSION_ID` to Environment Variables section
+
+### Feature Summary (v1.0.31)
+- **Fixed:** Prompt frame rendering issues on Windows and Ubuntu terminals
+
+### Feature Summary (v1.0.30)
+- **New:** `/statusline` (alias `/footer`) — customize status bar items
+- **Improved:** `/undo` shows explanatory message when rewind is unavailable
+- **Fixed:** Image paste from clipboard regression; both Ctrl+V and Meta+V now trigger paste on all platforms
+
+### Feature Summary (v1.0.29)
+- **New:** Claude Opus 4.7 model support
+- **New:** `COPILOT_AGENT_SESSION_ID` env var passed to shell commands and MCP servers
+- **Improved:** Remote MCP server `type` field now optional (defaults to `http`)
+- **Fixed:** Agent repository owner detection, terminal state restore after crash on Windows
+
+---
+
 ## 2026-04-16 — Docs updated for v1.0.28
 
 - `README.md`: Bumped version note to v1.0.28; updated "Latest features" list with remote sessions in `--resume` picker, `COPILOT_DISABLE_TERMINAL_TITLE`, simplified rewind navigation, and MCP migration hint improvement

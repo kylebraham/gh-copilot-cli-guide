@@ -1,4 +1,4 @@
-# Latest Features in GitHub Copilot CLI — v1.0.28
+# Latest Features in GitHub Copilot CLI — v1.0.31
 
 This file covers recent additions to GitHub Copilot CLI. Features marked with "Full guide →" have their own dedicated documentation file — the entries here are summaries with links. Features without a dedicated file are covered in full below.
 
@@ -10,7 +10,10 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 3. [Research Command (`/research`)](#research-command-research) — [Full guide →](19-research-command.md)
 
 ### Features covered in this file
-4. [New in v1.0.28](#new-in-v1028)
+4. [New in v1.0.31](#new-in-v1031)
+5. [New in v1.0.30](#new-in-v1030)
+6. [New in v1.0.29](#new-in-v1029)
+7. [New in v1.0.28](#new-in-v1028)
 5. [New in v1.0.27](#new-in-v1027)
 5. [New in v1.0.26](#new-in-v1026)
 6. [New in v1.0.25](#new-in-v1025)
@@ -35,6 +38,98 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 22. [Project Initialization (`/init`)](#project-initialization-init)
 23. [Enhanced Pull Request Creation (`/delegate`)](#enhanced-pull-request-creation-delegate)
 24. [Staying Up to Date](#staying-up-to-date)
+
+---
+
+## New in v1.0.31
+
+Released: 2026-04-16
+
+### Rendering Fix for Prompt Frame
+
+The prompt frame no longer causes rendering issues on Windows and Ubuntu terminals. No action required — update to v1.0.31 to get the fix.
+
+---
+
+## New in v1.0.30
+
+Released: 2026-04-16
+
+### `/statusline` — Customize the Status Bar
+
+The new `/statusline` command (also available as `/footer`) lets you choose which items appear in the status bar at the bottom of the CLI:
+
+```
+> /statusline
+```
+
+**Available items:** `directory`, `branch`, `effort`, `context` (context window usage), `quota` (premium request quota)
+
+**How to use:**
+
+```
+# Show current status bar configuration
+> /statusline
+
+# Toggle individual items on or off
+> /statusline directory
+> /statusline branch
+> /statusline quota
+```
+
+**Why it matters:** If the status bar feels cluttered or you want to focus on specific metrics, you can tailor it to show only what's relevant for your current workflow.
+
+### `/undo` Rewind Unavailable Message
+
+`/undo` now shows a clear explanatory message when rewind is unavailable (e.g., not in a git repository or no commits yet), instead of silently doing nothing.
+
+### Image Paste Restored
+
+Image paste from clipboard works again after a regression in bracketed paste handling. Both `Ctrl+V` and `Meta+V` trigger image paste on all platforms.
+
+---
+
+## New in v1.0.29
+
+Released: 2026-04-16
+
+### Claude Opus 4.7 Model Support
+
+Claude Opus 4.7 is now available in Copilot CLI:
+
+```
+> /model claude-opus-4.7
+```
+
+See [Models and Costs](22-models-and-costs.md) for the full model comparison table.
+
+### `COPILOT_AGENT_SESSION_ID` Environment Variable
+
+Shell commands and MCP servers now receive `COPILOT_AGENT_SESSION_ID` as an environment variable when invoked by the CLI. This lets external tools and scripts identify which Copilot session called them:
+
+```bash
+# Available automatically inside shell commands and MCP server processes
+echo $COPILOT_AGENT_SESSION_ID
+# → e.g., "abc123-def456-789"
+```
+
+**Why it matters:** Useful for logging, telemetry, or coordinating side-effects across tools that need to trace back to a specific Copilot session.
+
+### Remote MCP Server `type` Field Now Optional
+
+When configuring a remote (HTTP) MCP server, the `type` field can now be omitted — it defaults to `http`:
+
+```json
+{
+  "mcpServers": {
+    "my-remote-server": {
+      "url": "https://my-mcp-server.example.com/mcp"
+    }
+  }
+}
+```
+
+Previously, you had to specify `"type": "http"` explicitly. Existing configs with `"type": "http"` continue to work unchanged.
 
 ---
 

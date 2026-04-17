@@ -81,6 +81,10 @@ npm update -g @github/copilot
 ```
 
 **Latest features:**
+- 📊 `/statusline` (alias `/footer`) — customize which items appear in the status bar (directory, branch, effort, context, quota)
+- 🧠 Claude Opus 4.7 model support added
+- 🔑 `COPILOT_AGENT_SESSION_ID` env var passed to shell commands and MCP servers
+- 🌐 Remote MCP server config: `type` field now optional (defaults to `http`)
 - 🔗 `--resume` picker now includes remote control sessions
 - 🔇 `COPILOT_DISABLE_TERMINAL_TITLE` — opt out of terminal title updates
 - 🔀 Rewind picker navigation simplified to arrow keys + Enter
@@ -252,4 +256,4 @@ Go to **Actions → Daily Doc Maintenance → Run workflow** to trigger it on de
 
 ---
 
-**Note:** This guide covers GitHub Copilot CLI v1.0.28. Some capabilities may vary by version — run `/update` to stay current.
+**Note:** This guide covers GitHub Copilot CLI v1.0.31. Some capabilities may vary by version — run `/update` to stay current.

@@ -193,6 +193,38 @@ cp .vscode/mcp.json .mcp.json
 
 ---
 
+### Remote MCP Server Config: `type` Field Optional (v1.0.29+)
+
+When configuring a remote HTTP MCP server, the `type` field can now be omitted — it defaults to `http`:
+
+```json
+{
+  "mcpServers": {
+    "my-remote-server": {
+      "url": "https://my-mcp-server.example.com/mcp"
+    }
+  }
+}
+```
+
+Existing configs that specify `"type": "http"` continue to work. The shorthand is especially convenient for quickly adding remote servers.
+
+---
+
+### `COPILOT_AGENT_SESSION_ID` in Shell Commands and MCP Servers (v1.0.29+)
+
+Shell commands and MCP servers invoked by Copilot CLI automatically receive the `COPILOT_AGENT_SESSION_ID` environment variable. This lets your scripts and server implementations trace which CLI session called them:
+
+```bash
+# Inside a shell command or MCP server process:
+echo $COPILOT_AGENT_SESSION_ID
+# → e.g., "abc123-def456-789"
+```
+
+Useful for logging, metrics, or coordinating with external systems that need to track Copilot activity by session.
+
+---
+
 ### Session-Only MCP Servers
 
 Add a temporary MCP server without modifying your config file — useful for CI runs or one-off tasks:
