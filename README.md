@@ -81,6 +81,13 @@ npm update -g @github/copilot
 ```
 
 **Latest features:**
+- 🤖 `auto` model — let Copilot automatically pick the best available model for each session
+- 📎 Attach supported document files to prompts for the agent to read and reason about
+- 🔗 `--connect` flag — directly connect to a remote session by ID
+- ⚠️ Usage warnings at 75% and 90% of your weekly limit
+- 🔍 `--print-debug-info` — display version, terminal capabilities, and environment variables
+- ⏱️ `--session-idle-timeout` — configurable session idle timeout (disabled by default)
+- 🔢 Short session ID prefixes (7+ hex chars) work with `--resume` and `/resume`
 - 📊 `/statusline` (alias `/footer`) — customize which items appear in the status bar (directory, branch, effort, context, quota)
 - 🧠 Claude Opus 4.7 model support added
 - 🔑 `COPILOT_AGENT_SESSION_ID` env var passed to shell commands and MCP servers
@@ -256,4 +263,4 @@ Go to **Actions → Daily Doc Maintenance → Run workflow** to trigger it on de
 
 ---
 
-**Note:** This guide covers GitHub Copilot CLI v1.0.31. Some capabilities may vary by version — run `/update` to stay current.
+**Note:** This guide covers GitHub Copilot CLI v1.0.32. Some capabilities may vary by version — run `/update` to stay current.

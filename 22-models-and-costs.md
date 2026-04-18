@@ -20,6 +20,7 @@ Understanding how to choose the right model — and when to switch — is one of
 
 | Model | ID | Speed | Best for |
 |-------|-----|-------|---------|
+| Auto | `auto` | Varies | Let Copilot pick the best model for each session automatically |
 | Claude Sonnet 4.5 | `claude-sonnet-4.5` | Fast | Default — general coding, balanced quality/cost |
 | Claude Sonnet 4.6 | `claude-sonnet-4.6` | Fast | Latest Sonnet — improved reasoning over 4.5 |
 | Claude Opus 4.6 | `claude-opus-4.6` | Slower | Most capable — complex reasoning, architecture, security |
@@ -89,11 +90,13 @@ This shows how many premium requests you've consumed in the current session. Che
 ### Decision Tree
 
 ```
-Is this task complex reasoning, security, or architecture?
-  YES → Claude Opus 4.7
-  NO → Is this a simple, repetitive task (docs, formatting, tests)?
-    YES → Claude Haiku 4.5 or GPT-5.4 mini  (save costs)
-    NO → Claude Sonnet 4.5  (default, balanced)
+Want Copilot to choose automatically?
+  YES → auto  (Copilot picks the best model per session)
+  NO → Is this task complex reasoning, security, or architecture?
+    YES → Claude Opus 4.7
+    NO → Is this a simple, repetitive task (docs, formatting, tests)?
+      YES → Claude Haiku 4.5 or GPT-5.4 mini  (save costs)
+      NO → Claude Sonnet 4.5  (default, balanced)
 ```
 
 When in doubt, start with **Sonnet 4.5**. Upgrade to Opus 4.7 if the quality isn't sufficient; downgrade to Haiku 4.5 if you just need bulk work done cheaply.
@@ -293,6 +296,7 @@ Check session usage:       > /usage
 Set model (this session):  copilot --model MODEL-ID
 Set model (global):        export COPILOT_MODEL=MODEL-ID
 
+Auto-select model:         copilot --model auto
 Cheapest model:            Claude Haiku 4.5 or GPT-5.4 mini (~0.33x)
 Best reasoning:            Claude Opus 4.7
 Latest Opus:               Claude Opus 4.7

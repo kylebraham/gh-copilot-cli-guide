@@ -142,19 +142,22 @@
 | `--allow-all` | Skip all tool confirmation prompts |
 | `-p` / `--prompt` | Pass a prompt non-interactively |
 | `--silent` | Suppress all output except the final response |
-| `--model MODEL-ID` | Set the model for this session |
+| `--model MODEL-ID` | Set the model for this session (`auto` lets Copilot choose) |
 | `--experimental` | Enable experimental features |
 | `--mode MODE` | Start in a specific mode: `interactive`, `plan`, or `autopilot` |
 | `--autopilot` | Shorthand for `--mode autopilot` — start in autopilot mode |
 | `--plan` | Shorthand for `--mode plan` — start in plan mode |
 | `--max-autopilot-continues N` | Cap the number of autonomous continuation steps |
 | `--no-ask-user` | Never pause to ask clarifying questions |
-| `--continue` / `--resume` | Resume the most recent session |
+| `--continue` / `--resume` | Resume the most recent session (accepts 7+ char ID prefix) |
+| `--connect SESSION-ID` | Connect directly to a remote session by ID |
 | `--allow-tool TOOL` | Allow a specific tool without prompting |
 | `--deny-tool TOOL` | Block a specific tool |
 | `--remote` | Sync session with the remote GitHub repository |
 | `--no-auto-update` | Disable automatic CLI updates |
 | `--output-format FORMAT` | Set output format (e.g., `json`, `text`) |
+| `--print-debug-info` | Print version, terminal capabilities, and env vars, then exit |
+| `--session-idle-timeout DUR` | Close idle session after duration (e.g., `30m`); disabled by default |
 
 ### Environment Variables
 
@@ -272,6 +275,7 @@ Complex reasoning / security:   Claude Opus 4.7
 Daily coding (default):         Claude Sonnet 4.5
 Fast / CI / fleet subagents:    Claude Haiku 4.5
 Code-specialized:               GPT-5.3-Codex or GPT-5.2-Codex
+Let Copilot decide:             auto
 ```
 
 > See [Model Selection and Costs](22-models-and-costs.md) for a full breakdown with decision trees and team budget patterns.

@@ -1061,6 +1061,27 @@ logger.info(f"User {user.id} logged in successfully")
 
 ## Troubleshooting
 
+### Skill Exceeds Token Limit
+
+**Problem**: A skill's content is too large to fit in the active context window.
+
+**Behavior** (v1.0.32+): The skill is still **discoverable** (appears in `/skills list`) and **invocable by name** even when it exceeds the token budget. Copilot loads only the required portions when the skill is explicitly activated.
+
+**Solutions if behavior is still degraded**:
+
+```bash
+# 1. Check how full the context is
+> /context
+# If >80%, compact to free space
+> /compact
+
+# 2. Reference the skill explicitly in your prompt
+> Using the python-expert skill, review this module
+
+# 3. Split an oversized skill into focused sub-skills
+# e.g., python-patterns.skill.md + python-security.skill.md
+```
+
 ### Skills Not Loading
 
 **Problem**: Skill doesn't appear in `/skills list`.

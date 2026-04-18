@@ -38,8 +38,9 @@ Switch to a different session or resume a previous one.
 # List all sessions
 > /resume
 
-# Resume specific session
+# Resume specific session (full ID or 7+ character prefix)
 > /resume abc123-def456-789
+> /resume abc123d
 ```
 
 **Sessions include:**
@@ -1422,7 +1423,7 @@ Submit feedback about the CLI.
 > /feedback
 ```
 
-Opens confidential feedback survey in your browser.
+Opens confidential feedback survey in your browser. If the current working directory is not writable, the diagnostic bundle is saved to your system `TEMP` directory instead.
 
 **Feedback helps improve:**
 - Feature priorities

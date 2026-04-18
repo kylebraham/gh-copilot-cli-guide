@@ -1,4 +1,4 @@
-# Latest Features in GitHub Copilot CLI — v1.0.31
+# Latest Features in GitHub Copilot CLI — v1.0.32
 
 This file covers recent additions to GitHub Copilot CLI. Features marked with "Full guide →" have their own dedicated documentation file — the entries here are summaries with links. Features without a dedicated file are covered in full below.
 
@@ -10,10 +10,11 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 3. [Research Command (`/research`)](#research-command-research) — [Full guide →](19-research-command.md)
 
 ### Features covered in this file
-4. [New in v1.0.31](#new-in-v1031)
-5. [New in v1.0.30](#new-in-v1030)
-6. [New in v1.0.29](#new-in-v1029)
-7. [New in v1.0.28](#new-in-v1028)
+4. [New in v1.0.32](#new-in-v1032)
+5. [New in v1.0.31](#new-in-v1031)
+6. [New in v1.0.30](#new-in-v1030)
+7. [New in v1.0.29](#new-in-v1029)
+8. [New in v1.0.28](#new-in-v1028)
 5. [New in v1.0.27](#new-in-v1027)
 5. [New in v1.0.26](#new-in-v1026)
 6. [New in v1.0.25](#new-in-v1025)
@@ -38,6 +39,105 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 22. [Project Initialization (`/init`)](#project-initialization-init)
 23. [Enhanced Pull Request Creation (`/delegate`)](#enhanced-pull-request-creation-delegate)
 24. [Staying Up to Date](#staying-up-to-date)
+
+---
+
+## New in v1.0.32
+
+Released: 2026-04-17
+
+### `auto` Model — Let Copilot Pick for You
+
+Select `auto` as your model to let Copilot automatically choose the best available model for each session based on the task at hand.
+
+**How to use:**
+
+```
+> /model auto
+```
+
+Or start a session with it:
+
+```bash
+copilot --model auto
+```
+
+**Why it matters:** Removes the cognitive overhead of model selection — Copilot evaluates the task type and picks accordingly, balancing quality and cost automatically.
+
+### Document File Attachments
+
+You can now attach supported document files (PDF, DOCX, and similar) directly to prompts. The agent reads and reasons about the document content inline.
+
+**How to use:**
+
+```
+> @report.pdf Summarize the key findings from this document
+> @spec.docx Implement the API described in this specification
+```
+
+**Why it matters:** Previously limited to code and text files, Copilot can now process richer document formats without requiring you to copy-paste content manually.
+
+### `--connect` Flag — Join a Remote Session Directly
+
+Connect to an existing remote session by its ID without going through the `/resume` picker.
+
+**How to use:**
+
+```bash
+copilot --connect <session-id>
+```
+
+**Why it matters:** Useful in scripted or CI environments where you need to attach to a specific named session programmatically.
+
+### Short Session ID Prefixes for `--resume` / `/resume`
+
+You no longer need to supply the full session ID when resuming. Any unambiguous prefix of 7 or more hex characters is accepted.
+
+**How to use:**
+
+```
+> /resume a3f9b12
+```
+
+```bash
+copilot --resume a3f9b12
+```
+
+### Usage Limit Warnings
+
+The CLI now shows inline warnings when you approach your weekly premium request limit — at **75%** and again at **90%**. This helps you pace usage before hitting the cap mid-session.
+
+### `--print-debug-info` Flag
+
+Print version information, terminal capabilities, and environment variables to stdout and exit. Useful for diagnosing unexpected behavior.
+
+```bash
+copilot --print-debug-info
+```
+
+### `--session-idle-timeout` Flag
+
+Configure how long an idle session waits before automatically closing. Disabled by default.
+
+```bash
+# Close after 30 minutes of inactivity
+copilot --session-idle-timeout 30m
+```
+
+### Fixes and Improvements
+
+- **Rate limiting**: Paused sessions now queue messages and automatically retry instead of dropping them; error messages include the specific limit type
+- **Tables**: Correct column widths, emoji support, and stable borders during terminal resize
+- **`/feedback`**: Bundle saves to `TEMP` when the working directory is not writable
+- **Rewind**: Works correctly after using `/cd` to change directories
+- **Plan mode**: Multiline input is preserved when entering `/plan` or plan mode
+- **Status line**: No longer shows stray Unicode glyphs after `/clear` in terminals like Neovim
+- **`/ask` dialog**: Mouse wheel scrolling works correctly
+- **Shell mode**: Backspace correctly exits shell mode only when input is empty
+- **`copilot login --host`**: Now correctly authenticates with GitHub Enterprise Cloud (GHE) instances
+- **Agent context**: Current date and time now includes the local timezone offset
+- **Skills**: Skills that exceed the context token limit are still discoverable and invocable by name
+- **Terminal**: Progress indicator stays visible while the agent is thinking
 
 ---
 

@@ -1,5 +1,28 @@
 # Documentation Updates
 
+## 2026-04-18 — Docs updated for v1.0.32
+
+- `README.md`: Bumped version note to v1.0.32; updated "Latest features" list with `auto` model, document attachments, `--connect`, usage warnings, `--print-debug-info`, `--session-idle-timeout`, and short session ID prefixes
+- `16-new-features.md`: Updated title to v1.0.32; added TOC entry for v1.0.32; added v1.0.32 section covering `auto` model, document file attachments, `--connect` flag, short session ID prefixes, usage limit warnings, `--print-debug-info`, `--session-idle-timeout`, and all fixes/improvements
+- `22-models-and-costs.md`: Added `auto` model row to the available models table; updated decision tree to offer `auto` as the first branch; added `Auto-select model` line to quick reference
+- `00-cheat-sheet.md`: Added `auto` to Model Quick Pick; added `--connect`, `--print-debug-info`, and `--session-idle-timeout` to the flags table; noted short prefix support on `--resume`
+- `04-slash-commands.md`: Updated `/resume` to document 7+ char short prefix support; updated `/feedback` to note TEMP fallback when CWD is not writable
+- `14-skills-system.md`: Added "Skill Exceeds Token Limit" troubleshooting entry (v1.0.32+ discoverability behaviour)
+- `11-troubleshooting.md`: Added "Diagnosing Environment Issues" section documenting `--print-debug-info`
+
+### Feature Summary (v1.0.32)
+- **New:** `auto` model — Copilot automatically picks the best model per session
+- **New:** Document file attachments (PDF, DOCX, etc.) in prompts
+- **New:** `--connect` flag to join a remote session directly by ID
+- **New:** `--print-debug-info` flag for diagnostics
+- **New:** `--session-idle-timeout` — configurable idle session timeout
+- **New:** Usage warnings at 75% and 90% of weekly limit
+- **Improved:** Short session ID prefixes (7+ hex chars) for `--resume` / `/resume`
+- **Improved:** Rate-limited sessions retry automatically instead of dropping messages
+- **Fixed:** Multiple rendering, rewind, and terminal fixes
+
+---
+
 ## 2026-04-17 — Docs updated for v1.0.31
 
 - `README.md`: Bumped version note to v1.0.31; updated "Latest features" list with `/statusline`, Claude Opus 4.7, and `COPILOT_AGENT_SESSION_ID`
