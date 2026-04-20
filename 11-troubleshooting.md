@@ -165,7 +165,15 @@ winget upgrade --id GitHub.cli
 
 **Use `/update` to upgrade to the latest version and pick up new features.**
 
-## Authentication Issues
+### Diagnosing Environment Issues
+
+When Copilot behaves unexpectedly — wrong terminal detection, missing env vars, or uncertain version — run:
+
+```bash
+copilot --print-debug-info
+```
+
+This prints version information, detected terminal capabilities, and active environment variables, then exits. Share this output when filing a bug report or seeking support.
 
 ### Login Fails
 

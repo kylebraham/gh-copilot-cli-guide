@@ -1,5 +1,54 @@
 # Documentation Updates
 
+## 2026-04-18 — Docs updated for v1.0.32
+
+- `README.md`: Bumped version note to v1.0.32; updated "Latest features" list with `auto` model, document attachments, `--connect`, usage warnings, `--print-debug-info`, `--session-idle-timeout`, and short session ID prefixes
+- `16-new-features.md`: Updated title to v1.0.32; added TOC entry for v1.0.32; added v1.0.32 section covering `auto` model, document file attachments, `--connect` flag, short session ID prefixes, usage limit warnings, `--print-debug-info`, `--session-idle-timeout`, and all fixes/improvements
+- `22-models-and-costs.md`: Added `auto` model row to the available models table; updated decision tree to offer `auto` as the first branch; added `Auto-select model` line to quick reference
+- `00-cheat-sheet.md`: Added `auto` to Model Quick Pick; added `--connect`, `--print-debug-info`, and `--session-idle-timeout` to the flags table; noted short prefix support on `--resume`
+- `04-slash-commands.md`: Updated `/resume` to document 7+ char short prefix support; updated `/feedback` to note TEMP fallback when CWD is not writable
+- `14-skills-system.md`: Added "Skill Exceeds Token Limit" troubleshooting entry (v1.0.32+ discoverability behaviour)
+- `11-troubleshooting.md`: Added "Diagnosing Environment Issues" section documenting `--print-debug-info`
+
+### Feature Summary (v1.0.32)
+- **New:** `auto` model — Copilot automatically picks the best model per session
+- **New:** Document file attachments (PDF, DOCX, etc.) in prompts
+- **New:** `--connect` flag to join a remote session directly by ID
+- **New:** `--print-debug-info` flag for diagnostics
+- **New:** `--session-idle-timeout` — configurable idle session timeout
+- **New:** Usage warnings at 75% and 90% of weekly limit
+- **Improved:** Short session ID prefixes (7+ hex chars) for `--resume` / `/resume`
+- **Improved:** Rate-limited sessions retry automatically instead of dropping messages
+- **Fixed:** Multiple rendering, rewind, and terminal fixes
+
+---
+
+## 2026-04-17 — Docs updated for v1.0.31
+
+- `README.md`: Bumped version note to v1.0.31; updated "Latest features" list with `/statusline`, Claude Opus 4.7, and `COPILOT_AGENT_SESSION_ID`
+- `16-new-features.md`: Updated title to v1.0.31; added TOC entries for v1.0.31, v1.0.30, and v1.0.29; added v1.0.31 section (prompt frame rendering fix); added v1.0.30 section covering `/statusline`/`/footer`, `/undo` improved messaging, and image paste fix; added v1.0.29 section covering Claude Opus 4.7, `COPILOT_AGENT_SESSION_ID`, and optional remote MCP `type` field
+- `04-slash-commands.md`: Added `/statusline` command entry in Configuration section; added to Quick Reference Table; added `/footer = /statusline` alias
+- `00-cheat-sheet.md`: Added `/statusline` to Display commands table
+- `22-models-and-costs.md`: Added Claude Opus 4.7 to model table; updated decision tree, task table, team policy, model tips, and quick reference to reflect Opus 4.7 as the latest/most capable Opus model
+- `08-advanced-features.md`: Added section on optional remote MCP `type` field (v1.0.29+); added section on `COPILOT_AGENT_SESSION_ID` env var (v1.0.29+)
+- `15-copilot-directory.md`: Added `COPILOT_AGENT_SESSION_ID` to Environment Variables section
+
+### Feature Summary (v1.0.31)
+- **Fixed:** Prompt frame rendering issues on Windows and Ubuntu terminals
+
+### Feature Summary (v1.0.30)
+- **New:** `/statusline` (alias `/footer`) — customize status bar items
+- **Improved:** `/undo` shows explanatory message when rewind is unavailable
+- **Fixed:** Image paste from clipboard regression; both Ctrl+V and Meta+V now trigger paste on all platforms
+
+### Feature Summary (v1.0.29)
+- **New:** Claude Opus 4.7 model support
+- **New:** `COPILOT_AGENT_SESSION_ID` env var passed to shell commands and MCP servers
+- **Improved:** Remote MCP server `type` field now optional (defaults to `http`)
+- **Fixed:** Agent repository owner detection, terminal state restore after crash on Windows
+
+---
+
 ## 2026-04-16 — Docs updated for v1.0.28
 
 - `README.md`: Bumped version note to v1.0.28; updated "Latest features" list with remote sessions in `--resume` picker, `COPILOT_DISABLE_TERMINAL_TITLE`, simplified rewind navigation, and MCP migration hint improvement
