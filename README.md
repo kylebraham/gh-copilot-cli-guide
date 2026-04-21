@@ -81,10 +81,15 @@ npm update -g @github/copilot
 ```
 
 **Latest features:**
+- 🔔 "Session rate limit" wording in rate-limit errors (v1.0.34)
+- 🔁 `--resume` / `--continue` auto-inherits `--remote` flag (v1.0.33)
+- 🔤 New slash command aliases: `/upgrade`, `/bug`, `/continue`, `/release-notes`, `/export`, `/reset` (v1.0.33)
+- 💡 Slash command picker suggests similar commands for typos (v1.0.33)
+- ⌨️ `j`/`k`/`x` vim-style navigation and task-cancel in `/tasks` dialog (v1.0.33)
+- ⚠️ Usage warnings at 50% and 95% of weekly limit (v1.0.33)
 - 🤖 `auto` model — let Copilot automatically pick the best available model for each session
 - 📎 Attach supported document files to prompts for the agent to read and reason about
 - 🔗 `--connect` flag — directly connect to a remote session by ID
-- ⚠️ Usage warnings at 75% and 90% of your weekly limit
 - 🔍 `--print-debug-info` — display version, terminal capabilities, and environment variables
 - ⏱️ `--session-idle-timeout` — configurable session idle timeout (disabled by default)
 - 🔢 Short session ID prefixes (7+ hex chars) work with `--resume` and `/resume`
@@ -263,4 +268,4 @@ Go to **Actions → Daily Doc Maintenance → Run workflow** to trigger it on de
 
 ---
 
-**Note:** This guide covers GitHub Copilot CLI v1.0.32. Some capabilities may vary by version — run `/update` to stay current.
+**Note:** This guide covers GitHub Copilot CLI v1.0.34. Some capabilities may vary by version — run `/update` to stay current.

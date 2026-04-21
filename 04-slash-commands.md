@@ -15,9 +15,9 @@ Slash commands are special commands that start with `/` and provide quick access
 
 ## Session Management
 
-### /clear, /new
+### /clear, /new, /reset
 
-Clear the conversation history and start fresh.
+Clear the conversation history and start fresh. `/reset` is an alias for `/clear`.
 
 ```
 > /clear
@@ -30,9 +30,9 @@ Clear the conversation history and start fresh.
 
 **Note:** This doesn't delete the session, just resets the conversation.
 
-### /resume [sessionId]
+### /resume, /continue [sessionId]
 
-Switch to a different session or resume a previous one.
+Switch to a different session or resume a previous one. `/continue` is an alias for `/resume`.
 
 ```
 # List all sessions
@@ -48,6 +48,16 @@ Switch to a different session or resume a previous one.
 - File context
 - Working directory
 - Checkpoints
+
+**Remote sessions:** When resuming a remote session, the `--remote` flag is automatically inherited — no need to re-specify it:
+
+```bash
+# Before v1.0.33 you needed --remote
+copilot --resume <session-id> --remote
+
+# v1.0.33+: --remote is inherited automatically
+copilot --resume <session-id>
+```
 
 ### /session [subcommand]
 
@@ -227,6 +237,14 @@ View and manage background tasks including running subagents and shell sessions.
 - Background shell sessions
 - Task completion progress
 - Option to cancel individual tasks
+
+**Keyboard navigation in the tasks dialog:**
+
+| Key | Action |
+|-----|--------|
+| `j` | Move selection down |
+| `k` | Move selection up |
+| `x` | Cancel / kill the selected task |
 
 **Use when:**
 - `/fleet` is active and you want to monitor progress
@@ -1147,9 +1165,9 @@ Manage GitHub user accounts.
 - Switching between personal/work accounts
 - Team collaboration
 
-### /changelog [summarize]
+### /changelog, /release-notes [summarize]
 
-Display the changelog for CLI versions.
+Display the changelog for CLI versions. `/release-notes` is an alias for `/changelog`.
 
 ```
 # View raw changelog
@@ -1167,9 +1185,9 @@ Display the changelog for CLI versions.
 
 **With `summarize`:** The AI provides a concise digest of what changed, highlighting the most important updates since your last version.
 
-### /update
+### /update, /upgrade
 
-Update the CLI to the latest version.
+Update the CLI to the latest version. `/upgrade` is an alias for `/update`.
 
 ```
 > /update
@@ -1375,9 +1393,9 @@ Manage skills for enhanced capabilities.
 
 **For comprehensive details, see [Skills System Guide](14-skills-system.md).**
 
-### /share [file|gist|html] [path]
+### /share, /export [file|gist|html] [path]
 
-Share session to markdown file, GitHub Gist, or self-contained interactive HTML file.
+Share session to markdown file, GitHub Gist, or self-contained interactive HTML file. `/export` is an alias for `/share`.
 
 ```
 # Share to file
@@ -1415,9 +1433,9 @@ Share session to markdown file, GitHub Gist, or self-contained interactive HTML 
 
 **File extension handling:** If you provide a custom output path without a file extension, `/share` automatically appends `.md` (for file/gist output) or `.html` (for HTML output).
 
-### /feedback
+### /feedback, /bug
 
-Submit feedback about the CLI.
+Submit feedback about the CLI. `/bug` is an alias for `/feedback`.
 
 ```
 > /feedback
@@ -1583,17 +1601,30 @@ Some commands are less commonly used but powerful:
 Some commands have shorter aliases:
 
 ```
-/new    = /clear
-/cd     = /cwd
-/undo   = /rewind
-/footer = /statusline
-/h    = /help (if supported)
-/q    = /quit (if supported)
+/new           = /clear
+/reset         = /clear
+/cd            = /cwd
+/undo          = /rewind
+/footer        = /statusline
+/continue      = /resume
+/upgrade       = /update
+/release-notes = /changelog
+/bug           = /feedback
+/export        = /share
+/h             = /help (if supported)
+/q             = /quit (if supported)
 ```
 
 ## Error Messages
 
-If a command fails:
+If a command fails or is unrecognized, the command picker suggests the closest matching commands:
+
+```
+> /changelg
+  Did you mean: /changelog?
+```
+
+If the command is simply unknown:
 
 ```
 > /invalid-command

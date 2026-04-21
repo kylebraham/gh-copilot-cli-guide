@@ -57,12 +57,15 @@
 | Command | Description |
 |---------|-------------|
 | `/clear` | Clear conversation history and context |
+| `/reset` | Alias for `/clear` |
 | `/compact` | Summarize and compress current context to save tokens |
 | `/context` | Show what's currently in context |
 | `/session` | Show current session info |
 | `/resume` | Resume a previous session |
+| `/continue` | Alias for `/resume` |
 | `/rename` | Rename the current session |
 | `/share` | Share session as markdown, gist, or HTML (`/share html`) |
+| `/export` | Alias for `/share` |
 | `/copy` | Copy last response to clipboard |
 | `/env` | Show loaded environment details (instructions, MCP servers, skills, agents, plugins) |
 | `/ask` | Ask a quick question without affecting conversation history |
@@ -88,7 +91,7 @@
 | `/model` | View or switch the active AI model |
 | `/agent` | Configure or inspect the active agent |
 | `/fleet` | Launch parallel subagents for distributed tasks |
-| `/tasks` | View or manage running agent tasks |
+| `/tasks` | View or manage running agent tasks (`j`/`k` to navigate, `x` to cancel) |
 | `/research` | Run a deep research pass on a topic or codebase |
 | `/plan` | Generate a step-by-step implementation plan |
 
@@ -113,7 +116,9 @@
 | `/usage` | Show premium request usage for this session |
 | `/version` | Show Copilot CLI version |
 | `/changelog` | View recent release notes |
+| `/release-notes` | Alias for `/changelog` |
 | `/feedback` | Submit feedback to GitHub |
+| `/bug` | Alias for `/feedback` — report a bug |
 | `/instructions` | Show active instruction files in effect |
 
 ### Session Lifecycle
@@ -122,6 +127,8 @@
 | `/login` | Authenticate with GitHub |
 | `/logout` | Sign out |
 | `/restart` | Restart the current session |
+| `/update` | Update CLI to the latest version |
+| `/upgrade` | Alias for `/update` |
 | `/exit` | Exit Copilot CLI |
 
 ### Display
@@ -149,7 +156,7 @@
 | `--plan` | Shorthand for `--mode plan` — start in plan mode |
 | `--max-autopilot-continues N` | Cap the number of autonomous continuation steps |
 | `--no-ask-user` | Never pause to ask clarifying questions |
-| `--continue` / `--resume` | Resume the most recent session (accepts 7+ char ID prefix) |
+| `--continue` / `--resume` | Resume the most recent session (accepts 7+ char ID prefix); auto-inherits `--remote` for remote sessions |
 | `--connect SESSION-ID` | Connect directly to a remote session by ID |
 | `--allow-tool TOOL` | Allow a specific tool without prompting |
 | `--deny-tool TOOL` | Block a specific tool |
