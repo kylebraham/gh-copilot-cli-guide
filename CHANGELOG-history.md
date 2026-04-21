@@ -1,5 +1,22 @@
 # Documentation Updates
 
+## 2026-04-21 — Docs updated for v1.0.34
+
+- `README.md`: Bumped version note to v1.0.34; updated "Latest features" list with v1.0.33 and v1.0.34 changes
+- `16-new-features.md`: Updated title to v1.0.34; added TOC entries for v1.0.34 and v1.0.33; added v1.0.34 section (session rate limit wording); added v1.0.33 section covering `--remote` auto-inherit, new slash command aliases, command picker suggestions, `ctrl+t` in help, sub-agent model inheritance, 50%/95% usage warnings, tasks dialog j/k/x navigation, and fixes; updated v1.0.32 usage warning percentages note
+- `04-slash-commands.md`: Updated `/tasks` with j/k/x keyboard navigation table; updated `/clear` heading to include `/reset` alias; updated `/share` heading to include `/export` alias; updated `/resume` heading to include `/continue` alias and added `--remote` auto-inherit note; updated `/changelog` heading to include `/release-notes` alias; updated `/feedback` heading to include `/bug` alias; updated `/update` heading to include `/upgrade` alias; expanded Command Aliases section with all new aliases; updated Error Messages section with command suggestion feature
+- `00-cheat-sheet.md`: Added `/reset`, `/continue`, `/export`, `/release-notes`, `/bug`, `/upgrade` alias rows to slash commands tables; updated `/tasks` description with j/k/x navigation note; updated `--resume`/`--continue` flag with `--remote` auto-inherit note
+
+### Feature Summary (v1.0.33–v1.0.34)
+- **New aliases:** `/upgrade`, `/bug`, `/continue`, `/release-notes`, `/export`, `/reset`
+- **UX:** Slash command picker suggests similar commands for typos
+- **UX:** `--resume`/`--continue` auto-inherits `--remote` for remote sessions
+- **UX:** Tasks dialog supports j/k/x vim-style navigation
+- **UX:** Usage warnings moved to 50% and 95%
+- **Fix:** Rate limit error now says "session rate limit" (v1.0.34)
+- **Fix:** Grep no longer times out on large repos with content exclusion policies
+- **Fix:** Non-interactive mode waits for all background agents before exiting
+
 ## 2026-04-18 — Docs updated for v1.0.32
 
 - `README.md`: Bumped version note to v1.0.32; updated "Latest features" list with `auto` model, document attachments, `--connect`, usage warnings, `--print-debug-info`, `--session-idle-timeout`, and short session ID prefixes

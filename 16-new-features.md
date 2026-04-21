@@ -1,4 +1,4 @@
-# Latest Features in GitHub Copilot CLI — v1.0.32
+# Latest Features in GitHub Copilot CLI — v1.0.34
 
 This file covers recent additions to GitHub Copilot CLI. Features marked with "Full guide →" have their own dedicated documentation file — the entries here are summaries with links. Features without a dedicated file are covered in full below.
 
@@ -10,7 +10,9 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 3. [Research Command (`/research`)](#research-command-research) — [Full guide →](19-research-command.md)
 
 ### Features covered in this file
-4. [New in v1.0.32](#new-in-v1032)
+4. [New in v1.0.34](#new-in-v1034)
+5. [New in v1.0.33](#new-in-v1033)
+6. [New in v1.0.32](#new-in-v1032)
 5. [New in v1.0.31](#new-in-v1031)
 6. [New in v1.0.30](#new-in-v1030)
 7. [New in v1.0.29](#new-in-v1029)
@@ -39,6 +41,93 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 22. [Project Initialization (`/init`)](#project-initialization-init)
 23. [Enhanced Pull Request Creation (`/delegate`)](#enhanced-pull-request-creation-delegate)
 24. [Staying Up to Date](#staying-up-to-date)
+
+---
+
+## New in v1.0.34
+
+Released: 2026-04-20
+
+### "Session Rate Limit" Error Message
+
+Rate limit errors now say **"session rate limit"** instead of "global rate limit", clarifying that the limit applies to the current session rather than your entire account.
+
+---
+
+## New in v1.0.33
+
+Released: 2026-04-20
+
+### `--resume` / `--continue` Auto-Inherits `--remote`
+
+When you resume a remote session using `--resume` or `--continue`, the `--remote` flag is now automatically inherited — you no longer need to re-specify it.
+
+**Before v1.0.33:**
+```bash
+copilot --resume <session-id> --remote
+```
+
+**Now:**
+```bash
+copilot --resume <session-id>   # --remote inherited automatically
+```
+
+**Why it matters:** Fewer flags to remember when picking up a remote session.
+
+### New Slash Command Aliases
+
+Several new short aliases have been added for frequently used commands:
+
+| Alias | Maps to | Purpose |
+|-------|---------|---------|
+| `/upgrade` | `/update` | Update the CLI to the latest version |
+| `/bug` | `/feedback` | Report a bug or submit feedback |
+| `/continue` | `/resume` | Continue/resume a previous session |
+| `/release-notes` | `/changelog` | View recent release notes |
+| `/export` | `/share` | Export or share the current session |
+| `/reset` | `/clear` | Reset conversation history |
+
+### Slash Command Picker Suggests Similar Commands
+
+If you type an unrecognized or misspelled slash command, the picker now suggests the closest matching commands instead of just showing a generic error.
+
+**How to use:**
+
+```
+> /changelg
+  Did you mean: /changelog?
+```
+
+**Why it matters:** Reduces frustration from typos and makes command discovery easier.
+
+### `ctrl+t` Reasoning Toggle Listed in Help
+
+The `ctrl+t` keyboard shortcut for toggling model reasoning display is now listed in the `/help` overlay and `?` shortcut panel, making it more discoverable.
+
+### Sub-Agents in Auto Mode Inherit Session Model
+
+When using `auto` model selection, sub-agents launched during a session now inherit the same model automatically rather than defaulting to a different one.
+
+### Usage Limit Warnings Updated to 50% and 95%
+
+Usage warnings now fire at **50%** and **95%** of your weekly premium request limit (previously 75% and 90%), giving you earlier notice before hitting the cap.
+
+### Vim-Style Navigation in Tasks Dialog
+
+The `/tasks` dialog now supports keyboard shortcuts for power users:
+
+| Key | Action |
+|-----|--------|
+| `j` | Move selection down |
+| `k` | Move selection up |
+| `x` | Cancel / kill the selected task |
+
+### Fixes and Improvements
+
+- **Grep**: No longer times out on large repositories when content exclusion policies are enabled
+- **Non-interactive mode**: Waits for all background agents to finish before exiting, ensuring CI pipelines capture complete output
+- **Skill picker**: Correctly truncates CJK/Japanese descriptions and long skill names without wrapping
+- **Slash command picker**: Selects the highlighted command when pressing Enter (previously required clicking)
 
 ---
 
@@ -105,7 +194,7 @@ copilot --resume a3f9b12
 
 ### Usage Limit Warnings
 
-The CLI now shows inline warnings when you approach your weekly premium request limit — at **75%** and again at **90%**. This helps you pace usage before hitting the cap mid-session.
+The CLI shows inline warnings when you approach your weekly premium request limit. As of v1.0.33, warnings fire at **50%** and **95%** (originally introduced in v1.0.32 at 75% and 90%). This helps you pace usage before hitting the cap mid-session.
 
 ### `--print-debug-info` Flag
 
