@@ -53,7 +53,8 @@ C:\Users\username\.copilot\
 
 ```
 ~/.copilot/
-├── config.json                      # Main configuration file
+├── settings.json                    # User-editable settings (v1.0.35+)
+├── config.json                      # Internal CLI state
 ├── mcp-config.json                  # MCP server configuration
 ├── copilot-instructions.md          # Global instructions (optional)
 ├── command-history-state.json       # Command history
@@ -83,7 +84,8 @@ C:\Users\username\.copilot\
 
 | File/Directory | Purpose | User Editable |
 |----------------|---------|---------------|
-| `config.json` | Main configuration | ✅ Yes |
+| `settings.json` | User-editable settings (model, theme, etc.) | ✅ Yes |
+| `config.json` | Internal CLI state | ❌ Auto-managed |
 | `mcp-config.json` | MCP server settings | ✅ Yes |
 | `copilot-instructions.md` | Global AI instructions | ✅ Yes |
 | `command-history-state.json` | Command history | ❌ Auto-managed |
@@ -95,9 +97,36 @@ C:\Users\username\.copilot\
 
 ## Configuration Files
 
+### settings.json
+
+As of v1.0.35, user-editable settings live in `~/.copilot/settings.json`. This file holds the options you intentionally configure — model preference, theme, and feature flags. Internal CLI state (session history, logged-in users, etc.) remains in `config.json`.
+
+#### Common settings.json options
+
+```json
+{
+  // Default AI model
+  "model": "claude-sonnet-4.5",
+
+  // Visual theme
+  "theme": "auto",
+
+  // Auto-switch to 'auto' model when rate-limited instead of pausing
+  "continueOnAutoMode": true,
+
+  // Auto-compact conversation when context fills up
+  "auto_compact": true,
+  "compact_threshold": 0.8
+}
+```
+
+> 💡 If `settings.json` does not yet exist, create it manually. Existing `config.json` user preferences continue to work alongside it.
+
+---
+
 ### config.json
 
-The main configuration file that controls Copilot CLI behavior.
+Internal state file managed by the CLI. Holds logged-in users, trusted folders, feature flags, and other runtime data. You can still edit it directly, but prefer `settings.json` for new user-facing options.
 
 #### Full Schema
 

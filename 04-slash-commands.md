@@ -79,6 +79,12 @@ Manage and view session information.
 
 # Rename current session
 > /session rename "My Project Feature"
+
+# Delete a specific session (full ID or 7+ character prefix)
+> /session delete abc123d
+
+# Delete all sessions
+> /session delete-all
 ```
 
 **Subcommands:**
@@ -86,6 +92,10 @@ Manage and view session information.
 - `files` - List workspace files
 - `plan` - Display plan.md if it exists
 - `rename <name>` - Give session a friendly name
+- `delete <id>` - Delete a specific session by ID (or 7+ char prefix)
+- `delete-all` - Delete all sessions
+
+**Tip:** In the session picker (`/resume`), press `x` on any entry to delete it.
 
 ### /rename <name>
 
@@ -368,7 +378,7 @@ copilot --no-ask-user "Refactor src/api.js to use async/await"
 
 ### --continue
 
-Resumes the most recently closed local Copilot CLI session, restoring context and conversation history.
+Resumes the most recently closed Copilot CLI session from the current working directory (falls back to the globally most recently touched session if no matching session exists), restoring context and conversation history.
 
 ```bash
 # Resume most recent session instantly
@@ -379,6 +389,20 @@ copilot --continue
 ```
 
 Useful when you close the terminal mid-task and want to pick up exactly where you left off.
+
+### --name
+
+Assigns a friendly name to the session at startup. The name can be used with `--resume` to resume the session by name rather than by ID.
+
+```bash
+# Start a named session
+copilot --name "auth-refactor"
+
+# Later, resume by name
+copilot --resume auth-refactor
+```
+
+**Why it matters:** Meaningful names are easier to remember than session ID prefixes, especially for long-running work across multiple days.
 
 ## Code
 
@@ -1118,7 +1142,7 @@ Display help information and available commands.
 
 ### /usage
 
-Display session usage metrics and statistics.
+Display session usage metrics and statistics, including a GitHub-style contribution graph of your usage history (v1.0.35+).
 
 ```
 > /usage
@@ -1130,6 +1154,7 @@ Display session usage metrics and statistics.
 - Requests remaining
 - Token consumption
 - Cost estimates (if applicable)
+- Contribution graph of usage history (adapts to terminal color mode)
 
 **Example output:**
 ```

@@ -23,7 +23,8 @@
 | `Ctrl+O` | Expand all timeline entries (when no input) |
 | `Ctrl+E` | Expand all timeline entries (when no input) |
 | `Ctrl+X → O` | Open link from most recent timeline event |
-| `!` | Execute command in local shell (bypass Copilot) |
+| `Tab` / `Ctrl+Y` | Accept highlighted completion option (`@`-mentions, paths, slash commands) |
+| `!` | Execute command in local shell (bypass Copilot); uses `$SHELL` when set |
 
 ### Text Editing
 
@@ -61,7 +62,9 @@
 | `/compact` | Summarize and compress current context to save tokens |
 | `/context` | Show what's currently in context |
 | `/session` | Show current session info |
-| `/resume` | Resume a previous session |
+| `/session delete <id>` | Delete a specific session by ID or 7+ char prefix |
+| `/session delete-all` | Delete all sessions |
+| `/resume` | Resume a previous session (picker shows branch and idle/in-use status) |
 | `/continue` | Alias for `/resume` |
 | `/rename` | Rename the current session |
 | `/share` | Share session as markdown, gist, or HTML (`/share html`) |
@@ -156,8 +159,9 @@
 | `--plan` | Shorthand for `--mode plan` — start in plan mode |
 | `--max-autopilot-continues N` | Cap the number of autonomous continuation steps |
 | `--no-ask-user` | Never pause to ask clarifying questions |
-| `--continue` / `--resume` | Resume the most recent session (accepts 7+ char ID prefix); auto-inherits `--remote` for remote sessions |
+| `--continue` / `--resume` | Resume the most recent session from CWD (accepts 7+ char ID prefix or session name); auto-inherits `--remote` for remote sessions |
 | `--connect SESSION-ID` | Connect directly to a remote session by ID |
+| `--name NAME` | Assign a friendly name to the session; use with `--resume=<name>` to resume by name |
 | `--allow-tool TOOL` | Allow a specific tool without prompting |
 | `--deny-tool TOOL` | Block a specific tool |
 | `--remote` | Sync session with the remote GitHub repository |
@@ -173,6 +177,7 @@
 | `COPILOT_ALLOW_ALL=1` | Equivalent to `--allow-all` for all sessions |
 | `GH_TOKEN` | GitHub personal access token for authentication |
 | `COPILOT_MODEL` | Set the default model globally (e.g., `claude-haiku-4.5`) |
+| `COPILOT_GH_HOST` | Override the GitHub hostname (takes precedence over `GH_HOST`; useful for GHES) |
 
 ---
 
@@ -265,7 +270,8 @@ Add entire directory to context:
 
 | File | Purpose |
 |------|---------|
-| `~/.copilot/config.json` | Global Copilot CLI configuration |
+| `~/.copilot/settings.json` | User-editable settings (model, theme, continueOnAutoMode, etc.) |
+| `~/.copilot/config.json` | Internal Copilot CLI state (managed by the CLI) |
 | `~/.copilot/mcp-config.json` | MCP server definitions and connection settings |
 | `~/.copilot/lsp-config.json` | Language server configuration |
 | `~/.copilot/skills/` | Custom skill definitions (YAML/JSON) |

@@ -127,6 +127,7 @@ Imagine building a Django e-commerce site:
 2. Check for available skills
    - Global: ~/.copilot/skills/
    - Project: .copilot/skills/
+   Note: ~/.claude/ is NOT loaded as Copilot config (v1.0.35+)
    ↓
 3. Load enabled skills
    ↓

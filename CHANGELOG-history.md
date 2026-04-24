@@ -1,6 +1,34 @@
 # Documentation Updates
 
-## 2026-04-21 — Docs updated for v1.0.34
+## 2026-04-24 — Docs updated for v1.0.35
+
+- `README.md`: Bumped version note to v1.0.35; updated "Latest features" list with v1.0.35 changes
+- `16-new-features.md`: Updated title to v1.0.35; added TOC entry for v1.0.35; added v1.0.35 section covering tab-completion for slash command arguments, `Ctrl+Y` completion acceptance, `/session delete`/`delete-all` subcommands, `--name` flag and `--resume=<name>`, session picker branch/idle-status display, `COPILOT_GH_HOST` env var, `settings.json` user settings split, `continueOnAutoMode` config option, HTTP hook support, shell escape using `$SHELL`, `/usage` contribution graph, and other notable changes
+- `04-slash-commands.md`: Added `/session delete` and `/session delete-all` subcommands; updated `/usage` with contribution graph note; updated `--continue` with CWD preference; added `--name` flag section
+- `00-cheat-sheet.md`: Added `/session delete`/`delete-all` to session commands; added `--name` flag; updated `--continue`/`--resume` note; added `COPILOT_GH_HOST` to env vars; added `Tab`/`Ctrl+Y` completion row; updated shell escape `!` note; added `settings.json` to config locations
+- `15-copilot-directory.md`: Added `settings.json` to directory structure and file descriptions table; added `settings.json` section with schema and `continueOnAutoMode`; updated `config.json` description
+- `22-models-and-costs.md`: Added "Auto-Switching on Rate Limit" section documenting `continueOnAutoMode`
+- `08-advanced-features.md`: Added "MCP Server Names with Spaces" section; added LSP timeout fields (`spawnTimeout`, `initializationTimeout`, `warmupTimeout`); added "HTTP Hooks" section
+- `11-troubleshooting.md`: Added "Clipboard Not Working on Linux" section for wl-clipboard/xclip
+- `13-agents-file.md`: Added v1.0.35 behavior change callout for pattern-specific instruction files
+- `14-skills-system.md`: Added note that `~/.claude/` is no longer loaded as Copilot config
+- `03-interactive-features.md`: Added `Ctrl+Y` completion shortcut; updated session picker description with branch/idle-status; added delete subcommands; added resume-by-name example
+
+### Feature Summary (v1.0.35)
+- **New:** Tab-completion for slash command arguments and subcommands
+- **New:** `Ctrl+Y` accepts highlighted completion options
+- **New:** `/session delete`, `/session delete-all`, x-to-delete in session picker
+- **New:** `--name` flag; `--resume=<name>` resumes by name
+- **New:** Session picker shows branch and idle/in-use status
+- **New:** `COPILOT_GH_HOST` env var for GitHub hostname override
+- **New:** `~/.copilot/settings.json` for user settings (split from `config.json`)
+- **New:** `continueOnAutoMode` config option — auto-switch to `auto` on rate limit
+- **New:** HTTP hook support — hooks can POST JSON to a URL
+- **Changed:** Shell escape `!` uses `$SHELL` when set
+- **Changed:** `--continue` prefers sessions from CWD
+- **Changed:** Pattern-specific instruction files no longer load unconditionally
+- **Fixed:** `~/.claude/` no longer loaded as Copilot config
+- **Fixed:** Clipboard utilities show install instructions on Linux
 
 - `README.md`: Bumped version note to v1.0.34; updated "Latest features" list with v1.0.33 and v1.0.34 changes
 - `16-new-features.md`: Updated title to v1.0.34; added TOC entries for v1.0.34 and v1.0.33; added v1.0.34 section (session rate limit wording); added v1.0.33 section covering `--remote` auto-inherit, new slash command aliases, command picker suggestions, `ctrl+t` in help, sub-agent model inheritance, 50%/95% usage warnings, tasks dialog j/k/x navigation, and fixes; updated v1.0.32 usage warning percentages note

@@ -84,6 +84,13 @@ Mastering keyboard shortcuts makes you significantly more efficient:
 > **Ctrl+T** toggles the display of model reasoning tokens inline in the response — useful for understanding how the AI arrived at a decision.
 > **Ctrl+S** runs your current prompt while keeping the input intact, so you can quickly send similar follow-up prompts without retyping.
 
+### Completion Acceptance
+
+| Shortcut | Action |
+|----------|--------|
+| `Tab` | Accept the highlighted option in completion popups (`@`-mentions, paths, slash commands) |
+| `Ctrl+Y` | Also accepts the highlighted completion option (v1.0.35+) |
+
 ## Interaction Modes
 
 `Shift+Tab` cycles through the available interaction modes:
@@ -374,7 +381,19 @@ Resume a different session:
 ```
 > /resume                     # Show list of sessions
 > /resume <session-id>        # Resume specific session
+> /resume my-feature-work     # Resume by name (v1.0.35+)
 ```
+
+The session picker (v1.0.35+) shows each session's **branch name** and **idle/in-use status**, making it easy to identify the right session at a glance. The picker also supports improved text search with cursor navigation.
+
+Delete sessions you no longer need:
+
+```
+> /session delete <id>        # Delete a specific session
+> /session delete-all         # Delete all sessions
+```
+
+In the picker, press `x` on any entry to delete it immediately.
 
 Sessions persist across launches, so you can continue where you left off.
 

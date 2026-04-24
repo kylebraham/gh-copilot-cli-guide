@@ -146,6 +146,18 @@ Before starting something that will consume many requests (autopilot, fleet, res
 
 If you're already deep into a session with a high-multiplier model, consider switching to Haiku for the remaining work.
 
+### Auto-Switching on Rate Limit
+
+If you hit a model's rate limit during a long task, Copilot pauses by default. Enable `continueOnAutoMode` in `~/.copilot/settings.json` to automatically switch to the `auto` model instead:
+
+```json
+{
+  "continueOnAutoMode": true
+}
+```
+
+With this option set, Copilot silently switches to `auto` (which picks the next available model) when the rate limit is hit, keeping autopilot or fleet runs moving without manual intervention.
+
 ---
 
 ## 5. Switching Models

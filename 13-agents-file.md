@@ -93,6 +93,8 @@ Copilot CLI reads custom instructions from multiple locations. All of the follow
 
 > **New: `.github/instructions/**/*.instructions.md`** — You can now place multiple focused instruction files under `.github/instructions/`. Copilot CLI picks up all `*.instructions.md` files recursively, making it easy to split instructions by topic (e.g., `backend.instructions.md`, `testing.instructions.md`).
 
+> ⚠️ **v1.0.35 behavior change:** Pattern-specific instruction files (`.github/instructions/*.instructions.md`) no longer include their full body in the system prompt on every session. They are only injected when their file-pattern filter matches the files actively being worked on. If you relied on these files loading unconditionally, move global rules to `AGENTS.md` or `.github/copilot-instructions.md`.
+
 > **New: `COPILOT_CUSTOM_INSTRUCTIONS_DIRS`** — Set this environment variable to a colon-separated list of directories. Copilot CLI will load any `*.instructions.md` files found in those directories, allowing team-wide or machine-wide instruction sets outside the repository.
 
 `AGENTS.md` is still read from both the **current working directory** and the **git repository root**:
