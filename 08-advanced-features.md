@@ -279,6 +279,23 @@ Common off-the-shelf servers:
 
 ---
 
+### MCP Server Names with Spaces (v1.0.35+)
+
+Server names with spaces and special characters are now fully supported in MCP config. Quote the name in JSON as normal:
+
+```json
+{
+  "mcpServers": {
+    "my postgres db": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-postgres", "postgresql://localhost/mydb"]
+    }
+  }
+}
+```
+
+---
+
 ### MCP Troubleshooting
 
 | Issue | Cause | Fix |
@@ -345,7 +362,10 @@ Repository-level config takes precedence and is useful for project-specific lang
       "fileExtensions": {
         ".ts": "typescript",
         ".tsx": "typescript"
-      }
+      },
+      "spawnTimeout": 10000,
+      "initializationTimeout": 30000,
+      "warmupTimeout": 5000
     },
     "python": {
       "command": "pylsp",
@@ -364,6 +384,14 @@ Repository-level config takes precedence and is useful for project-specific lang
   }
 }
 ```
+
+**LSP timeout fields (v1.0.35+):**
+
+| Field | Default | Description |
+|-------|---------|-------------|
+| `spawnTimeout` | (system default) | Milliseconds to wait for the LSP server process to start |
+| `initializationTimeout` | (system default) | Milliseconds to wait for the `initialize` handshake to complete |
+| `warmupTimeout` | (system default) | Milliseconds to wait for the server to warm up before the first request |
 
 ### Checking LSP Status
 
@@ -959,6 +987,38 @@ Example:
   "compactThreshold": 0.8
 }
 ```
+
+### HTTP Hooks (v1.0.35+)
+
+In addition to shell-script hooks, hooks can POST JSON payloads to a configured URL. This is useful for centralising hook logic on a server — auditing tool usage, enforcing team policies, or integrating with CI systems.
+
+**Configuration:**
+
+```json
+{
+  "hooks": {
+    "preToolUse": [
+      {
+        "url": "https://hooks.example.com/copilot/pre-tool",
+        "matcher": { "tool_name": "shell" }
+      }
+    ],
+    "postToolUse": [
+      {
+        "url": "https://audit.example.com/copilot/tool-events"
+      }
+    ]
+  }
+}
+```
+
+- The hook endpoint receives the same JSON payload that shell-based hooks get via stdin.
+- The endpoint should respond with the same JSON structure that shell hooks return via stdout.
+- The `url` and `command` (shell script) fields are mutually exclusive per hook entry.
+
+> See [New Features v1.0.35 → HTTP Hook Support](16-new-features.md#http-hook-support) for a full walkthrough.
+
+---
 
 ### Shell Integration
 

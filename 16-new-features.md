@@ -1,4 +1,4 @@
-# Latest Features in GitHub Copilot CLI — v1.0.34
+# Latest Features in GitHub Copilot CLI — v1.0.35
 
 This file covers recent additions to GitHub Copilot CLI. Features marked with "Full guide →" have their own dedicated documentation file — the entries here are summaries with links. Features without a dedicated file are covered in full below.
 
@@ -10,8 +10,9 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 3. [Research Command (`/research`)](#research-command-research) — [Full guide →](19-research-command.md)
 
 ### Features covered in this file
-4. [New in v1.0.34](#new-in-v1034)
-5. [New in v1.0.33](#new-in-v1033)
+4. [New in v1.0.35](#new-in-v1035)
+5. [New in v1.0.34](#new-in-v1034)
+6. [New in v1.0.33](#new-in-v1033)
 6. [New in v1.0.32](#new-in-v1032)
 5. [New in v1.0.31](#new-in-v1031)
 6. [New in v1.0.30](#new-in-v1030)
@@ -41,6 +42,155 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 22. [Project Initialization (`/init`)](#project-initialization-init)
 23. [Enhanced Pull Request Creation (`/delegate`)](#enhanced-pull-request-creation-delegate)
 24. [Staying Up to Date](#staying-up-to-date)
+
+---
+
+## New in v1.0.35
+
+Released: 2026-04-23
+
+### Tab-Completion for Slash Command Arguments
+
+Slash commands now support tab-completion for their arguments and subcommands. Start typing a command and press `Tab` to complete argument names, subcommand options, and values.
+
+**How to use:**
+
+```
+> /session <Tab>          # shows: checkpoints, files, plan, rename, delete, delete-all
+> /model <Tab>            # shows available model IDs
+> /resume <Tab>           # shows recent session IDs and names
+```
+
+**Why it matters:** Faster command entry with fewer typos — no more guessing subcommand names.
+
+### `Ctrl+Y` to Accept Completions
+
+You can now press `Ctrl+Y` (in addition to `Tab`) to accept the highlighted option in completion popups — including `@`-mentions, path completions, and slash command completions.
+
+**Why it matters:** Adds a second familiar keybinding for completion acceptance, useful when `Tab` is already bound in your terminal.
+
+### `/session delete` Subcommands
+
+New subcommands let you delete sessions without leaving the CLI:
+
+```
+# Delete a specific session by ID (or 7+ char prefix)
+> /session delete <session-id>
+
+# Delete all sessions at once
+> /session delete-all
+```
+
+In the session picker (`/resume`), press `x` on any entry to delete it immediately.
+
+**Why it matters:** Previously you had to manage sessions manually on disk. Now you can clean up old sessions without leaving the CLI.
+
+### `--name` Flag and Resume by Name
+
+Name sessions at startup with `--name`, then resume them later by name:
+
+```bash
+# Start a named session
+copilot --name "auth-refactor"
+
+# Resume by name (in addition to session ID)
+copilot --resume auth-refactor
+```
+
+Within a session, `/rename` still works to name or rename the current session.
+
+**Why it matters:** Easier to track long-running work — meaningful names are simpler to remember than session ID prefixes.
+
+### Session Picker Improvements
+
+The `/resume` session picker now shows:
+- **Branch name** for each session
+- **Idle / in-use status** so you can tell at a glance which sessions are active
+- **Improved search** with cursor support for filtering sessions
+
+### `COPILOT_GH_HOST` Environment Variable
+
+Set `COPILOT_GH_HOST` to override the GitHub hostname used by the CLI. This takes precedence over `GH_HOST`, making it easy to point the CLI at a GitHub Enterprise Server instance independently of other tools.
+
+```bash
+export COPILOT_GH_HOST=github.example-enterprise.com
+copilot
+```
+
+**Why it matters:** Teams on GHES can now configure Copilot CLI's GitHub endpoint separately from other `gh`-based tools.
+
+### User Settings Separated from Internal State
+
+User-editable settings are now stored in `~/.copilot/settings.json`, separate from `~/.copilot/config.json` which holds internal CLI state. If you have a `config.json` with user preferences, they will continue to work — the split is transparent.
+
+> ⚠️ **Note:** `settings.json` is the new home for user-facing configuration options like `model`, `theme`, and `continueOnAutoMode`. Direct edits to `config.json` still work for now, but prefer `settings.json` for new entries.
+
+### `continueOnAutoMode` Config Option
+
+Add `continueOnAutoMode: true` to `~/.copilot/settings.json` to automatically switch to the `auto` model when you hit a rate limit, instead of pausing the session:
+
+```json
+{
+  "continueOnAutoMode": true
+}
+```
+
+**Why it matters:** Keeps long autopilot or fleet runs moving even when a specific model's quota is exhausted — Copilot switches to `auto` and continues without interruption.
+
+### HTTP Hook Support
+
+Hooks can now POST JSON payloads to a configured URL instead of running a local shell command. This enables server-side hook handling for team workflows, CI integration, and audit logging.
+
+**How to configure:**
+
+```json
+{
+  "hooks": {
+    "preToolUse": [
+      {
+        "url": "https://hooks.example.com/copilot/pre-tool",
+        "matcher": { "tool_name": "shell" }
+      }
+    ],
+    "postToolUse": [
+      {
+        "url": "https://audit.example.com/copilot/tool-events"
+      }
+    ]
+  }
+}
+```
+
+The hook endpoint receives the same JSON payload that shell-based hooks receive via stdin. The endpoint should respond with a JSON body in the same format as shell hooks return via stdout.
+
+**Why it matters:** Teams can centralise hook logic on a server rather than distributing scripts to every developer machine.
+
+### Session Selector: Branch and Status Visibility
+
+The session picker (opened with `/resume` or `--resume` without an argument) now shows:
+- The **git branch** active in each session
+- Whether each session is **idle** or **in-use**
+
+This makes it much easier to identify the right session when you have many open.
+
+### Shell Escape Uses `$SHELL`
+
+The `!` shell escape command now uses your `$SHELL` environment variable when it is set, instead of always invoking `/bin/sh`. This means your preferred shell (zsh, fish, etc.) is used for shell-escape commands.
+
+### `/usage` Contribution Graph
+
+The `/usage` command now includes a **GitHub-style contribution graph** showing your usage history. The graph adapts to your terminal's color mode and falls back to distinct glyphs in no-color terminals.
+
+### Other Notable Changes
+
+- **`--continue` prefers CWD:** `--continue` now resumes the most recent session from the current working directory first, rather than the globally most recently touched session.
+- **Plugins take effect immediately:** Installed plugins are now active without requiring a CLI restart.
+- **MCP server names:** Server names with spaces and special characters are now supported in MCP config.
+- **LSP timeouts:** LSP server entries in `lsp.json` support `spawnTimeout`, `initializationTimeout`, and `warmupTimeout` fields for fine-grained control.
+- **Sync task blocking:** Sync task calls (`mode: "sync"` in the task tool) now block until completion under `MULTI_TURN_AGENTS` mode; sync tasks no longer return a reusable `agent_id` — use `mode: "background"` for follow-ups.
+- **Custom agent name in statusline:** The active custom agent's name is shown in the statusline footer and can be toggled via `/statusline`.
+- **Clipboard error on Linux:** A helpful error message with install instructions is shown when `wl-clipboard` or `xclip` is missing.
+- **`~/.claude/` isolation:** Custom agents and skills stored in `~/.claude/` are no longer incorrectly loaded as Copilot project config.
 
 ---
 

@@ -248,6 +248,28 @@ Current user: wrong-user
 
 ## CLI Operation Issues
 
+### Clipboard Not Working on Linux
+
+**Problem:**
+`/copy` or clipboard operations fail silently on Linux.
+
+**Cause:**
+Copilot CLI uses `wl-clipboard` (Wayland) or `xclip` (X11) for clipboard access on Linux. If neither is installed, operations fail.
+
+**Solution:**
+
+```bash
+# Wayland (most modern Linux desktops)
+sudo apt install wl-clipboard      # Debian/Ubuntu
+sudo dnf install wl-clipboard      # Fedora
+
+# X11
+sudo apt install xclip             # Debian/Ubuntu
+sudo dnf install xclip             # Fedora
+```
+
+Restart the CLI after installing.
+
 ### CLI Freezes or Hangs
 
 **Problem:**

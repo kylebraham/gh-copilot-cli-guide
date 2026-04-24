@@ -81,6 +81,15 @@ npm update -g @github/copilot
 ```
 
 **Latest features:**
+- 📂 Session picker shows branch names, idle/in-use status, and improved search (v1.0.35)
+- 🏷️ `--name` flag names sessions at startup; `--resume=<name>` resumes by name (v1.0.35)
+- 🗑️ `/session delete`, `/session delete <id>`, `/session delete-all`, and `x`-to-delete in the session picker (v1.0.35)
+- 🌐 `COPILOT_GH_HOST` env var sets GitHub hostname, taking precedence over `GH_HOST` (v1.0.35)
+- ⚙️ User settings now in `~/.copilot/settings.json`; internal state stays in `config.json` (v1.0.35)
+- ↩️ `continueOnAutoMode` config option — auto-switch to `auto` model on rate limit (v1.0.35)
+- 🪝 HTTP hook support — hooks can POST JSON payloads to a URL instead of running a shell command (v1.0.35)
+- ⌨️ Tab-completion for slash command arguments and subcommands (v1.0.35)
+- ⌨️ `Ctrl+Y` accepts the highlighted completion option (in addition to Tab) (v1.0.35)
 - 🔔 "Session rate limit" wording in rate-limit errors (v1.0.34)
 - 🔁 `--resume` / `--continue` auto-inherits `--remote` flag (v1.0.33)
 - 🔤 New slash command aliases: `/upgrade`, `/bug`, `/continue`, `/release-notes`, `/export`, `/reset` (v1.0.33)
@@ -268,4 +277,4 @@ Go to **Actions → Daily Doc Maintenance → Run workflow** to trigger it on de
 
 ---
 
-**Note:** This guide covers GitHub Copilot CLI v1.0.34. Some capabilities may vary by version — run `/update` to stay current.
+**Note:** This guide covers GitHub Copilot CLI v1.0.35. Some capabilities may vary by version — run `/update` to stay current.
