@@ -1,6 +1,32 @@
 # Documentation Updates
 
-## 2026-04-24 — Docs updated for v1.0.35
+## 2026-04-25 — Docs updated for v1.0.36
+
+- `README.md`: Bumped version note to v1.0.36; updated "Latest features" list with v1.0.36 changes
+- `16-new-features.md`: Updated title to v1.0.36; added TOC entry; added v1.0.36 section covering double-Esc cancel, subcommand picker ❯ indicator, `/keep-alive` without experimental, `/remote on`/`off`, `changes` statusline toggle, `preToolUse.matcher` fix, gitignored instruction directories fix, multiple-license error improvement, disabled skills hidden from picker, Claude Opus 4.6 medium reasoning effort, and `~/.claude/` isolation extension
+- `04-slash-commands.md`: Updated `/remote` with `on`/`off` subcommands and status display; added `/keep-alive` entry; added `changes` to `/statusline` items table
+- `00-cheat-sheet.md`: Updated `Esc` shortcut to double-Esc for cancel; added `/keep-alive`; updated `/remote` and `/statusline` entries with v1.0.36 additions
+- `03-interactive-features.md`: Updated `Esc` shortcut description; added ❯ selection indicator note for subcommand picker
+- `08-advanced-features.md`: Added `matcher` behaviour note (v1.0.36 fix) to HTTP Hooks section
+- `13-agents-file.md`: Added v1.0.36 fix callout for instruction files in gitignored directories
+- `14-skills-system.md`: Extended `~/.claude/` isolation note to cover custom commands; added note that disabled skills are hidden from the slash command picker
+- `22-models-and-costs.md`: Updated Claude Opus 4.6 entry to reflect medium reasoning effort default
+- `11-troubleshooting.md`: Added "Multiple Copilot Licenses Detected" troubleshooting entry
+
+### Feature Summary (v1.0.36)
+- **Changed:** Double `Esc` required to cancel in-flight work (single `Esc` still clears input)
+- **New:** Subcommand picker shows ❯ selection indicator
+- **Changed:** `/keep-alive` no longer requires experimental mode
+- **New:** `/remote on` and `/remote off` subcommands; `/remote` shows current status
+- **New:** `changes` statusline toggle for added/removed line counts
+- **Fixed:** `preToolUse.matcher` now correctly filters by full regex match
+- **Fixed:** Instruction files in `.gitignored` directories now load correctly
+- **Improved:** Multiple Copilot licenses error includes direct settings link
+- **Changed:** Disabled skills hidden from slash command picker
+- **Changed:** Claude Opus 4.6 uses medium reasoning effort by default
+- **Fixed:** `~/.claude/` custom agents, skills, and commands no longer loaded by Copilot CLI
+
+
 
 - `README.md`: Bumped version note to v1.0.35; updated "Latest features" list with v1.0.35 changes
 - `16-new-features.md`: Updated title to v1.0.35; added TOC entry for v1.0.35; added v1.0.35 section covering tab-completion for slash command arguments, `Ctrl+Y` completion acceptance, `/session delete`/`delete-all` subcommands, `--name` flag and `--resume=<name>`, session picker branch/idle-status display, `COPILOT_GH_HOST` env var, `settings.json` user settings split, `continueOnAutoMode` config option, HTTP hook support, shell escape using `$SHELL`, `/usage` contribution graph, and other notable changes

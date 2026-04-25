@@ -1,4 +1,4 @@
-# Latest Features in GitHub Copilot CLI — v1.0.35
+# Latest Features in GitHub Copilot CLI — v1.0.36
 
 This file covers recent additions to GitHub Copilot CLI. Features marked with "Full guide →" have their own dedicated documentation file — the entries here are summaries with links. Features without a dedicated file are covered in full below.
 
@@ -10,7 +10,8 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 3. [Research Command (`/research`)](#research-command-research) — [Full guide →](19-research-command.md)
 
 ### Features covered in this file
-4. [New in v1.0.35](#new-in-v1035)
+4. [New in v1.0.36](#new-in-v1036)
+5. [New in v1.0.35](#new-in-v1035)
 5. [New in v1.0.34](#new-in-v1034)
 6. [New in v1.0.33](#new-in-v1033)
 6. [New in v1.0.32](#new-in-v1032)
@@ -42,6 +43,94 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 22. [Project Initialization (`/init`)](#project-initialization-init)
 23. [Enhanced Pull Request Creation (`/delegate`)](#enhanced-pull-request-creation-delegate)
 24. [Staying Up to Date](#staying-up-to-date)
+
+---
+
+---
+
+## New in v1.0.36
+
+Released: 2026-04-24
+
+### Subcommand Picker Selection Indicator
+
+The subcommand completion picker now shows a **❯** indicator next to the highlighted item, making it easier to see which option is currently selected before pressing `Tab` or `Ctrl+Y` to accept it.
+
+### Double `Esc` to Cancel In-Flight Work
+
+Cancelling an in-flight AI operation now requires pressing `Esc` **twice** in quick succession. A single `Esc` still cancels typed input or closes pickers. This prevents accidental interruptions when you accidentally brush the Escape key mid-task.
+
+**How to use:**
+
+```
+Esc         # Clears the current input line / closes a picker
+Esc Esc     # Cancels the AI operation currently in progress
+```
+
+### `/keep-alive` Available Without Experimental Mode
+
+`/keep-alive` is now a standard command that prevents your system from going to sleep while Copilot CLI is active — no need to enable `/experimental` first.
+
+**How to use:**
+
+```
+> /keep-alive
+```
+
+**Why it matters:** Long autopilot or fleet runs on laptops were interrupted by system sleep. Now you can prevent that without enabling the experimental feature flag.
+
+### `/remote on` / `/remote off` Subcommands
+
+The `/remote` command has been extended:
+
+- `/remote` now shows the **current remote control status**
+- `/remote on` enables remote control
+- `/remote off` disables remote control
+
+```
+> /remote       # show current status
+> /remote on    # enable remote control
+> /remote off   # disable remote control
+```
+
+### `changes` Statusline Toggle
+
+A new `changes` item is available for the statusline. It shows the number of **lines added and removed** in the current session, similar to a git diff summary.
+
+**How to use:**
+
+```
+> /statusline changes
+```
+
+Toggle it off again with the same command.
+
+### `preToolUse` Matcher Fix
+
+A bug was fixed where the `matcher` field on `preToolUse` hooks was ignored. After upgrading to v1.0.36, hooks with a `matcher` will run **only for tool names whose full string matches the regex**. If you have hooks without a `matcher`, they continue to run for all tools.
+
+> ⚠️ **Behavior change in v1.0.36:** If your `preToolUse` hooks relied on `matcher` being ignored (i.e., they were always firing), verify your matcher patterns after upgrading.
+
+### Custom Instruction Files in `.gitignored` Directories
+
+Instruction files placed in `.gitignored` directories — such as `.github/instructions/` when `.github/` is gitignored — now load correctly. Previously, Copilot CLI skipped these files if their parent directory appeared in `.gitignore`.
+
+### Clearer Multiple-License Error
+
+When multiple Copilot licenses are detected for your account, the error message now includes a **direct link** to the GitHub settings page where you can resolve the conflict.
+
+### Disabled Skills Hidden from Slash Command List
+
+Skills that have been disabled no longer appear in the slash command picker. Previously, disabled skills still showed up as slash command suggestions even though they could not be invoked.
+
+### Claude Opus 4.6 — Medium Reasoning Effort by Default
+
+Claude Opus 4.6 now uses **medium reasoning effort** by default (previously high). This reduces latency and premium request consumption for typical Opus 4.6 tasks. Switch to a higher effort level with `/model` if you need maximum depth for a specific task.
+
+### Other Notable Changes
+
+- **Debug logs / feedback bundles:** Saving logs no longer overwrites existing archive files — a unique filename is generated each time.
+- **Custom agents, skills, and commands from `~/.claude/`:** These are no longer loaded by Copilot CLI (extends the v1.0.35 isolation change to cover custom commands in addition to agents and skills).
 
 ---
 

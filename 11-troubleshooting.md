@@ -175,6 +175,17 @@ copilot --print-debug-info
 
 This prints version information, detected terminal capabilities, and active environment variables, then exits. Share this output when filing a bug report or seeking support.
 
+### Multiple Copilot Licenses Detected
+
+**Symptoms:** An error message is shown at startup or login indicating that multiple Copilot licenses are active for your account.
+
+**Cause:** Your GitHub account belongs to multiple organizations that each grant a Copilot license, which can cause a conflict.
+
+**Solution:** Follow the direct link included in the error message (v1.0.36+) to your GitHub Copilot settings, and choose which license to use:
+- https://github.com/settings/copilot
+
+If the error predates v1.0.36, navigate to that URL manually and resolve the license conflict there.
+
 ### Login Fails
 
 **Problem:**

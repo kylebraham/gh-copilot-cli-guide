@@ -23,7 +23,7 @@ Understanding how to choose the right model — and when to switch — is one of
 | Auto | `auto` | Varies | Let Copilot pick the best model for each session automatically |
 | Claude Sonnet 4.5 | `claude-sonnet-4.5` | Fast | Default — general coding, balanced quality/cost |
 | Claude Sonnet 4.6 | `claude-sonnet-4.6` | Fast | Latest Sonnet — improved reasoning over 4.5 |
-| Claude Opus 4.6 | `claude-opus-4.6` | Slower | Most capable — complex reasoning, architecture, security |
+| Claude Opus 4.6 | `claude-opus-4.6` | Slower | Most capable — complex reasoning, architecture, security; uses **medium reasoning effort** by default (v1.0.36+) |
 | Claude Opus 4.6 (fast) | `claude-opus-4.6-fast` | Fast | Opus quality with faster response times |
 | Claude Opus 4.7 | `claude-opus-4.7` | Slower | Latest Opus — most capable model (v1.0.29+) |
 | Claude Haiku 4.5 | `claude-haiku-4.5` | Fastest | Quick tasks, fleet subagents, docs, formatting |

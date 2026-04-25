@@ -1015,6 +1015,7 @@ In addition to shell-script hooks, hooks can POST JSON payloads to a configured 
 - The hook endpoint receives the same JSON payload that shell-based hooks get via stdin.
 - The endpoint should respond with the same JSON structure that shell hooks return via stdout.
 - The `url` and `command` (shell script) fields are mutually exclusive per hook entry.
+- **`matcher` behaviour (v1.0.36+):** A hook entry with a `matcher` fires **only when the tool name fully matches the regex**. Before v1.0.36 the `matcher` field was ignored and hooks always fired. Verify your matchers after upgrading.
 
 > See [New Features v1.0.35 → HTTP Hook Support](16-new-features.md#http-hook-support) for a full walkthrough.
 
