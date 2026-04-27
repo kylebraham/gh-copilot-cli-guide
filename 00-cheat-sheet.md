@@ -15,7 +15,7 @@
 | `Ctrl+D` | Shutdown (does not queue a message) |
 | `Ctrl+Q` / `Ctrl+Enter` | Queue message while agent is running |
 | `Ctrl+L` | Clear the terminal screen (conversation session preserved) |
-| `Esc` | Cancel the current operation |
+| `Esc` | Cancel input / close picker | Clear the current input line or close a picker; press **twice** (`Esc Esc`) to cancel an in-flight AI operation |
 | `↑ / ↓` | Navigate command history |
 | `Shift+Tab` | Cycle modes (interactive → plan) |
 | `Ctrl+S` | Run command while preserving input |
@@ -105,7 +105,8 @@
 | `/lsp` | Manage language server connections |
 | `/skills` | List or manage available skills |
 | `/plugin` | Manage installed plugins |
-| `/remote` | Remote control your CLI sessions |
+| `/remote` | Show remote control status; `/remote on` enables, `/remote off` disables |
+| `/keep-alive` | Prevent system sleep while Copilot CLI is active |
 | `/init` | Initialize Copilot configuration for the current repo |
 | `/experimental` | Toggle experimental features |
 | `/allow-all` | Allow all tool calls without per-call confirmation |
@@ -139,7 +140,8 @@
 |---------|-------------|
 | `/theme` | Change the color theme |
 | `/streamer-mode` | Toggle streamer-safe mode (hides sensitive info) |
-| `/statusline` | Customize status bar items (alias: `/footer`) |
+| `/statusline` | Customize status bar items (alias: `/footer`); items: `directory`, `branch`, `effort`, `context`, `quota`, `changes` |
+| `/keep-alive` | Prevent system sleep while active (v1.0.36+) |
 | `/terminal-setup` | Configure terminal integration |
 | `/ide` | Configure IDE integration |
 

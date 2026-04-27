@@ -268,7 +268,14 @@ View and manage background tasks including running subagents and shell sessions.
 Remote control your CLI sessions — view and steer running sessions from another terminal or device.
 
 ```
+# Show current remote control status
 > /remote
+
+# Enable remote control
+> /remote on
+
+# Disable remote control
+> /remote off
 ```
 
 **Use cases:**
@@ -931,6 +938,7 @@ Customize which items appear in the status bar at the bottom of the CLI. Also av
 | `effort` | Effort level indicator |
 | `context` | Context window usage |
 | `quota` | Premium request quota remaining |
+| `changes` | Lines added/removed in the current session (v1.0.36+) |
 
 **Use when:** You want to declutter the status bar or focus on specific metrics during your workflow.
 
@@ -1475,6 +1483,20 @@ Opens confidential feedback survey in your browser. If the current working direc
 - Documentation
 
 
+
+### /keep-alive
+
+Prevent your system from going to sleep while Copilot CLI is active. Available without experimental mode (v1.0.36+).
+
+```
+> /keep-alive
+```
+
+**Use when:**
+- Running long autopilot or fleet tasks on a laptop
+- You need the session to stay active overnight or during extended operations
+
+**Note:** System sleep inhibition is released automatically when the CLI exits or when you run `/keep-alive` again to toggle it off.
 
 ### /restart
 

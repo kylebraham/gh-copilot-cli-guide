@@ -41,7 +41,7 @@ Mastering keyboard shortcuts makes you significantly more efficient:
 | `Ctrl+D` | Shutdown | Quickly exit the CLI |
 | `Ctrl+L` | Clear screen | Clean up visual clutter |
 | `Ctrl+T` | Toggle reasoning display | Show/hide model reasoning output *(new)* |
-| `Esc` | Cancel operation | Stop current AI operation |
+| `Esc` | Cancel input / close picker | Clear the current input line or close a picker; press **twice** (`Esc Esc`) to cancel an in-flight AI operation |
 
 ### Navigation Shortcuts
 
@@ -90,6 +90,8 @@ Mastering keyboard shortcuts makes you significantly more efficient:
 |----------|--------|
 | `Tab` | Accept the highlighted option in completion popups (`@`-mentions, paths, slash commands) |
 | `Ctrl+Y` | Also accepts the highlighted completion option (v1.0.35+) |
+
+The subcommand picker highlights the selected item with a **❯** indicator (v1.0.36+), making it easy to confirm which option you are about to accept.
 
 ## Interaction Modes
 

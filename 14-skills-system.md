@@ -127,7 +127,8 @@ Imagine building a Django e-commerce site:
 2. Check for available skills
    - Global: ~/.copilot/skills/
    - Project: .copilot/skills/
-   Note: ~/.claude/ is NOT loaded as Copilot config (v1.0.35+)
+   Note: ~/.claude/ is NOT loaded as Copilot config (v1.0.35+); this includes
+   custom agents, skills, and commands stored there (v1.0.36+)
    ↓
 3. Load enabled skills
    ↓
@@ -184,6 +185,8 @@ Available Skills:
 To activate: /skills add <name>
 To learn more: /skills info <name>
 ```
+
+> **v1.0.36+:** Disabled skills no longer appear as slash command suggestions in the command picker — only enabled skills are surfaced.
 
 ### Getting Skill Information
 
