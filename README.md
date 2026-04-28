@@ -81,6 +81,10 @@ npm update -g @github/copilot
 ```
 
 **Latest features:**
+- 📁 Location-based permission persistence enabled by default — approvals carry over across sessions for the same directory (v1.0.37)
+- 🔤 `copilot completion <bash|zsh|fish>` generates static shell completion scripts (v1.0.37)
+- 🔃 Press `s` in the session picker to cycle sort order: relevance, last used, created, or name (v1.0.37)
+- 📝 `/ask` responses now render full markdown including tables and formatted links (v1.0.37)
 - ❯ Subcommand picker shows a selection indicator (❯) next to the highlighted item (v1.0.36)
 - 🔒 Double `Esc` required to cancel in-flight work, preventing accidental interruptions (v1.0.36)
 - 💤 `/keep-alive` no longer requires experimental mode — prevents system sleep while Copilot CLI is active (v1.0.36)
@@ -278,4 +282,4 @@ Go to **Actions → Daily Doc Maintenance → Run workflow** to trigger it on de
 
 ---
 
-**Note:** This guide covers GitHub Copilot CLI v1.0.36. Some capabilities may vary by version — run `/update` to stay current.
+**Note:** This guide covers GitHub Copilot CLI v1.0.37. Some capabilities may vary by version — run `/update` to stay current.

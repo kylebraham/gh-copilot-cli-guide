@@ -1,5 +1,27 @@
 # Documentation Updates
 
+## 2026-04-28 — Docs updated for v1.0.37
+
+- `README.md`: Bumped version note to v1.0.37; updated "Latest features" list with v1.0.37 changes
+- `16-new-features.md`: Updated title to v1.0.37; added TOC entry; added v1.0.37 section covering location-based permission persistence (now default), `copilot completion` shell script generation, session picker `s`-key sort cycling, `/ask` markdown rendering, skill picker visibility fix, and minor fixes
+- `00-cheat-sheet.md`: Added `s` key shortcut for session picker sort order; added "Shell Completion" subsection with `copilot completion` examples
+- `01-getting-started.md`: Added "Shell Completions" section documenting `copilot completion bash|zsh|fish`
+- `03-interactive-features.md`: Updated session picker description to include `s`-key sort cycling (v1.0.37+)
+- `04-slash-commands.md`: Updated `/ask` entry to note markdown rendering (v1.0.37+); added location-based permission persistence note to `/allow-all` section
+- `14-skills-system.md`: Added v1.0.37 note that skill picker stays fully visible when skills have errors or warnings
+
+### Feature Summary (v1.0.37)
+- **Changed:** Location-based permission persistence enabled by default — approvals carry over across sessions for the same directory
+- **New:** `copilot completion <bash|zsh|fish>` subcommand generates static shell completion scripts
+- **New:** `s` key in session picker cycles sort order (relevance, last used, created, name)
+- **Changed:** `/ask` responses now render full markdown including tables and formatted links
+- **Fixed:** Skill picker list stays fully visible when skills have errors or warnings
+- **Fixed:** Model/effort change notification no longer shown when re-selecting the same model or effort
+- **Fixed:** Clipboard write no longer leaks X11 handles on Linux
+- **Fixed:** Pending message indicator displays correctly alongside prompt frames
+- **Fixed:** Detached HEAD detection no longer always returns false after `git branch --show-current`
+- **Changed:** ACP model config options include `description` and metadata for `configOptions` API clients
+
 ## 2026-04-25 — Docs updated for v1.0.36
 
 - `README.md`: Bumped version note to v1.0.36; updated "Latest features" list with v1.0.36 changes

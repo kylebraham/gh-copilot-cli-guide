@@ -25,6 +25,7 @@
 | `Ctrl+X → O` | Open link from most recent timeline event |
 | `Tab` / `Ctrl+Y` | Accept highlighted completion option (`@`-mentions, paths, slash commands) |
 | `!` | Execute command in local shell (bypass Copilot); uses `$SHELL` when set |
+| `s` | Cycle session picker sort order (relevance → last used → created → name) — press while in the `/resume` picker |
 
 ### Text Editing
 
@@ -171,6 +172,15 @@
 | `--output-format FORMAT` | Set output format (e.g., `json`, `text`) |
 | `--print-debug-info` | Print version, terminal capabilities, and env vars, then exit |
 | `--session-idle-timeout DUR` | Close idle session after duration (e.g., `30m`); disabled by default |
+
+### Shell Completion
+
+```bash
+# Generate static shell completion scripts (v1.0.37+)
+copilot completion bash >> ~/.bashrc
+copilot completion zsh  >> ~/.zshrc
+copilot completion fish > ~/.config/fish/completions/copilot.fish
+```
 
 ### Environment Variables
 

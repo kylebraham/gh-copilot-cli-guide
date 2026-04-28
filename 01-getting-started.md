@@ -206,6 +206,23 @@ which copilot
 copilot --version
 ```
 
+## Shell Completions (Optional)
+
+Copilot CLI can generate static shell completion scripts for subcommands, flags, and known choice values (v1.0.37+):
+
+```bash
+# Bash
+copilot completion bash >> ~/.bashrc && source ~/.bashrc
+
+# Zsh
+copilot completion zsh >> ~/.zshrc && exec zsh
+
+# Fish
+copilot completion fish > ~/.config/fish/completions/copilot.fish
+```
+
+After sourcing, press `Tab` in your shell to get completions for `copilot` subcommands and flags.
+
 ## First Launch
 
 Now let's launch Copilot CLI for the first time:
