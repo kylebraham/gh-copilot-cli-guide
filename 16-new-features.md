@@ -1,4 +1,4 @@
-# Latest Features in GitHub Copilot CLI — v1.0.36
+# Latest Features in GitHub Copilot CLI — v1.0.37
 
 This file covers recent additions to GitHub Copilot CLI. Features marked with "Full guide →" have their own dedicated documentation file — the entries here are summaries with links. Features without a dedicated file are covered in full below.
 
@@ -10,7 +10,8 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 3. [Research Command (`/research`)](#research-command-research) — [Full guide →](19-research-command.md)
 
 ### Features covered in this file
-4. [New in v1.0.36](#new-in-v1036)
+4. [New in v1.0.37](#new-in-v1037)
+5. [New in v1.0.36](#new-in-v1036)
 5. [New in v1.0.35](#new-in-v1035)
 5. [New in v1.0.34](#new-in-v1034)
 6. [New in v1.0.33](#new-in-v1033)
@@ -45,6 +46,73 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 24. [Staying Up to Date](#staying-up-to-date)
 
 ---
+
+---
+
+## New in v1.0.37
+
+Released: 2026-04-27
+
+### Location-Based Permission Persistence (Now Default)
+
+Approvals you grant for tool calls (e.g. allowing a shell command or file write) are now automatically remembered for the current directory and carried over into future sessions from the same location. You no longer need to re-approve the same operations each time you restart.
+
+Previously this behaviour required opting in; it is now enabled for all users by default.
+
+**Why it matters:** Repeat tasks in the same project no longer require re-approving each permission from scratch — your approval history follows the directory.
+
+### Shell Completion Scripts (`copilot completion`)
+
+A new `copilot completion` subcommand generates static shell completion scripts for subcommands, flags, and known choice values.
+
+**How to use:**
+
+```bash
+# Generate and install completions for your shell
+copilot completion bash >> ~/.bashrc
+copilot completion zsh  >> ~/.zshrc
+copilot completion fish > ~/.config/fish/completions/copilot.fish
+
+# Then reload your shell
+source ~/.bashrc   # or exec zsh / exec fish
+```
+
+**Why it matters:** Tab-completion for CLI subcommands and flags without needing a live process.
+
+### Session Picker Sort Order (`s` key)
+
+In the `/resume` session picker, press `s` to cycle through sort orders:
+
+| Sort Order | Description |
+|------------|-------------|
+| Relevance  | Default; matches by name/branch similarity |
+| Last used  | Most recently active session first |
+| Created    | Newest session first |
+| Name       | Alphabetical by session name |
+
+### `/ask` Responses Render Markdown
+
+Responses from `/ask` now render full markdown — including tables, code blocks, bold/italic text, and formatted links — rather than plain text.
+
+**How to use:**
+
+```
+> /ask What are the differences between /compact and /clear?
+```
+
+The answer will now appear with proper formatting.
+
+### Skill Picker Stays Visible with Errors
+
+The skill picker list remains fully visible even when some skills have load errors or configuration warnings. Previously a skill error could truncate the visible list; now all entries are shown alongside any error indicators.
+
+### Other Fixes and Improvements
+
+- **Model change notification** — re-selecting the currently active model or effort level no longer shows a redundant change notification
+- **Clipboard on Linux** — clipboard write operations no longer leak X11 display handles
+- **Pending message indicator** — displays correctly when shown alongside prompt frames
+- **Detached HEAD detection** — fixed a bug where detached HEAD state always returned false after switching to `git branch --show-current`
+- **ACP model config** — model config options now include `description` and metadata fields for clients using the `configOptions` API
 
 ---
 

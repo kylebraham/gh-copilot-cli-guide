@@ -388,6 +388,8 @@ Resume a different session:
 
 The session picker (v1.0.35+) shows each session's **branch name** and **idle/in-use status**, making it easy to identify the right session at a glance. The picker also supports improved text search with cursor navigation.
 
+Press `s` while the session picker is open to cycle through sort orders: **relevance** (default), **last used**, **created**, or **name** (v1.0.37+).
+
 Delete sessions you no longer need:
 
 ```

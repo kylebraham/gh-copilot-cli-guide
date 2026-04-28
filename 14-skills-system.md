@@ -188,6 +188,8 @@ To learn more: /skills info <name>
 
 > **v1.0.36+:** Disabled skills no longer appear as slash command suggestions in the command picker — only enabled skills are surfaced.
 
+> **v1.0.37+:** The skill picker list remains fully visible even when some skills have load errors or configuration warnings — all entries are shown alongside any error indicators.
+
 ### Getting Skill Information
 
 ```bash

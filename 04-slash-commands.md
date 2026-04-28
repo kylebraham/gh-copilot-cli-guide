@@ -354,6 +354,8 @@ Enable all permissions — all tools, paths, and URLs — in one command.
 - All URL access
 - Disables permission prompts for the session
 
+> **v1.0.37+:** Individual tool approvals are automatically persisted per-directory by default. Approvals you grant in a session are remembered for future sessions in the same directory, so you do not need to re-approve the same operations each time you restart.
+
 **⚠️ Use with caution:**
 - Only use in fully trusted, local-only environments
 - Grants broad access; avoid with untrusted projects or shared machines
@@ -1106,6 +1108,8 @@ copilot plugin marketplace update
 ### /ask <question>
 
 Ask a quick question without adding it to your conversation history. The question and its answer are ephemeral — your next regular prompt resumes from the conversation state before the `/ask`.
+
+Responses render full markdown, including tables, code blocks, and formatted links (v1.0.37+).
 
 ```
 > /ask What does the --allow-all flag do?
