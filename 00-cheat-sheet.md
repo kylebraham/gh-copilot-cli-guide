@@ -23,6 +23,7 @@
 | `Ctrl+O` | Expand all timeline entries (when no input) |
 | `Ctrl+E` | Expand all timeline entries (when no input) |
 | `Ctrl+X → O` | Open link from most recent timeline event |
+| `Ctrl+X → B` | Move current running task or shell command to the background (v1.0.39+) |
 | `Tab` / `Ctrl+Y` | Accept highlighted completion option (`@`-mentions, paths, slash commands) |
 | `!` | Execute command in local shell (bypass Copilot); uses `$SHELL` when set |
 | `s` | Cycle session picker sort order (relevance → last used → created → name) — press while in the `/resume` picker |

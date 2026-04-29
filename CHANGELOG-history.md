@@ -1,5 +1,22 @@
 # Documentation Updates
 
+## 2026-04-29 — Docs updated for v1.0.39
+
+- `README.md`: Bumped version note to v1.0.39; updated "Latest features" list with v1.0.39 changes
+- `16-new-features.md`: Updated title to v1.0.39; added TOC entry; added v1.0.39 section covering `Ctrl+X → B` background task shortcut, `/remote` actionable status hints, `--resume` session picker improvements (tab layout, status display, progressive loading), slash command argument picker opening at exact boundaries, ACP session enhancements (`allow-all` toggle, `/compact`/`/context`/`/usage`/`/env` in ACP sessions), and pipe error crash fix
+- `00-cheat-sheet.md`: Added `Ctrl+X → B` shortcut for moving running tasks to the background
+- `03-interactive-features.md`: Added `Ctrl+X → B` to Timeline Shortcuts table; updated session picker description with v1.0.39 improvements
+- `04-slash-commands.md`: Updated `/remote` section to document actionable hints in status output (v1.0.39+)
+
+### Feature Summary (v1.0.39)
+- **New:** `Ctrl+X → B` moves the current running task or shell command to the background
+- **Improved:** `/remote` status output now shows actionable hints per connection state
+- **Improved:** `--resume` session picker has better tab layout, status display, and progressive loading
+- **Improved:** Slash command argument picker opens at exact command boundaries (no trailing space needed)
+- **New (ACP):** ACP clients can toggle allow-all permission mode via session configuration
+- **New (ACP):** `/compact`, `/context`, `/usage`, `/env` available in ACP sessions
+- **Fixed:** Transient pipe errors no longer cause crashes or false crash reports
+
 ## 2026-04-28 — Docs updated for v1.0.37
 
 - `README.md`: Bumped version note to v1.0.37; updated "Latest features" list with v1.0.37 changes

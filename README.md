@@ -81,6 +81,10 @@ npm update -g @github/copilot
 ```
 
 **Latest features:**
+- ⌨️ Press `Ctrl+X → B` to move the current running task or shell command to the background (v1.0.39)
+- 💡 `/remote` status output now shows actionable hints for each connection state (v1.0.39)
+- 📋 `--resume` session picker has improved tab layout, status display, and progressive loading (v1.0.39)
+- ⚡ Slash command argument picker opens immediately at exact command boundaries — no trailing space needed (v1.0.39)
 - 📁 Location-based permission persistence enabled by default — approvals carry over across sessions for the same directory (v1.0.37)
 - 🔤 `copilot completion <bash|zsh|fish>` generates static shell completion scripts (v1.0.37)
 - 🔃 Press `s` in the session picker to cycle sort order: relevance, last used, created, or name (v1.0.37)
@@ -282,4 +286,4 @@ Go to **Actions → Daily Doc Maintenance → Run workflow** to trigger it on de
 
 ---
 
-**Note:** This guide covers GitHub Copilot CLI v1.0.37. Some capabilities may vary by version — run `/update` to stay current.
+**Note:** This guide covers GitHub Copilot CLI v1.0.39. Some capabilities may vary by version — run `/update` to stay current.

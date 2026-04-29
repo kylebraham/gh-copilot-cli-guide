@@ -1,4 +1,4 @@
-# Latest Features in GitHub Copilot CLI — v1.0.37
+# Latest Features in GitHub Copilot CLI — v1.0.39
 
 This file covers recent additions to GitHub Copilot CLI. Features marked with "Full guide →" have their own dedicated documentation file — the entries here are summaries with links. Features without a dedicated file are covered in full below.
 
@@ -10,7 +10,8 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 3. [Research Command (`/research`)](#research-command-research) — [Full guide →](19-research-command.md)
 
 ### Features covered in this file
-4. [New in v1.0.37](#new-in-v1037)
+4. [New in v1.0.39](#new-in-v1039)
+5. [New in v1.0.37](#new-in-v1037)
 5. [New in v1.0.36](#new-in-v1036)
 5. [New in v1.0.35](#new-in-v1035)
 5. [New in v1.0.34](#new-in-v1034)
@@ -46,6 +47,66 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 24. [Staying Up to Date](#staying-up-to-date)
 
 ---
+
+---
+
+## New in v1.0.39
+
+Released: 2026-04-28
+
+### Background Task with `Ctrl+X → B`
+
+While a task or shell command is running, press `Ctrl+X` then `B` to move it to the background. The task continues running but returns you to the input prompt so you can continue other work. Monitor background tasks with `/tasks`.
+
+**How to use:**
+
+```
+Ctrl+X → B    # Move the current running task or shell command to the background
+> /tasks       # Check status of background tasks
+```
+
+**Why it matters:** Long-running operations (builds, tests, analysis) no longer block your input prompt — send them to the background and keep working.
+
+### `/remote` Status Shows Actionable Hints
+
+The `/remote` status output now shows **actionable hints** tailored to each connection state. Instead of just reporting the current state, it tells you exactly what to do next.
+
+**How to use:**
+
+```
+> /remote
+```
+
+The output will now include a suggested next step (e.g. how to enable remote control, how to connect from another terminal, or what is preventing a connection).
+
+**Why it matters:** No more guessing what a remote-control state means — the CLI tells you the next action directly in the output.
+
+### `--resume` Session Picker Improvements
+
+The session picker (opened with `--resume` / `/resume`) has an improved **tab layout**, enhanced **status display**, and **progressive loading** so the picker opens immediately and populates as sessions are fetched.
+
+**Why it matters:** Large session histories now load faster, and the improved layout makes it easier to spot the right session at a glance.
+
+### Slash Command Argument Picker Opens Immediately
+
+The slash command argument picker now opens as soon as you type an exact command name, without requiring a trailing space. Previously you had to type `/command ` (with a space) before options appeared.
+
+**How to use:**
+
+```
+> /model       # argument picker opens immediately — no space needed
+```
+
+### ACP Session Enhancements
+
+For integrations using the **Agent Communication Protocol (ACP)** to connect external clients to Copilot CLI:
+
+- **allow-all toggle** — ACP clients can now enable or disable allow-all permission mode via session configuration, without requiring a user to type `/allow-all` in the CLI.
+- **Additional slash commands** — `/compact`, `/context`, `/usage`, and `/env` are now available within ACP sessions (previously these were interactive-only commands).
+
+### Other Fixes
+
+- **Pipe errors** — transient pipe errors on child process stdio streams no longer cause crashes or trigger false crash reports.
 
 ---
 
