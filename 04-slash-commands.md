@@ -268,7 +268,7 @@ View and manage background tasks including running subagents and shell sessions.
 Remote control your CLI sessions — view and steer running sessions from another terminal or device.
 
 ```
-# Show current remote control status
+# Show current remote control status (with actionable hints for next steps)
 > /remote
 
 # Enable remote control
@@ -277,6 +277,8 @@ Remote control your CLI sessions — view and steer running sessions from anothe
 # Disable remote control
 > /remote off
 ```
+
+The status output shows **actionable hints** for each connection state, telling you exactly what to do next based on the current status (v1.0.39+).
 
 **Use cases:**
 - Monitor a long-running autopilot session from a second terminal

@@ -74,6 +74,7 @@ Mastering keyboard shortcuts makes you significantly more efficient:
 | `Ctrl+O` | Expand all timeline | Expands all timeline entries (when no input) |
 | `Ctrl+E` | Expand all timeline | Expands all timeline entries (when no input) |
 | `Ctrl+X` → `O` | Open link | Open a link from the most recent timeline event *(new)* |
+| `Ctrl+X` → `B` | Background task | Move the current running task or shell command to the background (v1.0.39+) |
 
 ### Mode Shortcuts
 
@@ -386,7 +387,7 @@ Resume a different session:
 > /resume my-feature-work     # Resume by name (v1.0.35+)
 ```
 
-The session picker (v1.0.35+) shows each session's **branch name** and **idle/in-use status**, making it easy to identify the right session at a glance. The picker also supports improved text search with cursor navigation.
+The session picker (v1.0.35+) shows each session's **branch name** and **idle/in-use status**, making it easy to identify the right session at a glance. The picker also supports improved text search with cursor navigation. In v1.0.39+, the picker has an improved **tab layout**, enhanced **status display**, and **progressive loading** so it opens immediately and populates as sessions are fetched.
 
 Press `s` while the session picker is open to cycle through sort orders: **relevance** (default), **last used**, **created**, or **name** (v1.0.37+).
 
