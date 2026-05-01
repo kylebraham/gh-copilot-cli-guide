@@ -131,6 +131,13 @@ To prevent runaway execution, set a maximum number of continuation steps:
 copilot --max-autopilot-continues 10
 ```
 
+> **v1.0.40+:** Autopilot mode applies a **default limit of 5 autonomous continuations** when no `--max-autopilot-continues` value is specified. To raise or remove the limit:
+>
+> ```bash
+> copilot --max-autopilot-continues 20   # raise the limit
+> copilot --max-autopilot-continues 0    # remove the limit entirely
+> ```
+
 Each time Copilot continues autonomously, the CLI displays a message like:
 
 ```

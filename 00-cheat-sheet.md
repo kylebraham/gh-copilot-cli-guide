@@ -123,6 +123,7 @@
 | `/version` | Show Copilot CLI version |
 | `/changelog` | View recent release notes |
 | `/release-notes` | Alias for `/changelog` |
+| `/chronicle` | View a narrative history of session actions and file changes (v1.0.40+) |
 | `/feedback` | Submit feedback to GitHub |
 | `/bug` | Alias for `/feedback` — report a bug |
 | `/instructions` | Show active instruction files in effect |
@@ -191,6 +192,9 @@ copilot completion fish > ~/.config/fish/completions/copilot.fish
 | `GH_TOKEN` | GitHub personal access token for authentication |
 | `COPILOT_MODEL` | Set the default model globally (e.g., `claude-haiku-4.5`) |
 | `COPILOT_GH_HOST` | Override the GitHub hostname (takes precedence over `GH_HOST`; useful for GHES) |
+| `COPILOT_HOME` | Override the config directory (replaces deprecated `--config-dir`; v1.0.40+) |
+| `GITHUB_COPILOT_PROMPT_MODE_REPO_HOOKS=1` | Opt in to repo hooks (AGENTS.md, instructions) in prompt mode (`-p`) (v1.0.40+) |
+| `GITHUB_COPILOT_PROMPT_MODE_WORKSPACE_MCP=1` | Opt in to workspace MCP servers (`.mcp.json`) in prompt mode (`-p`) (v1.0.40+) |
 
 ---
 

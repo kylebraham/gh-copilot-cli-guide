@@ -84,7 +84,7 @@ The `/research` agent is a **built-in custom agent** with a fixed model and spec
 6. **Never interrupts** — makes reasonable assumptions, documents them in a "Confidence Assessment" section of the report
 7. **Writes the report** — saves a full Markdown file, then delivers a summary to the CLI
 
-> **Note:** The research agent uses a fixed, hard-coded AI model regardless of what you have selected with `/model`. This model is optimised for research tasks and cannot be changed.
+> **Note:** The research agent uses a fixed, hard-coded AI model regardless of what you have selected with `/model`. This model is optimised for research tasks and cannot be changed. As of v1.0.40, `/research` uses an **orchestrator/subagent architecture** for more thorough and reliable results — the orchestrator delegates parallel investigation threads to subagents and synthesises the findings.
 
 ---
 

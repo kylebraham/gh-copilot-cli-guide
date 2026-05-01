@@ -47,6 +47,17 @@ The `~/.copilot` directory is the **home directory for GitHub Copilot CLI**. It 
 C:\Users\username\.copilot\
 ```
 
+### Overriding the Config Directory
+
+To use a non-default config directory, set the `COPILOT_HOME` environment variable (v1.0.40+):
+
+```bash
+export COPILOT_HOME=/custom/config/path
+copilot
+```
+
+> ⚠️ **Deprecated in v1.0.40:** The `--config-dir` flag still works but is deprecated. Use `COPILOT_HOME` instead. `COPILOT_HOME` also propagates correctly to plugin subcommands, fixing a bug present in earlier `--config-dir` usage.
+
 ## Directory Structure
 
 ### Complete Structure

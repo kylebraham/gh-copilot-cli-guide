@@ -81,6 +81,11 @@ npm update -g @github/copilot
 ```
 
 **Latest features:**
+- 🔑 MCP servers support `client_credentials` OAuth for fully headless authentication — no browser needed (v1.0.40)
+- 🛡️ Autopilot mode defaults to 5 max autonomous continuation steps — configurable with `--max-autopilot-continues` (v1.0.40)
+- 📂 `COPILOT_HOME` env var replaces deprecated `--config-dir` flag for non-default config directories (v1.0.40)
+- 📖 `/chronicle` command and session history/file tracking now available to all users (v1.0.40)
+- 🔬 `/research` uses an orchestrator/subagent model for more thorough deep research results (v1.0.40)
 - ⌨️ Press `Ctrl+X → B` to move the current running task or shell command to the background (v1.0.39)
 - 💡 `/remote` status output now shows actionable hints for each connection state (v1.0.39)
 - 📋 `--resume` session picker has improved tab layout, status display, and progressive loading (v1.0.39)
@@ -286,4 +291,4 @@ Go to **Actions → Daily Doc Maintenance → Run workflow** to trigger it on de
 
 ---
 
-**Note:** This guide covers GitHub Copilot CLI v1.0.39. Some capabilities may vary by version — run `/update` to stay current.
+**Note:** This guide covers GitHub Copilot CLI v1.0.40. Some capabilities may vary by version — run `/update` to stay current.

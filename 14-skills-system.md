@@ -190,6 +190,8 @@ To learn more: /skills info <name>
 
 > **v1.0.37+:** The skill picker list remains fully visible even when some skills have load errors or configuration warnings — all entries are shown alongside any error indicators.
 
+> **v1.0.40+:** Skills are available as slash commands in **ACP clients** (e.g. Zed), matching the CLI experience. Any enabled skill appears as a `/skill-name` command in the ACP client's command picker.
+
 ### Getting Skill Information
 
 ```bash
