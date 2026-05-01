@@ -1,4 +1,4 @@
-# Latest Features in GitHub Copilot CLI — v1.0.39
+# Latest Features in GitHub Copilot CLI — v1.0.40
 
 This file covers recent additions to GitHub Copilot CLI. Features marked with "Full guide →" have their own dedicated documentation file — the entries here are summaries with links. Features without a dedicated file are covered in full below.
 
@@ -10,7 +10,8 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 3. [Research Command (`/research`)](#research-command-research) — [Full guide →](19-research-command.md)
 
 ### Features covered in this file
-4. [New in v1.0.39](#new-in-v1039)
+4. [New in v1.0.40](#new-in-v1040)
+5. [New in v1.0.39](#new-in-v1039)
 5. [New in v1.0.37](#new-in-v1037)
 5. [New in v1.0.36](#new-in-v1036)
 5. [New in v1.0.35](#new-in-v1035)
@@ -47,6 +48,117 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 24. [Staying Up to Date](#staying-up-to-date)
 
 ---
+
+---
+
+## New in v1.0.40
+
+Released: 2026-05-01
+
+### MCP Servers: Headless OAuth with `client_credentials`
+
+MCP servers can now authenticate using the **`client_credentials` OAuth 2.0 grant type**, enabling fully headless authentication without opening a browser. This is ideal for CI/CD pipelines and server environments where interactive login is not possible.
+
+**How to configure:**
+
+```json
+{
+  "mcpServers": {
+    "my-api-server": {
+      "url": "https://my-mcp-server.example.com/mcp",
+      "auth": {
+        "type": "oauth2",
+        "grant_type": "client_credentials",
+        "client_id": "your-client-id",
+        "client_secret": "your-client-secret",
+        "token_url": "https://auth.example.com/oauth/token"
+      }
+    }
+  }
+}
+```
+
+**Why it matters:** Automation workflows and CI pipelines can now connect to authenticated MCP servers without any manual browser-based login step.
+
+### Autopilot Default Continuation Limit
+
+Autopilot mode now applies a **default limit of 5 autonomous continuations**. Previously, autopilot would run without a cap unless you explicitly set `--max-autopilot-continues`. This change prevents runaway execution out of the box.
+
+Override the default:
+
+```bash
+copilot --max-autopilot-continues 20   # raise the limit
+copilot --max-autopilot-continues 0    # remove the limit entirely
+```
+
+**Why it matters:** Safer defaults — expensive or long-running autopilot tasks now stop at a sensible boundary without any extra flags.
+
+### `COPILOT_HOME` Replaces `--config-dir`
+
+The `--config-dir` flag is **deprecated** in favour of the `COPILOT_HOME` environment variable. Both still work, but `COPILOT_HOME` is the recommended way to point the CLI at a non-default config directory.
+
+```bash
+# Deprecated (still works)
+copilot --config-dir /custom/config/path
+
+# Recommended (v1.0.40+)
+export COPILOT_HOME=/custom/config/path
+copilot
+```
+
+`COPILOT_HOME` also propagates correctly to plugin subcommands — a bug that affected `--config-dir` in earlier versions.
+
+### `/chronicle` Available to All Users
+
+The `/chronicle` command — along with **session history and file tracking** — is now available to all users, not just those in an early-access group.
+
+```
+> /chronicle         # View a narrative history of what this session has done
+```
+
+Use `/chronicle` to get a concise, human-readable account of all the changes and actions taken in the current session — useful for writing commit messages, reviewing work, or handing off to a colleague.
+
+### Skills as Slash Commands in ACP Clients
+
+Skills are now exposed as **slash commands inside ACP client sessions** (e.g. Zed), matching the experience already available in the interactive CLI. Any skill you have enabled appears as a `/skill-name` command in the ACP client's command picker.
+
+### `/research` Uses Orchestrator/Subagent Architecture
+
+The `/research` command now runs with an **orchestrator/subagent model** for more thorough and reliable deep research results. The orchestrator delegates parallel investigation threads to subagents and synthesises the findings into the final report.
+
+**Why it matters:** More complex research tasks complete faster and produce higher-quality results through parallel investigation.
+
+### Azure DevOps Repositories: GitHub MCP Auto-Disabled
+
+When Copilot CLI detects an **Azure DevOps repository** as the working context, the built-in GitHub MCP server is automatically disabled. This avoids authentication errors and irrelevant GitHub API calls in environments that use Azure DevOps instead of GitHub.
+
+### ACP Clients Display Live Plan
+
+ACP clients (e.g. Zed) now display the **agent's live plan** as it progresses through multi-step tasks, matching the plan-mode view already available in the interactive CLI.
+
+### Prompt Mode Opt-In for Repo Hooks and Workspace MCP
+
+Prompt mode (`-p` / `--prompt`) now applies **secure-by-default behaviour** for two features that could cause unexpected side effects in automated pipelines:
+
+| Feature | Opt-in env var |
+|---------|---------------|
+| Repository hooks (AGENTS.md, `.instructions.md`, etc.) | `GITHUB_COPILOT_PROMPT_MODE_REPO_HOOKS=1` |
+| Workspace MCP servers (`.mcp.json`) | `GITHUB_COPILOT_PROMPT_MODE_WORKSPACE_MCP=1` |
+
+Without the opt-in env var, prompt mode ignores repo hooks and workspace MCP. Set the relevant variable to restore the previous behaviour.
+
+### Other Fixes and Improvements
+
+- **`/clear` and `/new`** now reset the active custom agent selection, so you start fresh without a stale agent context.
+- **`Ctrl+C` and double-`Esc`** remove pending queued messages **one at a time** instead of clearing all queued messages at once.
+- **Slash command suggestions** now rank prefix matches above fuzzy matches for more predictable autocompletion.
+- **Remote session statusline** shows the remote working directory and branch instead of local context.
+- **Session resume picker** no longer shows duplicate entries for the same Mission Control-backed session.
+- **Mouse selection** works while the `/ask` response dialog is open, so its content can be highlighted and copied.
+- **`/update`** no longer re-submits the original `-i` prompt after restarting.
+- **`copilot plugin list`** shows the correct version after running `copilot plugin update`.
+- **MCP OAuth tokens** cache correctly when multiple servers share the same URL but use different static OAuth client IDs.
+- **MCP tool names** with dots or other invalid characters are now sanitized correctly.
 
 ---
 

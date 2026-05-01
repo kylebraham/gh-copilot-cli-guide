@@ -296,6 +296,35 @@ Server names with spaces and special characters are now fully supported in MCP c
 
 ---
 
+### Headless OAuth for MCP Servers: `client_credentials` (v1.0.40+)
+
+MCP servers that require OAuth can now authenticate using the **`client_credentials` grant type**, enabling fully headless authentication without a browser. Ideal for CI/CD pipelines and server environments.
+
+```json
+{
+  "mcpServers": {
+    "my-api-server": {
+      "url": "https://my-mcp-server.example.com/mcp",
+      "auth": {
+        "type": "oauth2",
+        "grant_type": "client_credentials",
+        "client_id": "your-client-id",
+        "client_secret": "your-client-secret",
+        "token_url": "https://auth.example.com/oauth/token"
+      }
+    }
+  }
+}
+```
+
+---
+
+### Azure DevOps Repositories: GitHub MCP Auto-Disabled (v1.0.40+)
+
+When Copilot CLI detects an **Azure DevOps repository** as the working context, the built-in GitHub MCP server is automatically disabled to avoid authentication errors and irrelevant GitHub API calls. No configuration change is needed — the detection is automatic.
+
+---
+
 ### MCP Troubleshooting
 
 | Issue | Cause | Fix |
@@ -307,6 +336,8 @@ Server names with spaces and special characters are now fully supported in MCP c
 | Server crashes on startup | Incompatible version | Check MCP SDK version compatibility |
 | Server loses auth after `/mcp reload` or login | Auth state not persisted | Upgrade to v1.0.16+; servers now reload auth correctly |
 | OAuth provider rejects redirect URI | Provider requires HTTPS | v1.0.17+ automatically falls back to a self-signed HTTPS certificate |
+| MCP tool names with dots or special characters cause failures | Invalid tool name format | Upgrade to v1.0.40+; tool names are sanitized automatically |
+| OAuth tokens lost when multiple servers share same URL | Client ID collision in cache | Upgrade to v1.0.40+; tokens are keyed by URL + client ID |
 | Tools silently fail with certain models | Non-standard JSON schema | Upgrade to v1.0.22+; schemas are now sanitized automatically |
 | Remote server drops connection on network hiccup | Transient network failure | Upgrade to v1.0.25+; remote MCP connections now automatically retry |
 

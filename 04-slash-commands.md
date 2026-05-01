@@ -28,7 +28,7 @@ Clear the conversation history and start fresh. `/reset` is an alias for `/clear
 - Context window is getting full
 - Want to start with clean slate
 
-**Note:** This doesn't delete the session, just resets the conversation.
+**Note:** This doesn't delete the session, just resets the conversation. As of v1.0.40, `/clear` and `/new` also reset the active custom agent selection.
 
 ### /resume, /continue [sessionId]
 
@@ -1223,6 +1223,21 @@ Display the changelog for CLI versions. `/release-notes` is an alias for `/chang
 - Breaking changes
 
 **With `summarize`:** The AI provides a concise digest of what changed, highlighting the most important updates since your last version.
+
+### /chronicle
+
+View a **narrative history** of what the current session has done — file edits, commands run, and key decisions — formatted as a readable summary.
+
+```
+> /chronicle
+```
+
+**Use when:**
+- Writing a commit message for a long session
+- Reviewing what was changed before opening a pull request
+- Handing off work to a colleague
+
+> **v1.0.40+:** Session history, file tracking, and `/chronicle` are available to all users.
 
 ### /update, /upgrade
 

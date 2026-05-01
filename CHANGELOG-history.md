@@ -1,5 +1,29 @@
 # Documentation Updates
 
+## 2026-05-01 — Docs updated for v1.0.40
+
+- `README.md`: Bumped version note to v1.0.40
+- `16-new-features.md`: Updated title to v1.0.40; added TOC entry; added v1.0.40 section covering MCP `client_credentials` headless OAuth, autopilot default continuation limit of 5, `COPILOT_HOME` replacing `--config-dir`, `/chronicle` available to all users, Skills as slash commands in ACP clients, `/research` orchestrator/subagent architecture, Azure DevOps auto-disable of GitHub MCP, ACP live plan display, prompt mode opt-in env vars, and miscellaneous fixes
+- `00-cheat-sheet.md`: Added `/chronicle` to Info & Help commands; added `COPILOT_HOME`, `GITHUB_COPILOT_PROMPT_MODE_REPO_HOOKS`, and `GITHUB_COPILOT_PROMPT_MODE_WORKSPACE_MCP` to environment variables table
+- `04-slash-commands.md`: Added `/chronicle` command section; updated `/clear`/`/new` note to mention custom agent reset (v1.0.40)
+- `08-advanced-features.md`: Added `client_credentials` OAuth section for MCP headless auth; added Azure DevOps auto-disable note; added two MCP troubleshooting rows for v1.0.40 fixes
+- `14-skills-system.md`: Added v1.0.40 note that Skills are available as slash commands in ACP clients
+- `15-copilot-directory.md`: Added `COPILOT_HOME` env var section with deprecation callout for `--config-dir`
+- `17-autopilot-mode.md`: Updated "Limiting Autonomous Steps" section to document the new default limit of 5 (v1.0.40+)
+- `19-research-command.md`: Updated model note to describe the new orchestrator/subagent architecture (v1.0.40+)
+
+### Feature Summary (v1.0.40)
+- **New:** MCP `client_credentials` OAuth grant type for fully headless authentication
+- **New:** Autopilot mode defaults to 5 max continuation steps (configurable with `--max-autopilot-continues`)
+- **New:** `COPILOT_HOME` env var replaces deprecated `--config-dir` flag
+- **New:** `/chronicle` command and session history/file tracking available to all users
+- **New:** Skills exposed as slash commands in ACP clients (e.g. Zed)
+- **New:** Prompt mode (`-p`) opt-in env vars for repo hooks and workspace MCP
+- **Improved:** `/research` uses orchestrator/subagent model for more thorough results
+- **Improved:** Azure DevOps repos auto-disable the GitHub MCP server
+- **Improved:** ACP clients display the agent's live plan during multi-step tasks
+- **Fixed:** `/clear` and `/new` reset active custom agent; `Ctrl+C`/double-`Esc` remove queued messages one at a time; multiple MCP OAuth and tool name fixes
+
 ## 2026-04-29 — Docs updated for v1.0.39
 
 - `README.md`: Bumped version note to v1.0.39; updated "Latest features" list with v1.0.39 changes
