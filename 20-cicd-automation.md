@@ -29,6 +29,17 @@ copilot --prompt "Summarize the changes in the last 5 commits"
 copilot -p "Fix the failing test in src/auth.test.js"
 ```
 
+### The `--attachment` Flag (v1.0.41+)
+
+Attach **images or native documents** to the initial prompt in non-interactive mode:
+
+```bash
+copilot -p "Describe this architecture diagram" --attachment diagram.png
+copilot -p "Summarize the key points" --attachment spec.pdf
+```
+
+Supported types include images (PNG, JPG, GIF, WebP) and native documents (PDF). Multiple `--attachment` flags can be provided.
+
 ### The `--silent` Flag
 
 Suppresses usage statistics, banners, and informational output that would otherwise clutter CI logs.
@@ -58,6 +69,9 @@ Each output line is a JSON object describing a step or result from the run, suit
 | `COPILOT_MODEL` | Override the active model (e.g., `claude-haiku-4-5`) |
 | `COPILOT_AUTO_UPDATE` | Set to `false` to suppress auto-update checks |
 | `NO_COLOR` | Set to `1` to disable ANSI color codes in output |
+| `GITHUB_COPILOT_PROMPT_MODE_REPO_HOOKS=1` | Load AGENTS.md and instruction files in prompt mode (v1.0.40+) |
+| `GITHUB_COPILOT_PROMPT_MODE_WORKSPACE_MCP=1` | Load workspace `.mcp.json` MCP servers in prompt mode (v1.0.40+) |
+| `GITHUB_COPILOT_PROMPT_MODE_EXTENSIONS=true` | Load project extensions and management tools in prompt mode (v1.0.41+) |
 
 ### Exit Codes
 

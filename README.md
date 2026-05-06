@@ -81,6 +81,11 @@ npm update -g @github/copilot
 ```
 
 **Latest features:**
+- ⚡ CLI starts faster — UI renders immediately while authentication resolves in the background (v1.0.41)
+- 🔧 Shell completions (bash, zsh, fish) install automatically on first run and refresh after `copilot update` (v1.0.41)
+- 📎 `--attachment` flag in non-interactive (`-p`) mode lets you attach images or documents to the initial prompt (v1.0.41)
+- 🧪 Experimental MCP Tasks: tools with `taskSupport: "required"` run as non-blocking background agents trackable via `list_agents`/`read_agent` (v1.0.41)
+- 🔌 Extensions now load in prompt mode (`-p`); project extensions require `GITHUB_COPILOT_PROMPT_MODE_EXTENSIONS=true` (v1.0.41)
 - 🔑 MCP servers support `client_credentials` OAuth for fully headless authentication — no browser needed (v1.0.40)
 - 🛡️ Autopilot mode defaults to 5 max autonomous continuation steps — configurable with `--max-autopilot-continues` (v1.0.40)
 - 📂 `COPILOT_HOME` env var replaces deprecated `--config-dir` flag for non-default config directories (v1.0.40)
@@ -291,4 +296,4 @@ Go to **Actions → Daily Doc Maintenance → Run workflow** to trigger it on de
 
 ---
 
-**Note:** This guide covers GitHub Copilot CLI v1.0.40. Some capabilities may vary by version — run `/update` to stay current.
+**Note:** This guide covers GitHub Copilot CLI v1.0.41. Some capabilities may vary by version — run `/update` to stay current.

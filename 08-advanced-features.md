@@ -319,7 +319,35 @@ MCP servers that require OAuth can now authenticate using the **`client_credenti
 
 ---
 
-### Azure DevOps Repositories: GitHub MCP Auto-Disabled (v1.0.40+)
+### Experimental MCP Tasks (v1.0.41+)
+
+MCP tools that declare `taskSupport: "required"` in their capability metadata now run as **non-blocking background agents** when experimental mode is enabled. This lets long-running MCP operations happen in the background while you continue working.
+
+**Enabling experimental mode:**
+
+```
+> /experimental on
+```
+
+or at launch:
+
+```bash
+copilot --experimental
+```
+
+**Tracking background tasks:**
+
+Once running, background MCP tasks are visible and controllable through the agent task tools:
+
+```
+> /tasks
+```
+
+Or programmatically via the `list_agents` and `read_agent` tools exposed to the model.
+
+**Why it matters:** Compute-heavy MCP tools (e.g., long builds, data processing jobs) no longer block your session. You get results asynchronously when the task finishes.
+
+---
 
 When Copilot CLI detects an **Azure DevOps repository** as the working context, the built-in GitHub MCP server is automatically disabled to avoid authentication errors and irrelevant GitHub API calls. No configuration change is needed — the detection is automatic.
 

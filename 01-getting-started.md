@@ -206,9 +206,11 @@ which copilot
 copilot --version
 ```
 
-## Shell Completions (Optional)
+## Shell Completions
 
-Copilot CLI can generate static shell completion scripts for subcommands, flags, and known choice values (v1.0.37+):
+Shell completions for bash, zsh, and fish are **automatically installed on first run** (v1.0.41+) and refreshed after `copilot update`. No manual setup is required.
+
+If you need to regenerate completions manually (or on v1.0.37–v1.0.40):
 
 ```bash
 # Bash

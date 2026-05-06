@@ -1,4 +1,4 @@
-# Latest Features in GitHub Copilot CLI — v1.0.40
+# Latest Features in GitHub Copilot CLI — v1.0.41
 
 This file covers recent additions to GitHub Copilot CLI. Features marked with "Full guide →" have their own dedicated documentation file — the entries here are summaries with links. Features without a dedicated file are covered in full below.
 
@@ -10,7 +10,8 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 3. [Research Command (`/research`)](#research-command-research) — [Full guide →](19-research-command.md)
 
 ### Features covered in this file
-4. [New in v1.0.40](#new-in-v1040)
+4. [New in v1.0.41](#new-in-v1041)
+5. [New in v1.0.40](#new-in-v1040)
 5. [New in v1.0.39](#new-in-v1039)
 5. [New in v1.0.37](#new-in-v1037)
 5. [New in v1.0.36](#new-in-v1036)
@@ -48,6 +49,94 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 24. [Staying Up to Date](#staying-up-to-date)
 
 ---
+
+---
+
+## New in v1.0.41
+
+Released: 2026-05-05
+
+### Faster Startup — Auth Resolves in Background
+
+The CLI now renders the interactive UI **immediately** while authentication resolves in the background. You can start typing your first prompt before the auth handshake completes, reducing the time to first interaction.
+
+**Why it matters:** Noticeably snappier start on slower networks or when token refresh is needed.
+
+### Shell Completions Auto-Install
+
+Shell completions for **bash, zsh, and fish** are now **automatically installed on first run** and refreshed automatically after `copilot update`. No manual `copilot completion <shell>` step is required.
+
+**How to use:**
+
+```bash
+# Completions are set up for you on first launch.
+# To manually regenerate at any time (v1.0.37+):
+copilot completion bash >> ~/.bashrc
+copilot completion zsh  >> ~/.zshrc
+copilot completion fish > ~/.config/fish/completions/copilot.fish
+```
+
+**Why it matters:** New installs get working Tab completions out of the box.
+
+### `--attachment` Flag in Non-Interactive Mode
+
+The non-interactive (`-p` / `--prompt`) mode now accepts an `--attachment` flag to attach **images or native documents** to the initial prompt.
+
+```bash
+copilot -p "Describe the diagram" --attachment diagram.png
+copilot -p "Summarize this document" --attachment report.pdf
+```
+
+**Why it matters:** Enables automated pipelines to pass files directly to the model without an interactive session.
+
+### Experimental MCP Tasks
+
+MCP tools that declare `taskSupport: "required"` now run as **non-blocking background agents** when experimental mode is enabled. Background tasks are trackable with the `list_agents` and `read_agent` tools.
+
+**How to enable:**
+
+```
+> /experimental on
+```
+
+or via the CLI flag:
+
+```bash
+copilot --experimental
+```
+
+**Why it matters:** Long-running MCP tool calls no longer block the session; you can continue working while the task runs.
+
+### Extensions in Prompt Mode
+
+Extensions now load when using prompt mode (`-p`). **User-level extensions** load by default; **project extensions and management tools** require an opt-in env var:
+
+| Scope | Behaviour |
+|-------|-----------|
+| User extensions | Load automatically in `-p` mode |
+| Project extensions & management tools | Require `GITHUB_COPILOT_PROMPT_MODE_EXTENSIONS=true` |
+
+```bash
+GITHUB_COPILOT_PROMPT_MODE_EXTENSIONS=true copilot -p "Run project setup"
+```
+
+### Other Fixes and Improvements
+
+- **Remote session errors** now display your logged-in account and tailored remediation steps.
+- **Markdown formatting** renders inside `ask_user` prompt questions from the agent.
+- **Slash command picker** now searches command descriptions and underlines matched characters.
+- **Memory tool** confirmation prompt shows the scope (`repository` or `user`) when requesting permission to store a memory.
+- **`--attachment` @-mention completion** works for `./` paths; no trailing space added for directories; project files shown before workspace roots.
+- **Windows stability:** Works around a V8 crash in Node 24.x.
+- **Windows packaging:** Extraction no longer crashes when antivirus or filesystem locks cause transient `EPERM` errors.
+- **Unicode:** Session files containing Unicode line separator characters load correctly.
+- **Reasoning effort picker** hint text now correctly reads "Esc to cancel".
+- **File edit reliability** improved by better recovery from fuzzy or misaligned edit blocks.
+- **Streaming animations** stay smooth on slow or busy hosts.
+- **SQL todo timeline** entries display more accurately for `INSERT OR IGNORE`/`REPLACE` and blocked status updates.
+- **Large output guidance** correctly references the configured grep tool name.
+- **Plugin marketplace** installation via git SSH URL (e.g. `git@github.com:owner/repo`) now works correctly.
+- **Assistant responses** no longer contain spurious system notification XML tags.
 
 ---
 
