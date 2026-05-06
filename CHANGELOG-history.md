@@ -1,5 +1,22 @@
 # Documentation Updates
 
+## 2026-05-06 — Docs updated for v1.0.41
+
+- `README.md`: Bumped version note to v1.0.41; updated "Latest features" list with v1.0.41 highlights
+- `16-new-features.md`: Updated title to v1.0.41; added TOC entry; added v1.0.41 section covering faster startup (auth in background), shell completions auto-install, `--attachment` flag in non-interactive mode, experimental MCP Tasks (`taskSupport: "required"`), extensions loading in prompt mode with `GITHUB_COPILOT_PROMPT_MODE_EXTENSIONS=true`, and miscellaneous fixes
+- `00-cheat-sheet.md`: Added `GITHUB_COPILOT_PROMPT_MODE_EXTENSIONS` to environment variables table; updated Shell Completion note to mention auto-install (v1.0.41+)
+- `01-getting-started.md`: Updated Shell Completions section to document auto-install on first run (v1.0.41+)
+- `08-advanced-features.md`: Added Experimental MCP Tasks section (v1.0.41+)
+- `20-cicd-automation.md`: Added `--attachment` flag section; added `GITHUB_COPILOT_PROMPT_MODE_REPO_HOOKS`, `GITHUB_COPILOT_PROMPT_MODE_WORKSPACE_MCP`, and `GITHUB_COPILOT_PROMPT_MODE_EXTENSIONS` to environment variables table
+
+### Feature Summary (v1.0.41)
+- **Improved:** CLI starts faster — UI renders while auth resolves in the background
+- **New:** Shell completions (bash/zsh/fish) auto-install on first run and refresh after `copilot update`
+- **New:** `--attachment` flag in `-p` mode to attach images or documents to the initial prompt
+- **New (experimental):** MCP Tasks — tools with `taskSupport: "required"` run as non-blocking background agents
+- **New:** Extensions load in prompt mode; project extensions require `GITHUB_COPILOT_PROMPT_MODE_EXTENSIONS=true`
+- **Fixed:** Remote session errors show logged-in account and remediation steps; markdown renders in ask_user prompts; slash command picker searches descriptions; Windows V8/EPERM stability fixes; Unicode session file fix; and more
+
 ## 2026-05-01 — Docs updated for v1.0.40
 
 - `README.md`: Bumped version note to v1.0.40

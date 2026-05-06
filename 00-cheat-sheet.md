@@ -177,6 +177,8 @@
 
 ### Shell Completion
 
+Shell completions are automatically installed on first run (v1.0.41+). To manually regenerate:
+
 ```bash
 # Generate static shell completion scripts (v1.0.37+)
 copilot completion bash >> ~/.bashrc
@@ -195,6 +197,7 @@ copilot completion fish > ~/.config/fish/completions/copilot.fish
 | `COPILOT_HOME` | Override the config directory (replaces deprecated `--config-dir`; v1.0.40+) |
 | `GITHUB_COPILOT_PROMPT_MODE_REPO_HOOKS=1` | Opt in to repo hooks (AGENTS.md, instructions) in prompt mode (`-p`) (v1.0.40+) |
 | `GITHUB_COPILOT_PROMPT_MODE_WORKSPACE_MCP=1` | Opt in to workspace MCP servers (`.mcp.json`) in prompt mode (`-p`) (v1.0.40+) |
+| `GITHUB_COPILOT_PROMPT_MODE_EXTENSIONS=true` | Opt in to project extensions and management tools in prompt mode (`-p`) (v1.0.41+) |
 
 ---
 
