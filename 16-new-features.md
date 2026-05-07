@@ -1,4 +1,4 @@
-# Latest Features in GitHub Copilot CLI — v1.0.41
+# Latest Features in GitHub Copilot CLI — v1.0.43
 
 This file covers recent additions to GitHub Copilot CLI. Features marked with "Full guide →" have their own dedicated documentation file — the entries here are summaries with links. Features without a dedicated file are covered in full below.
 
@@ -10,7 +10,9 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 3. [Research Command (`/research`)](#research-command-research) — [Full guide →](19-research-command.md)
 
 ### Features covered in this file
-4. [New in v1.0.41](#new-in-v1041)
+4. [New in v1.0.43](#new-in-v1043)
+5. [New in v1.0.42](#new-in-v1042)
+6. [New in v1.0.41](#new-in-v1041)
 5. [New in v1.0.40](#new-in-v1040)
 5. [New in v1.0.39](#new-in-v1039)
 5. [New in v1.0.37](#new-in-v1037)
@@ -49,6 +51,113 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 24. [Staying Up to Date](#staying-up-to-date)
 
 ---
+
+---
+
+## New in v1.0.43
+
+Released: 2026-05-06
+
+### Security Fix — RCE Protection for Nested Bare Repositories
+
+A critical security fix protects against remote code execution triggered by malicious bare repositories nested inside a project directory. Users should upgrade immediately.
+
+> 🔒 **Advisory:** [GHSA-9ccr-r5hg-74gf](https://github.com/github/copilot-cli/security/advisories/GHSA-9ccr-r5hg-74gf)
+
+**Why it matters:** Prevents a class of supply-chain attacks where a nested bare repo could execute arbitrary code on your machine.
+
+### Username Toggle in `/statusline`
+
+The `/statusline` picker now includes a **`username`** item that displays your active GitHub account in the footer. Useful when switching between personal and work accounts.
+
+```
+> /statusline username
+```
+
+**Why it matters:** Quickly confirm which account is active without leaving the session.
+
+### Auto Mode — Server-Side Model Routing
+
+`auto` model mode now uses **server-side routing** to pick the best model in real time based on your request. The model selection adapts dynamically rather than being resolved once at session start.
+
+```bash
+copilot --model auto
+```
+
+**Why it matters:** You get the most appropriate model for each turn without manually switching.
+
+### MCP Child Processes Fully Terminated on Session End
+
+MCP server child processes launched via `npx`, `uvx`, or similar spawners are now **fully terminated** when a session ends. Previously, orphaned processes could linger in the background.
+
+**Why it matters:** Cleaner resource management — no ghost processes accumulating across sessions.
+
+### Download Progress for `/update`
+
+Running `/update` or `copilot update` now shows a **download progress indicator** while the new version is being fetched.
+
+**Why it matters:** Better visibility into update status, especially on slow connections.
+
+### Other Fixes and Improvements
+
+- **Resume prompt** now shows the correct session name when multiple sessions are active simultaneously.
+
+---
+
+## New in v1.0.42
+
+Released: 2026-05-06
+
+### `-C <directory>` Flag — Change Working Directory on Start
+
+A new `-C <directory>` flag lets you start Copilot CLI in a specific directory without `cd`-ing first, following the same convention as `git -C`.
+
+```bash
+# Start a session rooted in ~/projects/myapp
+copilot -C ~/projects/myapp
+
+# Combine with -p for a non-interactive one-shot prompt
+copilot -C ~/projects/myapp -p "What tests are failing?"
+```
+
+**Why it matters:** Useful in scripts, aliases, and CI pipelines where the calling directory may differ from the project root.
+
+### MCP Server Failure Warnings Now Include stderr Output
+
+When an MCP server fails to connect, the warning message now includes the server's **stderr output**. This makes it much easier to diagnose why a server refused to start (missing env vars, wrong port, etc.).
+
+**Why it matters:** Eliminates the need to run the server binary manually just to see its error output.
+
+### Improved `/mcp show` Hint for Servers with Spaces in Their Name
+
+When an MCP server whose name contains whitespace fails to start, the CLI now suggests a **directly runnable `/mcp show <server-name>`** command (with the name quoted correctly) rather than a generic hint.
+
+**Why it matters:** One-click copy-paste command to inspect the failing server instead of having to figure out quoting manually.
+
+### Rubber-Duck Agent for GPT Sessions (Experimental)
+
+A new **rubber-duck agent** is available in `/experimental` for GPT-powered sessions. Powered by Claude, it provides a second-opinion sounding board within your session.
+
+```
+> /experimental enable
+> /agent rubber-duck
+```
+
+**Why it matters:** Handy for talking through a problem and getting a fresh perspective without leaving the CLI.
+
+### Remote Session Export Expanded
+
+Remote session export (`/share` with `--remote`) now supports **non-GitHub repositories** and **repo-less directories**, not just GitHub-hosted repos.
+
+**Why it matters:** Teams using other VCS hosts or working outside a git repo can now share sessions remotely.
+
+### Other Fixes and Improvements
+
+- **Exit message** resume command shows the **session ID** instead of an auto-generated name when the session has not been manually renamed.
+- **False "session in use" warning** no longer appears after choosing "Go back" when resuming a session.
+- **Enter key** no longer gets permanently stuck after cancelling a request.
+- **Exit summary suppressed** when the session has no user messages and no saved session to resume.
+- **Windows:** CLI updates no longer fail with `ENOENT` when a transient `EPERM` occurs during package extraction.
 
 ---
 

@@ -931,6 +931,7 @@ Customize which items appear in the status bar at the bottom of the CLI. Also av
 > /statusline effort
 > /statusline context
 > /statusline quota
+> /statusline username
 ```
 
 **Available items:**
@@ -943,6 +944,7 @@ Customize which items appear in the status bar at the bottom of the CLI. Also av
 | `context` | Context window usage |
 | `quota` | Premium request quota remaining |
 | `changes` | Lines added/removed in the current session (v1.0.36+) |
+| `username` | Active GitHub account name (v1.0.43+) |
 
 **Use when:** You want to declutter the status bar or focus on specific metrics during your workflow.
 

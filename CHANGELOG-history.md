@@ -1,5 +1,28 @@
 # Documentation Updates
 
+## 2026-05-07 — Docs updated for v1.0.43
+
+- `README.md`: Bumped version note to v1.0.43; updated "Latest features" list with v1.0.42 and v1.0.43 highlights
+- `16-new-features.md`: Updated title to v1.0.43; added TOC entries; added v1.0.43 section covering security fix (GHSA-9ccr-r5hg-74gf), `username` toggle in `/statusline`, server-side model routing for Auto mode, full MCP child process termination on session exit, and download progress for `/update`; added v1.0.42 section covering `-C <directory>` flag, MCP failure warnings with stderr output, improved `/mcp show` hint for servers with spaces, rubber-duck experimental agent, expanded remote session export, and miscellaneous fixes
+- `00-cheat-sheet.md`: Added `-C DIRECTORY` to command-line flags table; updated `/statusline` description to include `username` item (v1.0.43+)
+- `04-slash-commands.md`: Added `username` item to `/statusline` command reference and available items table (v1.0.43+)
+- `08-advanced-features.md`: Added MCP Failure Warnings Include stderr section (v1.0.42+); added v1.0.42 note to MCP Server Names with Spaces section; added two rows to MCP Troubleshooting table for v1.0.42 and v1.0.43 fixes
+
+### Feature Summary (v1.0.43)
+- **Security:** RCE protection for malicious nested bare repositories — [GHSA-9ccr-r5hg-74gf](https://github.com/github/copilot-cli/security/advisories/GHSA-9ccr-r5hg-74gf)
+- **New:** `username` toggle in `/statusline` to show the active GitHub account in the footer
+- **Improved:** Auto mode now uses server-side model routing for real-time model selection
+- **Fixed:** MCP server child processes (npx/uvx) fully terminated when session ends
+- **New:** Download progress shown during `/update`
+
+### Feature Summary (v1.0.42)
+- **New:** `-C <directory>` flag to change working directory before starting, like `git -C`
+- **Improved:** MCP server failure warnings now include stderr output for easier diagnosis
+- **Improved:** `/mcp show` hint correctly quoted for servers with spaces in their name
+- **New (experimental):** Rubber-duck agent for GPT sessions, powered by Claude
+- **Improved:** Remote session export supports non-GitHub repos and repo-less directories
+- **Fixed:** False "session in use" warning on resume, stuck Enter key, suppressed empty-session exit summary, Windows ENOENT on update
+
 ## 2026-05-06 — Docs updated for v1.0.41
 
 - `README.md`: Bumped version note to v1.0.41; updated "Latest features" list with v1.0.41 highlights

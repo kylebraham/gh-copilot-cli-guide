@@ -294,7 +294,13 @@ Server names with spaces and special characters are now fully supported in MCP c
 }
 ```
 
+> **v1.0.42+:** When a server with a space in its name fails to connect, the error hint shows a directly runnable `/mcp show "my postgres db"` command (correctly quoted) so you can inspect it immediately.
+
 ---
+
+### MCP Failure Warnings Include stderr (v1.0.42+)
+
+When an MCP server fails to start, the connection failure warning now includes the server's **stderr output** inline. This surfaces the root cause (missing environment variable, wrong port, authentication error, etc.) without requiring you to run the server binary manually.
 
 ### Headless OAuth for MCP Servers: `client_credentials` (v1.0.40+)
 
@@ -368,6 +374,8 @@ When Copilot CLI detects an **Azure DevOps repository** as the working context, 
 | OAuth tokens lost when multiple servers share same URL | Client ID collision in cache | Upgrade to v1.0.40+; tokens are keyed by URL + client ID |
 | Tools silently fail with certain models | Non-standard JSON schema | Upgrade to v1.0.22+; schemas are now sanitized automatically |
 | Remote server drops connection on network hiccup | Transient network failure | Upgrade to v1.0.25+; remote MCP connections now automatically retry |
+| MCP failure warning gives generic `/mcp show` hint for servers with spaces in their name | Server name quoting | Upgrade to v1.0.42+; hint is now a directly runnable quoted command |
+| Orphaned MCP child processes (npx/uvx) linger after session ends | Child process not fully cleaned up | Upgrade to v1.0.43+; child processes are fully terminated on session exit |
 
 ## LSP (Language Server Protocol) Support
 

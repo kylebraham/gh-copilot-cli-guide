@@ -143,7 +143,7 @@
 |---------|-------------|
 | `/theme` | Change the color theme |
 | `/streamer-mode` | Toggle streamer-safe mode (hides sensitive info) |
-| `/statusline` | Customize status bar items (alias: `/footer`); items: `directory`, `branch`, `effort`, `context`, `quota`, `changes` |
+| `/statusline` | Customize status bar items (alias: `/footer`); items: `directory`, `branch`, `effort`, `context`, `quota`, `changes`, `username` (v1.0.43+) |
 | `/keep-alive` | Prevent system sleep while active (v1.0.36+) |
 | `/terminal-setup` | Configure terminal integration |
 | `/ide` | Configure IDE integration |
@@ -166,6 +166,7 @@
 | `--no-ask-user` | Never pause to ask clarifying questions |
 | `--continue` / `--resume` | Resume the most recent session from CWD (accepts 7+ char ID prefix or session name); auto-inherits `--remote` for remote sessions |
 | `--connect SESSION-ID` | Connect directly to a remote session by ID |
+| `-C DIRECTORY` | Change working directory before starting (like `git -C`; v1.0.42+) |
 | `--name NAME` | Assign a friendly name to the session; use with `--resume=<name>` to resume by name |
 | `--allow-tool TOOL` | Allow a specific tool without prompting |
 | `--deny-tool TOOL` | Block a specific tool |
