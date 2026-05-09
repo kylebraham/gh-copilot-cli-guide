@@ -81,6 +81,9 @@ npm update -g @github/copilot
 ```
 
 **Latest features:**
+- ⌨️ Slash commands can now appear mid-input, and multiple skills can be invoked in a single message (v1.0.44)
+- 🪝 `userPromptSubmitted` hooks can now handle requests directly, bypassing the LLM entirely (v1.0.44)
+- 📦 `/update prerelease` fetches the latest prerelease build (v1.0.44)
 - 🔒 Security fix: protection against RCE from malicious bare repositories nested inside a project (v1.0.43)
 - 👤 `/statusline` now has a `username` toggle to display the active account in the footer (v1.0.43)
 - 🤖 Auto mode uses server-side model routing for improved real-time model selection (v1.0.43)
@@ -298,4 +301,4 @@ Go to **Actions → Daily Doc Maintenance → Run workflow** to trigger it on de
 
 ---
 
-**Note:** This guide covers GitHub Copilot CLI v1.0.43. Some capabilities may vary by version — run `/update` to stay current.
+**Note:** This guide covers GitHub Copilot CLI v1.0.44. Some capabilities may vary by version — run `/update` to stay current.

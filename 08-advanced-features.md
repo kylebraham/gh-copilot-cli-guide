@@ -1086,6 +1086,30 @@ In addition to shell-script hooks, hooks can POST JSON payloads to a configured 
 
 > See [New Features v1.0.35 → HTTP Hook Support](16-new-features.md#http-hook-support) for a full walkthrough.
 
+### `userPromptSubmitted` Hook — Bypass the LLM (v1.0.44+)
+
+The `userPromptSubmitted` event fires when the user submits a prompt, **before the model is called**. A hook script can inspect the prompt and return a direct response, bypassing the LLM entirely for that turn.
+
+**Configuration:**
+```json
+{
+  "hooks": {
+    "userPromptSubmitted": [
+      {
+        "command": "~/.copilot/hooks/prompt-router.sh"
+      }
+    ]
+  }
+}
+```
+
+**How it works:**
+- The hook receives the user prompt via stdin as a JSON payload.
+- If the script exits `0` and writes a non-empty string to stdout, that string is used as the AI reply — no model call is made.
+- If the script exits non-zero (or writes nothing), the prompt continues to the LLM as normal.
+
+**Use cases:** Instant responses to common questions, template-based replies, local tool integrations without consuming model quota.
+
 ---
 
 ### Shell Integration

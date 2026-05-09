@@ -106,6 +106,8 @@ You can grant full permissions at any point during an autopilot session with:
 > /allow-all
 ```
 
+> **v1.0.44+:** Tool permissions granted during an autopilot session are now **preserved after `/clear`**. Previously, running `/clear` reset the permission state and you had to re-approve on the next turn.
+
 ---
 
 ## Stopping Autopilot

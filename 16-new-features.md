@@ -1,4 +1,4 @@
-# Latest Features in GitHub Copilot CLI — v1.0.43
+# Latest Features in GitHub Copilot CLI — v1.0.44
 
 This file covers recent additions to GitHub Copilot CLI. Features marked with "Full guide →" have their own dedicated documentation file — the entries here are summaries with links. Features without a dedicated file are covered in full below.
 
@@ -10,7 +10,8 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 3. [Research Command (`/research`)](#research-command-research) — [Full guide →](19-research-command.md)
 
 ### Features covered in this file
-4. [New in v1.0.43](#new-in-v1043)
+4. [New in v1.0.44](#new-in-v1044)
+5. [New in v1.0.43](#new-in-v1043)
 5. [New in v1.0.42](#new-in-v1042)
 6. [New in v1.0.41](#new-in-v1041)
 5. [New in v1.0.40](#new-in-v1040)
@@ -51,6 +52,72 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 24. [Staying Up to Date](#staying-up-to-date)
 
 ---
+
+---
+
+## New in v1.0.44
+
+Released: 2026-05-08
+
+### Slash Commands Mid-Input and Multiple Skills in One Message
+
+Slash commands can now appear anywhere in your input — you no longer need to start a message with `/` to invoke one. This also unlocks invoking **multiple skills** in a single message by including more than one skill reference inline.
+
+**How to use:**
+```
+> Let me ask /skills python-expert and /skills security-audit to review this code
+> Summarize this and /clear after you're done
+```
+
+**Why it matters:** More natural, flexible prompting — combine context, questions, and commands in one send.
+
+### `userPromptSubmitted` Hook — Bypass the LLM
+
+A new `userPromptSubmitted` hook event fires when the user submits a prompt, before the LLM is called. Hook scripts can now **handle the request directly** and return a response, bypassing the model entirely. This enables fully programmatic responses for specific prompt patterns.
+
+**Configuration:**
+```json
+{
+  "hooks": {
+    "userPromptSubmitted": [
+      {
+        "command": "~/.copilot/hooks/prompt-router.sh"
+      }
+    ]
+  }
+}
+```
+
+The hook receives the user prompt via stdin. If the script exits `0` and writes a non-empty response to stdout, that response is used as the AI reply — no model call is made. Exit non-zero to let the prompt continue to the LLM as normal.
+
+**Why it matters:** Enables instant, deterministic responses for FAQs, template-based replies, or local tool integrations without consuming model quota.
+
+### `prerelease` Argument for `/update` and `copilot update`
+
+Both the slash command and the CLI command now accept an optional `prerelease` argument to fetch the latest prerelease build:
+
+```
+> /update prerelease
+```
+
+```bash
+$ copilot update prerelease
+```
+
+**Why it matters:** Easy access to the latest features before the stable release, without manual download.
+
+### Other Fixes and Improvements
+
+- **`/add-dir` path completion** no longer flickers or gets intercepted by `@` and `#` pickers
+- **Faster `/user list` and `/user switch`** for multi-account users
+- **Shell aliases and rc file settings** now work correctly in `!` commands (e.g., `!ll`, `!myalias`)
+- **Quota display** correctly shows remaining usage for Free users (previously always showed 100% used)
+- **Tool permissions** granted in autopilot mode are now preserved after `/clear` — no need to re-approve
+- **Effort level** applies correctly when switching models via the `/model` picker
+- **Ctrl+C** while a permission prompt is pending no longer causes the CLI to hang
+- **Project info** remains visible in the slash command picker when no results match the filter
+- **Invalid URLs** in `settings.json` no longer crash CLI startup — they are skipped with a warning
+- **Timeline** shows the resolved model for rubber-duck sub-agents (e.g. `Rubber-duck(claude-opus-4.7)`)
 
 ---
 

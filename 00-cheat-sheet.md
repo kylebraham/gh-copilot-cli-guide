@@ -134,7 +134,7 @@
 | `/login` | Authenticate with GitHub |
 | `/logout` | Sign out |
 | `/restart` | Restart the current session |
-| `/update` | Update CLI to the latest version |
+| `/update` | Update CLI to the latest version; add `prerelease` to fetch latest prerelease (v1.0.44+) |
 | `/upgrade` | Alias for `/update` |
 | `/exit` | Exit Copilot CLI |
 

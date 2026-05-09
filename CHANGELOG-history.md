@@ -1,5 +1,25 @@
 # Documentation Updates
 
+## 2026-05-09 — Docs updated for v1.0.44
+
+- `README.md`: Bumped version note to v1.0.44; updated "Latest features" list with v1.0.44 highlights
+- `16-new-features.md`: Added TOC entry; added v1.0.44 section covering slash commands mid-input, multiple skills in one message, `userPromptSubmitted` hook bypass, `/update prerelease` argument, and miscellaneous fixes
+- `04-slash-commands.md`: Updated intro to note slash commands can appear mid-input (v1.0.44+); added `prerelease` argument to `/update` section
+- `00-cheat-sheet.md`: Updated `/update` entry to mention `prerelease` argument (v1.0.44+)
+- `08-advanced-features.md`: Added `userPromptSubmitted` hook section (v1.0.44+)
+- `14-skills-system.md`: Added note about multiple skills in a single message (v1.0.44+)
+- `17-autopilot-mode.md`: Added note that tool permissions are preserved after `/clear` (v1.0.44+)
+
+### Feature Summary (v1.0.44)
+- **New:** Slash commands can appear mid-input; multiple skills can be invoked in a single message
+- **New:** `userPromptSubmitted` hook can bypass the LLM and return a direct response
+- **New:** `/update prerelease` and `copilot update prerelease` fetch the latest prerelease build
+- **Fixed:** Tool permissions granted in autopilot mode are preserved after `/clear`
+- **Fixed:** Quota display correctly shows remaining usage for Free users
+- **Fixed:** Shell aliases and rc file settings work in `!` commands
+- **Fixed:** `/add-dir` path completion no longer flickers
+- **Improved:** Faster `/user list` and `/user switch` for multi-account users
+
 ## 2026-05-07 — Docs updated for v1.0.43
 
 - `README.md`: Bumped version note to v1.0.43; updated "Latest features" list with v1.0.42 and v1.0.43 highlights
