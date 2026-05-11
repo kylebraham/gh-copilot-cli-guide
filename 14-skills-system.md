@@ -192,6 +192,8 @@ To learn more: /skills info <name>
 
 > **v1.0.40+:** Skills are available as slash commands in **ACP clients** (e.g. Zed), matching the CLI experience. Any enabled skill appears as a `/skill-name` command in the ACP client's command picker.
 
+> **v1.0.44+:** Multiple skills can be invoked in a **single message** by including more than one skill reference inline. Slash commands (including skill invocations) can now appear anywhere in your input, not just at the start.
+
 ### Getting Skill Information
 
 ```bash

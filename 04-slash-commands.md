@@ -1,6 +1,6 @@
 # Slash Commands Reference
 
-Slash commands are special commands that start with `/` and provide quick access to CLI features. This is a complete reference of all available commands.
+Slash commands are special commands that start with `/` and provide quick access to CLI features. As of v1.0.44, slash commands can appear **anywhere in your input** — not just at the start of a message — and multiple slash commands can be used in a single message. This is a complete reference of all available commands.
 
 ## Command Categories
 
@@ -931,6 +931,7 @@ Customize which items appear in the status bar at the bottom of the CLI. Also av
 > /statusline effort
 > /statusline context
 > /statusline quota
+> /statusline username
 ```
 
 **Available items:**
@@ -943,6 +944,7 @@ Customize which items appear in the status bar at the bottom of the CLI. Also av
 | `context` | Context window usage |
 | `quota` | Premium request quota remaining |
 | `changes` | Lines added/removed in the current session (v1.0.36+) |
+| `username` | Active GitHub account name (v1.0.43+) |
 
 **Use when:** You want to declutter the status bar or focus on specific metrics during your workflow.
 
@@ -1245,6 +1247,12 @@ Update the CLI to the latest version. `/upgrade` is an alias for `/update`.
 
 ```
 > /update
+```
+
+Add the optional `prerelease` argument to install the latest prerelease build (v1.0.44+):
+
+```
+> /update prerelease
 ```
 
 **What it does:**

@@ -1,4 +1,4 @@
-# Latest Features in GitHub Copilot CLI — v1.0.41
+# Latest Features in GitHub Copilot CLI — v1.0.44
 
 This file covers recent additions to GitHub Copilot CLI. Features marked with "Full guide →" have their own dedicated documentation file — the entries here are summaries with links. Features without a dedicated file are covered in full below.
 
@@ -10,7 +10,10 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 3. [Research Command (`/research`)](#research-command-research) — [Full guide →](19-research-command.md)
 
 ### Features covered in this file
-4. [New in v1.0.41](#new-in-v1041)
+4. [New in v1.0.44](#new-in-v1044)
+5. [New in v1.0.43](#new-in-v1043)
+5. [New in v1.0.42](#new-in-v1042)
+6. [New in v1.0.41](#new-in-v1041)
 5. [New in v1.0.40](#new-in-v1040)
 5. [New in v1.0.39](#new-in-v1039)
 5. [New in v1.0.37](#new-in-v1037)
@@ -49,6 +52,179 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 24. [Staying Up to Date](#staying-up-to-date)
 
 ---
+
+---
+
+## New in v1.0.44
+
+Released: 2026-05-08
+
+### Slash Commands Mid-Input and Multiple Skills in One Message
+
+Slash commands can now appear anywhere in your input — you no longer need to start a message with `/` to invoke one. This also unlocks invoking **multiple skills** in a single message by including more than one skill reference inline.
+
+**How to use:**
+```
+> Let me ask /skills python-expert and /skills security-audit to review this code
+> Summarize this and /clear after you're done
+```
+
+**Why it matters:** More natural, flexible prompting — combine context, questions, and commands in one send.
+
+### `userPromptSubmitted` Hook — Bypass the LLM
+
+A new `userPromptSubmitted` hook event fires when the user submits a prompt, before the LLM is called. Hook scripts can now **handle the request directly** and return a response, bypassing the model entirely. This enables fully programmatic responses for specific prompt patterns.
+
+**Configuration:**
+```json
+{
+  "hooks": {
+    "userPromptSubmitted": [
+      {
+        "command": "~/.copilot/hooks/prompt-router.sh"
+      }
+    ]
+  }
+}
+```
+
+The hook receives the user prompt via stdin. If the script exits `0` and writes a non-empty response to stdout, that response is used as the AI reply — no model call is made. Exit non-zero to let the prompt continue to the LLM as normal.
+
+**Why it matters:** Enables instant, deterministic responses for FAQs, template-based replies, or local tool integrations without consuming model quota.
+
+### `prerelease` Argument for `/update` and `copilot update`
+
+Both the slash command and the CLI command now accept an optional `prerelease` argument to fetch the latest prerelease build:
+
+```
+> /update prerelease
+```
+
+```bash
+$ copilot update prerelease
+```
+
+**Why it matters:** Easy access to the latest features before the stable release, without manual download.
+
+### Other Fixes and Improvements
+
+- **`/add-dir` path completion** no longer flickers or gets intercepted by `@` and `#` pickers
+- **Faster `/user list` and `/user switch`** for multi-account users
+- **Shell aliases and rc file settings** now work correctly in `!` commands (e.g., `!ll`, `!myalias`)
+- **Quota display** correctly shows remaining usage for Free users (previously always showed 100% used)
+- **Tool permissions** granted in autopilot mode are now preserved after `/clear` — no need to re-approve
+- **Effort level** applies correctly when switching models via the `/model` picker
+- **Ctrl+C** while a permission prompt is pending no longer causes the CLI to hang
+- **Project info** remains visible in the slash command picker when no results match the filter
+- **Invalid URLs** in `settings.json` no longer crash CLI startup — they are skipped with a warning
+- **Timeline** shows the resolved model for rubber-duck sub-agents (e.g. `Rubber-duck(claude-opus-4.7)`)
+
+---
+
+## New in v1.0.43
+
+Released: 2026-05-06
+
+### Security Fix — RCE Protection for Nested Bare Repositories
+
+A critical security fix protects against remote code execution triggered by malicious bare repositories nested inside a project directory. Users should upgrade immediately.
+
+> 🔒 **Advisory:** [GHSA-9ccr-r5hg-74gf](https://github.com/github/copilot-cli/security/advisories/GHSA-9ccr-r5hg-74gf)
+
+**Why it matters:** Prevents a class of supply-chain attacks where a nested bare repo could execute arbitrary code on your machine.
+
+### Username Toggle in `/statusline`
+
+The `/statusline` picker now includes a **`username`** item that displays your active GitHub account in the footer. Useful when switching between personal and work accounts.
+
+```
+> /statusline username
+```
+
+**Why it matters:** Quickly confirm which account is active without leaving the session.
+
+### Auto Mode — Server-Side Model Routing
+
+`auto` model mode now uses **server-side routing** to pick the best model in real time based on your request. The model selection adapts dynamically rather than being resolved once at session start.
+
+```bash
+copilot --model auto
+```
+
+**Why it matters:** You get the most appropriate model for each turn without manually switching.
+
+### MCP Child Processes Fully Terminated on Session End
+
+MCP server child processes launched via `npx`, `uvx`, or similar spawners are now **fully terminated** when a session ends. Previously, orphaned processes could linger in the background.
+
+**Why it matters:** Cleaner resource management — no ghost processes accumulating across sessions.
+
+### Download Progress for `/update`
+
+Running `/update` or `copilot update` now shows a **download progress indicator** while the new version is being fetched.
+
+**Why it matters:** Better visibility into update status, especially on slow connections.
+
+### Other Fixes and Improvements
+
+- **Resume prompt** now shows the correct session name when multiple sessions are active simultaneously.
+
+---
+
+## New in v1.0.42
+
+Released: 2026-05-06
+
+### `-C <directory>` Flag — Change Working Directory on Start
+
+A new `-C <directory>` flag lets you start Copilot CLI in a specific directory without `cd`-ing first, following the same convention as `git -C`.
+
+```bash
+# Start a session rooted in ~/projects/myapp
+copilot -C ~/projects/myapp
+
+# Combine with -p for a non-interactive one-shot prompt
+copilot -C ~/projects/myapp -p "What tests are failing?"
+```
+
+**Why it matters:** Useful in scripts, aliases, and CI pipelines where the calling directory may differ from the project root.
+
+### MCP Server Failure Warnings Now Include stderr Output
+
+When an MCP server fails to connect, the warning message now includes the server's **stderr output**. This makes it much easier to diagnose why a server refused to start (missing env vars, wrong port, etc.).
+
+**Why it matters:** Eliminates the need to run the server binary manually just to see its error output.
+
+### Improved `/mcp show` Hint for Servers with Spaces in Their Name
+
+When an MCP server whose name contains whitespace fails to start, the CLI now suggests a **directly runnable `/mcp show <server-name>`** command (with the name quoted correctly) rather than a generic hint.
+
+**Why it matters:** One-click copy-paste command to inspect the failing server instead of having to figure out quoting manually.
+
+### Rubber-Duck Agent for GPT Sessions (Experimental)
+
+A new **rubber-duck agent** is available in `/experimental` for GPT-powered sessions. Powered by Claude, it provides a second-opinion sounding board within your session.
+
+```
+> /experimental enable
+> /agent rubber-duck
+```
+
+**Why it matters:** Handy for talking through a problem and getting a fresh perspective without leaving the CLI.
+
+### Remote Session Export Expanded
+
+Remote session export (`/share` with `--remote`) now supports **non-GitHub repositories** and **repo-less directories**, not just GitHub-hosted repos.
+
+**Why it matters:** Teams using other VCS hosts or working outside a git repo can now share sessions remotely.
+
+### Other Fixes and Improvements
+
+- **Exit message** resume command shows the **session ID** instead of an auto-generated name when the session has not been manually renamed.
+- **False "session in use" warning** no longer appears after choosing "Go back" when resuming a session.
+- **Enter key** no longer gets permanently stuck after cancelling a request.
+- **Exit summary suppressed** when the session has no user messages and no saved session to resume.
+- **Windows:** CLI updates no longer fail with `ENOENT` when a transient `EPERM` occurs during package extraction.
 
 ---
 

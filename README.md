@@ -81,13 +81,18 @@ npm update -g @github/copilot
 ```
 
 **Latest features:**
+- ⌨️ Slash commands can now appear mid-input, and multiple skills can be invoked in a single message (v1.0.44)
+- 🪝 `userPromptSubmitted` hooks can now handle requests directly, bypassing the LLM entirely (v1.0.44)
+- 📦 `/update prerelease` fetches the latest prerelease build (v1.0.44)
+- 🔒 Security fix: protection against RCE from malicious bare repositories nested inside a project (v1.0.43)
+- 👤 `/statusline` now has a `username` toggle to display the active account in the footer (v1.0.43)
+- 🤖 Auto mode uses server-side model routing for improved real-time model selection (v1.0.43)
+- 📦 MCP server child processes (npx, uvx, etc.) are fully terminated when a session ends (v1.0.43)
+- 📁 New `-C <directory>` flag to change working directory before starting, like `git -C` (v1.0.42)
+- 🦆 Rubber-duck agent for GPT sessions powered by Claude, available in `/experimental` (v1.0.42)
 - ⚡ CLI starts faster — UI renders immediately while authentication resolves in the background (v1.0.41)
 - 🔧 Shell completions (bash, zsh, fish) install automatically on first run and refresh after `copilot update` (v1.0.41)
 - 📎 `--attachment` flag in non-interactive (`-p`) mode lets you attach images or documents to the initial prompt (v1.0.41)
-- 🧪 Experimental MCP Tasks: tools with `taskSupport: "required"` run as non-blocking background agents trackable via `list_agents`/`read_agent` (v1.0.41)
-- 🔌 Extensions now load in prompt mode (`-p`); project extensions require `GITHUB_COPILOT_PROMPT_MODE_EXTENSIONS=true` (v1.0.41)
-- 🔑 MCP servers support `client_credentials` OAuth for fully headless authentication — no browser needed (v1.0.40)
-- 🛡️ Autopilot mode defaults to 5 max autonomous continuation steps — configurable with `--max-autopilot-continues` (v1.0.40)
 - 📂 `COPILOT_HOME` env var replaces deprecated `--config-dir` flag for non-default config directories (v1.0.40)
 - 📖 `/chronicle` command and session history/file tracking now available to all users (v1.0.40)
 - 🔬 `/research` uses an orchestrator/subagent model for more thorough deep research results (v1.0.40)
@@ -296,4 +301,4 @@ Go to **Actions → Daily Doc Maintenance → Run workflow** to trigger it on de
 
 ---
 
-**Note:** This guide covers GitHub Copilot CLI v1.0.41. Some capabilities may vary by version — run `/update` to stay current.
+**Note:** This guide covers GitHub Copilot CLI v1.0.44. Some capabilities may vary by version — run `/update` to stay current.
