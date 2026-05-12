@@ -111,6 +111,24 @@ Rename the current session. Alias for `/session rename`.
 - Organizing work across multiple sessions
 - Making it easier to find sessions with `/resume`
 
+### /fork (v1.0.45+)
+
+Fork the current session into a new, fully independent session. The forked session inherits the current conversation history and context, then diverges from that point forward.
+
+```
+> /fork
+```
+
+**What it does:**
+1. Creates a copy of the current session
+2. Opens the fork as the active session
+3. The original session is preserved unchanged and resumable via `/resume`
+
+**Use when:**
+- Exploring a risky or experimental approach without losing your current progress
+- Branching work to try two different solutions in parallel
+- Keeping a clean checkpoint before a batch of destructive changes
+
 ### /rewind, /undo
 
 Rewind the last turn and revert any file changes made during that turn. In v1.0.13+, `/rewind` and double-Esc open a **timeline picker** to roll back to any point in conversation history — not just the previous snapshot. Use **↑ / ↓** to select a checkpoint and **Enter** to confirm (v1.0.28+; the 1–9 quick-select shortcut was removed).
@@ -1307,6 +1325,23 @@ Show available experimental features, or enable/disable experimental mode.
 - You want to contribute feedback during a feature's development
 
 > **Autopilot full guide:** See [Autopilot Mode](17-autopilot-mode.md) — permissions, --max-autopilot-continues, plan→autopilot workflow, and examples.
+
+### /autopilot (v1.0.45+)
+
+Toggle autopilot mode on or off directly, without cycling through modes with Shift+Tab.
+
+```
+> /autopilot
+```
+
+**What it does:**
+- Switches from interactive mode directly into autopilot mode (or back)
+- Equivalent to pressing Shift+Tab until autopilot is reached, but in one command
+
+**Use when:**
+- You want a quick way to enter or exit autopilot without pressing Shift+Tab multiple times
+
+> **Full guide:** See [Autopilot Mode](17-autopilot-mode.md) for permissions, continuation limits, and examples.
 
 ## Advanced Features
 

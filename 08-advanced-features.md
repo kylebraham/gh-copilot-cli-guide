@@ -302,6 +302,15 @@ Server names with spaces and special characters are now fully supported in MCP c
 
 When an MCP server fails to start, the connection failure warning now includes the server's **stderr output** inline. This surfaces the root cause (missing environment variable, wrong port, authentication error, etc.) without requiring you to run the server binary manually.
 
+### OpenTelemetry: GenAI Semantic Conventions for MCP Tool Calls (v1.0.45+)
+
+OpenTelemetry output now conforms to the GenAI semantic conventions:
+
+- **MCP tool calls** emit standard `tool_call` spans (previously used custom span types).
+- **New `gen_ai.client.operation.duration` metric** tracks tool execution time.
+
+This improves out-of-the-box compatibility with observability platforms (Datadog, Honeycomb, Jaeger, etc.) that consume the standard GenAI conventions.
+
 ### Headless OAuth for MCP Servers: `client_credentials` (v1.0.40+)
 
 MCP servers that require OAuth can now authenticate using the **`client_credentials` grant type**, enabling fully headless authentication without a browser. Ideal for CI/CD pipelines and server environments.
@@ -1109,6 +1118,8 @@ The `userPromptSubmitted` event fires when the user submits a prompt, **before t
 - If the script exits non-zero (or writes nothing), the prompt continues to the LLM as normal.
 
 **Use cases:** Instant responses to common questions, template-based replies, local tool integrations without consuming model quota.
+
+> **v1.0.45+:** The `agentStop` hook now fires correctly when the agent stops via `task_complete`. Previously it was not triggered in that code path.
 
 ---
 

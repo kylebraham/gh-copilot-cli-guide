@@ -81,6 +81,11 @@ npm update -g @github/copilot
 ```
 
 **Latest features:**
+- 🤖 `/autopilot` slash command toggles between interactive and autopilot modes directly (v1.0.45)
+- 🍴 `/fork` command forks the current session into a new independent session (v1.0.45)
+- 📡 OpenTelemetry output now aligns with GenAI semantic conventions; MCP tool calls emit standard `tool_call` spans (v1.0.45)
+- 🪟 Windows PowerShell fallback: uses `powershell.exe` when `pwsh` is not available (v1.0.45)
+- ⚡ CLI starts up to ~1.5s faster on terminals with limited OSC color query support (v1.0.45)
 - ⌨️ Slash commands can now appear mid-input, and multiple skills can be invoked in a single message (v1.0.44)
 - 🪝 `userPromptSubmitted` hooks can now handle requests directly, bypassing the LLM entirely (v1.0.44)
 - 📦 `/update prerelease` fetches the latest prerelease build (v1.0.44)
@@ -301,4 +306,4 @@ Go to **Actions → Daily Doc Maintenance → Run workflow** to trigger it on de
 
 ---
 
-**Note:** This guide covers GitHub Copilot CLI v1.0.44. Some capabilities may vary by version — run `/update` to stay current.
+**Note:** This guide covers GitHub Copilot CLI v1.0.45. Some capabilities may vary by version — run `/update` to stay current.

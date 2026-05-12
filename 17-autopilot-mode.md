@@ -76,6 +76,8 @@ The active mode is shown in the input prompt footer. Once you see `autopilot`, t
 [autopilot]   > _
 ```
 
+> **v1.0.45+:** Use the `/autopilot` slash command to toggle directly into (or out of) autopilot mode without cycling through all modes with Shift+Tab.
+
 You can also start the CLI directly in autopilot mode from the command line:
 
 ```bash
