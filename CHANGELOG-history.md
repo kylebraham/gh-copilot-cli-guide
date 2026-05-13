@@ -1,5 +1,18 @@
 # Documentation Updates
 
+## 2026-05-13 — Docs updated for v1.0.46
+
+- `README.md`: Bumped version note to v1.0.46; updated "Latest features" list with v1.0.46 highlights
+- `16-new-features.md`: Updated title to v1.0.46; added TOC entry; added v1.0.46 section covering deprecation warning, read-only `gh` CLI auto-approval, diff view line wrapping, PowerShell .NET global tool shim fix, and ERR_HTTP2_INVALID_SESSION crash fix
+- `17-autopilot-mode.md`: Added note about read-only `gh` CLI commands being auto-approved without confirmation (v1.0.46+)
+
+### Feature Summary (v1.0.46)
+- **New:** Warning displayed when CLI version is deprecated and premium model access may be affected
+- **Improved:** Read-only `gh` CLI commands auto-approved in autopilot mode without prompting
+- **Improved:** Long lines in diff view wrap at terminal width instead of being truncated
+- **Fixed:** PowerShell starts correctly when `pwsh` is installed as a .NET global tool shim
+- **Fixed:** Sessions no longer crash mid-turn with `ERR_HTTP2_INVALID_SESSION` errors
+
 ## 2026-05-12 — Docs updated for v1.0.45
 
 - `README.md`: Bumped version note to v1.0.45; updated "Latest features" list with v1.0.45 highlights

@@ -1,4 +1,4 @@
-# Latest Features in GitHub Copilot CLI — v1.0.45
+# Latest Features in GitHub Copilot CLI — v1.0.46
 
 This file covers recent additions to GitHub Copilot CLI. Features marked with "Full guide →" have their own dedicated documentation file — the entries here are summaries with links. Features without a dedicated file are covered in full below.
 
@@ -10,7 +10,8 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 3. [Research Command (`/research`)](#research-command-research) — [Full guide →](19-research-command.md)
 
 ### Features covered in this file
-4. [New in v1.0.45](#new-in-v1045)
+4. [New in v1.0.46](#new-in-v1046)
+5. [New in v1.0.45](#new-in-v1045)
 5. [New in v1.0.44](#new-in-v1044)
 5. [New in v1.0.43](#new-in-v1043)
 5. [New in v1.0.42](#new-in-v1042)
@@ -53,6 +54,36 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 24. [Staying Up to Date](#staying-up-to-date)
 
 ---
+
+---
+
+## New in v1.0.46
+
+Released: 2026-05-12
+
+### Deprecation Warning for Outdated CLI Versions
+
+The CLI now displays a warning when your installed version is deprecated and continued use may result in loss of premium model access. You will see an inline notice prompting you to run `/update`.
+
+**Why it matters:** Ensures you know before premium model access is silently reduced, giving you time to upgrade without disruption.
+
+### Read-Only `gh` CLI Commands Auto-Approved
+
+Read-only `gh` CLI commands — including `list`, `view`, `status`, `diff`, and similar — are now automatically approved without requiring a confirmation prompt. Only write operations (creating issues, merging PRs, etc.) still require approval.
+
+**Why it matters:** Fewer interruptions during autopilot sessions; information-gathering steps proceed without manual confirmation.
+
+### Diff View Wraps Long Lines at Terminal Width
+
+Long lines in diff output now wrap at the terminal width instead of being truncated. Previously, long lines were cut off and could not be read in full without additional tooling.
+
+### PowerShell Starts Correctly as a .NET Global Tool Shim
+
+PowerShell now starts correctly when `pwsh` is installed as a .NET global tool shim (a common installation pattern on Windows). Previously this setup caused launch failures.
+
+### Sessions No Longer Crash with ERR_HTTP2_INVALID_SESSION
+
+A bug that caused sessions to crash mid-turn with `ERR_HTTP2_INVALID_SESSION` errors has been fixed. Sessions now recover cleanly from transient HTTP/2 connection issues.
 
 ---
 

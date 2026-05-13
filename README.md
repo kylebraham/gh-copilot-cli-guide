@@ -81,10 +81,13 @@ npm update -g @github/copilot
 ```
 
 **Latest features:**
+- ⚠️ Warning displayed when the CLI version is deprecated and premium model access may be affected (v1.0.46)
+- ✅ Read-only `gh` CLI commands (list, view, status, diff, etc.) are auto-approved without confirmation prompts (v1.0.46)
+- 📏 Long lines in diff view now wrap at terminal width instead of being truncated (v1.0.46)
+- 🪟 PowerShell starts correctly when `pwsh` is installed as a .NET global tool shim (v1.0.46)
 - 🤖 `/autopilot` slash command toggles between interactive and autopilot modes directly (v1.0.45)
 - 🍴 `/fork` command forks the current session into a new independent session (v1.0.45)
 - 📡 OpenTelemetry output now aligns with GenAI semantic conventions; MCP tool calls emit standard `tool_call` spans (v1.0.45)
-- 🪟 Windows PowerShell fallback: uses `powershell.exe` when `pwsh` is not available (v1.0.45)
 - ⚡ CLI starts up to ~1.5s faster on terminals with limited OSC color query support (v1.0.45)
 - ⌨️ Slash commands can now appear mid-input, and multiple skills can be invoked in a single message (v1.0.44)
 - 🪝 `userPromptSubmitted` hooks can now handle requests directly, bypassing the LLM entirely (v1.0.44)
@@ -306,4 +309,4 @@ Go to **Actions → Daily Doc Maintenance → Run workflow** to trigger it on de
 
 ---
 
-**Note:** This guide covers GitHub Copilot CLI v1.0.45. Some capabilities may vary by version — run `/update` to stay current.
+**Note:** This guide covers GitHub Copilot CLI v1.0.46. Some capabilities may vary by version — run `/update` to stay current.

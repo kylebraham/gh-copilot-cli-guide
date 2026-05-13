@@ -110,6 +110,8 @@ You can grant full permissions at any point during an autopilot session with:
 
 > **v1.0.44+:** Tool permissions granted during an autopilot session are now **preserved after `/clear`**. Previously, running `/clear` reset the permission state and you had to re-approve on the next turn.
 
+> **v1.0.46+:** Read-only `gh` CLI commands (`gh issue list`, `gh pr view`, `gh repo status`, `gh pr diff`, etc.) are **auto-approved** in autopilot mode — no confirmation prompt is shown. Only write operations still require approval.
+
 ---
 
 ## Stopping Autopilot
