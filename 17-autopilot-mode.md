@@ -76,6 +76,8 @@ The active mode is shown in the input prompt footer. Once you see `autopilot`, t
 [autopilot]   > _
 ```
 
+> **v1.0.45+:** Use the `/autopilot` slash command to toggle directly into (or out of) autopilot mode without cycling through all modes with Shift+Tab.
+
 You can also start the CLI directly in autopilot mode from the command line:
 
 ```bash
@@ -107,6 +109,8 @@ You can grant full permissions at any point during an autopilot session with:
 ```
 
 > **v1.0.44+:** Tool permissions granted during an autopilot session are now **preserved after `/clear`**. Previously, running `/clear` reset the permission state and you had to re-approve on the next turn.
+
+> **v1.0.46+:** Read-only `gh` CLI commands (`gh issue list`, `gh pr view`, `gh repo status`, `gh pr diff`, etc.) are **auto-approved** in autopilot mode — no confirmation prompt is shown. Only write operations still require approval.
 
 ---
 

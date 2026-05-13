@@ -1,5 +1,37 @@
 # Documentation Updates
 
+## 2026-05-13 — Docs updated for v1.0.46
+
+- `README.md`: Bumped version note to v1.0.46; updated "Latest features" list with v1.0.46 highlights
+- `16-new-features.md`: Updated title to v1.0.46; added TOC entry; added v1.0.46 section covering deprecation warning, read-only `gh` CLI auto-approval, diff view line wrapping, PowerShell .NET global tool shim fix, and ERR_HTTP2_INVALID_SESSION crash fix
+- `17-autopilot-mode.md`: Added note about read-only `gh` CLI commands being auto-approved without confirmation (v1.0.46+)
+
+### Feature Summary (v1.0.46)
+- **New:** Warning displayed when CLI version is deprecated and premium model access may be affected
+- **Improved:** Read-only `gh` CLI commands auto-approved in autopilot mode without prompting
+- **Improved:** Long lines in diff view wrap at terminal width instead of being truncated
+- **Fixed:** PowerShell starts correctly when `pwsh` is installed as a .NET global tool shim
+- **Fixed:** Sessions no longer crash mid-turn with `ERR_HTTP2_INVALID_SESSION` errors
+
+## 2026-05-12 — Docs updated for v1.0.45
+
+- `README.md`: Bumped version note to v1.0.45; updated "Latest features" list with v1.0.45 highlights
+- `16-new-features.md`: Updated title to v1.0.45; added TOC entry; added v1.0.45 section covering `/autopilot` command, `/fork` command, OpenTelemetry GenAI semantic conventions, Windows PowerShell fallback, faster startup, `agentStop` hook fix, and session resume fix
+- `04-slash-commands.md`: Added `/autopilot` command entry (v1.0.45+); added `/fork` command entry (v1.0.45+)
+- `00-cheat-sheet.md`: Added `/fork` to Session & Context table; added `/autopilot` to Config & Tools table; updated Modes table to mention `/autopilot` command
+- `17-autopilot-mode.md`: Added note about `/autopilot` slash command for direct mode toggling (v1.0.45+)
+- `08-advanced-features.md`: Added OpenTelemetry GenAI semantic conventions section for MCP tool calls (v1.0.45+); added `agentStop` hook fix note (v1.0.45+)
+- `11-troubleshooting.md`: Added note about session resume fix for extension permission prompts (v1.0.45+)
+
+### Feature Summary (v1.0.45)
+- **New:** `/autopilot` slash command toggles between interactive and autopilot modes directly
+- **New:** `/fork` command forks the current session into a new independent session
+- **New:** OpenTelemetry output aligns with GenAI semantic conventions; MCP tool calls use `tool_call` spans; new `gen_ai.client.operation.duration` metric
+- **Fixed:** `agentStop` hook now fires correctly when the agent stops via `task_complete`
+- **Fixed:** Sessions with extension permission prompts can be resumed without a "Session file is corrupted" error
+- **Fixed:** Windows PowerShell fallback to `powershell.exe` when `pwsh` is unavailable
+- **Perf:** CLI starts up to ~1.5s faster on terminals with limited OSC color query support
+
 ## 2026-05-09 — Docs updated for v1.0.44
 
 - `README.md`: Bumped version note to v1.0.44; updated "Latest features" list with v1.0.44 highlights

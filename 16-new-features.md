@@ -1,4 +1,4 @@
-# Latest Features in GitHub Copilot CLI — v1.0.44
+# Latest Features in GitHub Copilot CLI — v1.0.46
 
 This file covers recent additions to GitHub Copilot CLI. Features marked with "Full guide →" have their own dedicated documentation file — the entries here are summaries with links. Features without a dedicated file are covered in full below.
 
@@ -10,7 +10,9 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 3. [Research Command (`/research`)](#research-command-research) — [Full guide →](19-research-command.md)
 
 ### Features covered in this file
-4. [New in v1.0.44](#new-in-v1044)
+4. [New in v1.0.46](#new-in-v1046)
+5. [New in v1.0.45](#new-in-v1045)
+5. [New in v1.0.44](#new-in-v1044)
 5. [New in v1.0.43](#new-in-v1043)
 5. [New in v1.0.42](#new-in-v1042)
 6. [New in v1.0.41](#new-in-v1041)
@@ -52,6 +54,95 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 24. [Staying Up to Date](#staying-up-to-date)
 
 ---
+
+---
+
+## New in v1.0.46
+
+Released: 2026-05-12
+
+### Deprecation Warning for Outdated CLI Versions
+
+The CLI now displays a warning when your installed version is deprecated and continued use may result in loss of premium model access. You will see an inline notice prompting you to run `/update`.
+
+**Why it matters:** Ensures you know before premium model access is silently reduced, giving you time to upgrade without disruption.
+
+### Read-Only `gh` CLI Commands Auto-Approved
+
+Read-only `gh` CLI commands — including `list`, `view`, `status`, `diff`, and similar — are now automatically approved without requiring a confirmation prompt. Only write operations (creating issues, merging PRs, etc.) still require approval.
+
+**Why it matters:** Fewer interruptions during autopilot sessions; information-gathering steps proceed without manual confirmation.
+
+### Diff View Wraps Long Lines at Terminal Width
+
+Long lines in diff output now wrap at the terminal width instead of being truncated. Previously, long lines were cut off and could not be read in full without additional tooling.
+
+### PowerShell Starts Correctly as a .NET Global Tool Shim
+
+PowerShell now starts correctly when `pwsh` is installed as a .NET global tool shim (a common installation pattern on Windows). Previously this setup caused launch failures.
+
+### Sessions No Longer Crash with ERR_HTTP2_INVALID_SESSION
+
+A bug that caused sessions to crash mid-turn with `ERR_HTTP2_INVALID_SESSION` errors has been fixed. Sessions now recover cleanly from transient HTTP/2 connection issues.
+
+---
+
+## New in v1.0.45
+
+Released: 2026-05-11
+
+### `/autopilot` Slash Command — Toggle Modes Directly
+
+A new `/autopilot` slash command lets you toggle between interactive and autopilot modes without cycling through all modes with Shift+Tab.
+
+**How to use:**
+```
+> /autopilot
+```
+
+**Why it matters:** Faster mode switching — jump directly into or out of autopilot without pressing Shift+Tab multiple times.
+
+> **Full guide:** See [Autopilot Mode](17-autopilot-mode.md) for permissions, continuation limits, and examples.
+
+### `/fork` Command — Fork Session into Independent Copy
+
+The new `/fork` command duplicates the current session into a new, fully independent session. The forked session starts with the same conversation history and context as the original but diverges from that point forward.
+
+**How to use:**
+```
+> /fork
+```
+
+**Why it matters:** Explore an alternative approach without losing your current session. Fork before a risky set of changes, then resume the original if things go wrong.
+
+### OpenTelemetry Output Aligns with GenAI Semantic Conventions
+
+OpenTelemetry output now follows the GenAI semantic conventions:
+
+- **MCP tool calls** now emit standard `tool_call` spans instead of custom span types.
+- **New `gen_ai.client.operation.duration` metric** tracks tool execution time.
+
+This improves compatibility with observability platforms (Datadog, Honeycomb, Jaeger, etc.) that expect the standard GenAI conventions.
+
+### Windows PowerShell Fallback
+
+On Windows, if PowerShell 7+ (`pwsh`) is not available, Copilot CLI now automatically falls back to Windows PowerShell (`powershell.exe`). Previously, the CLI would fail if `pwsh` was not installed.
+
+### `agentStop` Hook Fires Correctly on `task_complete`
+
+The `agentStop` hook now fires reliably when the agent stops via `task_complete`. Previously, the hook was not triggered in that code path.
+
+### Faster Startup on Terminals with Limited OSC Support
+
+The CLI now starts up to **~1.5 seconds faster** on terminals with limited OSC color query support (e.g., some SSH sessions, Windows Terminal configurations). The OSC color probe now times out quickly instead of waiting for a response that never comes.
+
+### Session Resume Fixed for Extension Permission Prompts
+
+Sessions that ended while an extension permission prompt was displayed can now be resumed cleanly. Previously, resuming such a session produced a **"Session file is corrupted"** error.
+
+### Other Fixes and Improvements
+
+- **Windows PowerShell fallback** — `powershell.exe` is used automatically when `pwsh` is unavailable (v1.0.45+)
 
 ---
 

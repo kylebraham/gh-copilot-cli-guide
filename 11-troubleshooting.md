@@ -815,6 +815,8 @@ Session data corrupted
 rm -rf ~/.copilot/sessions/<session-id>
 ```
 
+> **v1.0.45+:** Sessions that ended while an extension permission prompt was displayed can now be resumed without this error. If you hit this on an older version, delete the session and start fresh.
+
 ### History Not Working
 
 **Problem:**
