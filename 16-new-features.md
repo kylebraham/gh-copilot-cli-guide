@@ -1,4 +1,4 @@
-# Latest Features in GitHub Copilot CLI — v1.0.46
+# Latest Features in GitHub Copilot CLI — v1.0.47
 
 This file covers recent additions to GitHub Copilot CLI. Features marked with "Full guide →" have their own dedicated documentation file — the entries here are summaries with links. Features without a dedicated file are covered in full below.
 
@@ -10,7 +10,8 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 3. [Research Command (`/research`)](#research-command-research) — [Full guide →](19-research-command.md)
 
 ### Features covered in this file
-4. [New in v1.0.46](#new-in-v1046)
+4. [New in v1.0.47](#new-in-v1047)
+5. [New in v1.0.46](#new-in-v1046)
 5. [New in v1.0.45](#new-in-v1045)
 5. [New in v1.0.44](#new-in-v1044)
 5. [New in v1.0.43](#new-in-v1043)
@@ -54,6 +55,48 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 24. [Staying Up to Date](#staying-up-to-date)
 
 ---
+
+---
+
+## New in v1.0.47
+
+Released: 2026-05-13
+
+### `/fork` Accepts an Optional Name
+
+The `/fork` command now accepts an optional name argument. The new forked session is immediately identifiable by that name, and the sessions dialog shows the origin session so you always know where a fork came from.
+
+**How to use:**
+```
+> /fork
+> /fork my-experiment
+```
+
+**Why it matters:** Named forks are easier to find later with `/resume`; the origin label in the sessions dialog makes it clear which sessions are related.
+
+### Copilot Max — Correct Models Shown for Subscription Tier
+
+Copilot Max subscribers now see only the models available to their subscription tier in the `/model` picker. Previously, the picker could show models that were not accessible under the Max plan, leading to unexpected errors when selecting them.
+
+**Why it matters:** No more confusion over which models you can actually use — the picker now reflects your subscription accurately.
+
+### j/k Keys for Navigation in the `/diff` View
+
+The `/diff` view now supports `j` and `k` for scrolling down and up respectively, matching the Vim-style navigation already available in other pickers.
+
+**How to use:**
+```
+> /diff
+# then press j to scroll down, k to scroll up
+```
+
+**Why it matters:** Faster keyboard-only navigation through large diffs without reaching for arrow keys.
+
+### `--resume` Supports Cloud Agent Sessions with No Branch Changes
+
+`--resume` can now resume a Copilot cloud agent session even when the agent has not yet pushed any commits to its branch. Previously, resuming such sessions failed with an error.
+
+**Why it matters:** You can pick up cloud agent sessions from the very start of their work, before any code has been pushed.
 
 ---
 

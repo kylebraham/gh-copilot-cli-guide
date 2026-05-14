@@ -1,5 +1,18 @@
 # Documentation Updates
 
+## 2026-05-14 — Docs updated for v1.0.47
+
+- `README.md`: Bumped version note to v1.0.47; updated "Latest features" list with v1.0.47 highlights
+- `16-new-features.md`: Updated title to v1.0.47; added TOC entry; added v1.0.47 section covering named `/fork`, Copilot Max model fix, j/k diff navigation, and cloud agent `--resume` support
+- `04-slash-commands.md`: Updated `/fork` entry to document optional name argument and origin display (v1.0.47+); added j/k navigation note to `/diff`; added cloud agent support note to `--resume`
+- `00-cheat-sheet.md`: Updated `/fork` entry to mention optional name (v1.0.47+)
+
+### Feature Summary (v1.0.47)
+- **Improved:** `/fork` accepts an optional name; forked sessions display their origin in the sessions dialog
+- **Fixed:** Copilot Max subscribers now see the correct models for their subscription tier
+- **Improved:** j/k keys supported for up/down navigation in the `/diff` view
+- **Fixed:** `--resume` supports Copilot cloud agent sessions where the agent hasn't pushed any changes to its branch
+
 ## 2026-05-13 — Docs updated for v1.0.46
 
 - `README.md`: Bumped version note to v1.0.46; updated "Latest features" list with v1.0.46 highlights

@@ -59,6 +59,12 @@ copilot --resume <session-id> --remote
 copilot --resume <session-id>
 ```
 
+**Cloud agent sessions (v1.0.47+):** `--resume` now works even when the cloud agent has not yet pushed any commits to its branch:
+
+```bash
+copilot --resume <cloud-agent-session-id>
+```
+
 ### /session [subcommand]
 
 Manage and view session information.
@@ -113,15 +119,16 @@ Rename the current session. Alias for `/session rename`.
 
 ### /fork (v1.0.45+)
 
-Fork the current session into a new, fully independent session. The forked session inherits the current conversation history and context, then diverges from that point forward.
+Fork the current session into a new, fully independent session. The forked session inherits the current conversation history and context, then diverges from that point forward. In v1.0.47+, you can supply an optional name and the sessions dialog shows the origin session for every fork.
 
 ```
 > /fork
+> /fork my-experiment
 ```
 
 **What it does:**
-1. Creates a copy of the current session
-2. Opens the fork as the active session
+1. Creates a copy of the current session (optionally with a provided name)
+2. Opens the fork as the active session (showing its origin in the sessions dialog, v1.0.47+)
 3. The original session is preserved unchanged and resumable via `/resume`
 
 **Use when:**
@@ -485,6 +492,8 @@ Review all changes made in the current directory — staged, unstaged, and new f
 - All modified files with a summary of additions/deletions
 - Syntax-highlighted diff output
 - Staged vs unstaged changes
+
+**Navigation:** Use `j` / `k` (or ↑ / ↓) to scroll through the diff (v1.0.47+).
 
 **Pre-commit workflow:**
 ```
