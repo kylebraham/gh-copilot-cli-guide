@@ -81,10 +81,13 @@ npm update -g @github/copilot
 ```
 
 **Latest features:**
+- 🍴 `/fork` accepts an optional name; forked sessions show their origin in the sessions dialog (v1.0.47)
+- 💎 Copilot Max subscribers now see the correct models available to their subscription tier (v1.0.47)
+- ⌨️ j/k keys supported for up/down navigation in the `/diff` view (v1.0.47)
+- ☁️ `--resume` supports Copilot cloud agent sessions before the agent has pushed any branch changes (v1.0.47)
 - ⚠️ Warning displayed when the CLI version is deprecated and premium model access may be affected (v1.0.46)
 - ✅ Read-only `gh` CLI commands (list, view, status, diff, etc.) are auto-approved without confirmation prompts (v1.0.46)
 - 📏 Long lines in diff view now wrap at terminal width instead of being truncated (v1.0.46)
-- 🪟 PowerShell starts correctly when `pwsh` is installed as a .NET global tool shim (v1.0.46)
 - 🤖 `/autopilot` slash command toggles between interactive and autopilot modes directly (v1.0.45)
 - 🍴 `/fork` command forks the current session into a new independent session (v1.0.45)
 - 📡 OpenTelemetry output now aligns with GenAI semantic conventions; MCP tool calls emit standard `tool_call` spans (v1.0.45)
@@ -309,4 +312,4 @@ Go to **Actions → Daily Doc Maintenance → Run workflow** to trigger it on de
 
 ---
 
-**Note:** This guide covers GitHub Copilot CLI v1.0.46. Some capabilities may vary by version — run `/update` to stay current.
+**Note:** This guide covers GitHub Copilot CLI v1.0.47. Some capabilities may vary by version — run `/update` to stay current.

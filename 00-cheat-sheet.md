@@ -74,7 +74,7 @@
 | `/copy` | Copy last response to clipboard |
 | `/env` | Show loaded environment details (instructions, MCP servers, skills, agents, plugins) |
 | `/ask` | Ask a quick question without affecting conversation history |
-| `/fork` | Fork the current session into a new independent session (v1.0.45+) |
+| `/fork` | Fork the current session into a new independent session; accepts optional name (v1.0.45+, named forks v1.0.47+) |
 
 ### Navigation
 | Command | Description |
