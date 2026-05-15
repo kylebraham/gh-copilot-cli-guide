@@ -1,4 +1,4 @@
-# Latest Features in GitHub Copilot CLI — v1.0.47
+# Latest Features in GitHub Copilot CLI — v1.0.48
 
 This file covers recent additions to GitHub Copilot CLI. Features marked with "Full guide →" have their own dedicated documentation file — the entries here are summaries with links. Features without a dedicated file are covered in full below.
 
@@ -10,7 +10,8 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 3. [Research Command (`/research`)](#research-command-research) — [Full guide →](19-research-command.md)
 
 ### Features covered in this file
-4. [New in v1.0.47](#new-in-v1047)
+4. [New in v1.0.48](#new-in-v1048)
+5. [New in v1.0.47](#new-in-v1047)
 5. [New in v1.0.46](#new-in-v1046)
 5. [New in v1.0.45](#new-in-v1045)
 5. [New in v1.0.44](#new-in-v1044)
@@ -55,6 +56,58 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 24. [Staying Up to Date](#staying-up-to-date)
 
 ---
+
+---
+
+## New in v1.0.48
+
+Released: 2026-05-14
+
+### Model Picker Shows Actual Token Prices
+
+The `/model` picker now displays actual token prices for token-based billing users, replacing the previous dot indicator system. Users on token-based billing plans can see precise per-token pricing for each model directly in the picker, making cost estimation more transparent.
+
+**Why it matters:** You can now compare real prices at a glance instead of interpreting opaque indicators before selecting a model.
+
+### Instruction Files: Unquoted Glob Patterns in `applyTo` Now Work Correctly
+
+Instruction files that use unquoted glob patterns in the `applyTo` frontmatter field (e.g., `applyTo: **/*.ts`) are now applied correctly. Previously, unquoted wildcard patterns were not matched, so the instruction file was silently skipped for all files.
+
+**Example — now works as expected:**
+```yaml
+---
+applyTo: **/*.ts
+---
+Always use strict TypeScript — no `any` types.
+```
+
+**Why it matters:** Many editors and tools generate `applyTo` lines without quotes. These patterns now work without needing to add quotes manually.
+
+### `/context` Shows Correct Token Limits for All Models
+
+`/context` now displays the correct maximum token limit for whichever model is active, instead of always showing 128k regardless of the model. Models with larger context windows (e.g., 200k) now report their actual limit.
+
+**Why it matters:** Accurate context window information helps you plan how much content to include before hitting limits.
+
+### GitHub MCP Server Auto-Disabled in Azure DevOps Workspaces (Prompt/Headless Mode)
+
+The built-in `github-mcp-server` is now automatically disabled in Azure DevOps-only workspaces when running in prompt (`-p`) or headless mode, matching the existing behavior in interactive mode. This prevents authentication errors and irrelevant GitHub API calls in Azure DevOps pipelines.
+
+### `/ask` Dialog No Longer Prompts for Follow-Up Replies
+
+The `/ask` dialog no longer shows a follow-up input prompt it cannot receive. The dialog now closes cleanly after displaying its answer, removing a confusing empty input field.
+
+### Skill Content: YAML Frontmatter Metadata No Longer Sent to Model
+
+When skill content is injected into the model's context, the YAML frontmatter block (metadata such as `ID`, `Version`, `Author`, `Tags`) is now stripped before injection. Only the actual skill instructions reach the model. This reduces wasted tokens and keeps skill metadata out of the model context.
+
+### CJK Characters and Emoji Render Without Blank Gaps
+
+Input text containing CJK (Chinese, Japanese, Korean) characters or emoji no longer displays blank gaps between lines. The renderer now correctly accounts for double-width characters.
+
+### Terminal Cursor Positioning Fixed
+
+The terminal cursor now positions correctly on the input field rather than on decorative UI elements such as the selected tab indicator.
 
 ---
 

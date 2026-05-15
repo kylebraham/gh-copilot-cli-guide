@@ -1,5 +1,25 @@
 # Documentation Updates
 
+## 2026-05-15 — Docs updated for v1.0.48
+
+- `README.md`: Bumped version note to v1.0.48; updated "Latest features" list with v1.0.48 highlights
+- `16-new-features.md`: Updated title to v1.0.48; added TOC entry; added v1.0.48 section covering token price display in model picker, unquoted `applyTo` glob pattern fix, `/context` correct token limits, GitHub MCP server headless-mode auto-disable for Azure DevOps, `/ask` dialog fix, skill frontmatter stripping, CJK/emoji rendering fix, and cursor positioning fix
+- `04-slash-commands.md`: Added v1.0.48 fix note to `/context` (correct token limits) and `/ask` (no spurious follow-up prompt)
+- `08-advanced-features.md`: Extended Azure DevOps GitHub MCP auto-disable note to cover prompt/headless mode (v1.0.48)
+- `13-agents-file.md`: Added v1.0.48 fix note for unquoted glob patterns in `applyTo` frontmatter
+- `14-skills-system.md`: Added v1.0.48 note that YAML frontmatter metadata is stripped from skill content before model injection
+- `22-models-and-costs.md`: Added v1.0.48 note about token prices shown in model picker for token-based billing users
+
+### Feature Summary (v1.0.48)
+- **Improved:** Model picker shows actual token prices for token-based billing users
+- **Fixed:** Instruction files with unquoted glob patterns in `applyTo` frontmatter now apply correctly
+- **Fixed:** `/context` shows correct token limits for all models instead of always 128k
+- **Improved:** GitHub MCP server auto-disables in Azure DevOps workspaces in prompt/headless mode (matches interactive mode)
+- **Fixed:** `/ask` dialog no longer prompts for follow-up replies it cannot receive
+- **Improved:** Skill YAML frontmatter metadata stripped before model injection
+- **Fixed:** CJK characters and emoji render without blank gaps between lines
+- **Fixed:** Terminal cursor positions correctly on input field
+
 ## 2026-05-14 — Docs updated for v1.0.47
 
 - `README.md`: Bumped version note to v1.0.47; updated "Latest features" list with v1.0.47 highlights

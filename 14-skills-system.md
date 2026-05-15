@@ -162,6 +162,8 @@ AI Context Window:
 └─────────────────────────────────┘
 ```
 
+> **v1.0.48:** YAML frontmatter metadata (`ID`, `Version`, `Author`, `Tags`, etc.) is stripped from skill content before injection. Only the actual instructions reach the model, reducing wasted tokens.
+
 ## Managing Skills
 
 ### Listing Available Skills

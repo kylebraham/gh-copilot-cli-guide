@@ -81,6 +81,11 @@ npm update -g @github/copilot
 ```
 
 **Latest features:**
+- 💰 Model picker displays actual token prices for token-based billing users (v1.0.48)
+- 📐 Instruction files with unquoted glob patterns in `applyTo` frontmatter now apply correctly (v1.0.48)
+- 📏 `/context` shows correct token limits for all models, not just 128k (v1.0.48)
+- 🔕 `/ask` dialog no longer shows a follow-up prompt it cannot receive (v1.0.48)
+- ✂️ Skill YAML frontmatter metadata stripped before injection — only instructions reach the model (v1.0.48)
 - 🍴 `/fork` accepts an optional name; forked sessions show their origin in the sessions dialog (v1.0.47)
 - 💎 Copilot Max subscribers now see the correct models available to their subscription tier (v1.0.47)
 - ⌨️ j/k keys supported for up/down navigation in the `/diff` view (v1.0.47)
@@ -312,4 +317,4 @@ Go to **Actions → Daily Doc Maintenance → Run workflow** to trigger it on de
 
 ---
 
-**Note:** This guide covers GitHub Copilot CLI v1.0.47. Some capabilities may vary by version — run `/update` to stay current.
+**Note:** This guide covers GitHub Copilot CLI v1.0.48. Some capabilities may vary by version — run `/update` to stay current.
