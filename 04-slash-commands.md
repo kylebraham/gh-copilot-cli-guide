@@ -220,6 +220,8 @@ Included Files:
 Conversation: 24 messages
 ```
 
+> **v1.0.48 fix:** `/context` now shows the correct maximum token limit for the active model. Previously it always reported 128k regardless of the model's actual context window size.
+
 ### /compact
 
 Compress conversation history to free up context space.
@@ -1151,6 +1153,8 @@ Responses render full markdown, including tables, code blocks, and formatted lin
 - You want a quick lookup or clarification that shouldn't influence the conversation context
 - You're mid-task and need a side-question answered without derailing the thread
 - You want to check facts without the model carrying the question forward
+
+> **v1.0.48 fix:** The `/ask` dialog no longer displays a follow-up input prompt after answering. It closes cleanly once the answer is shown.
 
 ### /env
 

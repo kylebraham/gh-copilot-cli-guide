@@ -172,6 +172,8 @@ You can change models at any point — interactively, per session, or globally.
 
 This opens a picker showing all available models with their current multipliers. Use arrow keys to select and press Enter to switch.
 
+> **v1.0.48:** If you are on a token-based billing plan, the picker now displays actual token prices for each model instead of dot indicators, making it easier to compare costs before selecting a model.
+
 ### Set for a Single Session (Flag)
 
 ```bash
