@@ -81,6 +81,15 @@ npm update -g @github/copilot
 ```
 
 **Latest features:**
+- 🧠 `/memory on|off|show` — persistent cross-session memory with user and repository scopes (v1.0.49)
+- 🦆 `/rubber-duck` — independent critique of the agent's current work (experimental, v1.0.49)
+- 🔍 `/chronicle search <query>` — search all session content by keyword or topic (v1.0.49)
+- 🆔 `/session id` — display and copy the current session ID (v1.0.49)
+- 🖨️ `/exit print` — print session transcript to terminal before exiting (v1.0.49)
+- 🔌 `/mcp search <query>` — discover and install MCP servers from the registry (experimental, v1.0.49)
+- 🔄 `/plugin update --all` — update all installed plugins in one command (v1.0.49)
+- 🔗 Auto-link GitHub issue and PR references (`owner/repo#number`) in responses (v1.0.49)
+- 🐧 Alpine Linux (musl libc) support (v1.0.49)
 - 💰 Model picker displays actual token prices for token-based billing users (v1.0.48)
 - 📐 Instruction files with unquoted glob patterns in `applyTo` frontmatter now apply correctly (v1.0.48)
 - 📏 `/context` shows correct token limits for all models, not just 128k (v1.0.48)
@@ -317,4 +326,4 @@ Go to **Actions → Daily Doc Maintenance → Run workflow** to trigger it on de
 
 ---
 
-**Note:** This guide covers GitHub Copilot CLI v1.0.48. Some capabilities may vary by version — run `/update` to stay current.
+**Note:** This guide covers GitHub Copilot CLI v1.0.49. Some capabilities may vary by version — run `/update` to stay current.

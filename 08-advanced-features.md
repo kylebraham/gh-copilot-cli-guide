@@ -1092,6 +1092,7 @@ In addition to shell-script hooks, hooks can POST JSON payloads to a configured 
 - The endpoint should respond with the same JSON structure that shell hooks return via stdout.
 - The `url` and `command` (shell script) fields are mutually exclusive per hook entry.
 - **`matcher` behaviour (v1.0.36+):** A hook entry with a `matcher` fires **only when the tool name fully matches the regex**. Before v1.0.36 the `matcher` field was ignored and hooks always fired. Verify your matchers after upgrading.
+- **`additionalContext` in `postToolUse` (v1.0.49+):** A `postToolUse` hook can return an `additionalContext` field. It is now injected as a system message that the model receives after the tool call, allowing post-tool hooks to meaningfully influence the model's next response. Previously this field was silently discarded.
 
 > See [New Features v1.0.35 → HTTP Hook Support](16-new-features.md#http-hook-support) for a full walkthrough.
 

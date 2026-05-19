@@ -73,6 +73,9 @@ Manage and view session information.
 # Show session overview
 > /session
 
+# Display the current session ID and copy to clipboard (v1.0.49+)
+> /session id
+
 # View recent checkpoints
 > /session checkpoints
 > /session checkpoints 10      # Last 10 checkpoints
@@ -94,6 +97,7 @@ Manage and view session information.
 ```
 
 **Subcommands:**
+- `id` - Display the current session ID and copy it to the clipboard (v1.0.49+)
 - `checkpoints [n]` - View session checkpoints
 - `files` - List workspace files
 - `plan` - Display plan.md if it exists
@@ -892,6 +896,27 @@ Clears OAuth authentication tokens and signs you out. You'll need to `/login` ag
 
 ## Configuration
 
+### /memory [on|off|show] (v1.0.49+)
+
+Enable, disable, or view persistent memory. When memory is on, Copilot can store information across sessions (such as preferences or recurring context). Memory is scoped to either the user account or a specific repository.
+
+```
+# Enable memory
+> /memory on
+
+# Disable memory
+> /memory off
+
+# View current memory status and stored entries
+> /memory show
+```
+
+**Memory scopes:**
+- **User scope** — private to your account
+- **Repository scope** — shared with repository collaborators
+
+**How it works:** When the agent saves something to memory, a permission prompt shows exactly who can see the stored memory (e.g., `(for user)` or `(shared with repository collaborators)`). Memory entries are also annotated in the session timeline.
+
 ### /terminal-setup
 
 Configure terminal for enhanced multiline input.
@@ -1109,7 +1134,10 @@ Manage plugins and plugin marketplaces.
 # Add a custom marketplace
 > /plugin marketplace add <url>
 
-# Update all plugins
+# Update all plugins (v1.0.49+)
+> /plugin update --all
+
+# Update a specific plugin
 > /plugin update
 ```
 
@@ -1259,16 +1287,21 @@ Display the changelog for CLI versions. `/release-notes` is an alias for `/chang
 
 ### /chronicle
 
-View a **narrative history** of what the current session has done — file edits, commands run, and key decisions — formatted as a readable summary.
+View a **narrative history** of what the current session has done — file edits, commands run, and key decisions — formatted as a readable summary. Use the `search` subcommand to query all session content by keyword or topic (v1.0.49+).
 
 ```
 > /chronicle
+
+# Search all session content by keyword or topic (v1.0.49+)
+> /chronicle search <query>
+> /chronicle search "database migration"
 ```
 
 **Use when:**
 - Writing a commit message for a long session
 - Reviewing what was changed before opening a pull request
 - Handing off work to a colleague
+- Finding past decisions or context with a keyword search
 
 > **v1.0.40+:** Session history, file tracking, and `/chronicle` are available to all users.
 
@@ -1429,6 +1462,21 @@ Select: _
 
 > **See also:** [Fleet Mode](18-fleet-mode.md) for using custom agents with parallel subagent execution.
 
+### /rubber-duck (experimental, v1.0.49+)
+
+Invoke the rubber-duck agent for an independent critique of the agent's current work. The rubber-duck agent reviews what has been done so far and provides fresh perspective, surfacing blind spots, potential issues, or alternative approaches.
+
+```
+> /rubber-duck
+```
+
+**Use when:**
+- The agent seems stuck or is going in circles
+- You want a second opinion on the current approach before continuing
+- A complex task is nearing completion and you want a sanity check
+
+> ⚠️ This is an experimental feature. Enable experimental features with `/experimental enable rubber-duck` if it is not yet visible.
+
 ### /mcp [subcommand] [server-name]
 
 Manage MCP (Model Context Protocol) server configuration.
@@ -1451,6 +1499,9 @@ Manage MCP (Model Context Protocol) server configuration.
 
 # Re-enable server (persists across sessions)
 > /mcp enable my-server
+
+# Search and install MCP servers from the registry (experimental, v1.0.49+)
+> /mcp search <query>
 ```
 
 **MCP Servers extend CLI capabilities:**
@@ -1593,11 +1644,14 @@ Restart the CLI while preserving the current session.
 
 ### /exit, /quit
 
-Exit the CLI.
+Exit the CLI. Use the `print` option to print the full session to the terminal before exiting (v1.0.49+).
 
 ```
 > /exit
 > /quit
+
+# Print the session to the terminal before exiting (v1.0.49+)
+> /exit print
 ```
 
 **Alternative:** Press `Ctrl+D` to quickly shutdown (does not queue a message). Use `Ctrl+Q` or `Ctrl+Enter` to queue a message while the agent is running.
@@ -1701,10 +1755,12 @@ Some commands affect subsequent prompts:
 | `/streamer-mode` | Hide sensitive info | `/streamer-mode` |
 | `/statusline` | Customize status bar items | `/statusline quota` |
 | `/plugin` | Manage plugins | `/plugin list` |
+| `/memory` | Enable, disable, or view persistent memory (v1.0.49+) | `/memory show` |
+| `/rubber-duck` | Get independent critique of current work (experimental, v1.0.49+) | `/rubber-duck` |
 | `/help` | Show help | `/help` |
 | `/share` | Export session | `/share file out.md` |
 | `/restart` | Restart CLI | `/restart` |
-| `/exit` | Quit CLI | `/exit` |
+| `/exit` | Quit CLI; add `print` to print session first (v1.0.49+) | `/exit` |
 
 ## Hidden Commands
 

@@ -64,6 +64,7 @@
 | `/compact` | Summarize and compress current context to save tokens |
 | `/context` | Show what's currently in context |
 | `/session` | Show current session info |
+| `/session id` | Display the current session ID and copy it to clipboard (v1.0.49+) |
 | `/session delete <id>` | Delete a specific session by ID or 7+ char prefix |
 | `/session delete-all` | Delete all sessions |
 | `/resume` | Resume a previous session (picker shows branch and idle/in-use status) |
@@ -104,10 +105,11 @@
 ### Config & Tools
 | Command | Description |
 |---------|-------------|
-| `/mcp` | Manage MCP (Model Context Protocol) server connections |
+| `/mcp` | Manage MCP (Model Context Protocol) server connections; `/mcp search <query>` to find and install from registry (experimental, v1.0.49+) |
 | `/lsp` | Manage language server connections |
 | `/skills` | List or manage available skills |
-| `/plugin` | Manage installed plugins |
+| `/plugin` | Manage installed plugins; `/plugin update --all` updates all plugins at once (v1.0.49+) |
+| `/rubber-duck` | Get an independent critique of the agent's current work (experimental, v1.0.49+) |
 | `/remote` | Show remote control status; `/remote on` enables, `/remote off` disables |
 | `/keep-alive` | Prevent system sleep while Copilot CLI is active |
 | `/init` | Initialize Copilot configuration for the current repo |
@@ -125,7 +127,7 @@
 | `/version` | Show Copilot CLI version |
 | `/changelog` | View recent release notes |
 | `/release-notes` | Alias for `/changelog` |
-| `/chronicle` | View a narrative history of session actions and file changes (v1.0.40+) |
+| `/chronicle` | View a narrative history of session actions and file changes (v1.0.40+); add `search <query>` to search by keyword (v1.0.49+) |
 | `/feedback` | Submit feedback to GitHub |
 | `/bug` | Alias for `/feedback` — report a bug |
 | `/instructions` | Show active instruction files in effect |
@@ -136,9 +138,10 @@
 | `/login` | Authenticate with GitHub |
 | `/logout` | Sign out |
 | `/restart` | Restart the current session |
+| `/memory` | Enable, disable, or view persistent memory (v1.0.49+); `/memory on`, `/memory off`, `/memory show` |
 | `/update` | Update CLI to the latest version; add `prerelease` to fetch latest prerelease (v1.0.44+) |
 | `/upgrade` | Alias for `/update` |
-| `/exit` | Exit Copilot CLI |
+| `/exit` | Exit Copilot CLI; add `print` to print session to terminal first (v1.0.49+) |
 
 ### Display
 | Command | Description |

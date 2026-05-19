@@ -1,5 +1,30 @@
 # Documentation Updates
 
+## 2026-05-19 — Docs updated for v1.0.49
+
+- `README.md`: Bumped version note to v1.0.49; updated "Latest features" list with v1.0.49 highlights
+- `16-new-features.md`: Updated title to v1.0.49; added TOC entry; added v1.0.49 section covering `/memory` persistent memory, `/rubber-duck` independent critique (experimental), `/chronicle search`, `/session id`, `/exit print`, `/mcp search` (experimental), `plugin update --all`, `postToolUse` `additionalContext` system message injection, auto-link GitHub references, Alpine Linux support, `auth.redirectPort` config, `COPILOT_PLUGIN_DIR_ONLY` env var, hooks for sub-agent tool calls, and various fixes
+- `04-slash-commands.md`: Added `/memory` command entry (Configuration section); added `/rubber-duck` command entry (Advanced Features section); added `/session id` subcommand; added `/chronicle search` subcommand; added `/exit print` option; added `/plugin update --all`; added `/mcp search` subcommand (experimental); updated Quick Reference Table
+- `00-cheat-sheet.md`: Added `/session id`, `/memory`, updated `/chronicle` and `/mcp` entries, added `/rubber-duck`, updated `/plugin` and `/exit` entries
+- `08-advanced-features.md`: Added `postToolUse` `additionalContext` v1.0.49 note
+
+### Feature Summary (v1.0.49)
+- **New:** `/memory on|off|show` — persistent cross-session memory with user/repository scopes
+- **New:** `/rubber-duck` — independent agent critique (experimental)
+- **New:** `/chronicle search <query>` — keyword search across session content
+- **New:** `/session id` — display and copy current session ID
+- **New:** `/exit print` — print session to terminal before exiting
+- **New:** `/mcp search <query>` — discover and install MCP servers from registry (experimental)
+- **New:** `copilot plugin update --all` — update all plugins at once
+- **Improved:** `postToolUse` hook `additionalContext` now injected as system message
+- **Improved:** Auto-link GitHub `owner/repo#number` references in responses
+- **Improved:** Prompt mode (`-p`) loads workspace MCP sources when folder is trusted
+- **New:** Alpine Linux (musl libc) support
+- **New:** `auth.redirectPort` config option for MCP OAuth callbacks
+- **New:** `COPILOT_PLUGIN_DIR_ONLY` env var for deterministic plugin sets
+- **Improved:** Hooks fire for sub-agent tool calls
+- **Improved:** Experimental slash commands annotated with `(experimental)` in picker
+
 ## 2026-05-15 — Docs updated for v1.0.48
 
 - `README.md`: Bumped version note to v1.0.48; updated "Latest features" list with v1.0.48 highlights
