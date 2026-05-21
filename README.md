@@ -81,6 +81,11 @@ npm update -g @github/copilot
 ```
 
 **Latest features:**
+- 🔒 `/security-review` — dedicated security-focused code review (experimental, v1.0.51)
+- 🆔 `--session-id=<id>` — resume or start sessions with a specific UUID (v1.0.51)
+- 🪝 `preMcpToolCall` hook — control outgoing MCP request metadata (v1.0.51)
+- 💡 `/chronicle cost-tips` — personalized token cost recommendations (v1.0.51)
+- 🔐 Secret scanning for commit messages and PR descriptions (v1.0.51)
 - 🧠 `/memory on|off|show` — persistent cross-session memory with user and repository scopes (v1.0.49)
 - 🦆 `/rubber-duck` — independent critique of the agent's current work (experimental, v1.0.49)
 - 🔍 `/chronicle search <query>` — search all session content by keyword or topic (v1.0.49)
@@ -326,4 +331,4 @@ Go to **Actions → Daily Doc Maintenance → Run workflow** to trigger it on de
 
 ---
 
-**Note:** This guide covers GitHub Copilot CLI v1.0.49. Some capabilities may vary by version — run `/update` to stay current.
+**Note:** This guide covers GitHub Copilot CLI v1.0.51. Some capabilities may vary by version — run `/update` to stay current.

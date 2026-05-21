@@ -89,6 +89,7 @@
 |---------|-------------|
 | `/diff` | Show current git diff |
 | `/review` | Request a code review of staged or recent changes |
+| `/security-review` | Run a security-focused code review (experimental, v1.0.51+) |
 | `/pr` | Create or manage a pull request |
 | `/delegate` | Hand off a task to an autonomous subagent |
 
@@ -127,7 +128,7 @@
 | `/version` | Show Copilot CLI version |
 | `/changelog` | View recent release notes |
 | `/release-notes` | Alias for `/changelog` |
-| `/chronicle` | View a narrative history of session actions and file changes (v1.0.40+); add `search <query>` to search by keyword (v1.0.49+) |
+| `/chronicle` | View a narrative history of session actions and file changes (v1.0.40+); add `search <query>` to search by keyword (v1.0.49+); add `cost-tips` for personalized token cost recommendations (v1.0.51+) |
 | `/feedback` | Submit feedback to GitHub |
 | `/bug` | Alias for `/feedback` — report a bug |
 | `/instructions` | Show active instruction files in effect |
@@ -179,6 +180,7 @@
 | `--no-auto-update` | Disable automatic CLI updates |
 | `--output-format FORMAT` | Set output format (e.g., `json`, `text`) |
 | `--print-debug-info` | Print version, terminal capabilities, and env vars, then exit |
+| `--session-id=<uuid>` | Resume a known session by UUID, or start a new session with that UUID (v1.0.51+) |
 | `--session-idle-timeout DUR` | Close idle session after duration (e.g., `30m`); disabled by default |
 
 ### Shell Completion

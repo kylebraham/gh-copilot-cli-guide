@@ -1,5 +1,25 @@
 # Documentation Updates
 
+## 2026-05-21 — Docs updated for v1.0.51
+
+- `README.md`: Bumped version note to v1.0.51; updated "Latest features" list with v1.0.51 highlights
+- `16-new-features.md`: Updated title to v1.0.51; added TOC entry; added v1.0.51 section covering `/security-review` (experimental), `--session-id=<id>` flag, `preMcpToolCall` hook, `/chronicle cost-tips`, secret scanning for commit messages/PR descriptions, `terminalProgress` setting, `postToolUse` successful results, and various fixes
+- `04-slash-commands.md`: Added `/security-review` command entry (Advanced Features section); added `/chronicle cost-tips` subcommand; updated Quick Reference Table
+- `00-cheat-sheet.md`: Added `/security-review`, updated `/chronicle` entry with `cost-tips`, added `--session-id` flag
+- `08-advanced-features.md`: Added `preMcpToolCall` hook note and `postToolUse` successful results note
+
+### Feature Summary (v1.0.51)
+- **New:** `/security-review` — dedicated security vulnerability review (experimental)
+- **New:** `--session-id=<id>` — resume or start sessions with a specific UUID
+- **New:** `preMcpToolCall` hook — control outgoing MCP request metadata
+- **New:** `/chronicle cost-tips` — personalized token usage cost recommendations
+- **New:** Secret scanning for commit messages and PR descriptions
+- **New:** `terminalProgress` setting for OSC 9;4 terminal progress indicators
+- **Improved:** `/remote` respects org policy, usable while agent is working
+- **Improved:** `postToolUse` hooks can inject `additionalContext` into successful results
+- **Improved:** GitHub MCP web search tool available immediately at startup
+- **Improved:** Faster MCP tool loading at startup
+
 ## 2026-05-19 — Docs updated for v1.0.49
 
 - `README.md`: Bumped version note to v1.0.49; updated "Latest features" list with v1.0.49 highlights

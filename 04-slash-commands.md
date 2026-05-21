@@ -1287,7 +1287,7 @@ Display the changelog for CLI versions. `/release-notes` is an alias for `/chang
 
 ### /chronicle
 
-View a **narrative history** of what the current session has done — file edits, commands run, and key decisions — formatted as a readable summary. Use the `search` subcommand to query all session content by keyword or topic (v1.0.49+).
+View a **narrative history** of what the current session has done — file edits, commands run, and key decisions — formatted as a readable summary. Use the `search` subcommand to query all session content by keyword or topic (v1.0.49+). Use `cost-tips` for personalized token cost recommendations (v1.0.51+).
 
 ```
 > /chronicle
@@ -1295,6 +1295,9 @@ View a **narrative history** of what the current session has done — file edits
 # Search all session content by keyword or topic (v1.0.49+)
 > /chronicle search <query>
 > /chronicle search "database migration"
+
+# Get personalized token usage and cost reduction tips (v1.0.51+)
+> /chronicle cost-tips
 ```
 
 **Use when:**
@@ -1461,6 +1464,21 @@ Select: _
 ```
 
 > **See also:** [Fleet Mode](18-fleet-mode.md) for using custom agents with parallel subagent execution.
+
+### /security-review (experimental, v1.0.51+)
+
+Run a dedicated security review agent on your current changes. Unlike `/review`, which covers general code quality, `/security-review` focuses exclusively on security vulnerabilities — injection risks, authentication flaws, secrets exposure, and related concerns.
+
+```
+> /security-review
+```
+
+**Use when:**
+- Preparing a PR that touches authentication, authorization, or data handling
+- You want a security-focused second pass before merging sensitive changes
+- The task involves user input, external APIs, or secret management
+
+> ⚠️ This is an experimental feature. Annotated with `(experimental)` in the command picker.
 
 ### /rubber-duck (experimental, v1.0.49+)
 
@@ -1736,6 +1754,7 @@ Some commands affect subsequent prompts:
 | `/diff` | Review changes | `/diff` |
 | `/pr` | Operate on PRs | `/pr create` |
 | `/review` | Code review agent | `/review` |
+| `/security-review` | Security-focused code review (experimental, v1.0.51+) | `/security-review` |
 | `/lsp` | Language server | `/lsp restart` |
 | `/ide` | Connect to IDE | `/ide` |
 | `/cwd` | Change directory | `/cwd ~/projects` |
@@ -1757,6 +1776,7 @@ Some commands affect subsequent prompts:
 | `/plugin` | Manage plugins | `/plugin list` |
 | `/memory` | Enable, disable, or view persistent memory (v1.0.49+) | `/memory show` |
 | `/rubber-duck` | Get independent critique of current work (experimental, v1.0.49+) | `/rubber-duck` |
+| `/security-review` | Security-focused code review (experimental, v1.0.51+) | `/security-review` |
 | `/help` | Show help | `/help` |
 | `/share` | Export session | `/share file out.md` |
 | `/restart` | Restart CLI | `/restart` |
