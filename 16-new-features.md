@@ -1,4 +1,4 @@
-# Latest Features in GitHub Copilot CLI — v1.0.48
+# Latest Features in GitHub Copilot CLI — v1.0.51
 
 This file covers recent additions to GitHub Copilot CLI. Features marked with "Full guide →" have their own dedicated documentation file — the entries here are summaries with links. Features without a dedicated file are covered in full below.
 
@@ -10,7 +10,9 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 3. [Research Command (`/research`)](#research-command-research) — [Full guide →](19-research-command.md)
 
 ### Features covered in this file
-4. [New in v1.0.48](#new-in-v1048)
+4. [New in v1.0.51](#new-in-v1051)
+5. [New in v1.0.49](#new-in-v1049)
+5. [New in v1.0.48](#new-in-v1048)
 5. [New in v1.0.47](#new-in-v1047)
 5. [New in v1.0.46](#new-in-v1046)
 5. [New in v1.0.45](#new-in-v1045)
@@ -56,6 +58,218 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 24. [Staying Up to Date](#staying-up-to-date)
 
 ---
+
+---
+
+## New in v1.0.51
+
+Released: 2026-05-20
+
+### `/security-review` — Security-Focused Code Review (Experimental)
+
+The new `/security-review` command runs a dedicated security review agent on your current changes. It focuses specifically on security vulnerabilities — injection risks, authentication issues, secrets exposure, and similar concerns — rather than general code quality.
+
+**How to use:**
+```
+> /security-review
+```
+
+**Why it matters:** Security concerns are often missed in standard code review. A dedicated security pass before opening a PR helps catch vulnerabilities early.
+
+> ⚠️ Experimental feature. Annotated with `(experimental)` in the command picker.
+
+### `--session-id=<id>` — Resume or Start Sessions by UUID
+
+The new `--session-id=<id>` flag lets you resume a known session by its UUID, or start a brand-new session with a specific UUID. Useful in CI pipelines or scripts that need deterministic session identity.
+
+**How to use:**
+```bash
+# Resume a known session
+copilot --session-id=<uuid>
+
+# Start a new session with a specific UUID
+copilot --session-id=<new-uuid>
+```
+
+**Why it matters:** Gives scripts and automation full control over session continuity without relying on the auto-selection heuristic.
+
+### `preMcpToolCall` Hook — Control Outgoing MCP Request Metadata
+
+A new `preMcpToolCall` hook event fires before each outgoing MCP tool call. Hook providers can inspect and modify the request metadata (e.g., add tracing headers or enforce policies) before the request is sent to the MCP server.
+
+**Configuration:**
+```json
+{
+  "hooks": {
+    "preMcpToolCall": [
+      {
+        "command": "~/.copilot/hooks/mcp-pre-call.sh"
+      }
+    ]
+  }
+}
+```
+
+**Why it matters:** Complements the existing `preToolUse` / `postToolUse` hooks with MCP-specific control over outgoing requests.
+
+### `/chronicle cost-tips` — Personalized Token Cost Recommendations
+
+The `/chronicle` command gains a new `cost-tips` subcommand that analyzes your session usage and provides personalized recommendations for reducing token consumption and cost.
+
+**How to use:**
+```
+> /chronicle cost-tips
+```
+
+**Why it matters:** Helps token-based billing users identify expensive patterns and optimize their workflows.
+
+### Secret Scanning for Commit Messages and PR Descriptions
+
+The CLI now scans commit messages and PR descriptions for secrets before publishing them. Detected secrets are automatically redacted to prevent accidental exposure.
+
+**Why it matters:** An extra safety net that catches secrets in prose text, not just in code files.
+
+### `terminalProgress` Setting — OSC 9;4 Terminal Progress Indicators
+
+A new `terminalProgress` setting controls whether the CLI emits OSC 9;4 progress codes. These codes allow terminals that support them (e.g., Windows Terminal) to display task progress in the taskbar or tab.
+
+**How to configure:**
+```json
+{
+  "terminalProgress": true
+}
+```
+
+Set to `false` to disable if your terminal renders the escape sequences as visible noise.
+
+### Other Improvements and Fixes
+
+- **`/remote` respects org policy:** `/remote` commands now honour organisation remote-control and cloud-view policies; a clear error is displayed when the org has disabled remote access.
+- **`/remote` usable mid-task:** The `/remote` command can now be invoked while the agent is actively working, not only between turns.
+- **Faster MCP startup:** MCP tool loading at startup is significantly faster for users with many HTTP-based MCP servers.
+- **Settings file stability:** The settings file no longer accumulates unrelated config keys when settings are updated by the CLI.
+- **MCP OAuth persistence:** MCP servers that use OAuth stay connected when authentication was performed in a separate session.
+- **Experimental mode indicator:** The experimental-mode indicator now appears persistently in the app header instead of as a one-time notification.
+- **Loading indicator colour:** The loading spinner colour now matches the active mode (plan, autopilot, shell).
+- **`postToolUse` in successful results:** `postToolUse` hooks can now inject `additionalContext` into successful tool results (previously only failed results were supported).
+- **GitHub MCP web search immediately available:** The GitHub MCP web search tool is available at startup without requiring a `/mcp search` step first.
+- **Input area responsive height:** The input area grows responsively with terminal height instead of capping at 3 lines.
+- **Remote session failure visibility:** Startup failures for remote sessions are only shown when remote mode was explicitly requested (`--remote` or user config), reducing noise in local sessions.
+- **Shell tool robustness:** Shell tool calls succeed even when the model omits the `description` parameter.
+- **Token usage formatting:** Input token usage now correctly includes cached tokens, and formatting has been updated to clarify token counts.
+- **Login prompt improvement:** The login prompt now more clearly warns when token storage falls back to insecure plain-text config.
+- **`/memory show` documentation links:** `/memory show` now displays links to documentation for learning about and managing Copilot Memory.
+- **GFM rendering fix:** GFM tables and blockquotes inside list items render correctly without a floating top border.
+- **Subcommand completion Enter key:** Pressing Enter on a highlighted subcommand completion now inserts the selection instead of submitting the partial command.
+
+---
+
+## New in v1.0.49
+
+Released: 2026-05-19
+
+### `/memory` — Persistent Cross-Session Memory
+
+The new `/memory` command lets you enable, disable, or inspect Copilot's persistent memory. When memory is on, the agent can store information (preferences, recurring patterns, useful context) that carries over across sessions.
+
+**How to use:**
+```
+> /memory on
+> /memory off
+> /memory show
+```
+
+**Memory scopes:** Each stored memory item is scoped to either your user account (private) or a specific repository (shared with collaborators). Before saving anything, Copilot shows a permission prompt that names exactly who will be able to see the memory. Session timeline entries are annotated with `(for user)` or `(shared with repository collaborators)` accordingly.
+
+**Why it matters:** Persistent memory allows Copilot to remember your preferences and project context without requiring you to repeat them at the start of every session.
+
+### `/rubber-duck` — Independent Critique of Current Work (Experimental)
+
+The `/rubber-duck` command invokes a separate agent to review and critique what the active agent has done so far. It provides a fresh perspective, surfaces blind spots, and may suggest alternative approaches.
+
+**How to use:**
+```
+> /rubber-duck
+```
+
+**Why it matters:** Getting a second opinion mid-task can catch issues before they compound, especially during long or complex agent runs.
+
+> ⚠️ This is an experimental feature. It may be annotated with `(experimental)` in the command picker.
+
+### `/chronicle search` — Search Session Content by Keyword
+
+The `/chronicle` command now supports a `search` subcommand that queries all session content (history, file changes, decisions) by keyword or topic.
+
+**How to use:**
+```
+> /chronicle search "database migration"
+> /chronicle search authentication
+```
+
+**Why it matters:** As sessions grow long, finding specific earlier context becomes difficult. Keyword search makes it fast to locate past decisions without scrolling through the full narrative.
+
+### `/session id` — Display and Copy Current Session ID
+
+`/session id` displays the current session ID and copies it to the clipboard, making it easy to reference the session in scripts, issue links, or hand-offs.
+
+**How to use:**
+```
+> /session id
+```
+
+### `/exit print` — Print Session Before Exiting
+
+`/exit print` prints the full session transcript to the terminal before the CLI closes.
+
+**How to use:**
+```
+> /exit print
+```
+
+**Why it matters:** Useful for piping output, capturing logs in CI environments, or generating a human-readable record of a session without needing a separate `/share` step.
+
+### `/mcp search` — Discover and Install MCP Servers (Experimental)
+
+The new `/mcp search` subcommand lets you search the MCP server registry and install servers directly from within the CLI.
+
+**How to use:**
+```
+> /mcp search <query>
+> /mcp search database
+```
+
+> ⚠️ Experimental feature.
+
+### `copilot plugin update --all` — Update All Plugins at Once
+
+`/plugin update --all` updates every installed plugin in a single command instead of updating them one-by-one.
+
+**How to use:**
+```
+> /plugin update --all
+```
+
+### `postToolUse` Hook `additionalContext` Now Injected as System Message
+
+Previously, `additionalContext` returned by a `postToolUse` hook was silently discarded. It is now injected as a system message that the model can see and act on. This enables post-tool hooks to meaningfully influence subsequent model responses.
+
+### Other Improvements and Fixes
+
+- **Auto-link GitHub references:** The assistant now auto-links `owner/repo#number` references (issues and PRs) in responses.
+- **Prompt mode loads workspace MCP sources:** Running with `-p` automatically loads workspace MCP server sources when the current folder is already trusted, matching interactive mode behaviour.
+- **Alpine Linux (musl libc) support:** The CLI can now run on Alpine Linux.
+- **"None" reasoning effort:** A new "None" option in the reasoning effort picker disables model reasoning entirely.
+- **`auth.redirectPort` config option:** MCP servers can pin their OAuth callback to a fixed port with the new `auth.redirectPort` configuration key, useful in constrained network environments.
+- **`COPILOT_PLUGIN_DIR_ONLY` env var:** Set this to disable automatic plugin discovery and use only the plugins in `--plugin-dir` — enabling deterministic plugin sets in CI/CD.
+- **`--plugin-dir` and `--additional-mcp-config` in server/headless mode:** Both flags now work in `--server` / `--headless` mode.
+- **Hooks fire for sub-agent tool calls:** `preToolUse`, `postToolUse`, `subagentStart`, and `subagentStop` hooks now fire correctly for tool calls made by sub-agents, not only top-level calls.
+- **Experimental command annotation:** Slash commands that are experimental are now annotated with `(experimental)` in the help dialog and command picker.
+- **Content-filtered responses show explanation:** When a model response is blocked by content filtering, the CLI now displays an explanation instead of a blank assistant turn.
+- **Auto-update downloads platform-specific package:** Auto-update now fetches the smaller platform-specific build instead of the universal package.
+- **Repo hooks load in prompt mode:** Hooks in `.github/hooks/` now load when running with `-p` if the folder is already trusted.
+- **Input prompt collapses when empty:** The input prompt shrinks to a single line when empty and grows naturally as you type.
+- **MCP stdio servers show type as `stdio`:** The display type for MCP stdio servers is now `stdio` instead of `local`.
+- **Cursor positioning and wide-character rendering fixes:** Cursor positioning in input fields and text copying from the scroll view both work correctly with CJK characters and emoji.
 
 ---
 
