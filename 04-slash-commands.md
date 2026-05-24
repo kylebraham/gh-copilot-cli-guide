@@ -228,15 +228,16 @@ Conversation: 24 messages
 
 ### /compact
 
-Compress conversation history to free up context space.
+Compress conversation history to free up context space. Accepts an optional focus argument (v1.0.52+) to shape what the summary retains.
 
 ```
 > /compact
+> /compact focus on the authentication refactor decisions
 ```
 
 **What it does:**
 - Summarizes old messages
-- Preserves important information
+- Preserves important information (guided by focus argument if provided)
 - Reduces token usage
 - Keeps recent context intact
 
@@ -420,11 +421,14 @@ copilot --no-ask-user "Refactor src/api.js to use async/await"
 
 ### --continue
 
-Resumes the most recently closed Copilot CLI session from the current working directory (falls back to the globally most recently touched session if no matching session exists), restoring context and conversation history.
+Resumes the most recently closed Copilot CLI session from the current working directory (falls back to the globally most recently touched session if no matching session exists), restoring context and conversation history. From v1.0.52, sessions resume in the working directory that was active when the session was last saved; pass `-C <dir>` to override. Branch and git context are also refreshed on resume.
 
 ```bash
 # Resume most recent session instantly
 copilot --continue
+
+# Resume and override the working directory
+copilot --continue -C /path/to/other/dir
 
 # Or from within a session
 > /resume
@@ -1217,7 +1221,7 @@ Display help information and available commands.
 
 ### /usage
 
-Display session usage metrics and statistics, including a GitHub-style contribution graph of your usage history (v1.0.35+).
+Display session usage metrics and statistics, including a GitHub-style contribution graph of your usage history (v1.0.35+) and quota progress bars for session and weekly limits (v1.0.52+).
 
 ```
 > /usage
@@ -1226,7 +1230,8 @@ Display session usage metrics and statistics, including a GitHub-style contribut
 **Shows:**
 - Requests used this session
 - Monthly premium requests
-- Requests remaining
+- Requests remaining (with visual progress bars)
+- Weekly quota progress bar
 - Token consumption
 - Cost estimates (if applicable)
 - Contribution graph of usage history (adapts to terminal color mode)
@@ -1646,7 +1651,7 @@ Prevent your system from going to sleep while Copilot CLI is active. Available w
 
 ### /restart
 
-Restart the CLI while preserving the current session.
+Restart the CLI while preserving the current session. From v1.0.52, the session ID is preserved across restarts.
 
 ```
 > /restart
@@ -1658,7 +1663,7 @@ Restart the CLI while preserving the current session.
 - You need to reload configuration or plugins
 - Recovering from a frozen or unresponsive state
 
-**Note:** Session data is preserved and automatically restored after restart.
+**Note:** Session data and session ID are preserved and automatically restored after restart.
 
 ### /exit, /quit
 

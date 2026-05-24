@@ -633,6 +633,8 @@ grep ERROR ~/.copilot/logs/copilot.log
 tail -100 ~/.copilot/logs/copilot.log
 ```
 
+**Automatic log pruning (v1.0.52+):** Old process log files are automatically pruned at startup, preventing unbounded disk growth from accumulated log rotations. No manual cleanup is needed for normal use.
+
 **Log levels:**
 - `DEBUG` - Detailed information
 - `INFO` - General information

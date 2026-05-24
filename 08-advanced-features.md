@@ -588,6 +588,21 @@ Skills listed here are injected before the first prompt — the agent starts wit
 
 > See [Skills System Guide](14-skills-system.md) for available skill names and file format.
 
+### Deferred Tool Loading (v1.0.52+)
+
+Custom agents with many MCP servers or plugins can opt into deferred tool loading to speed up startup. Set `deferred-tool-loading: true` in the agent's frontmatter to enable tool-search discovery instead of eagerly loading all tool descriptions at initialization.
+
+```yaml
+---
+name: large-toolset-agent
+model: claude-sonnet-4.6
+deferred-tool-loading: true
+---
+This agent loads tools on demand, keeping startup fast even with large tool lists.
+```
+
+**Why it matters:** Agents with large tool lists start faster and avoid exceeding context limits from unused tool descriptions. The agent discovers and loads tools dynamically as they are needed.
+
 ## Skills System
 
 **Skills** are modular expertise packages that add specialized capabilities to Copilot CLI. Unlike AGENTS.md (project-specific) or instruction files (style guides), skills provide reusable domain expertise that can be activated across any project.

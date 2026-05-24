@@ -1,4 +1,4 @@
-# Latest Features in GitHub Copilot CLI — v1.0.51
+# Latest Features in GitHub Copilot CLI — v1.0.52
 
 This file covers recent additions to GitHub Copilot CLI. Features marked with "Full guide →" have their own dedicated documentation file — the entries here are summaries with links. Features without a dedicated file are covered in full below.
 
@@ -10,7 +10,8 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 3. [Research Command (`/research`)](#research-command-research) — [Full guide →](19-research-command.md)
 
 ### Features covered in this file
-4. [New in v1.0.51](#new-in-v1051)
+4. [New in v1.0.52](#new-in-v1052)
+5. [New in v1.0.51](#new-in-v1051)
 5. [New in v1.0.49](#new-in-v1049)
 5. [New in v1.0.48](#new-in-v1048)
 5. [New in v1.0.47](#new-in-v1047)
@@ -58,6 +59,116 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 24. [Staying Up to Date](#staying-up-to-date)
 
 ---
+
+---
+
+## New in v1.0.52
+
+Released: 2026-05-23
+
+### `/compact` — Optional Focus Instructions
+
+`/compact` now accepts an optional argument to shape what the compaction summary focuses on. This lets you preserve the details most relevant to your current task rather than relying on the default summary heuristic.
+
+**How to use:**
+```
+> /compact
+> /compact focus on the authentication refactor decisions
+```
+
+**Why it matters:** Guided compaction keeps the most important context in view even after a long conversation, reducing costly context re-establishment.
+
+### `/usage` — Quota Progress Bars
+
+`/usage` now displays graphical progress bars for session and weekly quota limits, making it easier to see at a glance how close you are to each limit.
+
+**How to use:**
+```
+> /usage
+```
+
+**Why it matters:** Visual quota tracking helps you anticipate when to switch models or compact context before hitting a hard limit mid-task.
+
+### Custom Agents — `deferred-tool-loading`
+
+Custom agents can now opt into deferred tool loading by setting `deferred-tool-loading: true` in their YAML frontmatter. With this flag, tools are discovered on demand (tool-search) rather than loaded eagerly at startup, which significantly reduces initialization time for agents with large tool lists.
+
+**Configuration:**
+```yaml
+---
+name: large-toolset-agent
+model: claude-sonnet-4.6
+deferred-tool-loading: true
+---
+This agent loads tools on demand to reduce startup time.
+```
+
+**Why it matters:** Agents with many MCP servers or plugins start faster and avoid exceeding context limits from unused tool descriptions.
+
+### Session Working Directory — `-C <dir>` Override
+
+Sessions now resume in the working directory that was active when the session was last saved. Pass `-C <dir>` at startup to override the saved directory.
+
+**How to use:**
+```bash
+# Resume in the saved directory (automatic)
+copilot --continue
+
+# Override the resume directory
+copilot --continue -C /path/to/other/dir
+```
+
+**Why it matters:** You can pick up exactly where you left off without `cd`-ing first, while still having an explicit escape hatch.
+
+### `--continue` Refreshes Branch and Git Context
+
+`copilot --continue` now refreshes the saved branch name and git context when resuming from a session's saved directory, rather than carrying over stale git metadata from the previous session.
+
+**Why it matters:** Prevents misleading status display when the branch has changed between sessions.
+
+### `/restart` and `/update` Preserve Session ID
+
+`/restart` and `/update` now keep the same session ID after restarting, so session continuity is maintained without needing to re-attach or re-identify the session.
+
+**Why it matters:** Automation and scripts that track session IDs no longer break when the CLI restarts or self-updates.
+
+### General-Purpose Subagents Use GPT-5.4 or GPT-5.5
+
+`general-purpose` subagents (launched via `/delegate` and `/fleet`) now automatically select GPT-5.4 or GPT-5.5 when those models are available on your account, giving subagent tasks access to the strongest available reasoning capability.
+
+**Why it matters:** Complex multi-step subagent tasks benefit from the highest-quality model without any manual model selection.
+
+### Auto-Prune Process Log Files
+
+Copilot CLI now automatically prunes old process log files from `~/.copilot/logs/` at startup, preventing unbounded disk growth from accumulated log rotations.
+
+**Why it matters:** No manual log cleanup needed in long-running installations.
+
+### Legacy MCP OAuth Key Migration
+
+Legacy nested `oauth.clientId` and `oauth.callbackPort` keys in MCP server configs are now automatically migrated to the supported `oauthClientId` and `auth.redirectPort` keys instead of being silently dropped.
+
+**Why it matters:** Existing MCP configs with the old key format now work correctly without manual edits.
+
+### Bug Fixes and Polish (v1.0.52)
+
+- **Non-interactive subcommands** (`plugin list`, `mcp list`, `help`, `version`) no longer consume stdin
+- **Autopilot mode** switching no longer triggers unexpected permission prompts for tool, path, or URL access
+- **Context window tier selection** (~200K vs 1M tokens) is now enforced end-to-end — picking a tier actually constrains compaction, truncation, and token display
+- **Kill command safety filter** no longer rejects valid commands containing shell redirection like `kill -0 <PID> 2>/dev/null`
+- **Status line command** supports plain shell commands in addition to executable script paths
+- **Rendering fixes**: no more stuttering in tmux on Cygwin or mintty; gray background bar behind user messages removed on non-truecolor terminals
+- **AI Credits** usage correctly displays after sessions using the Responses API; error messages updated with clearer language and a Manage budget link
+- **Session file corruption fix**: sessions containing events with non-URL strings in URL/URI fields now resume without error
+- **HTTP/2 upload stall retry**: requests that time out due to an HTTP/2 upload stall automatically retry over HTTP/1.1
+- **Windows**: sessions no longer fail to load when a process exits with a high-bit exit code (e.g., .NET unhandled exceptions)
+- **Timeline UI**: entry connector color matches surrounding elements when expanded
+- **Picker checkboxes** now use a single-cell ▣/▢ glyph for tighter, more consistent rows
+- **Reasoning tokens** display as a parenthetical on output token count in the token usage summary
+- **Exit summary** displays `AI Credits` label with correct spacing before the value
+- **MCP OAuth re-authentication** honors the configured `redirectPort`
+- **PowerShell** division operator no longer triggers false 'Allow directory access' prompts on Windows
+- **`/statusline` picker** polished with cleaner item descriptions and better spacing
 
 ---
 
