@@ -1,5 +1,19 @@
 # Documentation Updates
 
+## 2026-05-25 — Docs updated for v1.0.54
+
+- `README.md`: Bumped version note to v1.0.54; updated "Latest features" list with v1.0.53 highlights
+- `16-new-features.md`: Updated title to v1.0.54; added TOC entries for v1.0.54 and v1.0.53; added v1.0.53 section covering multiline prompt display fix, `/skills` picker `--config-dir` fix, and bash session hang fix with `PS0`/`PROMPT_COMMAND`; added v1.0.54 section noting it is a stability/fixes release
+- `14-skills-system.md`: Added v1.0.53 version note for `/skills` picker honoring `--config-dir`
+
+### Feature Summary (v1.0.53)
+- **Fixed:** Multiline prompts display fully without content clipping or selection offset
+- **Fixed:** `/skills` picker now correctly honors `--config-dir` when saving skill preferences
+- **Fixed:** Bash shell sessions no longer hang when `PS0` or `PROMPT_COMMAND` is set in the environment
+
+### Feature Summary (v1.0.54)
+- **Fixed:** Internal fixes and changes (no user-facing features)
+
 ## 2026-05-24 — Docs updated for v1.0.52
 
 - `README.md`: Bumped version note to v1.0.52; updated "Latest features" list with v1.0.52 highlights

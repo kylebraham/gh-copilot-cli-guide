@@ -196,6 +196,8 @@ To learn more: /skills info <name>
 
 > **v1.0.44+:** Multiple skills can be invoked in a **single message** by including more than one skill reference inline. Slash commands (including skill invocations) can now appear anywhere in your input, not just at the start.
 
+> **v1.0.53+:** The `/skills` picker correctly honors `--config-dir` when saving skill preferences — preferences are written to the custom config directory rather than the default one.
+
 ### Getting Skill Information
 
 ```bash

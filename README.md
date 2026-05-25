@@ -81,6 +81,9 @@ npm update -g @github/copilot
 ```
 
 **Latest features:**
+- 🖊️ Multiline prompts display fully without content clipping or selection offset (v1.0.53)
+- 🗂️ `/skills` picker now correctly honors `--config-dir` when saving skill preferences (v1.0.53)
+- 🐚 Bash shell sessions no longer hang when `PS0` or `PROMPT_COMMAND` is set (v1.0.53)
 - ✂️ `/compact` accepts optional focus instructions to shape the compaction summary (v1.0.52)
 - 📊 `/usage` shows quota progress bars for session and weekly limits (v1.0.52)
 - 🔧 Custom agents support `deferred-tool-loading` frontmatter for on-demand tool discovery (v1.0.52)
@@ -338,4 +341,4 @@ Go to **Actions → Daily Doc Maintenance → Run workflow** to trigger it on de
 
 ---
 
-**Note:** This guide covers GitHub Copilot CLI v1.0.52. Some capabilities may vary by version — run `/update` to stay current.
+**Note:** This guide covers GitHub Copilot CLI v1.0.54. Some capabilities may vary by version — run `/update` to stay current.

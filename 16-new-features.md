@@ -1,4 +1,4 @@
-# Latest Features in GitHub Copilot CLI — v1.0.52
+# Latest Features in GitHub Copilot CLI — v1.0.54
 
 This file covers recent additions to GitHub Copilot CLI. Features marked with "Full guide →" have their own dedicated documentation file — the entries here are summaries with links. Features without a dedicated file are covered in full below.
 
@@ -10,7 +10,9 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 3. [Research Command (`/research`)](#research-command-research) — [Full guide →](19-research-command.md)
 
 ### Features covered in this file
-4. [New in v1.0.52](#new-in-v1052)
+4. [New in v1.0.54](#new-in-v1054)
+5. [New in v1.0.53](#new-in-v1053)
+5. [New in v1.0.52](#new-in-v1052)
 5. [New in v1.0.51](#new-in-v1051)
 5. [New in v1.0.49](#new-in-v1049)
 5. [New in v1.0.48](#new-in-v1048)
@@ -59,6 +61,46 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 24. [Staying Up to Date](#staying-up-to-date)
 
 ---
+
+---
+
+## New in v1.0.54
+
+Released: 2026-05-24
+
+### Fixes and Changes
+
+v1.0.54 is a stability release with internal fixes and changes. No user-facing features were added.
+
+---
+
+## New in v1.0.53
+
+Released: 2026-05-24
+
+### Multiline Prompt Display Fix
+
+Multiline prompts now display fully in the input area without content being clipped or the selection offset being misaligned. Long, multi-line inputs are rendered correctly from the first character to the last.
+
+**Why it matters:** Complex prompts that span several lines are now fully visible as you type, making it easier to review and edit them before submitting.
+
+### `/skills` Picker Respects `--config-dir`
+
+The `/skills` picker now correctly reads and saves skill preferences using the directory specified via `--config-dir`. Previously, preference changes made through the picker were written to the default config directory rather than the custom one.
+
+**How to use:**
+```
+$ copilot --config-dir /path/to/custom-config
+> /skills add my-skill
+```
+
+Skill preferences are now saved to the custom config directory as expected.
+
+### Bash Sessions No Longer Hang with `PS0` or `PROMPT_COMMAND`
+
+Bash shell sessions started by Copilot CLI no longer hang at startup when `PS0` or `PROMPT_COMMAND` is set in the environment. These environment variables are now handled safely, preventing the session from stalling.
+
+**Why it matters:** Users who customise their shell prompt (e.g. via `starship`, `oh-my-bash`, or manual `PS0`/`PROMPT_COMMAND` exports) can now run bash tool sessions without encountering hangs.
 
 ---
 
