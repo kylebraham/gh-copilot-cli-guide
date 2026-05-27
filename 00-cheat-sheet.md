@@ -61,7 +61,7 @@
 |---------|-------------|
 | `/clear` | Clear conversation history and context |
 | `/reset` | Alias for `/clear` |
-| `/compact` | Summarize and compress current context to save tokens |
+| `/compact` | Summarize and compress current context to save tokens; accepts optional focus argument (v1.0.52+) |
 | `/context` | Show what's currently in context |
 | `/session` | Show current session info |
 | `/session id` | Display the current session ID and copy it to clipboard (v1.0.49+) |
@@ -124,7 +124,7 @@
 | Command | Description |
 |---------|-------------|
 | `/help` | Show available commands and shortcuts |
-| `/usage` | Show premium request usage for this session |
+| `/usage` | Show premium request usage for this session with quota progress bars (v1.0.52+) |
 | `/version` | Show Copilot CLI version |
 | `/changelog` | View recent release notes |
 | `/release-notes` | Alias for `/changelog` |

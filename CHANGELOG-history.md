@@ -1,5 +1,39 @@
 # Documentation Updates
 
+## 2026-05-25 — Docs updated for v1.0.54
+
+- `README.md`: Bumped version note to v1.0.54; updated "Latest features" list with v1.0.53 highlights
+- `16-new-features.md`: Updated title to v1.0.54; added TOC entries for v1.0.54 and v1.0.53; added v1.0.53 section covering multiline prompt display fix, `/skills` picker `--config-dir` fix, and bash session hang fix with `PS0`/`PROMPT_COMMAND`; added v1.0.54 section noting it is a stability/fixes release
+- `14-skills-system.md`: Added v1.0.53 version note for `/skills` picker honoring `--config-dir`
+
+### Feature Summary (v1.0.53)
+- **Fixed:** Multiline prompts display fully without content clipping or selection offset
+- **Fixed:** `/skills` picker now correctly honors `--config-dir` when saving skill preferences
+- **Fixed:** Bash shell sessions no longer hang when `PS0` or `PROMPT_COMMAND` is set in the environment
+
+### Feature Summary (v1.0.54)
+- **Fixed:** Internal fixes and changes (no user-facing features)
+
+## 2026-05-24 — Docs updated for v1.0.52
+
+- `README.md`: Bumped version note to v1.0.52; updated "Latest features" list with v1.0.52 highlights
+- `16-new-features.md`: Updated title to v1.0.52; added TOC entry; added v1.0.52 section covering `/compact` focus instructions, `/usage` quota progress bars, `deferred-tool-loading` for custom agents, session working directory resume with `-C <dir>` override, `--continue` git context refresh, `/restart`/`/update` session ID preservation, general-purpose subagents using GPT-5.4/5.5, auto-prune logs, legacy MCP OAuth key migration, and extensive bug fixes
+- `04-slash-commands.md`: Updated `/compact` with focus argument; updated `/usage` with quota progress bars; updated `--continue` with saved directory and `-C <dir>` override; updated `/restart` with session ID preservation note
+- `00-cheat-sheet.md`: Updated `/compact` and `/usage` descriptions
+- `08-advanced-features.md`: Added `deferred-tool-loading` frontmatter option for custom agents
+- `15-copilot-directory.md`: Added automatic log pruning note to the logs section
+
+### Feature Summary (v1.0.52)
+- **Improved:** `/compact` — optional focus instructions for guided compaction
+- **Improved:** `/usage` — quota progress bars for session and weekly limits
+- **New:** `deferred-tool-loading` agent frontmatter — on-demand tool discovery for large tool lists
+- **Improved:** Sessions resume in saved working directory; `-C <dir>` to override
+- **Fixed:** `--continue` refreshes branch and git context instead of leaving them stale
+- **Fixed:** `/restart` and `/update` preserve current session ID
+- **Improved:** General-purpose subagents auto-select GPT-5.4 or GPT-5.5 when available
+- **New:** Auto-prune old process log files from `~/.copilot/logs/` at startup
+- **Fixed:** Legacy MCP OAuth keys (`oauth.clientId`, `oauth.callbackPort`) now migrated automatically
+
 ## 2026-05-21 — Docs updated for v1.0.51
 
 - `README.md`: Bumped version note to v1.0.51; updated "Latest features" list with v1.0.51 highlights
