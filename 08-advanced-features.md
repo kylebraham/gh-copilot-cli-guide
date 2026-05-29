@@ -261,6 +261,10 @@ $ copilot mcp          # Show help and available subcommands
 > /mcp auth my-server          # Authenticate / re-authenticate an MCP OAuth server (v1.0.15+)
 ```
 
+> **v1.0.55+:** `/mcp` shows **per-server token usage** so you can identify which servers are contributing most to context size. `/context` also breaks out MCP tool tokens as a separate line item.
+
+> **v1.0.55+:** MCP configuration now opens in a **dedicated full-screen view** with scrollable server and tool lists when content exceeds the visible area — no more truncated output in the inline panel.
+
 **Installing from the registry (v1.0.25+):** `/mcp install` opens an interactive browser of the MCP server registry. Select a server, answer the prompted configuration questions, and the CLI adds it to `~/.copilot/mcp-config.json` automatically — no manual JSON editing required.
 
 ---

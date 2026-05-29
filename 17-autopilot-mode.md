@@ -78,6 +78,12 @@ The active mode is shown in the input prompt footer. Once you see `autopilot`, t
 
 > **v1.0.45+:** Use the `/autopilot` slash command to toggle directly into (or out of) autopilot mode without cycling through all modes with Shift+Tab.
 
+> **v1.0.55+:** Pass an objective to `/autopilot` (or use the `/goal` alias) to keep the session anchored to a specific task:
+> ```
+> > /autopilot Migrate all REST endpoints to use the new authentication middleware
+> > /goal Write unit tests for the UserService class
+> ```
+
 You can also start the CLI directly in autopilot mode from the command line:
 
 ```bash
@@ -157,6 +163,20 @@ Combine with `--allow-all` for a fully autonomous, bounded session:
 ```bash
 copilot --allow-all --max-autopilot-continues 15
 ```
+
+### Disabling Allow-All / Yolo Mode
+
+> **v1.0.55+:** To prevent users from entering allow-all or yolo mode (e.g. in CI or team environments), set `permissions.disableBypassPermissionsMode` in `~/.copilot/settings.json`:
+>
+> ```json
+> {
+>   "permissions": {
+>     "disableBypassPermissionsMode": true
+>   }
+> }
+> ```
+>
+> When this setting is enabled, `/allow-all` and `/yolo` commands are disabled and the permissions prompt in autopilot mode will not offer the "Enable all permissions" option.
 
 ---
 

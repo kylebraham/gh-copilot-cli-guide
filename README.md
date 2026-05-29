@@ -81,6 +81,12 @@ npm update -g @github/copilot
 ```
 
 **Latest features:**
+- 🎯 `/autopilot <objective>` — keep autopilot focused on a specific goal; `/goal` is an alias (v1.0.55)
+- 🧠 Claude Opus 4.8 support added (v1.0.55)
+- 💡 Claude thinking (reasoning) tokens now shown in `/usage` session summaries (v1.0.55)
+- 📂 Custom agents and skills discovered recursively in subdirectories (v1.0.55)
+- 🔐 `permissions.disableBypassPermissionsMode` setting prevents enabling allow-all/yolo mode (v1.0.55)
+- 📊 Per-MCP-server token usage shown in `/mcp`; MCP tool tokens broken out in `/context` (v1.0.55)
 - 🖊️ Multiline prompts display fully without content clipping or selection offset (v1.0.53)
 - 🗂️ `/skills` picker now correctly honors `--config-dir` when saving skill preferences (v1.0.53)
 - 🐚 Bash shell sessions no longer hang when `PS0` or `PROMPT_COMMAND` is set (v1.0.53)
@@ -341,4 +347,4 @@ Go to **Actions → Daily Doc Maintenance → Run workflow** to trigger it on de
 
 ---
 
-**Note:** This guide covers GitHub Copilot CLI v1.0.54. Some capabilities may vary by version — run `/update` to stay current.
+**Note:** This guide covers GitHub Copilot CLI v1.0.55. Some capabilities may vary by version — run `/update` to stay current.

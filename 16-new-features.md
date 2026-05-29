@@ -1,4 +1,4 @@
-# Latest Features in GitHub Copilot CLI — v1.0.54
+# Latest Features in GitHub Copilot CLI — v1.0.55
 
 This file covers recent additions to GitHub Copilot CLI. Features marked with "Full guide →" have their own dedicated documentation file — the entries here are summaries with links. Features without a dedicated file are covered in full below.
 
@@ -10,7 +10,8 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 3. [Research Command (`/research`)](#research-command-research) — [Full guide →](19-research-command.md)
 
 ### Features covered in this file
-4. [New in v1.0.54](#new-in-v1054)
+4. [New in v1.0.55](#new-in-v1055)
+5. [New in v1.0.54](#new-in-v1054)
 5. [New in v1.0.53](#new-in-v1053)
 5. [New in v1.0.52](#new-in-v1052)
 5. [New in v1.0.51](#new-in-v1051)
@@ -61,6 +62,81 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 24. [Staying Up to Date](#staying-up-to-date)
 
 ---
+
+---
+
+## New in v1.0.55
+
+Released: 2026-05-28
+
+### `/autopilot <objective>` — Focused Autopilot with `/goal` Alias
+
+`/autopilot` now accepts an optional objective argument to keep the autonomous session focused on a specific goal. `/goal` is an alias for the same command.
+
+**How to use:**
+```
+> /autopilot Refactor the authentication module to use JWT
+> /goal Add comprehensive test coverage to the payments service
+```
+
+**Why it matters:** Without a stated objective, long autopilot sessions can drift scope. Providing an objective gives the model a concrete target and reduces off-task tool calls.
+
+### Claude Opus 4.8
+
+Claude Opus 4.8 is now available. Select it in the `/model` picker or via the flag:
+
+```bash
+copilot --model claude-opus-4.8
+```
+
+### Reasoning Tokens in Session Usage
+
+Claude thinking (reasoning) tokens are now included in `/usage` summaries, giving a complete picture of token consumption for models that emit reasoning traces. The reasoning token count is also visible in session token summaries for all users.
+
+### Recursive Skills and Agent Discovery
+
+Custom agents and skills are now discovered **recursively** in subdirectories. You no longer need to place skill files directly in the root of a skills directory — nested folder structures are fully supported.
+
+Additionally, `--plugin-dir` skills now take precedence over personal-home skills (`~/.copilot`, `~/.agents`) with the same name. The full priority order is:
+
+```
+project > --plugin-dir > personal (~/.copilot / ~/.agents) > custom
+```
+
+### `permissions.disableBypassPermissionsMode` Setting
+
+A new `permissions.disableBypassPermissionsMode` setting in `~/.copilot/settings.json` prevents the session from entering allow-all or yolo mode. Useful for teams or CI environments where unrestricted tool access should be blocked:
+
+```json
+{
+  "permissions": {
+    "disableBypassPermissionsMode": true
+  }
+}
+```
+
+When enabled, `/allow-all` and `/yolo` commands are disabled for the session.
+
+### Per-MCP-Server Token Usage
+
+`/mcp` now shows per-server token consumption, and `/context` breaks out MCP tool tokens as a separate line item. This makes it easy to identify which MCP servers are contributing most to context size.
+
+### Other Fixes and Improvements
+
+- Free and Student plan users on token-based billing are restricted to Auto model selection, with an explanation shown in the model picker
+- MCP server configuration form saves the latest typed value when pressing Ctrl+S
+- MCP configuration now opens in its own dedicated screen, with scrollable server and tool lists
+- `exit_plan_mode` tool is only offered to the model while the session is in plan mode
+- `/statusline` and `/theme` commands can now run while the agent is executing
+- Extension log files are captured per extension and surfaced in the `extensions_manage` tool
+- Project extensions in `.github/extensions` are now discovered in non-git (folder-backed) workspaces
+- Hook progress streaming shows real-time status messages from long-running hooks in the timeline
+- Cell-based terminal renderer is now enabled for all users by default
+- `/env` now shows loaded extensions with their status and source
+- `copilot update` and `copilot version` authenticate release API requests to avoid rate limit errors in shared-NAT environments
+- Native binary crash (e.g. SIGSEGV) now falls through to the JavaScript fallback instead of silently exiting
+- Clipboard paste works correctly on Wayland compositors that do not support wlr-data-control (e.g. GNOME/Mutter)
+- PowerShell 7 correctly detected when `pwsh.exe` is installed as a Microsoft Store App Execution Alias
 
 ---
 
