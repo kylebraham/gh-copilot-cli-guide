@@ -50,6 +50,8 @@ copilot --add-github-mcp-tool=create_issue
 copilot --add-github-mcp-tool=search_repositories
 ```
 
+> **v1.0.56:** When `gh` CLI is on PATH, the GitHub MCP server automatically omits tools that duplicate `gh` CLI capabilities. This reduces token usage by keeping only tools that aren't already covered by the `gh` CLI. Use `--enable-all-github-mcp-tools` to override and load everything.
+
 **Common usage with the GitHub MCP active:**
 
 ```

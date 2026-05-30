@@ -1509,6 +1509,8 @@ Invoke the rubber-duck agent for an independent critique of the agent's current 
 
 > ⚠️ This is an experimental feature. Enable experimental features with `/experimental enable rubber-duck` if it is not yet visible.
 
+> **v1.0.56:** The rubber-duck agent can be enabled or disabled via the `builtInAgents.rubberDuck` setting in `~/.copilot/settings.json` or `copilot config`.
+
 ### /mcp [subcommand] [server-name]
 
 Manage MCP (Model Context Protocol) server configuration.

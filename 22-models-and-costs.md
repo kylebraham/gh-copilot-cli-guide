@@ -177,7 +177,7 @@ This opens a picker showing all available models with their current multipliers.
 
 > **v1.0.48:** If you are on a token-based billing plan, the picker now displays actual token prices for each model instead of dot indicators, making it easier to compare costs before selecting a model.
 
-> **v1.0.55:** Free and Student plan users on token-based billing are restricted to **Auto** model selection. The model picker shows an explanation when other models are unavailable. To select a specific model, upgrade your Copilot plan.
+> **v1.0.55:** Free and Student plan users on token-based billing were restricted to **Auto** model selection. This restriction was lifted in **v1.0.56** — all plan tiers can now select any model in the picker.
 
 ### Set for a Single Session (Flag)
 
