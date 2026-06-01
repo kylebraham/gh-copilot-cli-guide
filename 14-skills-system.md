@@ -127,6 +127,8 @@ Imagine building a Django e-commerce site:
 2. Check for available skills
    - Global: ~/.copilot/skills/
    - Project: .copilot/skills/
+   Note: Skills are discovered **recursively** in subdirectories (v1.0.55+),
+   so nested folder structures under the skills directory are fully supported.
    Note: ~/.claude/ is NOT loaded as Copilot config (v1.0.35+); this includes
    custom agents, skills, and commands stored there (v1.0.36+)
    ↓
@@ -304,6 +306,16 @@ Store custom skills in:
 ~/.copilot/skills/          # Global skills (all projects)
 <project>/.copilot/skills/  # Project-specific skills
 ```
+
+> **v1.0.55+:** Skills are discovered **recursively** — you can organize skills into subdirectories within these locations and they will all be found automatically.
+
+**Skill priority order** (highest to lowest, v1.0.55+):
+1. Project skills (`.copilot/skills/`, `.github/skills/`)
+2. `--plugin-dir` skills (passed via CLI flag)
+3. Personal home skills (`~/.copilot/skills/`, `~/.agents/`)
+4. Custom/built-in skills
+
+When two skills share the same name, the higher-priority source wins.
 
 ### Basic Skill Template
 

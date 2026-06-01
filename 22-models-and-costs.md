@@ -26,6 +26,7 @@ Understanding how to choose the right model — and when to switch — is one of
 | Claude Opus 4.6 | `claude-opus-4.6` | Slower | Most capable — complex reasoning, architecture, security; uses **medium reasoning effort** by default (v1.0.36+) |
 | Claude Opus 4.6 (fast) | `claude-opus-4.6-fast` | Fast | Opus quality with faster response times |
 | Claude Opus 4.7 | `claude-opus-4.7` | Slower | Latest Opus — most capable model (v1.0.29+) |
+| Claude Opus 4.8 | `claude-opus-4.8` | Slower | Newest Opus — top-tier reasoning and coding (v1.0.55+) |
 | Claude Haiku 4.5 | `claude-haiku-4.5` | Fastest | Quick tasks, fleet subagents, docs, formatting |
 | GPT-5.4 | `gpt-5.4` | Fast | Strong alternative for general code generation |
 | GPT-5.3-Codex | `gpt-5.3-codex` | Fast | Code-specialized tasks |
@@ -65,6 +66,8 @@ Copilot CLI consumes **premium requests** each time the model is invoked. Unders
 ```
 
 This shows how many premium requests you've consumed in the current session. Check it before kicking off a long autopilot or fleet run.
+
+> **v1.0.55:** For models that emit reasoning traces (e.g. Claude Opus 4.6, 4.7, 4.8), `/usage` now includes the reasoning (thinking) token count in the session summary, giving a complete view of token consumption.
 
 ---
 
@@ -173,6 +176,8 @@ You can change models at any point — interactively, per session, or globally.
 This opens a picker showing all available models with their current multipliers. Use arrow keys to select and press Enter to switch.
 
 > **v1.0.48:** If you are on a token-based billing plan, the picker now displays actual token prices for each model instead of dot indicators, making it easier to compare costs before selecting a model.
+
+> **v1.0.55:** Free and Student plan users on token-based billing were restricted to **Auto** model selection. This restriction was lifted in **v1.0.56** — all plan tiers can now select any model in the picker.
 
 ### Set for a Single Session (Flag)
 

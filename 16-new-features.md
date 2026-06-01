@@ -1,4 +1,4 @@
-# Latest Features in GitHub Copilot CLI — v1.0.54
+# Latest Features in GitHub Copilot CLI — v1.0.56
 
 This file covers recent additions to GitHub Copilot CLI. Features marked with "Full guide →" have their own dedicated documentation file — the entries here are summaries with links. Features without a dedicated file are covered in full below.
 
@@ -10,7 +10,9 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 3. [Research Command (`/research`)](#research-command-research) — [Full guide →](19-research-command.md)
 
 ### Features covered in this file
-4. [New in v1.0.54](#new-in-v1054)
+4. [New in v1.0.56](#new-in-v1056)
+5. [New in v1.0.55](#new-in-v1055)
+5. [New in v1.0.54](#new-in-v1054)
 5. [New in v1.0.53](#new-in-v1053)
 5. [New in v1.0.52](#new-in-v1052)
 5. [New in v1.0.51](#new-in-v1051)
@@ -61,6 +63,160 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 24. [Staying Up to Date](#staying-up-to-date)
 
 ---
+
+---
+
+## New in v1.0.56
+
+Released: 2026-05-29
+
+### Free and Student Users Can Now Select Any Model
+
+Free and Student plan users can now choose models other than Auto in the model picker. The previous restriction (introduced in v1.0.55) that limited these users to Auto-only selection has been lifted.
+
+**How to use:**
+```
+> /model
+```
+
+Select any available model from the picker regardless of your plan tier.
+
+**Why it matters:** All plan tiers now have full access to the model picker, giving every user the flexibility to switch to the model best suited for their task.
+
+### `builtInAgents.rubberDuck` Setting
+
+The rubber-duck agent can now be explicitly enabled or disabled via `copilot config` or `~/.copilot/settings.json`:
+
+```json
+{
+  "builtInAgents": {
+    "rubberDuck": true
+  }
+}
+```
+
+Set to `false` to hide the rubber-duck agent entirely from the session.
+
+**Why it matters:** Teams or CI environments that want a consistent, focused agent experience can now suppress the rubber-duck agent without relying on experimental feature flags.
+
+### GitHub MCP Server Omits Redundant Tools When `gh` CLI Is on PATH
+
+When the `gh` CLI is available on PATH, the built-in GitHub MCP server now automatically omits tools that duplicate `gh` CLI capabilities. This reduces token usage by keeping the tool list lean — only tools that aren't covered by the `gh` CLI are surfaced to the model.
+
+**Why it matters:** Fewer redundant tools means less context consumed per request, especially in long sessions or repositories with many GitHub operations.
+
+### MCP Tools Now Surface Both `content` and `structuredContent`
+
+MCP tools that return both a human-readable `content` text payload and a `structuredContent` payload now deliver both to the agent. Previously, one side could be dropped. When the text is the literal JSON serialization of the structured payload (per MCP spec §5.2.6), it is deduplicated; otherwise the two are concatenated.
+
+**Why it matters:** Tool responses are now complete and unambiguous, improving agent accuracy when working with MCP servers that use both response formats.
+
+### Diff View Continuous Scroll Layout
+
+The diff view now uses a continuous scroll layout with sticky file and hunk headers, full terminal width, and theme-aware colors. Long diffs are easier to navigate without losing track of which file or hunk you are reading.
+
+### Code Review Agent Uses Current Session Model
+
+The `/review` code review agent now uses the same model as the active session instead of a fixed default. This ensures the review quality matches whatever model you have selected.
+
+### Reasoning Effort Picker Respects Model Capabilities
+
+The reasoning effort picker no longer shows effort options that are not supported by the currently selected model. Only valid choices are displayed, preventing configuration errors.
+
+### `web_fetch` Prefers Markdown Content
+
+The `web_fetch` tool now uses HTTP content negotiation to prefer markdown content when available. Documentation sites that serve both HTML and markdown will return cleaner, more structured results.
+
+### Other Fixes and Improvements
+
+- ThemePicker side-by-side layout fits within a 120-column terminal without wrapping
+- Model picker shows accurate total context window size per pricing tier
+- Extended key reporting works correctly in tmux when Kitty keyboard protocol is unavailable
+- Config and settings files are written atomically to prevent data loss when multiple CLI processes run concurrently
+- BYOK provider configuration now applies correctly to ACP sessions
+- Fix `/context` small-token legend formatting and free-space grid rounding
+- File paths in `/env` output display with correct formatting
+- Reasoning text always displays above the assistant response in the conversation timeline
+- Assistant responses render without single-word orphan lines in the terminal timeline
+- Cursor stays at correct position after pasting text that contains tab characters
+- Context window tier selection now persists durably across SDK-only resume paths
+- Remote session URL correctly uses the repository owner/name instead of literal `'copilot'`
+- Trusted folder confirmation message clarifies that permissions may be remembered for the session
+
+---
+
+## New in v1.0.55
+
+Released: 2026-05-28
+
+### `/autopilot <objective>` — Focused Autopilot with `/goal` Alias
+
+`/autopilot` now accepts an optional objective argument to keep the autonomous session focused on a specific goal. `/goal` is an alias for the same command.
+
+**How to use:**
+```
+> /autopilot Refactor the authentication module to use JWT
+> /goal Add comprehensive test coverage to the payments service
+```
+
+**Why it matters:** Without a stated objective, long autopilot sessions can drift scope. Providing an objective gives the model a concrete target and reduces off-task tool calls.
+
+### Claude Opus 4.8
+
+Claude Opus 4.8 is now available. Select it in the `/model` picker or via the flag:
+
+```bash
+copilot --model claude-opus-4.8
+```
+
+### Reasoning Tokens in Session Usage
+
+Claude thinking (reasoning) tokens are now included in `/usage` summaries, giving a complete picture of token consumption for models that emit reasoning traces. The reasoning token count is also visible in session token summaries for all users.
+
+### Recursive Skills and Agent Discovery
+
+Custom agents and skills are now discovered **recursively** in subdirectories. You no longer need to place skill files directly in the root of a skills directory — nested folder structures are fully supported.
+
+Additionally, `--plugin-dir` skills now take precedence over personal-home skills (`~/.copilot`, `~/.agents`) with the same name. The full priority order is:
+
+```
+project > --plugin-dir > personal (~/.copilot / ~/.agents) > custom
+```
+
+### `permissions.disableBypassPermissionsMode` Setting
+
+A new `permissions.disableBypassPermissionsMode` setting in `~/.copilot/settings.json` prevents the session from entering allow-all or yolo mode. Useful for teams or CI environments where unrestricted tool access should be blocked:
+
+```json
+{
+  "permissions": {
+    "disableBypassPermissionsMode": true
+  }
+}
+```
+
+When enabled, `/allow-all` and `/yolo` commands are disabled for the session.
+
+### Per-MCP-Server Token Usage
+
+`/mcp` now shows per-server token consumption, and `/context` breaks out MCP tool tokens as a separate line item. This makes it easy to identify which MCP servers are contributing most to context size.
+
+### Other Fixes and Improvements
+
+- Free and Student plan users on token-based billing are restricted to Auto model selection, with an explanation shown in the model picker
+- MCP server configuration form saves the latest typed value when pressing Ctrl+S
+- MCP configuration now opens in its own dedicated screen, with scrollable server and tool lists
+- `exit_plan_mode` tool is only offered to the model while the session is in plan mode
+- `/statusline` and `/theme` commands can now run while the agent is executing
+- Extension log files are captured per extension and surfaced in the `extensions_manage` tool
+- Project extensions in `.github/extensions` are now discovered in non-git (folder-backed) workspaces
+- Hook progress streaming shows real-time status messages from long-running hooks in the timeline
+- Cell-based terminal renderer is now enabled for all users by default
+- `/env` now shows loaded extensions with their status and source
+- `copilot update` and `copilot version` authenticate release API requests to avoid rate limit errors in shared-NAT environments
+- Native binary crash (e.g. SIGSEGV) now falls through to the JavaScript fallback instead of silently exiting
+- Clipboard paste works correctly on Wayland compositors that do not support wlr-data-control (e.g. GNOME/Mutter)
+- PowerShell 7 correctly detected when `pwsh.exe` is installed as a Microsoft Store App Execution Alias
 
 ---
 

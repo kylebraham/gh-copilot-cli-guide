@@ -1,6 +1,47 @@
 # Documentation Updates
 
-## 2026-05-25 — Docs updated for v1.0.54
+## 2026-05-30 — Docs updated for v1.0.56
+
+- `README.md`: Bumped version note to v1.0.56
+- `16-new-features.md`: Updated title to v1.0.56; added TOC entry; added v1.0.56 section covering Free/Student model picker freedom, `builtInAgents.rubberDuck` setting, GitHub MCP server gh-CLI deduplication, MCP `structuredContent` surfacing, diff view continuous scroll layout, code review agent session-model alignment, reasoning effort picker model-capability awareness, `web_fetch` markdown preference, and other fixes
+- `22-models-and-costs.md`: Updated v1.0.55 note about Free/Student model restriction to reflect that v1.0.56 lifts the restriction
+- `08-advanced-features.md`: Added v1.0.56 note to GitHub MCP Server section about omitting redundant gh-replaceable tools when `gh` CLI is on PATH
+- `15-copilot-directory.md`: Added `builtInAgents.rubberDuck` to settings.json example schema
+- `04-slash-commands.md`: Added v1.0.56 note to `/rubber-duck` section about configuring via `builtInAgents.rubberDuck` setting
+
+### Feature Summary (v1.0.56)
+- **Changed:** Free and Student users can now select any model in the picker (reverses v1.0.55 restriction)
+- **New:** `builtInAgents.rubberDuck` setting to enable/disable rubber-duck agent via config
+- **Improved:** GitHub MCP server omits redundant `gh`-replaceable tools by default when `gh` CLI is on PATH
+- **Fixed:** MCP tools returning both `content` and `structuredContent` now surface both payloads
+- **Improved:** Diff view uses continuous scroll layout with sticky headers and theme-aware colors
+- **Improved:** `/review` code review agent uses the current session's model
+- **Improved:** Reasoning effort picker only shows options supported by the current model
+- **Improved:** `web_fetch` prefers markdown via HTTP content negotiation
+- **Fixed:** Numerous terminal, tmux, and platform fixes
+
+
+
+- `README.md`: Bumped version note to v1.0.55; updated "Latest features" list with v1.0.55 highlights
+- `16-new-features.md`: Updated title to v1.0.55; added TOC entry; added v1.0.55 section covering `/autopilot <objective>` with `/goal` alias, Claude Opus 4.8, reasoning tokens in `/usage`, recursive skills/agents discovery, `permissions.disableBypassPermissionsMode`, per-MCP-server token usage, MCP dedicated screen, and other fixes
+- `22-models-and-costs.md`: Added Claude Opus 4.8 model row; added v1.0.55 note about Free/Student plan token-billing model restriction; added reasoning token note to `/usage` section
+- `04-slash-commands.md`: Updated `/autopilot` section to document `[objective]` argument and `/goal` alias
+- `17-autopilot-mode.md`: Added `/autopilot <objective>` and `/goal` alias usage; added `permissions.disableBypassPermissionsMode` setting section
+- `14-skills-system.md`: Added recursive subdirectory discovery note; added skill priority order table with `--plugin-dir` precedence
+- `08-advanced-features.md`: Added per-MCP-server token usage note for `/mcp` and `/context`; added MCP dedicated screen note
+- `00-cheat-sheet.md`: Updated `/autopilot` entries to reflect `[objective]` argument and `/goal` alias
+
+### Feature Summary (v1.0.55)
+- **New:** `/autopilot <objective>` — keep autopilot sessions focused; `/goal` is an alias
+- **New:** Claude Opus 4.8 model support
+- **Improved:** Reasoning (thinking) tokens now shown in `/usage` summaries
+- **New:** Custom agents and skills discovered recursively in subdirectories
+- **New:** `permissions.disableBypassPermissionsMode` setting to lock out allow-all/yolo mode
+- **Improved:** Per-MCP-server token usage in `/mcp`; MCP tool tokens broken out in `/context`
+- **Improved:** MCP configuration opens in a dedicated scrollable screen
+- **Fixed:** Numerous bug fixes and platform improvements
+
+
 
 - `README.md`: Bumped version note to v1.0.54; updated "Latest features" list with v1.0.53 highlights
 - `16-new-features.md`: Updated title to v1.0.54; added TOC entries for v1.0.54 and v1.0.53; added v1.0.53 section covering multiline prompt display fix, `/skills` picker `--config-dir` fix, and bash session hang fix with `PS0`/`PROMPT_COMMAND`; added v1.0.54 section noting it is a stability/fixes release

@@ -50,6 +50,8 @@ copilot --add-github-mcp-tool=create_issue
 copilot --add-github-mcp-tool=search_repositories
 ```
 
+> **v1.0.56:** When `gh` CLI is on PATH, the GitHub MCP server automatically omits tools that duplicate `gh` CLI capabilities. This reduces token usage by keeping only tools that aren't already covered by the `gh` CLI. Use `--enable-all-github-mcp-tools` to override and load everything.
+
 **Common usage with the GitHub MCP active:**
 
 ```
@@ -260,6 +262,10 @@ $ copilot mcp          # Show help and available subcommands
 > /mcp reload                  # Reload all MCP server configs
 > /mcp auth my-server          # Authenticate / re-authenticate an MCP OAuth server (v1.0.15+)
 ```
+
+> **v1.0.55+:** `/mcp` shows **per-server token usage** so you can identify which servers are contributing most to context size. `/context` also breaks out MCP tool tokens as a separate line item.
+
+> **v1.0.55+:** MCP configuration now opens in a **dedicated full-screen view** with scrollable server and tool lists when content exceeds the visible area — no more truncated output in the inline panel.
 
 **Installing from the registry (v1.0.25+):** `/mcp install` opens an interactive browser of the MCP server registry. Select a server, answer the prompted configuration questions, and the CLI adds it to `~/.copilot/mcp-config.json` automatically — no manual JSON editing required.
 

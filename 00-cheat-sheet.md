@@ -50,7 +50,7 @@
 |------|-------------|-------------|
 | **Interactive** | Default on launch | Conversational coding, exploration, Q&A |
 | **Plan** | `Shift+Tab` (first press) | Review a proposed implementation plan before executing |
-| **Autopilot** | `/autopilot` (v1.0.45+) or `Shift+Tab` (twice from interactive) | Let Copilot implement autonomously with minimal interruption |
+| **Autopilot** | `/autopilot [objective]` (v1.0.45+) or `Shift+Tab` (twice from interactive) | Let Copilot implement autonomously with minimal interruption; supply an objective to keep it focused (v1.0.55+) |
 
 ---
 
@@ -115,7 +115,7 @@
 | `/keep-alive` | Prevent system sleep while Copilot CLI is active |
 | `/init` | Initialize Copilot configuration for the current repo |
 | `/experimental` | Toggle experimental features |
-| `/autopilot` | Toggle autopilot mode on/off (v1.0.45+) |
+| `/autopilot [objective]` | Toggle autopilot mode on/off; optionally set a goal objective (v1.0.45+); `/goal` is an alias (v1.0.55+) |
 | `/allow-all` | Allow all tool calls without per-call confirmation |
 | `/yolo` | Alias for `/allow-all`; state persists across `/restart` |
 | `/reset-allowed-tools` | Reset tool allowlist to default (prompt-per-use) |

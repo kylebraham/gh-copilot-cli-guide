@@ -1380,20 +1380,29 @@ Show available experimental features, or enable/disable experimental mode.
 
 > **Autopilot full guide:** See [Autopilot Mode](17-autopilot-mode.md) — permissions, --max-autopilot-continues, plan→autopilot workflow, and examples.
 
-### /autopilot (v1.0.45+)
+### /autopilot [objective] (v1.0.45+)
 
-Toggle autopilot mode on or off directly, without cycling through modes with Shift+Tab.
+Toggle autopilot mode on or off directly, without cycling through modes with Shift+Tab. In v1.0.55+, you can supply an optional objective to keep the autonomous session focused.
 
 ```
 > /autopilot
+> /autopilot Refactor the payments module to use the new billing API
+```
+
+**`/goal` is an alias** for `/autopilot <objective>`:
+
+```
+> /goal Add end-to-end tests for the checkout flow
 ```
 
 **What it does:**
 - Switches from interactive mode directly into autopilot mode (or back)
+- When an objective is given, the model is anchored to that goal throughout the session
 - Equivalent to pressing Shift+Tab until autopilot is reached, but in one command
 
 **Use when:**
 - You want a quick way to enter or exit autopilot without pressing Shift+Tab multiple times
+- You want to constrain a long autopilot run to a specific task
 
 > **Full guide:** See [Autopilot Mode](17-autopilot-mode.md) for permissions, continuation limits, and examples.
 
@@ -1499,6 +1508,8 @@ Invoke the rubber-duck agent for an independent critique of the agent's current 
 - A complex task is nearing completion and you want a sanity check
 
 > ⚠️ This is an experimental feature. Enable experimental features with `/experimental enable rubber-duck` if it is not yet visible.
+
+> **v1.0.56:** The rubber-duck agent can be enabled or disabled via the `builtInAgents.rubberDuck` setting in `~/.copilot/settings.json` or `copilot config`.
 
 ### /mcp [subcommand] [server-name]
 

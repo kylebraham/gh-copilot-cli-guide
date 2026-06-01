@@ -127,7 +127,12 @@ As of v1.0.35, user-editable settings live in `~/.copilot/settings.json`. This f
 
   // Auto-compact conversation when context fills up
   "auto_compact": true,
-  "compact_threshold": 0.8
+  "compact_threshold": 0.8,
+
+  // Enable or disable built-in agents (v1.0.56+)
+  "builtInAgents": {
+    "rubberDuck": true
+  }
 }
 ```
 
