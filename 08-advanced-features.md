@@ -370,7 +370,7 @@ Or programmatically via the `list_agents` and `read_agent` tools exposed to the 
 
 ---
 
-When Copilot CLI detects an **Azure DevOps repository** as the working context, the built-in GitHub MCP server is automatically disabled to avoid authentication errors and irrelevant GitHub API calls. No configuration change is needed — the detection is automatic. As of v1.0.48, this also applies when running in prompt (`-p`) or headless mode, matching the existing interactive-mode behavior.
+When Copilot CLI detects an **Azure DevOps repository** as the working context, the built-in GitHub MCP server is automatically scaled back to avoid authentication errors and irrelevant GitHub API calls. No configuration change is needed — the detection is automatic. As of v1.0.48, this also applies when running in prompt (`-p`) or headless mode, matching the existing interactive-mode behavior. As of v1.0.57, instead of being fully disabled, the server now exposes **only the `web_search` tool** in Azure DevOps-only repositories, so web search capability is retained.
 
 ---
 

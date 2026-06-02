@@ -1,4 +1,4 @@
-# Latest Features in GitHub Copilot CLI — v1.0.56
+# Latest Features in GitHub Copilot CLI — v1.0.57
 
 This file covers recent additions to GitHub Copilot CLI. Features marked with "Full guide →" have their own dedicated documentation file — the entries here are summaries with links. Features without a dedicated file are covered in full below.
 
@@ -10,7 +10,8 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 3. [Research Command (`/research`)](#research-command-research) — [Full guide →](19-research-command.md)
 
 ### Features covered in this file
-4. [New in v1.0.56](#new-in-v1056)
+4. [New in v1.0.57](#new-in-v1057)
+5. [New in v1.0.56](#new-in-v1056)
 5. [New in v1.0.55](#new-in-v1055)
 5. [New in v1.0.54](#new-in-v1054)
 5. [New in v1.0.53](#new-in-v1053)
@@ -63,6 +64,102 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 24. [Staying Up to Date](#staying-up-to-date)
 
 ---
+
+---
+
+## New in v1.0.57
+
+Released: 2026-06-01
+
+### `showTipsOnStartup` Setting
+
+A new `showTipsOnStartup` setting controls whether the startup tips panel is displayed each time you launch Copilot CLI.
+
+**How to configure:**
+```json
+{
+  "showTipsOnStartup": false
+}
+```
+
+**Why it matters:** Experienced users can suppress the tips panel for a cleaner startup experience.
+
+---
+
+### `/diff` Defaults to Branch Diff
+
+When there are no unstaged changes, `/diff` now automatically shows the branch diff instead of an empty diff view.
+
+**How to use:**
+```
+> /diff
+```
+
+**Why it matters:** You get useful output immediately without having to manually specify a branch target.
+
+---
+
+### Plugin Commands Show Immediate Progress Feedback
+
+`/plugin install`, `/plugin uninstall`, `/plugin update`, and `marketplace add/remove/browse` sub-commands now display immediate feedback while the operation is in progress, so you can see what's happening instead of waiting silently.
+
+---
+
+### Azure DevOps Repositories: MCP Server Now Provides `web_search`
+
+Previously, the built-in GitHub MCP server was fully disabled in Azure DevOps-only repositories. As of v1.0.57, instead of being fully disabled, the server now exposes only the `web_search` tool, so you retain web search capability even when working in Azure DevOps repos.
+
+**Why it matters:** You no longer lose access to web search when working in Azure DevOps repositories.
+
+---
+
+### Default Networking Transport: HTTP/1.1
+
+The default networking transport is now HTTP/1.1, improving reliability on some network paths (particularly proxies and corporate firewalls that have issues with HTTP/2).
+
+To opt back into HTTP/2:
+```bash
+export COPILOT_ENABLE_HTTP2=1
+```
+
+---
+
+### `preToolUse` Hook Errors Deny Tool Calls
+
+`preToolUse` hook errors now **deny** the tool call rather than silently allowing execution to continue. This ensures that hook-based guardrails are always enforced.
+
+> ⚠️ **Behavior change in v1.0.57:** If your `preToolUse` hooks have errors, tool calls will be blocked. Fix hook errors to restore expected behavior.
+
+---
+
+### Ctrl+C Terminates Full Process Tree
+
+Canceling a running shell command — via Ctrl+C on a `!command`, or aborting an agent command including in sandboxed and background-promoted shells — now terminates the entire process tree, preventing orphaned background processes.
+
+---
+
+### Other Improvements and Fixes
+
+- **Actionable rate-limit error:** `copilot update` now shows a clear error message when it hits the GitHub API rate limit
+- **`COPILOT_HOME` for server discovery:** `COPILOT_HOME` is now honored for the server discovery registry directory
+- **`@`-mention case-insensitive search:** File search via `@`-mention matches files regardless of query letter casing
+- **`/lsp` subdirectory fix:** `/lsp show`, `/lsp test`, and `/lsp reload` correctly discover project LSP config when the CLI is launched from a subdirectory
+- **`/skills` quoted path fix:** `/skills add` and `/skills remove` correctly handle paths wrapped in quotes (e.g., from Windows Explorer "Copy as path")
+- **`copilot plugin marketplace list` honors `extraKnownMarketplaces`:** Repo-level `extraKnownMarketplaces` settings from `.github/copilot/settings.json` are now respected
+- **MCP `npx --registry` policy fix:** MCP servers configured with `npx --registry` are no longer incorrectly blocked by policy
+- **MCP timeout preserved:** MCP server timeout configuration is preserved after tools list changes
+- **Diff mode mouse click:** Click a diff line with the mouse to select it in diff mode
+- **Tmux key input:** Ctrl+C and other modified keys work correctly inside tmux
+- **High-contrast diff:** High-contrast diff backgrounds use darker colors to improve text readability
+- **Unquoted multi-word prompt hint:** Running `copilot` with an unquoted multi-word prompt now shows a helpful "quote your prompt" hint
+- **Quota footer:** Remaining quota is shown as a rounded percentage in the footer
+- **Paste artifact fix:** Pasting text from a browser, editor, or terminal no longer leaves stray empty lines, broken box-drawing characters, or a misplaced cursor
+- **Plugin isolation:** Plugins auto-installed from repository settings no longer leak into user global config; installed plugins no longer include the `.git` directory from the source repository
+- **Canvas `file://` URLs:** Canvas providers can return `file://` URLs in open results for local file previews
+- **Symlinked directories:** Symlinked directories now appear in `/cwd` completion suggestions
+- **Session resilience:** Session resume works correctly after a crash that left partial data in the session log; sessions no longer hang indefinitely after an internal event processing error
+- **Reasoning display:** New reasoning after tool calls appears at the bottom of the timeline instead of above earlier output
+- **Auth error clarity:** The underlying reason (e.g., GitHub API rate limit) is now surfaced when SDK auth-token validation fails
 
 ---
 

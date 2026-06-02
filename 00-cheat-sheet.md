@@ -203,6 +203,7 @@ copilot completion fish > ~/.config/fish/completions/copilot.fish
 | `COPILOT_MODEL` | Set the default model globally (e.g., `claude-haiku-4.5`) |
 | `COPILOT_GH_HOST` | Override the GitHub hostname (takes precedence over `GH_HOST`; useful for GHES) |
 | `COPILOT_HOME` | Override the config directory (replaces deprecated `--config-dir`; v1.0.40+) |
+| `COPILOT_ENABLE_HTTP2=1` | Opt into HTTP/2 transport (default is HTTP/1.1 as of v1.0.57) |
 | `GITHUB_COPILOT_PROMPT_MODE_REPO_HOOKS=1` | Opt in to repo hooks (AGENTS.md, instructions) in prompt mode (`-p`) (v1.0.40+) |
 | `GITHUB_COPILOT_PROMPT_MODE_WORKSPACE_MCP=1` | Opt in to workspace MCP servers (`.mcp.json`) in prompt mode (`-p`) (v1.0.40+) |
 | `GITHUB_COPILOT_PROMPT_MODE_EXTENSIONS=true` | Opt in to project extensions and management tools in prompt mode (`-p`) (v1.0.41+) |

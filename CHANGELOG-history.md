@@ -1,6 +1,23 @@
 # Documentation Updates
 
-## 2026-05-30 — Docs updated for v1.0.56
+## 2026-06-02 — Docs updated for v1.0.57
+
+- `README.md`: Bumped version note to v1.0.57; updated "Latest features" list with v1.0.57 highlights
+- `16-new-features.md`: Updated title to v1.0.57; added TOC entry; added v1.0.57 section covering `showTipsOnStartup` setting, `/diff` branch-diff default, plugin progress feedback, Azure DevOps MCP `web_search`-only mode, HTTP/1.1 default networking (`COPILOT_ENABLE_HTTP2=1` opt-in), `preToolUse` hook errors denying tool calls, full process-tree Ctrl+C termination, and numerous bug fixes
+- `15-copilot-directory.md`: Added `showTipsOnStartup` to settings.json example schema
+- `08-advanced-features.md`: Updated Azure DevOps MCP server note — now exposes `web_search` only instead of being fully disabled (v1.0.57)
+- `00-cheat-sheet.md`: Added `COPILOT_ENABLE_HTTP2` environment variable
+
+### Feature Summary (v1.0.57)
+- **New:** `showTipsOnStartup` setting to control startup tips panel visibility
+- **Changed:** `/diff` defaults to branch diff when no unstaged changes are present
+- **Improved:** Plugin install/uninstall/update commands show immediate progress feedback
+- **Changed:** Azure DevOps repos now get `web_search` from MCP server instead of fully disabling it
+- **Changed:** Default networking transport is HTTP/1.1; opt into HTTP/2 with `COPILOT_ENABLE_HTTP2=1`
+- **Fixed:** `preToolUse` hook errors now deny tool calls (previously silently allowed)
+- **Fixed:** Ctrl+C on shell commands terminates entire process tree
+
+
 
 - `README.md`: Bumped version note to v1.0.56
 - `16-new-features.md`: Updated title to v1.0.56; added TOC entry; added v1.0.56 section covering Free/Student model picker freedom, `builtInAgents.rubberDuck` setting, GitHub MCP server gh-CLI deduplication, MCP `structuredContent` surfacing, diff view continuous scroll layout, code review agent session-model alignment, reasoning effort picker model-capability awareness, `web_fetch` markdown preference, and other fixes
