@@ -81,11 +81,11 @@ npm update -g @github/copilot
 ```
 
 **Latest features:**
+- 🎙️ `/voice` command — dictate prompts using local speech-to-text models (v1.0.59)
+- 🦆 Rubber Duck agent is now enabled by default — no need to enable experimental mode (v1.0.58)
+- ⏰ `/experimental` scheduled prompts with `/every` and `/after` (v1.0.58)
 - 💡 `showTipsOnStartup` setting controls whether startup tips are shown (v1.0.57)
 - 📡 Default networking is now HTTP/1.1 for improved reliability; opt into HTTP/2 with `COPILOT_ENABLE_HTTP2=1` (v1.0.57)
-- 🔀 `/diff` defaults to branch diff when there are no unstaged changes (v1.0.57)
-- 🌐 Azure DevOps repositories now get `web_search` from the built-in GitHub MCP server instead of it being fully disabled (v1.0.57)
-- 🛡️ `preToolUse` hook errors now deny the tool call instead of silently allowing execution (v1.0.57)
 - 🆓 Free and Student users can now select any model in the picker (v1.0.56)
 - 🦆 `builtInAgents.rubberDuck` setting to enable/disable rubber-duck agent via config (v1.0.56)
 - 🔧 GitHub MCP server omits redundant `gh`-replaceable tools when `gh` CLI is on PATH, reducing token usage (v1.0.56)
@@ -110,7 +110,7 @@ npm update -g @github/copilot
 - 💡 `/chronicle cost-tips` — personalized token cost recommendations (v1.0.51)
 - 🔐 Secret scanning for commit messages and PR descriptions (v1.0.51)
 - 🧠 `/memory on|off|show` — persistent cross-session memory with user and repository scopes (v1.0.49)
-- 🦆 `/rubber-duck` — independent critique of the agent's current work (experimental, v1.0.49)
+- 🦆 `/rubber-duck` — independent critique of the agent's current work; enabled by default in v1.0.58+ (v1.0.49)
 - 🔍 `/chronicle search <query>` — search all session content by keyword or topic (v1.0.49)
 - 🆔 `/session id` — display and copy the current session ID (v1.0.49)
 - 🖨️ `/exit print` — print session transcript to terminal before exiting (v1.0.49)
@@ -354,4 +354,4 @@ Go to **Actions → Daily Doc Maintenance → Run workflow** to trigger it on de
 
 ---
 
-**Note:** This guide covers GitHub Copilot CLI v1.0.57. Some capabilities may vary by version — run `/update` to stay current.
+**Note:** This guide covers GitHub Copilot CLI v1.0.59. Some capabilities may vary by version — run `/update` to stay current.

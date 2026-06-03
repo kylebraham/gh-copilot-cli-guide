@@ -1,4 +1,4 @@
-# Latest Features in GitHub Copilot CLI — v1.0.57
+# Latest Features in GitHub Copilot CLI — v1.0.59
 
 This file covers recent additions to GitHub Copilot CLI. Features marked with "Full guide →" have their own dedicated documentation file — the entries here are summaries with links. Features without a dedicated file are covered in full below.
 
@@ -10,7 +10,9 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 3. [Research Command (`/research`)](#research-command-research) — [Full guide →](19-research-command.md)
 
 ### Features covered in this file
-4. [New in v1.0.57](#new-in-v1057)
+4. [New in v1.0.59](#new-in-v1059)
+5. [New in v1.0.58](#new-in-v1058)
+5. [New in v1.0.57](#new-in-v1057)
 5. [New in v1.0.56](#new-in-v1056)
 5. [New in v1.0.55](#new-in-v1055)
 5. [New in v1.0.54](#new-in-v1054)
@@ -64,6 +66,94 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 24. [Staying Up to Date](#staying-up-to-date)
 
 ---
+
+---
+
+## New in v1.0.59
+
+Released: 2026-06-02
+
+### `/voice` Command
+
+A new `/voice` command lets you dictate prompts using local speech-to-text models. Speak your prompt and Copilot CLI transcribes it and submits it for you — no cloud speech service required.
+
+**How to use:**
+```
+> /voice
+```
+
+Copilot CLI will start listening and transcribe your speech into the prompt field. Confirm or edit the transcription before submitting.
+
+**Why it matters:** Hands-free prompt entry, useful for longer or more natural-language prompts.
+
+---
+
+## New in v1.0.58
+
+Released: 2026-06-02
+
+### Rubber Duck Enabled by Default
+
+The `/rubber-duck` agent is now **enabled by default** for all users. You no longer need to enable experimental mode to use it.
+
+```
+> /rubber-duck
+```
+
+**Why it matters:** Instant access to independent AI critique without any setup.
+
+---
+
+### Remote JSON RPC Enabled by Default
+
+Remote JSON RPC transport is now enabled by default, improving integration with external tooling and MCP setups.
+
+---
+
+### Scheduled Prompts: `/every` and `/after` (Experimental)
+
+Two new experimental scheduling sub-commands allow you to run prompts on a schedule:
+
+- **`/every <interval> <prompt>`** — Repeat a prompt at a fixed interval (e.g., every 5 minutes)
+- **`/after <delay> <prompt>`** — Run a prompt once after a delay
+
+**How to use:**
+```
+> /experimental on
+> /every 10m check for new issues and summarize them
+> /after 1h remind me to run the tests
+```
+
+> ⚠️ These are experimental features. Run `/experimental on` to enable them.
+
+**Why it matters:** Automate recurring checks or deferred reminders without leaving the CLI.
+
+---
+
+### New GitHub `/theme` (Experimental)
+
+A new GitHub-branded theme is available under experimental features.
+
+**How to use:**
+```
+> /experimental on
+> /theme set github
+```
+
+> ⚠️ Requires `/experimental on`.
+
+---
+
+### New Experimental UI
+
+An enhanced experimental UI provides quick access to GitHub issues, pull requests, and gists directly from the CLI prompt area.
+
+**How to enable:**
+```
+> /experimental on
+```
+
+> ⚠️ Experimental feature — behavior may change in future releases.
 
 ---
 

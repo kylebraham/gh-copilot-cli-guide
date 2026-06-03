@@ -1,5 +1,22 @@
 # Documentation Updates
 
+## 2026-06-03 — Docs updated for v1.0.59
+
+- `README.md`: Bumped version note to v1.0.59; updated "Latest features" list with v1.0.58 and v1.0.59 highlights
+- `16-new-features.md`: Updated title to v1.0.59; added TOC entries; added v1.0.59 section covering `/voice` command; added v1.0.58 section covering Rubber Duck enabled by default, Remote JSON RPC enabled by default, experimental scheduled prompts (`/every`, `/after`), new GitHub `/theme`, and new experimental UI
+- `04-slash-commands.md`: Updated `/rubber-duck` to remove experimental label and note v1.0.58 default-on status; added `/voice`, `/every`, `/after` command sections; updated quick reference table
+- `00-cheat-sheet.md`: Updated `/rubber-duck` entry; added `/voice`, `/every`, `/after` entries
+
+### Feature Summary (v1.0.59)
+- **New:** `/voice` command — dictate prompts using local speech-to-text models
+
+### Feature Summary (v1.0.58)
+- **Changed:** Rubber Duck agent is now enabled by default (no experimental flag required)
+- **Changed:** Remote JSON RPC is now enabled by default
+- **New (experimental):** Scheduled prompts via `/every` and `/after`
+- **New (experimental):** GitHub-branded `/theme`
+- **New (experimental):** Enhanced UI with quick access to issues, pull requests, and gists
+
 ## 2026-06-02 — Docs updated for v1.0.57
 
 - `README.md`: Bumped version note to v1.0.57; updated "Latest features" list with v1.0.57 highlights

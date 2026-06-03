@@ -1494,7 +1494,7 @@ Run a dedicated security review agent on your current changes. Unlike `/review`,
 
 > ⚠️ This is an experimental feature. Annotated with `(experimental)` in the command picker.
 
-### /rubber-duck (experimental, v1.0.49+)
+### /rubber-duck (v1.0.49+)
 
 Invoke the rubber-duck agent for an independent critique of the agent's current work. The rubber-duck agent reviews what has been done so far and provides fresh perspective, surfacing blind spots, potential issues, or alternative approaches.
 
@@ -1507,7 +1507,7 @@ Invoke the rubber-duck agent for an independent critique of the agent's current 
 - You want a second opinion on the current approach before continuing
 - A complex task is nearing completion and you want a sanity check
 
-> ⚠️ This is an experimental feature. Enable experimental features with `/experimental enable rubber-duck` if it is not yet visible.
+> **v1.0.58:** Rubber Duck is now **enabled by default** for all users — no experimental flag needed.
 
 > **v1.0.56:** The rubber-duck agent can be enabled or disabled via the `builtInAgents.rubberDuck` setting in `~/.copilot/settings.json` or `copilot config`.
 
@@ -1692,6 +1692,46 @@ Exit the CLI. Use the `print` option to print the full session to the terminal b
 
 **Note:** Sessions are automatically saved and can be resumed later.
 
+### /voice (v1.0.59+)
+
+Dictate a prompt using local speech-to-text. Copilot CLI records audio, transcribes it locally, and populates the prompt field with the result.
+
+```
+> /voice
+```
+
+After transcription completes, review and optionally edit the text, then submit.
+
+**Why it matters:** Hands-free prompt entry — useful for long, natural-language prompts or accessibility.
+
+### /every \<interval\> \<prompt\> (experimental, v1.0.58+)
+
+Repeat a prompt automatically at a fixed interval.
+
+```
+> /experimental on
+> /every 10m check for new GitHub notifications and summarize them
+> /every 1h run the test suite and report failures
+```
+
+**Intervals:** use `s` (seconds), `m` (minutes), or `h` (hours).
+
+> ⚠️ Experimental — enable with `/experimental on`.
+
+### /after \<delay\> \<prompt\> (experimental, v1.0.58+)
+
+Run a prompt once after a specified delay.
+
+```
+> /experimental on
+> /after 30m remind me to commit my changes
+> /after 1h summarize what I've done this session
+```
+
+**Delays:** use `s` (seconds), `m` (minutes), or `h` (hours).
+
+> ⚠️ Experimental — enable with `/experimental on`.
+
 ## Command Patterns
 
 ### Combining Commands
@@ -1791,12 +1831,15 @@ Some commands affect subsequent prompts:
 | `/statusline` | Customize status bar items | `/statusline quota` |
 | `/plugin` | Manage plugins | `/plugin list` |
 | `/memory` | Enable, disable, or view persistent memory (v1.0.49+) | `/memory show` |
-| `/rubber-duck` | Get independent critique of current work (experimental, v1.0.49+) | `/rubber-duck` |
+| `/rubber-duck` | Get independent critique of current work (v1.0.49+; default on v1.0.58+) | `/rubber-duck` |
 | `/security-review` | Security-focused code review (experimental, v1.0.51+) | `/security-review` |
 | `/help` | Show help | `/help` |
 | `/share` | Export session | `/share file out.md` |
 | `/restart` | Restart CLI | `/restart` |
 | `/exit` | Quit CLI; add `print` to print session first (v1.0.49+) | `/exit` |
+| `/voice` | Dictate a prompt with local speech-to-text (v1.0.59+) | `/voice` |
+| `/every` | Repeat a prompt on a schedule (experimental, v1.0.58+) | `/every 10m check issues` |
+| `/after` | Run a prompt after a delay (experimental, v1.0.58+) | `/after 1h remind me` |
 
 ## Hidden Commands
 

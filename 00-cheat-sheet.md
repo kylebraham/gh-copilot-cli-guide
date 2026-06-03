@@ -110,7 +110,10 @@
 | `/lsp` | Manage language server connections |
 | `/skills` | List or manage available skills |
 | `/plugin` | Manage installed plugins; `/plugin update --all` updates all plugins at once (v1.0.49+) |
-| `/rubber-duck` | Get an independent critique of the agent's current work (experimental, v1.0.49+) |
+| `/rubber-duck` | Get an independent critique of the agent's current work (v1.0.49+; enabled by default in v1.0.58+) |
+| `/voice` | Dictate a prompt using local speech-to-text (v1.0.59+) |
+| `/every <interval> <prompt>` | Repeat a prompt on a fixed schedule, e.g. `/every 10m check notifications` (experimental, v1.0.58+) |
+| `/after <delay> <prompt>` | Run a prompt once after a delay, e.g. `/after 1h remind me` (experimental, v1.0.58+) |
 | `/remote` | Show remote control status; `/remote on` enables, `/remote off` disables |
 | `/keep-alive` | Prevent system sleep while Copilot CLI is active |
 | `/init` | Initialize Copilot configuration for the current repo |
