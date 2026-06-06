@@ -131,7 +131,9 @@ As of v1.0.35, user-editable settings live in `~/.copilot/settings.json`. This f
 
   // Enable or disable built-in agents (v1.0.56+)
   "builtInAgents": {
-    "rubberDuck": true
+    "rubberDuck": true,
+    // Automatically invoke rubber duck agent to critique plans (disabled by default — v1.0.60)
+    "rubberDuckAutoInvoke": false
   },
 
   // Show or hide startup tips panel (v1.0.57+)

@@ -83,7 +83,7 @@ Mastering keyboard shortcuts makes you significantly more efficient:
 | `Shift+Tab` | Cycle modes | Cycle through interactive → plan (enable `/experimental` to also access autopilot) |
 
 > **Ctrl+T** toggles the display of model reasoning tokens inline in the response — useful for understanding how the AI arrived at a decision.
-> **Ctrl+S** runs your current prompt while keeping the input intact, so you can quickly send similar follow-up prompts without retyping.
+> **Ctrl+S** stashes the current prompt so you can type something else, then pops it back when you press `Ctrl+S` again (v1.0.60, Claude Code parity). The slash-command picker is still available by typing `/`.
 
 ### Completion Acceptance
 

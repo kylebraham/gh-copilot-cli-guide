@@ -475,6 +475,14 @@ Repository-level config takes precedence and is useful for project-specific lang
 | `initializationTimeout` | (system default) | Milliseconds to wait for the `initialize` handshake to complete |
 | `warmupTimeout` | (system default) | Milliseconds to wait for the server to warm up before the first request |
 
+**Additional server config keys (v1.0.60):**
+
+| Field | Description |
+|-------|-------------|
+| `bash` | Shell command string to launch the server via a Bash wrapper |
+| `powershell` | Shell command string to launch the server via a PowerShell wrapper |
+| `cwd` | Working directory for the server process; supports plugin vars like `PLUGIN_ROOT`; defaults to the project root unless set |
+
 ### Checking LSP Status
 
 ```

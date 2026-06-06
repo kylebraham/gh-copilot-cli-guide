@@ -18,7 +18,7 @@
 | `Esc` | Cancel input / close picker | Clear the current input line or close a picker; press **twice** (`Esc Esc`) to cancel an in-flight AI operation |
 | `↑ / ↓` | Navigate command history |
 | `Shift+Tab` | Cycle modes (interactive → plan) |
-| `Ctrl+S` | Run command while preserving input |
+| `Ctrl+S` | Stash/pop current prompt (v1.0.60); slash-command picker still available by typing `/` |
 | `Ctrl+T` | Toggle model reasoning display |
 | `Ctrl+O` | Expand all timeline entries (when no input) |
 | `Ctrl+E` | Expand all timeline entries (when no input) |
@@ -173,7 +173,7 @@
 | `--plan` | Shorthand for `--mode plan` — start in plan mode |
 | `--max-autopilot-continues N` | Cap the number of autonomous continuation steps |
 | `--no-ask-user` | Never pause to ask clarifying questions |
-| `--continue` / `--resume` | Resume the most recent session from CWD (accepts 7+ char ID prefix or session name); auto-inherits `--remote` for remote sessions |
+| `--continue` / `--resume` / `-r` | Resume the most recent session from CWD (accepts 7+ char ID prefix or session name); auto-inherits `--remote` for remote sessions; `-r` is a shorthand alias for `--resume` (v1.0.60) |
 | `--connect SESSION-ID` | Connect directly to a remote session by ID |
 | `-C DIRECTORY` | Change working directory before starting (like `git -C`; v1.0.42+) |
 | `--name NAME` | Assign a friendly name to the session; use with `--resume=<name>` to resume by name |

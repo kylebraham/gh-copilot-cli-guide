@@ -81,6 +81,10 @@ npm update -g @github/copilot
 ```
 
 **Latest features:**
+- 🧠 Max reasoning effort level for Anthropic models; all effort levels now available on every plan (v1.0.60)
+- 🗂️ `/context` separates Custom Instructions from the system prompt and cross-references per-server MCP tool token costs with `/mcp` (v1.0.60)
+- 💳 New `billing` help topic — overview of AI credit usage features (v1.0.60)
+- 🪿 `builtInAgents.rubberDuckAutoInvoke` setting controls automatic rubber duck agent invocation (v1.0.60)
 - 🎙️ `/voice` command — dictate prompts using local speech-to-text models (v1.0.59)
 - 🦆 Rubber Duck agent is now enabled by default — no need to enable experimental mode (v1.0.58)
 - ⏰ `/experimental` scheduled prompts with `/every` and `/after` (v1.0.58)
@@ -354,4 +358,4 @@ Go to **Actions → Daily Doc Maintenance → Run workflow** to trigger it on de
 
 ---
 
-**Note:** This guide covers GitHub Copilot CLI v1.0.59. Some capabilities may vary by version — run `/update` to stay current.
+**Note:** This guide covers GitHub Copilot CLI v1.0.60. Some capabilities may vary by version — run `/update` to stay current.

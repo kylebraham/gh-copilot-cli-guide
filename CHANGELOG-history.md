@@ -1,6 +1,30 @@
 # Documentation Updates
 
-## 2026-06-03 — Docs updated for v1.0.59
+## 2026-06-06 — Docs updated for v1.0.60
+
+- `README.md`: Bumped version note to v1.0.60; updated "Latest features" list with v1.0.60 highlights
+- `16-new-features.md`: Updated title to v1.0.60; added TOC entry; added v1.0.60 section covering max Anthropic reasoning effort, `builtInAgents.rubberDuckAutoInvoke`, `/context` Custom Instructions separation, `billing` help topic, vim-style `/diff` navigation, git worktree from PR screen, auto-link `#number` references, `-r` shorthand for `--resume`, and `/env` hook provenance
+- `03-interactive-features.md`: Updated `Ctrl+S` description to stash/pop semantics (v1.0.60)
+- `00-cheat-sheet.md`: Updated `Ctrl+S` entry to stash/pop semantics
+- `04-slash-commands.md`: Updated `/context`, `/env`, `/diff`, and `/usage` descriptions for v1.0.60 changes; added `billing` help topic entry
+- `22-models-and-costs.md`: Added note about max reasoning effort for Anthropic models on all plans
+- `15-copilot-directory.md`: Added `rubberDuckAutoInvoke` to `builtInAgents` settings schema
+- `08-advanced-features.md`: Updated LSP config to document `bash`, `powershell`, and `cwd` keys
+- `07-github-integration.md`: Added git worktree creation from PR screen; added auto-link `#number` section
+
+### Feature Summary (v1.0.60)
+- **Changed:** `Ctrl+S` now stashes/pops the current prompt (Claude Code parity)
+- **New:** Max reasoning effort level for Anthropic models; all levels available on every plan
+- **New:** `builtInAgents.rubberDuckAutoInvoke` setting (disabled by default)
+- **New:** `/context` separates Custom Instructions from system prompt
+- **New:** `billing` help topic (`/help billing`)
+- **New:** Vim-style navigation in `/diff` (g, G, Ctrl+D, Ctrl+U)
+- **New:** Create git worktree for a PR from the pull requests screen
+- **New:** Auto-link bare `#number` issue/PR references to current repo
+- **New:** `-r` shorthand for `--resume`
+- **Changed:** `/env` now shows hook counts and source provenance
+
+
 
 - `README.md`: Bumped version note to v1.0.59; updated "Latest features" list with v1.0.58 and v1.0.59 highlights
 - `16-new-features.md`: Updated title to v1.0.59; added TOC entries; added v1.0.59 section covering `/voice` command; added v1.0.58 section covering Rubber Duck enabled by default, Remote JSON RPC enabled by default, experimental scheduled prompts (`/every`, `/after`), new GitHub `/theme`, and new experimental UI

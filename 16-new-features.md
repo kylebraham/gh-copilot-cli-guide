@@ -1,4 +1,4 @@
-# Latest Features in GitHub Copilot CLI — v1.0.59
+# Latest Features in GitHub Copilot CLI — v1.0.60
 
 This file covers recent additions to GitHub Copilot CLI. Features marked with "Full guide →" have their own dedicated documentation file — the entries here are summaries with links. Features without a dedicated file are covered in full below.
 
@@ -10,7 +10,8 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 3. [Research Command (`/research`)](#research-command-research) — [Full guide →](19-research-command.md)
 
 ### Features covered in this file
-4. [New in v1.0.59](#new-in-v1059)
+4. [New in v1.0.60](#new-in-v1060)
+5. [New in v1.0.59](#new-in-v1059)
 5. [New in v1.0.58](#new-in-v1058)
 5. [New in v1.0.57](#new-in-v1057)
 5. [New in v1.0.56](#new-in-v1056)
@@ -66,6 +67,121 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 24. [Staying Up to Date](#staying-up-to-date)
 
 ---
+
+---
+
+## New in v1.0.60
+
+Released: 2026-06-05
+
+### Max Reasoning Effort for Anthropic Models
+
+All reasoning effort levels (`low`, `medium`, `high`, `max`) are now available for Anthropic models on every plan. Previously `max` effort was restricted. This lets you unlock the deepest reasoning for complex tasks without a plan upgrade.
+
+**How to use:**
+```
+> /model claude-opus-4.8
+> --reasoning-effort max
+```
+
+**Why it matters:** Maximum reasoning depth is now accessible to all subscribers for the most demanding tasks.
+
+---
+
+### `builtInAgents.rubberDuckAutoInvoke` Setting
+
+A new `builtInAgents.rubberDuckAutoInvoke` setting controls whether the Rubber Duck agent automatically invokes itself to critique your plan. It is **disabled by default** — set it to `true` if you want the agent to chime in automatically.
+
+**In `~/.copilot/settings.json`:**
+```json
+{
+  "builtInAgents": {
+    "rubberDuck": true,
+    "rubberDuckAutoInvoke": true
+  }
+}
+```
+
+**Why it matters:** Opt-in control over automatic critique — useful for teams that want consistent pre-flight reviews without manually triggering `/rubber-duck`.
+
+---
+
+### `/context` — Custom Instructions Separated from System Prompt
+
+`/context` now shows **Custom Instructions** as a distinct section, separate from the base system prompt. It also cross-references per-server MCP tool token costs with `/mcp`, making it easier to understand what is consuming your context budget.
+
+**How to use:**
+```
+> /context
+```
+
+The output now includes a "Custom Instructions" section and links to `/mcp` for per-server tool token breakdowns.
+
+---
+
+### `billing` Help Topic
+
+A new `billing` help topic provides an inline overview of AI credit usage features.
+
+**How to use:**
+```
+> /help billing
+```
+
+Shows how premium requests are tracked, quota limits, and pointers to `/usage` and `/mcp` for detailed breakdowns.
+
+---
+
+### Vim-Style Navigation in `/diff`
+
+The `/diff` view now supports vim-style navigation keys:
+
+| Key | Action |
+|-----|--------|
+| `g` | Jump to the top of the diff |
+| `G` | Jump to the bottom of the diff |
+| `Ctrl+D` | Scroll down half a page |
+| `Ctrl+U` | Scroll up half a page |
+
+These complement the existing `j` / `k` (line-by-line) navigation.
+
+---
+
+### Create Git Worktree from Pull Requests Screen
+
+From the pull requests list, you can now create a git worktree for a PR directly — no need to run `git worktree add` manually. Useful for reviewing or testing a PR in an isolated directory while keeping your main checkout clean.
+
+When a PR branch name contains slashes (e.g., `cli/foo`), the worktree directory uses a flat name (`cli-foo`) to avoid nested directory issues.
+
+---
+
+### Auto-Link Bare `#number` References
+
+Typing a bare issue or PR reference like `#42` anywhere in the prompt is now automatically linked to the current git repository. No need to spell out the full URL or use a special syntax.
+
+**Example:**
+```
+> What's the status of #42?
+
+AI: Issue #42 "Add dark mode support" is currently open with 3 comments…
+```
+
+---
+
+### `-r` Shorthand for `--resume`
+
+`-r` is now a shorthand flag for `--resume`, making it quicker to resume the last session from the command line:
+
+```bash
+copilot -r
+# equivalent to: copilot --resume
+```
+
+---
+
+### `/env` — Hook Counts and Source Provenance
+
+`/env` now shows **hook counts** and the **source provenance** of each active hook (which file or plugin registered it), making it easier to audit what is running during tool calls.
 
 ---
 
@@ -3105,7 +3221,7 @@ The full list of keyboard shortcuts in v1.0.11:
 | `Esc` | Cancel the current operation |
 | `↑ / ↓` | Navigate command history |
 | `Shift+Tab` | Cycle modes: interactive → plan (autopilot requires `/experimental`) |
-| `Ctrl+S` | Run command while preserving input |
+| `Ctrl+S` | Stash/pop current prompt (v1.0.60) |
 | `Ctrl+T` | Toggle model reasoning display |
 | `!` | Execute command in local shell (bypass Copilot) |
 

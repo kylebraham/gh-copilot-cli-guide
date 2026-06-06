@@ -207,6 +207,8 @@ Display context window usage and included files.
 - Token usage (current/max)
 - Percentage used
 - List of files in context
+- Custom Instructions (shown as a distinct section, separate from the base system prompt — v1.0.60)
+- Per-server MCP tool token costs (cross-referenced with `/mcp` — v1.0.60)
 - Conversation length
 - Visual bar graph
 
@@ -503,7 +505,14 @@ Review all changes made in the current directory — staged, unstaged, and new f
 - Syntax-highlighted diff output
 - Staged vs unstaged changes
 
-**Navigation:** Use `j` / `k` (or ↑ / ↓) to scroll through the diff (v1.0.47+).
+**Navigation:** Use `j` / `k` (or ↑ / ↓) to scroll line-by-line (v1.0.47+). Vim-style jump keys also work (v1.0.60):
+
+| Key | Action |
+|-----|--------|
+| `g` | Jump to top |
+| `G` | Jump to bottom |
+| `Ctrl+D` | Scroll down half a page |
+| `Ctrl+U` | Scroll up half a page |
 
 **Pre-commit workflow:**
 ```
@@ -1202,6 +1211,7 @@ Show all loaded environment details for the current session.
 - Loaded skills
 - Available agents
 - Installed plugins
+- Hook counts and source provenance for each active hook (v1.0.60)
 
 **Why use it:** Quickly audit everything the CLI has loaded before starting a task — especially useful when debugging unexpected behaviour or verifying that MCP servers and skills are connected correctly.
 
@@ -1211,6 +1221,7 @@ Display help information and available commands.
 
 ```
 > /help
+> /help billing
 ```
 
 **Shows:**
@@ -1218,6 +1229,14 @@ Display help information and available commands.
 - Keyboard shortcuts
 - Quick reference guide
 - Links to documentation
+
+**Help topics (v1.0.60):** Pass a topic name to get a focused overview:
+
+| Topic | Description |
+|-------|-------------|
+| `billing` | Overview of AI credit usage, quota limits, and links to `/usage` and `/mcp` |
+
+> **Tip:** Typing `help` at the prompt (without the `/`) also opens the quick-help overlay (v1.0.60).
 
 ### /usage
 
@@ -1232,7 +1251,7 @@ Display session usage metrics and statistics, including a GitHub-style contribut
 - Monthly premium requests
 - Requests remaining (with visual progress bars)
 - Weekly quota progress bar
-- Token consumption
+- Token consumption including cache read and cache write tokens (v1.0.60)
 - Cost estimates (if applicable)
 - Contribution graph of usage history (adapts to terminal color mode)
 
