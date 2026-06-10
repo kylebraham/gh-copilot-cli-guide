@@ -1,6 +1,30 @@
 # Documentation Updates
 
-## 2026-06-06 — Docs updated for v1.0.60
+## 2026-06-10 — Docs updated for v1.0.61
+
+- `README.md`: Bumped version note to v1.0.61; updated "Latest features" list with v1.0.61 highlights
+- `16-new-features.md`: Updated title to v1.0.61; added TOC entry; added v1.0.61 section covering `/settings` interactive dialog, `/worktree` command, Claude Fable 5 model, `.github/mcp.json` auto-load, natural language scheduling for `/every` and `/after`, `beepOnSchedule` setting, `tabs` setting, and additional improvements
+- `04-slash-commands.md`: Added `/settings` and `/worktree` (alias `/move`) command entries; updated `/every` and `/after` with natural language scheduling; updated `/env`, `/help`, and `/agent` sections; added `/move` alias to Command Aliases; added `/settings` and `/worktree` to quick reference table
+- `00-cheat-sheet.md`: Added `/settings` and `/worktree` to Config & Tools table; updated `/every` and `/after` descriptions to mention natural language
+- `22-models-and-costs.md`: Added Claude Fable 5 model to the Available Models table
+- `08-advanced-features.md`: Added `.github/mcp.json` auto-load section
+- `15-copilot-directory.md`: Added `beepOnSchedule` and `tabs` settings to `settings.json` schema
+
+### Feature Summary (v1.0.61)
+- **New:** `/settings` interactive dialog to browse and edit all user settings
+- **New:** `/worktree` (alias `/move`) — create git worktree and switch into it with uncommitted changes
+- **New:** Claude Fable 5 model
+- **New:** Auto-load MCP servers from `.github/mcp.json` workspace config
+- **New:** Natural language scheduling for `/every` and `/after` (cron, calendar, relative durations)
+- **New:** `beepOnSchedule` setting to suppress completion beeps
+- **New:** `tabs` setting to configure home tab bar visibility and order
+- **Changed:** `/sessions` navigates to Sessions tab instead of overlay
+- **Changed:** `/env` hides internal hooks; shows full file paths for hook sources
+- **Changed:** `/help` lists `$HOME/.copilot/instructions/**/*.instructions.md`
+- **Changed:** `/agent` picker supports `/` to filter by name; number keys work beyond item 9
+- **Fixed:** Blank screen on session resume; MCP OAuth re-auth; pasted image leaks; bash UTF-8; nested autolinks; WSL/tmux colors
+
+
 
 - `README.md`: Bumped version note to v1.0.60; updated "Latest features" list with v1.0.60 highlights
 - `16-new-features.md`: Updated title to v1.0.60; added TOC entry; added v1.0.60 section covering max Anthropic reasoning effort, `builtInAgents.rubberDuckAutoInvoke`, `/context` Custom Instructions separation, `billing` help topic, vim-style `/diff` navigation, git worktree from PR screen, auto-link `#number` references, `-r` shorthand for `--resume`, and `/env` hook provenance

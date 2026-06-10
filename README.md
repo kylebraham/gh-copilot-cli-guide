@@ -81,6 +81,13 @@ npm update -g @github/copilot
 ```
 
 **Latest features:**
+- ⚙️ `/settings` interactive dialog — browse and edit all user settings in one place (v1.0.61)
+- 🌿 `/worktree` (alias `/move`) — create a new git worktree and switch into it, carrying uncommitted changes (v1.0.61)
+- 🤖 Claude Fable 5 model added (v1.0.61)
+- 📂 Auto-load MCP servers from `.github/mcp.json` workspace config file (v1.0.61)
+- 🗓️ `/every` and `/after` now accept natural language scheduling (cron, calendar times, relative durations) (v1.0.61)
+- 🔔 `beepOnSchedule` setting disables completion beeps for `/every` and `/after` runs (v1.0.61)
+- 🗂️ `tabs` setting configures home tab bar visibility, order, and hidden tabs (v1.0.61)
 - 🧠 Max reasoning effort level for Anthropic models; all effort levels now available on every plan (v1.0.60)
 - 🗂️ `/context` separates Custom Instructions from the system prompt and cross-references per-server MCP tool token costs with `/mcp` (v1.0.60)
 - 💳 New `billing` help topic — overview of AI credit usage features (v1.0.60)
@@ -358,4 +365,4 @@ Go to **Actions → Daily Doc Maintenance → Run workflow** to trigger it on de
 
 ---
 
-**Note:** This guide covers GitHub Copilot CLI v1.0.60. Some capabilities may vary by version — run `/update` to stay current.
+**Note:** This guide covers GitHub Copilot CLI v1.0.61. Some capabilities may vary by version — run `/update` to stay current.

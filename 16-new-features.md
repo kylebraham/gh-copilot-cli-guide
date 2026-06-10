@@ -1,4 +1,4 @@
-# Latest Features in GitHub Copilot CLI — v1.0.60
+# Latest Features in GitHub Copilot CLI — v1.0.61
 
 This file covers recent additions to GitHub Copilot CLI. Features marked with "Full guide →" have their own dedicated documentation file — the entries here are summaries with links. Features without a dedicated file are covered in full below.
 
@@ -10,7 +10,8 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 3. [Research Command (`/research`)](#research-command-research) — [Full guide →](19-research-command.md)
 
 ### Features covered in this file
-4. [New in v1.0.60](#new-in-v1060)
+4. [New in v1.0.61](#new-in-v1061)
+5. [New in v1.0.60](#new-in-v1060)
 5. [New in v1.0.59](#new-in-v1059)
 5. [New in v1.0.58](#new-in-v1058)
 5. [New in v1.0.57](#new-in-v1057)
@@ -67,6 +68,142 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 24. [Staying Up to Date](#staying-up-to-date)
 
 ---
+
+---
+
+## New in v1.0.61
+
+Released: 2026-06-09
+
+### `/settings` Interactive Dialog
+
+A new `/settings` command opens a full interactive dialog to browse and edit all user settings in one place — without manually editing `~/.copilot/settings.json`.
+
+**How to use:**
+```
+> /settings
+```
+
+The dialog lists every available setting with its current value. Navigate with arrow keys, select a setting to edit it, and save on exit.
+
+**Why it matters:** Discover and tweak settings interactively — no JSON editing required.
+
+---
+
+### `/worktree` Command (alias `/move`)
+
+Create a new git worktree and switch into it, carrying any uncommitted changes along. This lets you context-switch between branches without stashing or committing work in progress.
+
+**How to use:**
+```
+> /worktree new-branch-name
+> /move my-experiment
+```
+
+**What it does:**
+1. Creates a new git worktree for the specified branch (creating the branch if it doesn't exist)
+2. Moves uncommitted changes into the new worktree
+3. Switches the active working directory to the new worktree
+
+**Why it matters:** Seamlessly branch your in-progress work without losing context or disrupting the current checkout.
+
+---
+
+### Claude Fable 5 Model
+
+Claude Fable 5 is now available as a selectable model.
+
+**How to use:**
+```
+> /model claude-fable-5
+```
+
+**Why it matters:** Expands the available model roster with a new Claude family option.
+
+---
+
+### Auto-load MCP Servers from `.github/mcp.json`
+
+Copilot CLI now automatically loads MCP server definitions from `.github/mcp.json` in the workspace root, in addition to the existing `.mcp.json` file. This makes it easy to commit shared MCP server config alongside GitHub Actions workflows and other `.github/` configuration.
+
+**Example `.github/mcp.json`:**
+```json
+{
+  "mcpServers": {
+    "my-server": {
+      "command": "npx",
+      "args": ["-y", "my-mcp-server"]
+    }
+  }
+}
+```
+
+**Why it matters:** Teams can standardize MCP servers by committing `.github/mcp.json` to the repo, and every contributor gets the same server set automatically.
+
+---
+
+### Natural Language Scheduling for `/every` and `/after`
+
+`/every` and `/after` now accept natural language expressions in addition to raw time units — use cron expressions, calendar times, or relative durations.
+
+**How to use:**
+```
+> /experimental on
+> /every "every weekday at 9am" summarize open PRs
+> /after "in 2 hours" remind me to deploy the staging build
+> /every "0 */4 * * *" run the integration tests
+```
+
+Both commands still accept the original `s`/`m`/`h` shorthand syntax.
+
+**Why it matters:** Express schedules naturally without memorising cron syntax.
+
+---
+
+### `beepOnSchedule` Setting
+
+A new `beepOnSchedule` setting (default `true`) controls whether the terminal beeps when a scheduled `/every` or `/after` run completes. Set it to `false` to suppress beeps.
+
+**In `~/.copilot/settings.json`:**
+```json
+{
+  "beepOnSchedule": false
+}
+```
+
+---
+
+### `tabs` Setting
+
+A new `tabs` setting in `settings.json` lets you configure which tabs appear in the home tab bar, their order, and which are hidden.
+
+**In `~/.copilot/settings.json`:**
+```json
+{
+  "tabs": {
+    "order": ["chat", "sessions", "mcp", "settings"],
+    "hidden": ["changelog"]
+  }
+}
+```
+
+**Why it matters:** Streamline the UI by hiding tabs you never use and reordering the ones you do.
+
+---
+
+### Additional Improvements
+
+- **`/sessions` navigates to the Sessions tab** instead of opening an overlay
+- **Press `/` in the `/agent` picker** to filter agents by name
+- **Number-key selection in pickers** works for items 10 and beyond
+- **`/env` hides internal hooks** and shows full file paths for hook sources
+- **`/help` lists `$HOME/.copilot/instructions/**/*.instructions.md`** alongside other user-level instruction locations
+- **`/fork` shows a "Creating fork..." progress notification** while the fork is being created
+- **Symlinked directories** now appear in `@`-file picker suggestions
+- **Exit shell mode** by pressing `Esc` or `Ctrl+C` on an empty prompt (in addition to `Backspace`)
+- **Grep searches in large monorepos** use an indexed search engine for significantly faster results
+- **`/agents` picker** polished with consistent borders, headers, and styled inputs
+- **Bug fixes:** blank screen on session resume, MCP OAuth re-authentication, pasted image leaks, bash UTF-8 multi-byte handling, nested autolink false positives, WSL/tmux color rendering
 
 ---
 

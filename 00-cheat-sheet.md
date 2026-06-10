@@ -112,13 +112,15 @@
 | `/plugin` | Manage installed plugins; `/plugin update --all` updates all plugins at once (v1.0.49+) |
 | `/rubber-duck` | Get an independent critique of the agent's current work (v1.0.49+; enabled by default in v1.0.58+) |
 | `/voice` | Dictate a prompt using local speech-to-text (v1.0.59+) |
-| `/every <interval> <prompt>` | Repeat a prompt on a fixed schedule, e.g. `/every 10m check notifications` (experimental, v1.0.58+) |
-| `/after <delay> <prompt>` | Run a prompt once after a delay, e.g. `/after 1h remind me` (experimental, v1.0.58+) |
+| `/every <interval> <prompt>` | Repeat a prompt on a fixed schedule, e.g. `/every 10m check notifications`; supports natural language expressions (experimental, v1.0.58+) |
+| `/after <delay> <prompt>` | Run a prompt once after a delay, e.g. `/after 1h remind me`; supports natural language expressions (experimental, v1.0.58+) |
 | `/remote` | Show remote control status; `/remote on` enables, `/remote off` disables |
 | `/keep-alive` | Prevent system sleep while Copilot CLI is active |
 | `/init` | Initialize Copilot configuration for the current repo |
 | `/experimental` | Toggle experimental features |
 | `/autopilot [objective]` | Toggle autopilot mode on/off; optionally set a goal objective (v1.0.45+); `/goal` is an alias (v1.0.55+) |
+| `/settings` | Open an interactive dialog to browse and edit all user settings (v1.0.61+) |
+| `/worktree <branch>` | Create a new git worktree and switch into it, moving uncommitted changes; alias `/move` (v1.0.61+) |
 | `/allow-all` | Allow all tool calls without per-call confirmation |
 | `/yolo` | Alias for `/allow-all`; state persists across `/restart` |
 | `/reset-allowed-tools` | Reset tool allowlist to default (prompt-per-use) |

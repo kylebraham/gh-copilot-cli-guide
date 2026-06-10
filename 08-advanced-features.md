@@ -193,6 +193,24 @@ cp .vscode/mcp.json .mcp.json
 
 > The global `~/.copilot/mcp-config.json` is unaffected — it continues to work as before.
 
+### Auto-load from `.github/mcp.json` (v1.0.61+)
+
+In addition to `.mcp.json` in the project root, Copilot CLI now automatically loads MCP server definitions from `.github/mcp.json`. This lets teams commit a shared MCP server configuration alongside other `.github/` files (Actions workflows, Copilot settings, etc.).
+
+```json
+// .github/mcp.json
+{
+  "mcpServers": {
+    "team-tools": {
+      "command": "npx",
+      "args": ["-y", "@myorg/team-mcp-tools"]
+    }
+  }
+}
+```
+
+Both `.mcp.json` and `.github/mcp.json` are loaded when present; definitions from both files are merged.
+
 ---
 
 ### Remote MCP Server Config: `type` Field Optional (v1.0.29+)
