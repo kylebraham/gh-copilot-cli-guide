@@ -1,4 +1,4 @@
-# Latest Features in GitHub Copilot CLI — v1.0.56
+# Latest Features in GitHub Copilot CLI — v1.0.61
 
 This file covers recent additions to GitHub Copilot CLI. Features marked with "Full guide →" have their own dedicated documentation file — the entries here are summaries with links. Features without a dedicated file are covered in full below.
 
@@ -10,7 +10,12 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 3. [Research Command (`/research`)](#research-command-research) — [Full guide →](19-research-command.md)
 
 ### Features covered in this file
-4. [New in v1.0.56](#new-in-v1056)
+4. [New in v1.0.61](#new-in-v1061)
+5. [New in v1.0.60](#new-in-v1060)
+5. [New in v1.0.59](#new-in-v1059)
+5. [New in v1.0.58](#new-in-v1058)
+5. [New in v1.0.57](#new-in-v1057)
+5. [New in v1.0.56](#new-in-v1056)
 5. [New in v1.0.55](#new-in-v1055)
 5. [New in v1.0.54](#new-in-v1054)
 5. [New in v1.0.53](#new-in-v1053)
@@ -63,6 +68,441 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 24. [Staying Up to Date](#staying-up-to-date)
 
 ---
+
+---
+
+## New in v1.0.61
+
+Released: 2026-06-09
+
+### `/settings` Interactive Dialog
+
+A new `/settings` command opens a full interactive dialog to browse and edit all user settings in one place — without manually editing `~/.copilot/settings.json`.
+
+**How to use:**
+```
+> /settings
+```
+
+The dialog lists every available setting with its current value. Navigate with arrow keys, select a setting to edit it, and save on exit.
+
+**Why it matters:** Discover and tweak settings interactively — no JSON editing required.
+
+---
+
+### `/worktree` Command (alias `/move`)
+
+Create a new git worktree and switch into it, carrying any uncommitted changes along. This lets you context-switch between branches without stashing or committing work in progress.
+
+**How to use:**
+```
+> /worktree new-branch-name
+> /move my-experiment
+```
+
+**What it does:**
+1. Creates a new git worktree for the specified branch (creating the branch if it doesn't exist)
+2. Moves uncommitted changes into the new worktree
+3. Switches the active working directory to the new worktree
+
+**Why it matters:** Seamlessly branch your in-progress work without losing context or disrupting the current checkout.
+
+---
+
+### Claude Fable 5 Model
+
+Claude Fable 5 is now available as a selectable model.
+
+**How to use:**
+```
+> /model claude-fable-5
+```
+
+**Why it matters:** Expands the available model roster with a new Claude family option.
+
+---
+
+### Auto-load MCP Servers from `.github/mcp.json`
+
+Copilot CLI now automatically loads MCP server definitions from `.github/mcp.json` in the workspace root, in addition to the existing `.mcp.json` file. This makes it easy to commit shared MCP server config alongside GitHub Actions workflows and other `.github/` configuration.
+
+**Example `.github/mcp.json`:**
+```json
+{
+  "mcpServers": {
+    "my-server": {
+      "command": "npx",
+      "args": ["-y", "my-mcp-server"]
+    }
+  }
+}
+```
+
+**Why it matters:** Teams can standardize MCP servers by committing `.github/mcp.json` to the repo, and every contributor gets the same server set automatically.
+
+---
+
+### Natural Language Scheduling for `/every` and `/after`
+
+`/every` and `/after` now accept natural language expressions in addition to raw time units — use cron expressions, calendar times, or relative durations.
+
+**How to use:**
+```
+> /experimental on
+> /every "every weekday at 9am" summarize open PRs
+> /after "in 2 hours" remind me to deploy the staging build
+> /every "0 */4 * * *" run the integration tests
+```
+
+Both commands still accept the original `s`/`m`/`h` shorthand syntax.
+
+**Why it matters:** Express schedules naturally without memorising cron syntax.
+
+---
+
+### `beepOnSchedule` Setting
+
+A new `beepOnSchedule` setting (default `true`) controls whether the terminal beeps when a scheduled `/every` or `/after` run completes. Set it to `false` to suppress beeps.
+
+**In `~/.copilot/settings.json`:**
+```json
+{
+  "beepOnSchedule": false
+}
+```
+
+---
+
+### `tabs` Setting
+
+A new `tabs` setting in `settings.json` lets you configure which tabs appear in the home tab bar, their order, and which are hidden.
+
+**In `~/.copilot/settings.json`:**
+```json
+{
+  "tabs": {
+    "order": ["chat", "sessions", "mcp", "settings"],
+    "hidden": ["changelog"]
+  }
+}
+```
+
+**Why it matters:** Streamline the UI by hiding tabs you never use and reordering the ones you do.
+
+---
+
+### Additional Improvements
+
+- **`/sessions` navigates to the Sessions tab** instead of opening an overlay
+- **Press `/` in the `/agent` picker** to filter agents by name
+- **Number-key selection in pickers** works for items 10 and beyond
+- **`/env` hides internal hooks** and shows full file paths for hook sources
+- **`/help` lists `$HOME/.copilot/instructions/**/*.instructions.md`** alongside other user-level instruction locations
+- **`/fork` shows a "Creating fork..." progress notification** while the fork is being created
+- **Symlinked directories** now appear in `@`-file picker suggestions
+- **Exit shell mode** by pressing `Esc` or `Ctrl+C` on an empty prompt (in addition to `Backspace`)
+- **Grep searches in large monorepos** use an indexed search engine for significantly faster results
+- **`/agents` picker** polished with consistent borders, headers, and styled inputs
+- **Bug fixes:** blank screen on session resume, MCP OAuth re-authentication, pasted image leaks, bash UTF-8 multi-byte handling, nested autolink false positives, WSL/tmux color rendering
+
+---
+
+## New in v1.0.60
+
+Released: 2026-06-05
+
+### Max Reasoning Effort for Anthropic Models
+
+All reasoning effort levels (`low`, `medium`, `high`, `max`) are now available for Anthropic models on every plan. Previously `max` effort was restricted. This lets you unlock the deepest reasoning for complex tasks without a plan upgrade.
+
+**How to use:**
+```
+> /model claude-opus-4.8
+> --reasoning-effort max
+```
+
+**Why it matters:** Maximum reasoning depth is now accessible to all subscribers for the most demanding tasks.
+
+---
+
+### `builtInAgents.rubberDuckAutoInvoke` Setting
+
+A new `builtInAgents.rubberDuckAutoInvoke` setting controls whether the Rubber Duck agent automatically invokes itself to critique your plan. It is **disabled by default** — set it to `true` if you want the agent to chime in automatically.
+
+**In `~/.copilot/settings.json`:**
+```json
+{
+  "builtInAgents": {
+    "rubberDuck": true,
+    "rubberDuckAutoInvoke": true
+  }
+}
+```
+
+**Why it matters:** Opt-in control over automatic critique — useful for teams that want consistent pre-flight reviews without manually triggering `/rubber-duck`.
+
+---
+
+### `/context` — Custom Instructions Separated from System Prompt
+
+`/context` now shows **Custom Instructions** as a distinct section, separate from the base system prompt. It also cross-references per-server MCP tool token costs with `/mcp`, making it easier to understand what is consuming your context budget.
+
+**How to use:**
+```
+> /context
+```
+
+The output now includes a "Custom Instructions" section and links to `/mcp` for per-server tool token breakdowns.
+
+---
+
+### `billing` Help Topic
+
+A new `billing` help topic provides an inline overview of AI credit usage features.
+
+**How to use:**
+```
+> /help billing
+```
+
+Shows how premium requests are tracked, quota limits, and pointers to `/usage` and `/mcp` for detailed breakdowns.
+
+---
+
+### Vim-Style Navigation in `/diff`
+
+The `/diff` view now supports vim-style navigation keys:
+
+| Key | Action |
+|-----|--------|
+| `g` | Jump to the top of the diff |
+| `G` | Jump to the bottom of the diff |
+| `Ctrl+D` | Scroll down half a page |
+| `Ctrl+U` | Scroll up half a page |
+
+These complement the existing `j` / `k` (line-by-line) navigation.
+
+---
+
+### Create Git Worktree from Pull Requests Screen
+
+From the pull requests list, you can now create a git worktree for a PR directly — no need to run `git worktree add` manually. Useful for reviewing or testing a PR in an isolated directory while keeping your main checkout clean.
+
+When a PR branch name contains slashes (e.g., `cli/foo`), the worktree directory uses a flat name (`cli-foo`) to avoid nested directory issues.
+
+---
+
+### Auto-Link Bare `#number` References
+
+Typing a bare issue or PR reference like `#42` anywhere in the prompt is now automatically linked to the current git repository. No need to spell out the full URL or use a special syntax.
+
+**Example:**
+```
+> What's the status of #42?
+
+AI: Issue #42 "Add dark mode support" is currently open with 3 comments…
+```
+
+---
+
+### `-r` Shorthand for `--resume`
+
+`-r` is now a shorthand flag for `--resume`, making it quicker to resume the last session from the command line:
+
+```bash
+copilot -r
+# equivalent to: copilot --resume
+```
+
+---
+
+### `/env` — Hook Counts and Source Provenance
+
+`/env` now shows **hook counts** and the **source provenance** of each active hook (which file or plugin registered it), making it easier to audit what is running during tool calls.
+
+---
+
+## New in v1.0.59
+
+Released: 2026-06-02
+
+### `/voice` Command
+
+A new `/voice` command lets you dictate prompts using local speech-to-text models. Speak your prompt and Copilot CLI transcribes it and submits it for you — no cloud speech service required.
+
+**How to use:**
+```
+> /voice
+```
+
+Copilot CLI will start listening and transcribe your speech into the prompt field. Confirm or edit the transcription before submitting.
+
+**Why it matters:** Hands-free prompt entry, useful for longer or more natural-language prompts.
+
+---
+
+## New in v1.0.58
+
+Released: 2026-06-02
+
+### Rubber Duck Enabled by Default
+
+The `/rubber-duck` agent is now **enabled by default** for all users. You no longer need to enable experimental mode to use it.
+
+```
+> /rubber-duck
+```
+
+**Why it matters:** Instant access to independent AI critique without any setup.
+
+---
+
+### Remote JSON RPC Enabled by Default
+
+Remote JSON RPC transport is now enabled by default, improving integration with external tooling and MCP setups.
+
+---
+
+### Scheduled Prompts: `/every` and `/after` (Experimental)
+
+Two new experimental scheduling sub-commands allow you to run prompts on a schedule:
+
+- **`/every <interval> <prompt>`** — Repeat a prompt at a fixed interval (e.g., every 5 minutes)
+- **`/after <delay> <prompt>`** — Run a prompt once after a delay
+
+**How to use:**
+```
+> /experimental on
+> /every 10m check for new issues and summarize them
+> /after 1h remind me to run the tests
+```
+
+> ⚠️ These are experimental features. Run `/experimental on` to enable them.
+
+**Why it matters:** Automate recurring checks or deferred reminders without leaving the CLI.
+
+---
+
+### New GitHub `/theme` (Experimental)
+
+A new GitHub-branded theme is available under experimental features.
+
+**How to use:**
+```
+> /experimental on
+> /theme set github
+```
+
+> ⚠️ Requires `/experimental on`.
+
+---
+
+### New Experimental UI
+
+An enhanced experimental UI provides quick access to GitHub issues, pull requests, and gists directly from the CLI prompt area.
+
+**How to enable:**
+```
+> /experimental on
+```
+
+> ⚠️ Experimental feature — behavior may change in future releases.
+
+---
+
+## New in v1.0.57
+
+Released: 2026-06-01
+
+### `showTipsOnStartup` Setting
+
+A new `showTipsOnStartup` setting controls whether the startup tips panel is displayed each time you launch Copilot CLI.
+
+**How to configure:**
+```json
+{
+  "showTipsOnStartup": false
+}
+```
+
+**Why it matters:** Experienced users can suppress the tips panel for a cleaner startup experience.
+
+---
+
+### `/diff` Defaults to Branch Diff
+
+When there are no unstaged changes, `/diff` now automatically shows the branch diff instead of an empty diff view.
+
+**How to use:**
+```
+> /diff
+```
+
+**Why it matters:** You get useful output immediately without having to manually specify a branch target.
+
+---
+
+### Plugin Commands Show Immediate Progress Feedback
+
+`/plugin install`, `/plugin uninstall`, `/plugin update`, and `marketplace add/remove/browse` sub-commands now display immediate feedback while the operation is in progress, so you can see what's happening instead of waiting silently.
+
+---
+
+### Azure DevOps Repositories: MCP Server Now Provides `web_search`
+
+Previously, the built-in GitHub MCP server was fully disabled in Azure DevOps-only repositories. As of v1.0.57, instead of being fully disabled, the server now exposes only the `web_search` tool, so you retain web search capability even when working in Azure DevOps repos.
+
+**Why it matters:** You no longer lose access to web search when working in Azure DevOps repositories.
+
+---
+
+### Default Networking Transport: HTTP/1.1
+
+The default networking transport is now HTTP/1.1, improving reliability on some network paths (particularly proxies and corporate firewalls that have issues with HTTP/2).
+
+To opt back into HTTP/2:
+```bash
+export COPILOT_ENABLE_HTTP2=1
+```
+
+---
+
+### `preToolUse` Hook Errors Deny Tool Calls
+
+`preToolUse` hook errors now **deny** the tool call rather than silently allowing execution to continue. This ensures that hook-based guardrails are always enforced.
+
+> ⚠️ **Behavior change in v1.0.57:** If your `preToolUse` hooks have errors, tool calls will be blocked. Fix hook errors to restore expected behavior.
+
+---
+
+### Ctrl+C Terminates Full Process Tree
+
+Canceling a running shell command — via Ctrl+C on a `!command`, or aborting an agent command including in sandboxed and background-promoted shells — now terminates the entire process tree, preventing orphaned background processes.
+
+---
+
+### Other Improvements and Fixes
+
+- **Actionable rate-limit error:** `copilot update` now shows a clear error message when it hits the GitHub API rate limit
+- **`COPILOT_HOME` for server discovery:** `COPILOT_HOME` is now honored for the server discovery registry directory
+- **`@`-mention case-insensitive search:** File search via `@`-mention matches files regardless of query letter casing
+- **`/lsp` subdirectory fix:** `/lsp show`, `/lsp test`, and `/lsp reload` correctly discover project LSP config when the CLI is launched from a subdirectory
+- **`/skills` quoted path fix:** `/skills add` and `/skills remove` correctly handle paths wrapped in quotes (e.g., from Windows Explorer "Copy as path")
+- **`copilot plugin marketplace list` honors `extraKnownMarketplaces`:** Repo-level `extraKnownMarketplaces` settings from `.github/copilot/settings.json` are now respected
+- **MCP `npx --registry` policy fix:** MCP servers configured with `npx --registry` are no longer incorrectly blocked by policy
+- **MCP timeout preserved:** MCP server timeout configuration is preserved after tools list changes
+- **Diff mode mouse click:** Click a diff line with the mouse to select it in diff mode
+- **Tmux key input:** Ctrl+C and other modified keys work correctly inside tmux
+- **High-contrast diff:** High-contrast diff backgrounds use darker colors to improve text readability
+- **Unquoted multi-word prompt hint:** Running `copilot` with an unquoted multi-word prompt now shows a helpful "quote your prompt" hint
+- **Quota footer:** Remaining quota is shown as a rounded percentage in the footer
+- **Paste artifact fix:** Pasting text from a browser, editor, or terminal no longer leaves stray empty lines, broken box-drawing characters, or a misplaced cursor
+- **Plugin isolation:** Plugins auto-installed from repository settings no longer leak into user global config; installed plugins no longer include the `.git` directory from the source repository
+- **Canvas `file://` URLs:** Canvas providers can return `file://` URLs in open results for local file previews
+- **Symlinked directories:** Symlinked directories now appear in `/cwd` completion suggestions
+- **Session resilience:** Session resume works correctly after a crash that left partial data in the session log; sessions no longer hang indefinitely after an internal event processing error
+- **Reasoning display:** New reasoning after tool calls appears at the bottom of the timeline instead of above earlier output
+- **Auth error clarity:** The underlying reason (e.g., GitHub API rate limit) is now surfaced when SDK auth-token validation fails
 
 ---
 
@@ -2918,7 +3358,7 @@ The full list of keyboard shortcuts in v1.0.11:
 | `Esc` | Cancel the current operation |
 | `↑ / ↓` | Navigate command history |
 | `Shift+Tab` | Cycle modes: interactive → plan (autopilot requires `/experimental`) |
-| `Ctrl+S` | Run command while preserving input |
+| `Ctrl+S` | Stash/pop current prompt (v1.0.60) |
 | `Ctrl+T` | Toggle model reasoning display |
 | `!` | Execute command in local shell (bypass Copilot) |
 

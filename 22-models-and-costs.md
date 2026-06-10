@@ -23,10 +23,11 @@ Understanding how to choose the right model — and when to switch — is one of
 | Auto | `auto` | Varies | Let Copilot pick the best model for each session automatically |
 | Claude Sonnet 4.5 | `claude-sonnet-4.5` | Fast | Default — general coding, balanced quality/cost |
 | Claude Sonnet 4.6 | `claude-sonnet-4.6` | Fast | Latest Sonnet — improved reasoning over 4.5 |
-| Claude Opus 4.6 | `claude-opus-4.6` | Slower | Most capable — complex reasoning, architecture, security; uses **medium reasoning effort** by default (v1.0.36+) |
+| Claude Opus 4.6 | `claude-opus-4.6` | Slower | Most capable — complex reasoning, architecture, security; uses **medium reasoning effort** by default (v1.0.36+); all effort levels (`low`, `medium`, `high`, `max`) available on every plan (v1.0.60) |
 | Claude Opus 4.6 (fast) | `claude-opus-4.6-fast` | Fast | Opus quality with faster response times |
 | Claude Opus 4.7 | `claude-opus-4.7` | Slower | Latest Opus — most capable model (v1.0.29+) |
 | Claude Opus 4.8 | `claude-opus-4.8` | Slower | Newest Opus — top-tier reasoning and coding (v1.0.55+) |
+| Claude Fable 5 | `claude-fable-5` | Varies | New Claude Fable family model (v1.0.61+) |
 | Claude Haiku 4.5 | `claude-haiku-4.5` | Fastest | Quick tasks, fleet subagents, docs, formatting |
 | GPT-5.4 | `gpt-5.4` | Fast | Strong alternative for general code generation |
 | GPT-5.3-Codex | `gpt-5.3-codex` | Fast | Code-specialized tasks |
@@ -255,6 +256,8 @@ Opus 4.7 is the latest and most capable Opus model (available from v1.0.29). Use
 - **`/research` on complex architecture questions** — pairs well with Opus for synthesized answers
 - **Initial architecture decisions** — pays for itself by preventing rework later
 - Consider switching *back* to Sonnet once you have a clear plan and just need implementation
+
+> **v1.0.60:** All reasoning effort levels (`low`, `medium`, `high`, `max`) are now available for Anthropic models on **every plan**. Use `--reasoning-effort max` for the deepest analysis on the most demanding tasks.
 
 ### Claude Haiku 4.5 — Ideal For
 

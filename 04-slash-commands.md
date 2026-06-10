@@ -207,6 +207,8 @@ Display context window usage and included files.
 - Token usage (current/max)
 - Percentage used
 - List of files in context
+- Custom Instructions (shown as a distinct section, separate from the base system prompt — v1.0.60)
+- Per-server MCP tool token costs (cross-referenced with `/mcp` — v1.0.60)
 - Conversation length
 - Visual bar graph
 
@@ -503,7 +505,14 @@ Review all changes made in the current directory — staged, unstaged, and new f
 - Syntax-highlighted diff output
 - Staged vs unstaged changes
 
-**Navigation:** Use `j` / `k` (or ↑ / ↓) to scroll through the diff (v1.0.47+).
+**Navigation:** Use `j` / `k` (or ↑ / ↓) to scroll line-by-line (v1.0.47+). Vim-style jump keys also work (v1.0.60):
+
+| Key | Action |
+|-----|--------|
+| `g` | Jump to top |
+| `G` | Jump to bottom |
+| `Ctrl+D` | Scroll down half a page |
+| `Ctrl+U` | Scroll up half a page |
 
 **Pre-commit workflow:**
 ```
@@ -870,6 +879,27 @@ Proceed? (y/n) y
 - **"Permission denied"**: Authenticate with `gh auth login`
 - **"Branch already exists"**: Use custom branch name with `--branch`
 
+### /worktree <branch> (alias /move) (v1.0.61+)
+
+Create a new git worktree and switch the active working directory into it, moving any uncommitted changes along.
+
+```
+> /worktree new-branch-name
+> /move my-experiment
+```
+
+**What it does:**
+1. Creates a new git worktree for the specified branch (creating the branch if it doesn't exist)
+2. Moves uncommitted changes into the new worktree
+3. Switches Copilot CLI's working directory to the new worktree
+
+**Use when:**
+- You want to start a fresh branch without stashing or committing in-progress work
+- Context-switching between branches mid-task
+- Experimenting with a risky change without disrupting the current checkout
+
+> **Tip:** `/move` is a direct alias — both commands behave identically.
+
 ### /login
 
 Authenticate with GitHub Copilot.
@@ -899,6 +929,21 @@ Clears OAuth authentication tokens and signs you out. You'll need to `/login` ag
 > **Note:** `/logout` only manages OAuth sessions. If you authenticated via `gh` CLI, a Personal Access Token (PAT), an API key, or the `GH_TOKEN` environment variable, a warning is shown because `/logout` cannot remove those credentials. Remove them manually (e.g., unset `GH_TOKEN`, revoke the PAT in GitHub settings).
 
 ## Configuration
+
+### /settings (v1.0.61+)
+
+Open an interactive dialog to browse and edit all user settings in one place.
+
+```
+> /settings
+```
+
+**What it does:** Displays every available setting with its current value. Navigate with arrow keys, select a setting to edit it, and save on exit — no need to manually edit `~/.copilot/settings.json`.
+
+**Why use it:**
+- Discover settings you didn't know existed
+- Edit values without leaving the CLI
+- Safer than manual JSON editing
 
 ### /memory [on|off|show] (v1.0.49+)
 
@@ -1202,6 +1247,7 @@ Show all loaded environment details for the current session.
 - Loaded skills
 - Available agents
 - Installed plugins
+- Hook counts and source provenance for each active hook (v1.0.60); internal hooks are hidden and full file paths are shown for hook sources (v1.0.61)
 
 **Why use it:** Quickly audit everything the CLI has loaded before starting a task — especially useful when debugging unexpected behaviour or verifying that MCP servers and skills are connected correctly.
 
@@ -1211,6 +1257,7 @@ Display help information and available commands.
 
 ```
 > /help
+> /help billing
 ```
 
 **Shows:**
@@ -1218,6 +1265,15 @@ Display help information and available commands.
 - Keyboard shortcuts
 - Quick reference guide
 - Links to documentation
+- User-level instruction locations, including `$HOME/.copilot/instructions/**/*.instructions.md` (v1.0.61)
+
+**Help topics (v1.0.60):** Pass a topic name to get a focused overview:
+
+| Topic | Description |
+|-------|-------------|
+| `billing` | Overview of AI credit usage, quota limits, and links to `/usage` and `/mcp` |
+
+> **Tip:** Typing `help` at the prompt (without the `/`) also opens the quick-help overlay (v1.0.60).
 
 ### /usage
 
@@ -1232,7 +1288,7 @@ Display session usage metrics and statistics, including a GitHub-style contribut
 - Monthly premium requests
 - Requests remaining (with visual progress bars)
 - Weekly quota progress bar
-- Token consumption
+- Token consumption including cache read and cache write tokens (v1.0.60)
 - Cost estimates (if applicable)
 - Contribution graph of usage history (adapts to terminal color mode)
 
@@ -1479,6 +1535,8 @@ Select: _
 
 > **See also:** [Fleet Mode](18-fleet-mode.md) for using custom agents with parallel subagent execution.
 
+> **v1.0.61:** Press `/` in the `/agent` picker to filter agents by name. Number keys (1–9 and beyond) select agents directly from the list.
+
 ### /security-review (experimental, v1.0.51+)
 
 Run a dedicated security review agent on your current changes. Unlike `/review`, which covers general code quality, `/security-review` focuses exclusively on security vulnerabilities — injection risks, authentication flaws, secrets exposure, and related concerns.
@@ -1494,7 +1552,7 @@ Run a dedicated security review agent on your current changes. Unlike `/review`,
 
 > ⚠️ This is an experimental feature. Annotated with `(experimental)` in the command picker.
 
-### /rubber-duck (experimental, v1.0.49+)
+### /rubber-duck (v1.0.49+)
 
 Invoke the rubber-duck agent for an independent critique of the agent's current work. The rubber-duck agent reviews what has been done so far and provides fresh perspective, surfacing blind spots, potential issues, or alternative approaches.
 
@@ -1507,7 +1565,7 @@ Invoke the rubber-duck agent for an independent critique of the agent's current 
 - You want a second opinion on the current approach before continuing
 - A complex task is nearing completion and you want a sanity check
 
-> ⚠️ This is an experimental feature. Enable experimental features with `/experimental enable rubber-duck` if it is not yet visible.
+> **v1.0.58:** Rubber Duck is now **enabled by default** for all users — no experimental flag needed.
 
 > **v1.0.56:** The rubber-duck agent can be enabled or disabled via the `builtInAgents.rubberDuck` setting in `~/.copilot/settings.json` or `copilot config`.
 
@@ -1692,6 +1750,62 @@ Exit the CLI. Use the `print` option to print the full session to the terminal b
 
 **Note:** Sessions are automatically saved and can be resumed later.
 
+### /voice (v1.0.59+)
+
+Dictate a prompt using local speech-to-text. Copilot CLI records audio, transcribes it locally, and populates the prompt field with the result.
+
+```
+> /voice
+```
+
+After transcription completes, review and optionally edit the text, then submit.
+
+**Why it matters:** Hands-free prompt entry — useful for long, natural-language prompts or accessibility.
+
+### /every \<interval\> \<prompt\> (experimental, v1.0.58+)
+
+Repeat a prompt automatically at a fixed interval.
+
+```
+> /experimental on
+> /every 10m check for new GitHub notifications and summarize them
+> /every 1h run the test suite and report failures
+```
+
+**Intervals:** use `s` (seconds), `m` (minutes), or `h` (hours).
+
+**Natural language (v1.0.61+):** cron expressions, calendar times, and relative durations are also accepted:
+
+```
+> /every "every weekday at 9am" summarize open PRs
+> /every "0 */4 * * *" run the integration tests
+```
+
+> ⚠️ Experimental — enable with `/experimental on`.
+
+> **Tip:** Set `"beepOnSchedule": false` in `~/.copilot/settings.json` to suppress the completion beep (v1.0.61).
+
+### /after \<delay\> \<prompt\> (experimental, v1.0.58+)
+
+Run a prompt once after a specified delay.
+
+```
+> /experimental on
+> /after 30m remind me to commit my changes
+> /after 1h summarize what I've done this session
+```
+
+**Delays:** use `s` (seconds), `m` (minutes), or `h` (hours).
+
+**Natural language (v1.0.61+):** relative durations and calendar times are also accepted:
+
+```
+> /after "in 2 hours" remind me to deploy the staging build
+> /after "tomorrow at 9am" summarize open issues
+```
+
+> ⚠️ Experimental — enable with `/experimental on`.
+
 ## Command Patterns
 
 ### Combining Commands
@@ -1791,12 +1905,17 @@ Some commands affect subsequent prompts:
 | `/statusline` | Customize status bar items | `/statusline quota` |
 | `/plugin` | Manage plugins | `/plugin list` |
 | `/memory` | Enable, disable, or view persistent memory (v1.0.49+) | `/memory show` |
-| `/rubber-duck` | Get independent critique of current work (experimental, v1.0.49+) | `/rubber-duck` |
+| `/rubber-duck` | Get independent critique of current work (v1.0.49+; default on v1.0.58+) | `/rubber-duck` |
 | `/security-review` | Security-focused code review (experimental, v1.0.51+) | `/security-review` |
 | `/help` | Show help | `/help` |
 | `/share` | Export session | `/share file out.md` |
 | `/restart` | Restart CLI | `/restart` |
 | `/exit` | Quit CLI; add `print` to print session first (v1.0.49+) | `/exit` |
+| `/voice` | Dictate a prompt with local speech-to-text (v1.0.59+) | `/voice` |
+| `/every` | Repeat a prompt on a schedule (experimental, v1.0.58+) | `/every 10m check issues` |
+| `/after` | Run a prompt after a delay (experimental, v1.0.58+) | `/after 1h remind me` |
+| `/settings` | Browse and edit all user settings interactively (v1.0.61+) | `/settings` |
+| `/worktree` | Create a new git worktree and switch into it (v1.0.61+) | `/worktree my-branch` |
 
 ## Hidden Commands
 
@@ -1829,6 +1948,7 @@ Some commands have shorter aliases:
 /export        = /share
 /h             = /help (if supported)
 /q             = /quit (if supported)
+/move          = /worktree
 ```
 
 ## Error Messages

@@ -1,6 +1,88 @@
 # Documentation Updates
 
-## 2026-05-30 — Docs updated for v1.0.56
+## 2026-06-10 — Docs updated for v1.0.61
+
+- `README.md`: Bumped version note to v1.0.61; updated "Latest features" list with v1.0.61 highlights
+- `16-new-features.md`: Updated title to v1.0.61; added TOC entry; added v1.0.61 section covering `/settings` interactive dialog, `/worktree` command, Claude Fable 5 model, `.github/mcp.json` auto-load, natural language scheduling for `/every` and `/after`, `beepOnSchedule` setting, `tabs` setting, and additional improvements
+- `04-slash-commands.md`: Added `/settings` and `/worktree` (alias `/move`) command entries; updated `/every` and `/after` with natural language scheduling; updated `/env`, `/help`, and `/agent` sections; added `/move` alias to Command Aliases; added `/settings` and `/worktree` to quick reference table
+- `00-cheat-sheet.md`: Added `/settings` and `/worktree` to Config & Tools table; updated `/every` and `/after` descriptions to mention natural language
+- `22-models-and-costs.md`: Added Claude Fable 5 model to the Available Models table
+- `08-advanced-features.md`: Added `.github/mcp.json` auto-load section
+- `15-copilot-directory.md`: Added `beepOnSchedule` and `tabs` settings to `settings.json` schema
+
+### Feature Summary (v1.0.61)
+- **New:** `/settings` interactive dialog to browse and edit all user settings
+- **New:** `/worktree` (alias `/move`) — create git worktree and switch into it with uncommitted changes
+- **New:** Claude Fable 5 model
+- **New:** Auto-load MCP servers from `.github/mcp.json` workspace config
+- **New:** Natural language scheduling for `/every` and `/after` (cron, calendar, relative durations)
+- **New:** `beepOnSchedule` setting to suppress completion beeps
+- **New:** `tabs` setting to configure home tab bar visibility and order
+- **Changed:** `/sessions` navigates to Sessions tab instead of overlay
+- **Changed:** `/env` hides internal hooks; shows full file paths for hook sources
+- **Changed:** `/help` lists `$HOME/.copilot/instructions/**/*.instructions.md`
+- **Changed:** `/agent` picker supports `/` to filter by name; number keys work beyond item 9
+- **Fixed:** Blank screen on session resume; MCP OAuth re-auth; pasted image leaks; bash UTF-8; nested autolinks; WSL/tmux colors
+
+
+
+- `README.md`: Bumped version note to v1.0.60; updated "Latest features" list with v1.0.60 highlights
+- `16-new-features.md`: Updated title to v1.0.60; added TOC entry; added v1.0.60 section covering max Anthropic reasoning effort, `builtInAgents.rubberDuckAutoInvoke`, `/context` Custom Instructions separation, `billing` help topic, vim-style `/diff` navigation, git worktree from PR screen, auto-link `#number` references, `-r` shorthand for `--resume`, and `/env` hook provenance
+- `03-interactive-features.md`: Updated `Ctrl+S` description to stash/pop semantics (v1.0.60)
+- `00-cheat-sheet.md`: Updated `Ctrl+S` entry to stash/pop semantics
+- `04-slash-commands.md`: Updated `/context`, `/env`, `/diff`, and `/usage` descriptions for v1.0.60 changes; added `billing` help topic entry
+- `22-models-and-costs.md`: Added note about max reasoning effort for Anthropic models on all plans
+- `15-copilot-directory.md`: Added `rubberDuckAutoInvoke` to `builtInAgents` settings schema
+- `08-advanced-features.md`: Updated LSP config to document `bash`, `powershell`, and `cwd` keys
+- `07-github-integration.md`: Added git worktree creation from PR screen; added auto-link `#number` section
+
+### Feature Summary (v1.0.60)
+- **Changed:** `Ctrl+S` now stashes/pops the current prompt (Claude Code parity)
+- **New:** Max reasoning effort level for Anthropic models; all levels available on every plan
+- **New:** `builtInAgents.rubberDuckAutoInvoke` setting (disabled by default)
+- **New:** `/context` separates Custom Instructions from system prompt
+- **New:** `billing` help topic (`/help billing`)
+- **New:** Vim-style navigation in `/diff` (g, G, Ctrl+D, Ctrl+U)
+- **New:** Create git worktree for a PR from the pull requests screen
+- **New:** Auto-link bare `#number` issue/PR references to current repo
+- **New:** `-r` shorthand for `--resume`
+- **Changed:** `/env` now shows hook counts and source provenance
+
+
+
+- `README.md`: Bumped version note to v1.0.59; updated "Latest features" list with v1.0.58 and v1.0.59 highlights
+- `16-new-features.md`: Updated title to v1.0.59; added TOC entries; added v1.0.59 section covering `/voice` command; added v1.0.58 section covering Rubber Duck enabled by default, Remote JSON RPC enabled by default, experimental scheduled prompts (`/every`, `/after`), new GitHub `/theme`, and new experimental UI
+- `04-slash-commands.md`: Updated `/rubber-duck` to remove experimental label and note v1.0.58 default-on status; added `/voice`, `/every`, `/after` command sections; updated quick reference table
+- `00-cheat-sheet.md`: Updated `/rubber-duck` entry; added `/voice`, `/every`, `/after` entries
+
+### Feature Summary (v1.0.59)
+- **New:** `/voice` command — dictate prompts using local speech-to-text models
+
+### Feature Summary (v1.0.58)
+- **Changed:** Rubber Duck agent is now enabled by default (no experimental flag required)
+- **Changed:** Remote JSON RPC is now enabled by default
+- **New (experimental):** Scheduled prompts via `/every` and `/after`
+- **New (experimental):** GitHub-branded `/theme`
+- **New (experimental):** Enhanced UI with quick access to issues, pull requests, and gists
+
+## 2026-06-02 — Docs updated for v1.0.57
+
+- `README.md`: Bumped version note to v1.0.57; updated "Latest features" list with v1.0.57 highlights
+- `16-new-features.md`: Updated title to v1.0.57; added TOC entry; added v1.0.57 section covering `showTipsOnStartup` setting, `/diff` branch-diff default, plugin progress feedback, Azure DevOps MCP `web_search`-only mode, HTTP/1.1 default networking (`COPILOT_ENABLE_HTTP2=1` opt-in), `preToolUse` hook errors denying tool calls, full process-tree Ctrl+C termination, and numerous bug fixes
+- `15-copilot-directory.md`: Added `showTipsOnStartup` to settings.json example schema
+- `08-advanced-features.md`: Updated Azure DevOps MCP server note — now exposes `web_search` only instead of being fully disabled (v1.0.57)
+- `00-cheat-sheet.md`: Added `COPILOT_ENABLE_HTTP2` environment variable
+
+### Feature Summary (v1.0.57)
+- **New:** `showTipsOnStartup` setting to control startup tips panel visibility
+- **Changed:** `/diff` defaults to branch diff when no unstaged changes are present
+- **Improved:** Plugin install/uninstall/update commands show immediate progress feedback
+- **Changed:** Azure DevOps repos now get `web_search` from MCP server instead of fully disabling it
+- **Changed:** Default networking transport is HTTP/1.1; opt into HTTP/2 with `COPILOT_ENABLE_HTTP2=1`
+- **Fixed:** `preToolUse` hook errors now deny tool calls (previously silently allowed)
+- **Fixed:** Ctrl+C on shell commands terminates entire process tree
+
+
 
 - `README.md`: Bumped version note to v1.0.56
 - `16-new-features.md`: Updated title to v1.0.56; added TOC entry; added v1.0.56 section covering Free/Student model picker freedom, `builtInAgents.rubberDuck` setting, GitHub MCP server gh-CLI deduplication, MCP `structuredContent` surfacing, diff view continuous scroll layout, code review agent session-model alignment, reasoning effort picker model-capability awareness, `web_fetch` markdown preference, and other fixes

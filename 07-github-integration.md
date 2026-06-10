@@ -271,6 +271,38 @@ Example:
   Update API docs
 ```
 
+---
+
+## Creating Git Worktrees from the Pull Requests Screen (v1.0.60)
+
+You can create a git worktree for any pull request directly from the pull requests screen — no need to run `git worktree add` manually.
+
+**Why use it:** Review or test a PR in an isolated directory while keeping your main checkout on its current branch. Particularly useful when you want to run the PR's code without stashing your own work.
+
+**How it works:**
+1. Open the pull requests screen from the CLI
+2. Select a PR and choose the **"Create worktree"** option
+3. Copilot CLI runs `git worktree add` and checks out the PR branch in a new directory
+
+> **Note:** When a PR branch name contains slashes (e.g., `feature/cli/foo`), the worktree directory uses a flat name (`feature-cli-foo`) to avoid nested directory issues.
+
+---
+
+## Auto-Linking Issue and PR References (v1.0.60)
+
+Bare `#number` references in your prompts (e.g., `#42`) are automatically linked to the current git repository. You no longer need to use a full URL or special syntax to reference issues or PRs.
+
+**Example:**
+```
+> What's the status of #42?
+
+AI: Issue #42 "Add dark mode support" is currently open with 3 comments…
+```
+
+This works for both issues and pull requests in the remote repository Copilot CLI has detected for your current directory.
+
+---
+
 ## Issues
 
 ### Viewing Issues

@@ -193,6 +193,24 @@ cp .vscode/mcp.json .mcp.json
 
 > The global `~/.copilot/mcp-config.json` is unaffected — it continues to work as before.
 
+### Auto-load from `.github/mcp.json` (v1.0.61+)
+
+In addition to `.mcp.json` in the project root, Copilot CLI now automatically loads MCP server definitions from `.github/mcp.json`. This lets teams commit a shared MCP server configuration alongside other `.github/` files (Actions workflows, Copilot settings, etc.).
+
+```json
+// .github/mcp.json
+{
+  "mcpServers": {
+    "team-tools": {
+      "command": "npx",
+      "args": ["-y", "@myorg/team-mcp-tools"]
+    }
+  }
+}
+```
+
+Both `.mcp.json` and `.github/mcp.json` are loaded when present; definitions from both files are merged.
+
 ---
 
 ### Remote MCP Server Config: `type` Field Optional (v1.0.29+)
@@ -370,7 +388,7 @@ Or programmatically via the `list_agents` and `read_agent` tools exposed to the 
 
 ---
 
-When Copilot CLI detects an **Azure DevOps repository** as the working context, the built-in GitHub MCP server is automatically disabled to avoid authentication errors and irrelevant GitHub API calls. No configuration change is needed — the detection is automatic. As of v1.0.48, this also applies when running in prompt (`-p`) or headless mode, matching the existing interactive-mode behavior.
+When Copilot CLI detects an **Azure DevOps repository** as the working context, the built-in GitHub MCP server is automatically scaled back to avoid authentication errors and irrelevant GitHub API calls. No configuration change is needed — the detection is automatic. As of v1.0.48, this also applies when running in prompt (`-p`) or headless mode, matching the existing interactive-mode behavior. As of v1.0.57, instead of being fully disabled, the server now exposes **only the `web_search` tool** in Azure DevOps-only repositories, so web search capability is retained.
 
 ---
 
@@ -474,6 +492,14 @@ Repository-level config takes precedence and is useful for project-specific lang
 | `spawnTimeout` | (system default) | Milliseconds to wait for the LSP server process to start |
 | `initializationTimeout` | (system default) | Milliseconds to wait for the `initialize` handshake to complete |
 | `warmupTimeout` | (system default) | Milliseconds to wait for the server to warm up before the first request |
+
+**Additional server config keys (v1.0.60):**
+
+| Field | Description |
+|-------|-------------|
+| `bash` | Shell command string to launch the server via a Bash wrapper |
+| `powershell` | Shell command string to launch the server via a PowerShell wrapper |
+| `cwd` | Working directory for the server process; supports plugin vars like `PLUGIN_ROOT`; defaults to the project root unless set |
 
 ### Checking LSP Status
 

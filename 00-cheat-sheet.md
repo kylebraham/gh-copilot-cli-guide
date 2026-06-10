@@ -18,7 +18,7 @@
 | `Esc` | Cancel input / close picker | Clear the current input line or close a picker; press **twice** (`Esc Esc`) to cancel an in-flight AI operation |
 | `↑ / ↓` | Navigate command history |
 | `Shift+Tab` | Cycle modes (interactive → plan) |
-| `Ctrl+S` | Run command while preserving input |
+| `Ctrl+S` | Stash/pop current prompt (v1.0.60); slash-command picker still available by typing `/` |
 | `Ctrl+T` | Toggle model reasoning display |
 | `Ctrl+O` | Expand all timeline entries (when no input) |
 | `Ctrl+E` | Expand all timeline entries (when no input) |
@@ -110,12 +110,17 @@
 | `/lsp` | Manage language server connections |
 | `/skills` | List or manage available skills |
 | `/plugin` | Manage installed plugins; `/plugin update --all` updates all plugins at once (v1.0.49+) |
-| `/rubber-duck` | Get an independent critique of the agent's current work (experimental, v1.0.49+) |
+| `/rubber-duck` | Get an independent critique of the agent's current work (v1.0.49+; enabled by default in v1.0.58+) |
+| `/voice` | Dictate a prompt using local speech-to-text (v1.0.59+) |
+| `/every <interval> <prompt>` | Repeat a prompt on a fixed schedule, e.g. `/every 10m check notifications`; supports natural language expressions (experimental, v1.0.58+) |
+| `/after <delay> <prompt>` | Run a prompt once after a delay, e.g. `/after 1h remind me`; supports natural language expressions (experimental, v1.0.58+) |
 | `/remote` | Show remote control status; `/remote on` enables, `/remote off` disables |
 | `/keep-alive` | Prevent system sleep while Copilot CLI is active |
 | `/init` | Initialize Copilot configuration for the current repo |
 | `/experimental` | Toggle experimental features |
 | `/autopilot [objective]` | Toggle autopilot mode on/off; optionally set a goal objective (v1.0.45+); `/goal` is an alias (v1.0.55+) |
+| `/settings` | Open an interactive dialog to browse and edit all user settings (v1.0.61+) |
+| `/worktree <branch>` | Create a new git worktree and switch into it, moving uncommitted changes; alias `/move` (v1.0.61+) |
 | `/allow-all` | Allow all tool calls without per-call confirmation |
 | `/yolo` | Alias for `/allow-all`; state persists across `/restart` |
 | `/reset-allowed-tools` | Reset tool allowlist to default (prompt-per-use) |
@@ -170,7 +175,7 @@
 | `--plan` | Shorthand for `--mode plan` — start in plan mode |
 | `--max-autopilot-continues N` | Cap the number of autonomous continuation steps |
 | `--no-ask-user` | Never pause to ask clarifying questions |
-| `--continue` / `--resume` | Resume the most recent session from CWD (accepts 7+ char ID prefix or session name); auto-inherits `--remote` for remote sessions |
+| `--continue` / `--resume` / `-r` | Resume the most recent session from CWD (accepts 7+ char ID prefix or session name); auto-inherits `--remote` for remote sessions; `-r` is a shorthand alias for `--resume` (v1.0.60) |
 | `--connect SESSION-ID` | Connect directly to a remote session by ID |
 | `-C DIRECTORY` | Change working directory before starting (like `git -C`; v1.0.42+) |
 | `--name NAME` | Assign a friendly name to the session; use with `--resume=<name>` to resume by name |
@@ -203,6 +208,7 @@ copilot completion fish > ~/.config/fish/completions/copilot.fish
 | `COPILOT_MODEL` | Set the default model globally (e.g., `claude-haiku-4.5`) |
 | `COPILOT_GH_HOST` | Override the GitHub hostname (takes precedence over `GH_HOST`; useful for GHES) |
 | `COPILOT_HOME` | Override the config directory (replaces deprecated `--config-dir`; v1.0.40+) |
+| `COPILOT_ENABLE_HTTP2=1` | Opt into HTTP/2 transport (default is HTTP/1.1 as of v1.0.57) |
 | `GITHUB_COPILOT_PROMPT_MODE_REPO_HOOKS=1` | Opt in to repo hooks (AGENTS.md, instructions) in prompt mode (`-p`) (v1.0.40+) |
 | `GITHUB_COPILOT_PROMPT_MODE_WORKSPACE_MCP=1` | Opt in to workspace MCP servers (`.mcp.json`) in prompt mode (`-p`) (v1.0.40+) |
 | `GITHUB_COPILOT_PROMPT_MODE_EXTENSIONS=true` | Opt in to project extensions and management tools in prompt mode (`-p`) (v1.0.41+) |
