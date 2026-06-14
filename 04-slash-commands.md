@@ -514,6 +514,18 @@ Review all changes made in the current directory — staged, unstaged, and new f
 | `Ctrl+D` | Scroll down half a page |
 | `Ctrl+U` | Scroll up half a page |
 
+**Search and navigation (v1.0.62+):**
+
+| Key | Action |
+|-----|--------|
+| `/` | Open search bar — type to find matches in the diff |
+| `n` | Jump to next match |
+| `N` | Jump to previous match |
+
+**File tree sidebar (v1.0.62+):** Press `Tab` to toggle a file tree panel showing all changed files — navigate to any file directly.
+
+**Inline comment editor (v1.0.62+):** Select a line in the diff and press `c` to open an inline comment editor for that line.
+
 **Pre-commit workflow:**
 ```
 # 1. Make changes with Copilot
@@ -899,6 +911,20 @@ Create a new git worktree and switch the active working directory into it, movin
 - Experimenting with a risky change without disrupting the current checkout
 
 > **Tip:** `/move` is a direct alias — both commands behave identically.
+
+> **Tip (v1.0.62+):** Press `W` on the expanded issue or pull request details panel to create a worktree for that item in one keystroke.
+
+### /app (v1.0.62+)
+
+Open the GitHub app if it is installed, or fall back to opening your browser to the GitHub web interface.
+
+```
+> /app
+```
+
+**Use when:**
+- You want to jump from the CLI to the GitHub app without navigating manually
+- The app is not installed and you need the browser fallback
 
 ### /login
 
@@ -1537,6 +1563,25 @@ Select: _
 
 > **v1.0.61:** Press `/` in the `/agent` picker to filter agents by name. Number keys (1–9 and beyond) select agents directly from the list.
 
+### /subagents (alias /agents) (v1.0.62+)
+
+Open the subagents picker to configure how background subagents behave — choose their model, reasoning effort level, and context tier. You can also set these preferences in user settings via `/settings`.
+
+```
+> /subagents
+> /agents
+```
+
+**Configurable options:**
+
+| Option | Description |
+|--------|-------------|
+| Model | The AI model subagents use (e.g., `claude-haiku-4.5` for speed, `claude-opus-4.8` for quality) |
+| Reasoning effort | `low`, `medium`, `high`, or `max` — controls reasoning depth vs. cost |
+| Context tier | `default` or `long_context` — use long context for tasks involving large files or codebases |
+
+**Why it matters:** Reduce costs for routine background tasks by configuring a fast/cheap model for subagents while keeping a powerful model for your main session.
+
 ### /security-review (experimental, v1.0.51+)
 
 Run a dedicated security review agent on your current changes. Unlike `/review`, which covers general code quality, `/security-review` focuses exclusively on security vulnerabilities — injection risks, authentication flaws, secrets exposure, and related concerns.
@@ -1781,6 +1826,13 @@ Repeat a prompt automatically at a fixed interval.
 > /every "0 */4 * * *" run the integration tests
 ```
 
+**Schedule slash commands (v1.0.62+):** Pass a slash command as the prompt to run it on a schedule:
+
+```
+> /every 1d /chronicle standup
+> /every "every Monday at 8am" /research open issues summary
+```
+
 > ⚠️ Experimental — enable with `/experimental on`.
 
 > **Tip:** Set `"beepOnSchedule": false` in `~/.copilot/settings.json` to suppress the completion beep (v1.0.61).
@@ -1802,6 +1854,12 @@ Run a prompt once after a specified delay.
 ```
 > /after "in 2 hours" remind me to deploy the staging build
 > /after "tomorrow at 9am" summarize open issues
+```
+
+**Schedule slash commands (v1.0.62+):** Pass a slash command as the prompt:
+
+```
+> /after 2h /review
 ```
 
 > ⚠️ Experimental — enable with `/experimental on`.
@@ -1916,6 +1974,8 @@ Some commands affect subsequent prompts:
 | `/after` | Run a prompt after a delay (experimental, v1.0.58+) | `/after 1h remind me` |
 | `/settings` | Browse and edit all user settings interactively (v1.0.61+) | `/settings` |
 | `/worktree` | Create a new git worktree and switch into it (v1.0.61+) | `/worktree my-branch` |
+| `/app` | Open the GitHub app or browser fallback (v1.0.62+) | `/app` |
+| `/subagents` | Configure subagent model, reasoning effort, and context tier (v1.0.62+); alias `/agents` | `/subagents` |
 
 ## Hidden Commands
 
@@ -1949,6 +2009,7 @@ Some commands have shorter aliases:
 /h             = /help (if supported)
 /q             = /quit (if supported)
 /move          = /worktree
+/agents        = /subagents
 ```
 
 ## Error Messages

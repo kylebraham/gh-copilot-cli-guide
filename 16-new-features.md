@@ -1,4 +1,4 @@
-# Latest Features in GitHub Copilot CLI — v1.0.61
+# Latest Features in GitHub Copilot CLI — v1.0.62
 
 This file covers recent additions to GitHub Copilot CLI. Features marked with "Full guide →" have their own dedicated documentation file — the entries here are summaries with links. Features without a dedicated file are covered in full below.
 
@@ -10,7 +10,8 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 3. [Research Command (`/research`)](#research-command-research) — [Full guide →](19-research-command.md)
 
 ### Features covered in this file
-4. [New in v1.0.61](#new-in-v1061)
+4. [New in v1.0.62](#new-in-v1062)
+5. [New in v1.0.61](#new-in-v1061)
 5. [New in v1.0.60](#new-in-v1060)
 5. [New in v1.0.59](#new-in-v1059)
 5. [New in v1.0.58](#new-in-v1058)
@@ -68,6 +69,123 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 24. [Staying Up to Date](#staying-up-to-date)
 
 ---
+
+---
+
+## New in v1.0.62
+
+Released: 2026-06-13
+
+### `/app` Slash Command
+
+A new `/app` command opens the GitHub app if it is installed, or falls back to opening your browser to the GitHub web interface.
+
+**How to use:**
+```
+> /app
+```
+
+**Why it matters:** Jump straight from the CLI to the GitHub app without hunting for a URL.
+
+---
+
+### `/subagents` Picker (alias `/agents`)
+
+A new `/subagents` command (also available as `/agents`) opens a picker to configure how subagents behave: choose their model, reasoning effort level, and context tier.
+
+**How to use:**
+```
+> /subagents
+> /agents
+```
+
+You can also set these defaults in user settings via `/settings`.
+
+**Why it matters:** Fine-tune cost vs. quality trade-offs for background subagent tasks without hard-coding a model in every prompt.
+
+---
+
+### Enhanced `/diff` View
+
+The `/diff` view gains several power-user features:
+
+- **Content search** — press `/` in the diff view to open a search bar; matches are highlighted inline
+- **n / N navigation** — jump to the next or previous match
+- **File tree sidebar** — browse changed files in a tree panel alongside the diff
+- **Inline comment editor** — add comments to specific lines directly in the diff view
+
+**How to use:**
+```
+> /diff
+```
+Then press `/` to search, `n`/`N` to navigate matches, and `Tab` to toggle the file tree sidebar.
+
+**Why it matters:** Review large diffs faster with search and a structured file tree without leaving the CLI.
+
+---
+
+### Scheduling Slash Commands with `/every` and `/after`
+
+`/every` and `/after` can now schedule other slash commands, not just plain prompts. This lets you build recurring workflows entirely within the CLI.
+
+**How to use:**
+```
+> /every 1d /chronicle standup
+> /after 2h /review
+> /every "every weekday at 9am" /research open PR summary
+```
+
+**Why it matters:** Automate routine CLI workflows — daily standup summaries, periodic reviews — with a single setup command.
+
+---
+
+### Shell Tool Now Uses Lightweight Process Spawning
+
+> ⚠️ **Breaking change in v1.0.62:** Shell commands are now run via lightweight process spawning instead of a pseudo-terminal. **Interactive input via `write_bash` is no longer supported.**
+
+Commands that previously relied on `write_bash` to send keystrokes to a running shell session will need to be rewritten to avoid interactive prompts (e.g., pass `-y` flags, use `echo "y" | command`, or redesign the workflow).
+
+**Why it matters:** The new model is faster and more resource-efficient; interactive shell sessions with `write_bash` must be replaced with non-interactive equivalents.
+
+---
+
+### YOLO / Allow-All Indicator in Footer
+
+When `/allow-all` or `/yolo` is active, the footer now shows a `YOLO` indicator so you always know when all-permissions mode is on. The allow-all state is also exposed in `statusLine.command` for custom status-line scripts.
+
+**Why it matters:** Avoid accidentally leaving allow-all mode enabled between sessions — the persistent footer indicator makes the active state obvious.
+
+---
+
+### Press `/` on Issues and Pull Requests Tabs
+
+On the Issues and Pull Requests home tabs, pressing `/` now opens a server-side search that filters results using GitHub's search API.
+
+**Why it matters:** Find specific issues or PRs instantly without scrolling through long lists.
+
+---
+
+### Press `W` to Create a Worktree from Issue/PR Details
+
+While viewing the expanded details panel for an issue or pull request, press `W` to create a git worktree for that item and switch into it.
+
+**Why it matters:** Go from issue to a clean working branch in one keystroke.
+
+---
+
+### Additional Improvements
+
+- **Ask and elicitation dialogs** now scroll with the timeline instead of taking over the screen — scroll up to read earlier output, then back down to the dialog
+- **MCP server config form** redesigned with a picker-based flow, making it easier to add and configure servers
+- **Custom agents in nested directories** — agents in `.github/agents` and `.claude/agents` subdirectories are now discovered when the session is started from any subdirectory of the repository root
+- **Skills load from symlinked directories** — skill files in directories outside the configured skills root can be included via symlinks
+- **Plugins can ship extensions** — plugins can now bundle extensions, making them installable via the plugin marketplace
+- **Session-scoped extensions and canvases** — extensions and canvases created during a session are scoped to that session
+- **Model picker** now opens to the tab containing the currently selected model
+- **Kerberos/Negotiate (SPNEGO)** — Copilot CLI now automatically authenticates through corporate forward proxies using SPNEGO
+- **Shell tool errors** now explain when a shell ID was stopped, completed, or reclaimed
+- **`/every` and `/after`** improvements: `Shells promoted to background from /tasks keep running after the turn ends`
+- **Bug fixes:** streamed assistant text duplication, voice runtime download loop, nested subagent concurrency blocking, plugin install with fully-qualified tags, WSL/tmux color rendering, and more
 
 ---
 

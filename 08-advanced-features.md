@@ -213,6 +213,18 @@ Both `.mcp.json` and `.github/mcp.json` are loaded when present; definitions fro
 
 ---
 
+### MCP Server Config Form: Picker-Based Flow (v1.0.62+)
+
+The interactive MCP server configuration form has been redesigned with a picker-based flow, making it easier to add and configure new servers. Select server type, fill in values, and confirm — all from within the CLI without hand-editing JSON.
+
+```
+> /mcp add
+```
+
+The picker guides you through each required field and validates input before saving to `.mcp.json`.
+
+---
+
 ### Remote MCP Server Config: `type` Field Optional (v1.0.29+)
 
 When configuring a remote HTTP MCP server, the `type` field can now be omitted — it defaults to `http`:
@@ -570,6 +582,8 @@ Shows available agents:
 ### Creating Custom Agents
 
 Custom agents are defined in your `.copilot/` directory or referenced via the `/agent` command. They let you create specialized personas with specific instructions, tools, and model preferences.
+
+> **v1.0.62+:** Custom agents in nested `.github/agents` and `.claude/agents` directories are automatically discovered when the session is started from any subdirectory of the repository root — you no longer need to be in the exact root directory.
 
 **Built-in agents available to all sessions:**
 
@@ -1174,6 +1188,8 @@ The `userPromptSubmitted` event fires when the user submits a prompt, **before t
 ---
 
 ### Shell Integration
+
+> ⚠️ **Breaking change in v1.0.62:** Shell commands now run via **lightweight process spawning** instead of a pseudo-terminal. **Interactive input via `write_bash` is no longer supported.** If your workflows use `write_bash` to send keystrokes to a running shell session, rewrite them to use non-interactive equivalents (e.g., pass `-y` flags, pipe input with `echo`, or restructure the command).
 
 Add to your shell profile:
 

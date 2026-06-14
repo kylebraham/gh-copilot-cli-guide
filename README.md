@@ -81,6 +81,12 @@ npm update -g @github/copilot
 ```
 
 **Latest features:**
+- 📱 `/app` slash command — open the GitHub app or a browser fallback (v1.0.62)
+- 🤖 `/subagents` (alias `/agents`) picker — configure subagent model, reasoning effort, and context tier (v1.0.62)
+- 🔍 `/diff` view gains content search with match highlighting, n/N navigation, file tree sidebar, and inline comment editor (v1.0.62)
+- 🗓️ `/every` and `/after` can now schedule slash commands, e.g. `/every 1d /chronicle standup` (v1.0.62)
+- 🐚 Shell commands now use lightweight process spawning; interactive `write_bash` input is no longer supported (v1.0.62)
+- 🔒 YOLO / allow-all state now shown in the footer and available in custom `statusLine.command` (v1.0.62)
 - ⚙️ `/settings` interactive dialog — browse and edit all user settings in one place (v1.0.61)
 - 🌿 `/worktree` (alias `/move`) — create a new git worktree and switch into it, carrying uncommitted changes (v1.0.61)
 - 🤖 Claude Fable 5 model added (v1.0.61)
@@ -365,4 +371,4 @@ Go to **Actions → Daily Doc Maintenance → Run workflow** to trigger it on de
 
 ---
 
-**Note:** This guide covers GitHub Copilot CLI v1.0.61. Some capabilities may vary by version — run `/update` to stay current.
+**Note:** This guide covers GitHub Copilot CLI v1.0.62. Some capabilities may vary by version — run `/update` to stay current.

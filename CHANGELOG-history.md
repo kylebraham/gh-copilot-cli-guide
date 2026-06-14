@@ -1,6 +1,29 @@
 # Documentation Updates
 
-## 2026-06-10 — Docs updated for v1.0.61
+## 2026-06-14 — Docs updated for v1.0.62
+
+- `README.md`: Bumped version note to v1.0.62; updated "Latest features" list with v1.0.62 highlights
+- `16-new-features.md`: Updated title to v1.0.62; added TOC entry; added v1.0.62 section covering `/app` command, `/subagents` picker, enhanced `/diff` view (search, n/N navigation, file tree sidebar, inline comment editor), slash command scheduling for `/every` and `/after`, shell tool process spawning change (breaking: `write_bash` interactive input removed), YOLO footer indicator, Issues/PR tab search, `W` worktree shortcut, and additional improvements
+- `04-slash-commands.md`: Added `/app` command entry; added `/subagents` (alias `/agents`) command entry; updated `/diff` with search/navigation/sidebar/inline-comment docs; updated `/every` and `/after` with slash command scheduling examples; added `/app`, `/subagents` to quick reference table; added `/agents` alias to Command Aliases; added worktree `W` shortcut tip to `/worktree`
+- `00-cheat-sheet.md`: Added `/app` to Code & GitHub table; added `/subagents` to AI & Models table; updated `/diff` description with search/navigation shortcuts
+- `08-advanced-features.md`: Added MCP server config picker-based flow section; added `write_bash` breaking change warning to Shell Integration; added v1.0.62 nested agents discovery note to Creating Custom Agents
+- `14-skills-system.md`: Added symlinked directory support note to Skill File Location
+
+### Feature Summary (v1.0.62)
+- **New:** `/app` command to open GitHub app or browser fallback
+- **New:** `/subagents` (alias `/agents`) picker to configure subagent model, reasoning effort, and context tier
+- **Enhanced:** `/diff` view with content search, match highlighting, n/N navigation, file tree sidebar, and inline comment editor
+- **Enhanced:** `/every` and `/after` now accept slash commands as the scheduled prompt
+- **Breaking:** Shell tool uses lightweight process spawning; `write_bash` interactive input no longer supported
+- **New:** YOLO/allow-all state shown in footer and in custom `statusLine.command`
+- **New:** Press `/` on Issues/PR tabs to search with server-side filtering
+- **New:** Press `W` to create a worktree from expanded issue/PR details view
+- **New:** Custom agents in nested `.github/agents`/`.claude/agents` directories discovered from subdirectories
+- **New:** Skills load from symlinked directories outside the configured root
+- **New:** MCP server config form redesigned with picker-based flow
+- **New:** Kerberos/Negotiate (SPNEGO) corporate proxy authentication
+
+
 
 - `README.md`: Bumped version note to v1.0.61; updated "Latest features" list with v1.0.61 highlights
 - `16-new-features.md`: Updated title to v1.0.61; added TOC entry; added v1.0.61 section covering `/settings` interactive dialog, `/worktree` command, Claude Fable 5 model, `.github/mcp.json` auto-load, natural language scheduling for `/every` and `/after`, `beepOnSchedule` setting, `tabs` setting, and additional improvements
