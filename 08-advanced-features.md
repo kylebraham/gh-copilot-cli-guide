@@ -213,6 +213,26 @@ Both `.mcp.json` and `.github/mcp.json` are loaded when present; definitions fro
 
 ---
 
+### `deferTools` — Keep Server Tools Always Available (v1.0.63+)
+
+When [tool search](https://docs.github.com/en/copilot) is enabled, Copilot may filter out MCP tools to reduce token usage. Add `"deferTools": true` to any server entry to ensure that server's tools are **always** included in the context, regardless of tool search settings:
+
+```json
+{
+  "mcpServers": {
+    "audit-logger": {
+      "command": "npx",
+      "args": ["-y", "@myorg/audit-mcp"],
+      "deferTools": true
+    }
+  }
+}
+```
+
+**When to use:** For servers whose tools must never be filtered out — audit loggers, compliance checkers, or any tool the model must always be able to call.
+
+---
+
 ### MCP Server Config Form: Picker-Based Flow (v1.0.62+)
 
 The interactive MCP server configuration form has been redesigned with a picker-based flow, making it easier to add and configure new servers. Select server type, fill in values, and confirm — all from within the CLI without hand-editing JSON.
@@ -1153,6 +1173,7 @@ In addition to shell-script hooks, hooks can POST JSON payloads to a configured 
 - The endpoint should respond with the same JSON structure that shell hooks return via stdout.
 - The `url` and `command` (shell script) fields are mutually exclusive per hook entry.
 - **`matcher` behaviour (v1.0.36+):** A hook entry with a `matcher` fires **only when the tool name fully matches the regex**. Before v1.0.36 the `matcher` field was ignored and hooks always fired. Verify your matchers after upgrading.
+- **`matcher` now correctly honored (v1.0.63+):** `postToolUse` hook matchers (e.g. `Edit|Write`) are now enforced correctly — formatters and linters run only after the tools they target, instead of firing after every tool call. If your hooks were inadvertently running too broadly, check your matchers after upgrading to v1.0.63.
 - **`additionalContext` in `postToolUse` (v1.0.49+):** A `postToolUse` hook can return an `additionalContext` field. It is now injected as a system message that the model receives after the tool call, allowing post-tool hooks to meaningfully influence the model's next response. Previously this field was silently discarded.
 - **`postToolUse` in successful results (v1.0.51+):** `postToolUse` hooks can now inject `additionalContext` into successful tool results, not just failed ones.
 - **`preMcpToolCall` hook (v1.0.51+):** A new `preMcpToolCall` event fires before each outgoing MCP tool call. Hook providers can use it to inspect or modify outgoing request metadata (e.g., add tracing headers, enforce policies).

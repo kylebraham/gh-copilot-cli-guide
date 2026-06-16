@@ -1,4 +1,4 @@
-# Latest Features in GitHub Copilot CLI — v1.0.62
+# Latest Features in GitHub Copilot CLI — v1.0.63
 
 This file covers recent additions to GitHub Copilot CLI. Features marked with "Full guide →" have their own dedicated documentation file — the entries here are summaries with links. Features without a dedicated file are covered in full below.
 
@@ -10,7 +10,8 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 3. [Research Command (`/research`)](#research-command-research) — [Full guide →](19-research-command.md)
 
 ### Features covered in this file
-4. [New in v1.0.62](#new-in-v1062)
+4. [New in v1.0.63](#new-in-v1063)
+5. [New in v1.0.62](#new-in-v1062)
 5. [New in v1.0.61](#new-in-v1061)
 5. [New in v1.0.60](#new-in-v1060)
 5. [New in v1.0.59](#new-in-v1059)
@@ -69,6 +70,72 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 24. [Staying Up to Date](#staying-up-to-date)
 
 ---
+
+---
+
+## New in v1.0.63
+
+Released: 2026-06-16
+
+### Whitespace Toggle in `/diff`
+
+Press `w` inside the `/diff` view to hide (or restore) whitespace-only changes. This is useful when reviewing reformatting commits where the meaningful diff is hidden among indentation noise.
+
+| Key | Action |
+|-----|--------|
+| `w` | Toggle whitespace-only changes on/off |
+
+### Auth Validation Errors in Sign-in Banner
+
+Authentication failures caused by network policies — VPN restrictions, IP allowlists, and similar access controls — are now surfaced directly in the sign-in banner with actionable guidance. Instead of a generic error, you will see a message explaining that the connection was blocked and suggesting you check your network access.
+
+**Why it matters:** Reduces time spent diagnosing auth failures in corporate environments where VPN or IP allowlist policies block GitHub API calls.
+
+### Fork-based Pull Requests in `/pr`
+
+`/pr` and the branch PR badge now display pull requests that originate from forks. Previously only PRs from branches within the same repository were shown.
+
+### `deferTools` Option for MCP Servers
+
+MCP server entries in `~/.copilot/mcp-config.json` (or `.mcp.json`) now support a `deferTools` option. When set to `true`, that server's tools are always included in the context even when tool search is enabled — preventing the tools from being filtered out in large sessions.
+
+```json
+{
+  "mcpServers": {
+    "my-always-available-server": {
+      "command": "npx",
+      "args": ["-y", "@myorg/critical-tools"],
+      "deferTools": true
+    }
+  }
+}
+```
+
+**When to use:** For MCP servers whose tools the model must always be able to call — for example, a tool that writes audit logs or enforces compliance checks.
+
+### Agent Mode Tracked Per Session
+
+Agent mode (standard vs. autopilot) is now stored per session. It no longer carries over when you create a new session, clear the current session, or switch sessions. Each session starts with the default agent mode.
+
+### `/rewind` Improvements (Experimental)
+
+`/rewind` no longer requires the project to be a git repository. It also now restores **only the files that Copilot changed**, leaving any edits you made yourself intact. When rewinding, a choice menu lets you pick between:
+
+- **Conversation only** — roll back the chat history without touching the filesystem
+- **Conversation + files** — roll back the chat history and restore Copilot-modified files to their previous state
+
+> **Note:** These improvements are experimental and may change in future releases.
+
+### Additional Improvements
+
+- **`/chronicle` standup:** Recent local sessions are now included alongside remote sessions in standup summaries.
+- **`/responses` WebSocket:** Dropped connections are now automatically restored.
+- **Transient auth failures:** 401 errors in HMAC and OAuth modes are retried automatically, reducing spurious auth failures on flaky networks.
+- **`read_bash` spill path:** When `read_bash` output is too large to return inline, the path to the spill file is shown so you can inspect the full output.
+- **Issues/PR Enter key:** Pressing Enter on a highlighted issue or PR now opens the detail view directly.
+- **PostToolUse hook matchers:** Matchers (e.g. `Edit|Write`) are now correctly honored — formatters and linters run only after the tools they target, instead of running after every tool call.
+- **Plan review menus:** Plan review UI now works on strict OpenAI-compatible backends.
+- **Reliability:** Improved request reliability for OpenAI, Anthropic, and Azure OpenAI backends.
 
 ---
 

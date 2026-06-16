@@ -87,7 +87,7 @@
 ### Code & GitHub
 | Command | Description |
 |---------|-------------|
-| `/diff` | Show current git diff; press `/` to search, `n`/`N` to navigate matches, `Tab` for file tree (v1.0.62+) |
+| `/diff` | Show current git diff; press `/` to search, `n`/`N` to navigate matches, `Tab` for file tree, `w` to hide whitespace (v1.0.62+) |
 | `/review` | Request a code review of staged or recent changes |
 | `/security-review` | Run a security-focused code review (experimental, v1.0.51+) |
 | `/pr` | Create or manage a pull request |

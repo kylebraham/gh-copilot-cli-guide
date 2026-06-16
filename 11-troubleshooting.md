@@ -201,7 +201,9 @@ Error: Authentication failed
    - Verify active subscription
    - Check if CLI is enabled for your organization
 
-2. **Clear existing auth:**
+2. **Network / VPN / IP allowlist (v1.0.63+):** If your organization uses VPN or IP allowlist policies, authentication may be blocked at the network level. Copilot CLI now surfaces these failures in the sign-in banner with guidance. Check that you are connected to the required VPN, or that your IP is permitted in your organization's GitHub IP allowlist settings.
+
+3. **Clear existing auth:**
 ```bash
 # Remove old tokens
 rm -rf ~/.copilot/auth

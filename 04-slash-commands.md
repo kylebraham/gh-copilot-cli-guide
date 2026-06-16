@@ -156,6 +156,8 @@ Rewind the last turn and revert any file changes made during that turn. In v1.0.
 
 > **Tip:** `/undo` is an alias for `/rewind` — both work identically.
 
+> **v1.0.63+ (experimental):** `/rewind` no longer requires a git repository. It also restores only the files Copilot changed — your own edits are preserved. A choice menu lets you pick **Conversation only** (roll back chat history, leave files alone) or **Conversation + files** (roll back chat history and restore Copilot-modified files).
+
 ### /copy
 
 Copy the last AI response to the clipboard.
@@ -521,6 +523,7 @@ Review all changes made in the current directory — staged, unstaged, and new f
 | `/` | Open search bar — type to find matches in the diff |
 | `n` | Jump to next match |
 | `N` | Jump to previous match |
+| `w` | Toggle whitespace-only changes on/off (v1.0.63+) |
 
 **File tree sidebar (v1.0.62+):** Press `Tab` to toggle a file tree panel showing all changed files — navigate to any file directly.
 
@@ -569,6 +572,8 @@ Operate on pull requests for the current branch.
 - Checking the state of an open PR
 - Creating a PR for the current branch directly from the CLI
 - Viewing review comments or CI run results
+
+> **v1.0.63+:** Fork-based pull requests are now shown in `/pr` and the branch PR badge, in addition to PRs from branches within the same repository.
 
 ### /review
 

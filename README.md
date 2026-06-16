@@ -81,13 +81,14 @@ npm update -g @github/copilot
 ```
 
 **Latest features:**
+- 🔍 Press `w` in `/diff` to hide whitespace-only changes (v1.0.63)
+- 🔒 Auth validation errors (VPN / IP allowlist failures) now appear in the sign-in banner with network guidance (v1.0.63)
+- 🔀 Fork-based pull requests now shown in `/pr` and the branch PR badge (v1.0.63)
+- 🔧 `deferTools` option for MCP server config keeps a server's tools always available even when tool search is enabled (v1.0.63)
+- 🔄 Agent mode is now tracked per session and no longer carries over when you create, clear, or switch sessions (v1.0.63)
+- ⏪ `/rewind` (experimental) no longer requires git and restores only files Copilot changed, leaving your own edits intact (v1.0.63)
 - 📱 `/app` slash command — open the GitHub app or a browser fallback (v1.0.62)
 - 🤖 `/subagents` (alias `/agents`) picker — configure subagent model, reasoning effort, and context tier (v1.0.62)
-- 🔍 `/diff` view gains content search with match highlighting, n/N navigation, file tree sidebar, and inline comment editor (v1.0.62)
-- 🗓️ `/every` and `/after` can now schedule slash commands, e.g. `/every 1d /chronicle standup` (v1.0.62)
-- 🐚 Shell commands now use lightweight process spawning; interactive `write_bash` input is no longer supported (v1.0.62)
-- 🔒 YOLO / allow-all state now shown in the footer and available in custom `statusLine.command` (v1.0.62)
-- ⚙️ `/settings` interactive dialog — browse and edit all user settings in one place (v1.0.61)
 - 🌿 `/worktree` (alias `/move`) — create a new git worktree and switch into it, carrying uncommitted changes (v1.0.61)
 - 🤖 Claude Fable 5 model added (v1.0.61)
 - 📂 Auto-load MCP servers from `.github/mcp.json` workspace config file (v1.0.61)
@@ -371,4 +372,4 @@ Go to **Actions → Daily Doc Maintenance → Run workflow** to trigger it on de
 
 ---
 
-**Note:** This guide covers GitHub Copilot CLI v1.0.62. Some capabilities may vary by version — run `/update` to stay current.
+**Note:** This guide covers GitHub Copilot CLI v1.0.63. Some capabilities may vary by version — run `/update` to stay current.

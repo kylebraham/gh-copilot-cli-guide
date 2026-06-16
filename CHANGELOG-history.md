@@ -1,6 +1,27 @@
 # Documentation Updates
 
-## 2026-06-14 — Docs updated for v1.0.62
+## 2026-06-16 — Docs updated for v1.0.63
+
+- `README.md`: Bumped version note to v1.0.63; updated "Latest features" list with v1.0.63 highlights
+- `16-new-features.md`: Updated title to v1.0.63; added TOC entry; added v1.0.63 section covering whitespace toggle in `/diff` (`w` key), auth validation errors in sign-in banner (VPN/IP allowlist), fork-based PRs in `/pr`, `deferTools` MCP option, agent mode per session, `/rewind` experimental improvements (no git required, restores only Copilot-changed files), and additional improvements (chronicle standup, /responses WebSocket, transient 401 retry, read_bash spill path, Enter key for issue details, PostToolUse matcher fix, plan review on OpenAI-compatible backends)
+- `04-slash-commands.md`: Added `w` key (toggle whitespace) to `/diff` navigation table; updated `/rewind` with v1.0.63 experimental improvements; added fork-based PR note to `/pr`
+- `00-cheat-sheet.md`: Updated `/diff` description to include `w` key for whitespace toggle
+- `08-advanced-features.md`: Added `deferTools` MCP server config section; added PostToolUse matcher v1.0.63 fix note to hooks documentation
+- `11-troubleshooting.md`: Added network/VPN/IP allowlist section to Login Fails troubleshooting
+
+### Feature Summary (v1.0.63)
+- **New:** Press `w` in `/diff` to toggle whitespace-only changes
+- **Improved:** Auth validation errors (VPN/IP allowlist) shown in sign-in banner with actionable guidance
+- **New:** Fork-based PRs now shown in `/pr` and branch PR badge
+- **New:** `deferTools` MCP server option keeps a server's tools always available with tool search enabled
+- **Changed:** Agent mode is now tracked per session (no longer carries over on new/clear/switch)
+- **Improved (experimental):** `/rewind` no longer requires git; restores only Copilot-changed files; choice between conversation-only and conversation+files rewind
+- **Fixed:** PostToolUse hook matchers (e.g. `Edit|Write`) now correctly honored
+- **Improved:** `/chronicle` standup includes recent local sessions
+- **Fixed:** `/responses` WebSocket connections now restored automatically
+- **Fixed:** Transient 401 auth failures retried in HMAC and OAuth modes
+
+
 
 - `README.md`: Bumped version note to v1.0.62; updated "Latest features" list with v1.0.62 highlights
 - `16-new-features.md`: Updated title to v1.0.62; added TOC entry; added v1.0.62 section covering `/app` command, `/subagents` picker, enhanced `/diff` view (search, n/N navigation, file tree sidebar, inline comment editor), slash command scheduling for `/every` and `/after`, shell tool process spawning change (breaking: `write_bash` interactive input removed), YOLO footer indicator, Issues/PR tab search, `W` worktree shortcut, and additional improvements
