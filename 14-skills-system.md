@@ -309,6 +309,8 @@ Store custom skills in:
 
 > **v1.0.55+:** Skills are discovered **recursively** — you can organize skills into subdirectories within these locations and they will all be found automatically.
 
+> **v1.0.62+:** Skills are also loaded from **symlinked directories** — directories symlinked into the configured skills root are followed, allowing you to include skill files that live outside the skills directory tree.
+
 **Skill priority order** (highest to lowest, v1.0.55+):
 1. Project skills (`.copilot/skills/`, `.github/skills/`)
 2. `--plugin-dir` skills (passed via CLI flag)

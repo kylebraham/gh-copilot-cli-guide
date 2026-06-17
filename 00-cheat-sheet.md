@@ -87,17 +87,19 @@
 ### Code & GitHub
 | Command | Description |
 |---------|-------------|
-| `/diff` | Show current git diff |
+| `/diff` | Show current git diff; press `/` to search, `n`/`N` to navigate matches, `Tab` for file tree, `w` to hide whitespace (v1.0.62+) |
 | `/review` | Request a code review of staged or recent changes |
 | `/security-review` | Run a security-focused code review (experimental, v1.0.51+) |
 | `/pr` | Create or manage a pull request |
 | `/delegate` | Hand off a task to an autonomous subagent |
+| `/app` | Open the GitHub app or browser fallback (v1.0.62+) |
 
 ### AI & Models
 | Command | Description |
 |---------|-------------|
 | `/model` | View or switch the active AI model |
 | `/agent` | Configure or inspect the active agent |
+| `/subagents` | Configure subagent model, reasoning effort, and context tier; alias `/agents` (v1.0.62+) |
 | `/fleet` | Launch parallel subagents for distributed tasks |
 | `/tasks` | View or manage running agent tasks (`j`/`k` to navigate, `x` to cancel) |
 | `/research` | Run a deep research pass on a topic or codebase |
