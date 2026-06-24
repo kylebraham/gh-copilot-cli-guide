@@ -75,7 +75,8 @@
 | `/copy` | Copy last response to clipboard |
 | `/env` | Show loaded environment details (instructions, MCP servers, skills, agents, plugins) |
 | `/ask` | Ask a quick question without affecting conversation history |
-| `/fork` | Fork the current session into a new independent session; accepts optional name (v1.0.45+, named forks v1.0.47+) |
+| `/fork` | Fork the current session into a new independent session; accepts optional name (v1.0.45+, named forks v1.0.47+); alias `/branch` (v1.0.64+) |
+| `/diagnose` | Analyze session logs to surface errors, warnings, and diagnostic insights (v1.0.64+) |
 
 ### Navigation
 | Command | Description |
@@ -89,7 +90,7 @@
 |---------|-------------|
 | `/diff` | Show current git diff; press `/` to search, `n`/`N` to navigate matches, `Tab` for file tree, `w` to hide whitespace (v1.0.62+) |
 | `/review` | Request a code review of staged or recent changes |
-| `/security-review` | Run a security-focused code review (experimental, v1.0.51+) |
+| `/security-review` | Run a security-focused code review (v1.0.51+; no longer requires `--experimental` as of v1.0.64) |
 | `/pr` | Create or manage a pull request |
 | `/delegate` | Hand off a task to an autonomous subagent |
 | `/app` | Open the GitHub app or browser fallback (v1.0.62+) |
@@ -108,13 +109,13 @@
 ### Config & Tools
 | Command | Description |
 |---------|-------------|
-| `/mcp` | Manage MCP (Model Context Protocol) server connections; `/mcp search <query>` to find and install from registry (experimental, v1.0.49+) |
+| `/mcp` | Manage MCP (Model Context Protocol) server connections; `/mcp search <query>` to find from registry; `/mcp registry` to browse interactively (v1.0.64+) |
 | `/lsp` | Manage language server connections |
 | `/skills` | List or manage available skills |
 | `/plugin` | Manage installed plugins; `/plugin update --all` updates all plugins at once (v1.0.49+) |
 | `/rubber-duck` | Get an independent critique of the agent's current work (v1.0.49+; enabled by default in v1.0.58+) |
 | `/voice` | Dictate a prompt using local speech-to-text (v1.0.59+) |
-| `/every <interval> <prompt>` | Repeat a prompt on a fixed schedule, e.g. `/every 10m check notifications`; supports natural language expressions (experimental, v1.0.58+) |
+| `/every <interval> <prompt>` | Repeat a prompt on a fixed schedule, e.g. `/every 10m check notifications`; supports natural language expressions; alias `/loop` (v1.0.64+) (experimental, v1.0.58+) |
 | `/after <delay> <prompt>` | Run a prompt once after a delay, e.g. `/after 1h remind me`; supports natural language expressions (experimental, v1.0.58+) |
 | `/remote` | Show remote control status; `/remote on` enables, `/remote off` disables |
 | `/keep-alive` | Prevent system sleep while Copilot CLI is active |

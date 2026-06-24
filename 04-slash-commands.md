@@ -125,9 +125,12 @@ Rename the current session. Alias for `/session rename`.
 
 Fork the current session into a new, fully independent session. The forked session inherits the current conversation history and context, then diverges from that point forward. In v1.0.47+, you can supply an optional name and the sessions dialog shows the origin session for every fork.
 
+> **v1.0.64:** `/branch` is now an alias for `/fork`, matching Claude Code's command naming.
+
 ```
 > /fork
 > /fork my-experiment
+> /branch my-experiment   # alias for /fork (v1.0.64+)
 ```
 
 **What it does:**
@@ -184,6 +187,16 @@ Select or change the AI model.
 # Switch to specific model
 > /model claude-opus-4.5
 > /model gpt-5.2
+```
+
+**Model family aliases (v1.0.64+):** Short aliases resolve to the latest model in each family:
+
+```
+> /model opus     # latest Claude Opus
+> /model sonnet   # latest Claude Sonnet
+> /model haiku    # latest Claude Haiku
+> /model gpt      # latest GPT
+> /model gemini   # latest Gemini
 ```
 
 **Available models:**
@@ -506,6 +519,8 @@ Review all changes made in the current directory — staged, unstaged, and new f
 - All modified files with a summary of additions/deletions
 - Syntax-highlighted diff output
 - Staged vs unstaged changes
+
+> **v1.0.64:** `/diff` now works in non-git folders, showing a session diff of all files Copilot changed during the current session.
 
 **Navigation:** Use `j` / `k` (or ↑ / ↓) to scroll line-by-line (v1.0.47+). Vim-style jump keys also work (v1.0.60):
 
@@ -1587,7 +1602,7 @@ Open the subagents picker to configure how background subagents behave — choos
 
 **Why it matters:** Reduce costs for routine background tasks by configuring a fast/cheap model for subagents while keeping a powerful model for your main session.
 
-### /security-review (experimental, v1.0.51+)
+### /security-review (v1.0.51+)
 
 Run a dedicated security review agent on your current changes. Unlike `/review`, which covers general code quality, `/security-review` focuses exclusively on security vulnerabilities — injection risks, authentication flaws, secrets exposure, and related concerns.
 
@@ -1600,7 +1615,7 @@ Run a dedicated security review agent on your current changes. Unlike `/review`,
 - You want a security-focused second pass before merging sensitive changes
 - The task involves user input, external APIs, or secret management
 
-> ⚠️ This is an experimental feature. Annotated with `(experimental)` in the command picker.
+> **v1.0.64:** `/security-review` is now available to all users — the `--experimental` flag is no longer required.
 
 ### /rubber-duck (v1.0.49+)
 
@@ -1642,8 +1657,9 @@ Manage MCP (Model Context Protocol) server configuration.
 # Re-enable server (persists across sessions)
 > /mcp enable my-server
 
-# Search and install MCP servers from the registry (experimental, v1.0.49+)
+# Search and install MCP servers from the registry (v1.0.49+)
 > /mcp search <query>
+> /mcp registry   # browse registry interactively (v1.0.64+)
 ```
 
 **MCP Servers extend CLI capabilities:**
@@ -1816,9 +1832,12 @@ After transcription completes, review and optionally edit the text, then submit.
 
 Repeat a prompt automatically at a fixed interval.
 
+> **v1.0.64:** `/loop` is now an alias for `/every`.
+
 ```
 > /experimental on
 > /every 10m check for new GitHub notifications and summarize them
+> /loop 10m check for new GitHub notifications and summarize them   # alias (v1.0.64+)
 > /every 1h run the test suite and report failures
 ```
 
@@ -1868,6 +1887,19 @@ Run a prompt once after a specified delay.
 ```
 
 > ⚠️ Experimental — enable with `/experimental on`.
+
+### /diagnose (v1.0.64+)
+
+Analyze the current session's logs to surface errors, warnings, and actionable insights about what happened during the session.
+
+```
+> /diagnose
+```
+
+**Use when:**
+- A session produced unexpected or incorrect results
+- You are troubleshooting tool failures or agent behavior
+- You want a summary of what operations ran and whether they succeeded
 
 ## Command Patterns
 
@@ -1947,8 +1979,7 @@ Some commands affect subsequent prompts:
 | `/diff` | Review changes | `/diff` |
 | `/pr` | Operate on PRs | `/pr create` |
 | `/review` | Code review agent | `/review` |
-| `/security-review` | Security-focused code review (experimental, v1.0.51+) | `/security-review` |
-| `/lsp` | Language server | `/lsp restart` |
+| `/security-review` | Security-focused code review (v1.0.51+) | `/security-review` |
 | `/ide` | Connect to IDE | `/ide` |
 | `/cwd` | Change directory | `/cwd ~/projects` |
 | `/allow-all` | Enable all permissions | `/allow-all` |
@@ -1969,18 +2000,21 @@ Some commands affect subsequent prompts:
 | `/plugin` | Manage plugins | `/plugin list` |
 | `/memory` | Enable, disable, or view persistent memory (v1.0.49+) | `/memory show` |
 | `/rubber-duck` | Get independent critique of current work (v1.0.49+; default on v1.0.58+) | `/rubber-duck` |
-| `/security-review` | Security-focused code review (experimental, v1.0.51+) | `/security-review` |
+| `/security-review` | Security-focused code review (v1.0.51+) | `/security-review` |
 | `/help` | Show help | `/help` |
 | `/share` | Export session | `/share file out.md` |
 | `/restart` | Restart CLI | `/restart` |
 | `/exit` | Quit CLI; add `print` to print session first (v1.0.49+) | `/exit` |
 | `/voice` | Dictate a prompt with local speech-to-text (v1.0.59+) | `/voice` |
 | `/every` | Repeat a prompt on a schedule (experimental, v1.0.58+) | `/every 10m check issues` |
+| `/loop` | Alias for `/every` (v1.0.64+) | `/loop 10m check issues` |
 | `/after` | Run a prompt after a delay (experimental, v1.0.58+) | `/after 1h remind me` |
 | `/settings` | Browse and edit all user settings interactively (v1.0.61+) | `/settings` |
 | `/worktree` | Create a new git worktree and switch into it (v1.0.61+) | `/worktree my-branch` |
 | `/app` | Open the GitHub app or browser fallback (v1.0.62+) | `/app` |
 | `/subagents` | Configure subagent model, reasoning effort, and context tier (v1.0.62+); alias `/agents` | `/subagents` |
+| `/branch` | Fork the current session into a new independent session (v1.0.64+); alias for `/fork` | `/branch my-experiment` |
+| `/diagnose` | Analyze session logs to surface errors and insights (v1.0.64+) | `/diagnose` |
 
 ## Hidden Commands
 
@@ -2015,6 +2049,8 @@ Some commands have shorter aliases:
 /q             = /quit (if supported)
 /move          = /worktree
 /agents        = /subagents
+/branch        = /fork
+/loop          = /every
 ```
 
 ## Error Messages

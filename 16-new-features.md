@@ -1,4 +1,4 @@
-# Latest Features in GitHub Copilot CLI — v1.0.63
+# Latest Features in GitHub Copilot CLI — v1.0.64
 
 This file covers recent additions to GitHub Copilot CLI. Features marked with "Full guide →" have their own dedicated documentation file — the entries here are summaries with links. Features without a dedicated file are covered in full below.
 
@@ -10,7 +10,8 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 3. [Research Command (`/research`)](#research-command-research) — [Full guide →](19-research-command.md)
 
 ### Features covered in this file
-4. [New in v1.0.63](#new-in-v1063)
+4. [New in v1.0.64](#new-in-v1064)
+5. [New in v1.0.63](#new-in-v1063)
 5. [New in v1.0.62](#new-in-v1062)
 5. [New in v1.0.61](#new-in-v1061)
 5. [New in v1.0.60](#new-in-v1060)
@@ -70,6 +71,107 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 24. [Staying Up to Date](#staying-up-to-date)
 
 ---
+
+---
+
+## New in v1.0.64
+
+Released: 2026-06-23
+
+### `/security-review` Now Available to All Users
+
+`/security-review` is no longer experimental — it is available to all users without enabling `--experimental`. The command runs a dedicated security-focused review agent on your current changes, looking for injection risks, authentication flaws, secrets exposure, and related vulnerabilities.
+
+```
+> /security-review
+```
+
+### New Command Aliases: `/branch` and `/loop`
+
+Two new convenience aliases match naming conventions from other tools:
+
+- **`/branch`** — alias for `/fork`. Forks the current session into a new, independent session.
+- **`/loop`** — alias for `/every`. Schedules a prompt to repeat on a given interval.
+
+```
+> /branch my-experiment     # same as /fork my-experiment
+> /loop 10m check issues    # same as /every 10m check issues
+```
+
+### `/diagnose` Command
+
+A new `/diagnose` command analyzes the current session's logs to help you understand what happened, identify errors, and surface actionable insights.
+
+```
+> /diagnose
+```
+
+**Use when:**
+- A session produced unexpected results and you want to understand why
+- You are troubleshooting agent behavior or tool failures
+- Support asks for diagnostic information about a session
+
+### Autopilot Returns to Interactive Mode After Completion
+
+Autopilot mode now automatically returns to interactive mode after the agent calls `task_complete`. Previously, the session stayed in autopilot mode and your next prompt would trigger another autonomous run. Now, when the agent finishes a task, you are returned to interactive mode so you can review the results before deciding what to do next.
+
+> **v1.0.64:** Autopilot also now auto-handles elicitation, `ask_user`, sampling, and permission prompts (including prompts shown at launch with `--autopilot` and during continuation turns) so they no longer surface dialogs to you during an autonomous run.
+
+### Model Family Aliases
+
+The `/model` command and the `model` setting now accept short family aliases in addition to full model names:
+
+| Alias | Resolves to |
+|-------|-------------|
+| `opus` | Latest Claude Opus model |
+| `sonnet` | Latest Claude Sonnet model |
+| `haiku` | Latest Claude Haiku model |
+| `gpt` | Latest GPT model |
+| `gemini` | Latest Gemini model |
+
+```
+> /model opus
+> /model haiku
+```
+
+### HTTP(S) Proxy User Setting
+
+You can now configure an HTTP(S) proxy as a persistent user setting instead of relying solely on environment variables. Set it via `/settings` or directly in `~/.copilot/settings.json`:
+
+```json
+{
+  "network": {
+    "proxy": "http://proxy.example.com:8080"
+  }
+}
+```
+
+Environment variables `HTTPS_PROXY` and `NO_PROXY` continue to work as before.
+
+### `/diff` in Non-git Folders
+
+`/diff` now shows a session diff of Copilot's changes even when the project is not a git repository. Previously, `/diff` required git to be present. Now it works in any directory and shows what files Copilot has changed during the current session.
+
+### Additional Improvements
+
+- **Pay-as-you-go budget:** Additional usage budget is shown at launch, refreshed after a request is rejected for hitting the spend limit, and displays a friendly message when the limit is reached.
+- **Inline image rendering:** Images (from tools and attachments) are rendered inline in the CLI.
+- **Argument-hint frontmatter for skills:** Skills can now declare argument hints in their frontmatter to guide how the model invokes them.
+- **Resume sessions with spaces in name:** `--resume` and `--continue` now correctly match session names that contain spaces.
+- **Rubber-duck subagent config:** Configure the rubber-duck subagent (model, complementary-model strategy) directly from `/subagents`.
+- **Tab completion for `/agent` names:** Type `/agent ` and press Tab to see available agent names.
+- **Path access prompts show symlink targets:** When the CLI asks for path access, the resolved symlink target is shown so you know exactly what is being accessed.
+- **Per-model token totals in `/usage`:** `/usage` shows token counts broken down by model.
+- **Stacked diffs match file tree order:** The file order in stacked diffs now matches the file tree.
+- **`/mcp registry`:** Browse and install MCP servers from the registry directly with `/mcp registry`.
+- **Static OAuth client overrides for MCP auth:** MCP server authentication now supports static OAuth client overrides, including client secrets.
+- **MCP org policy applied on session reload:** MCP org policies are applied when sessions create or reload MCP servers.
+- **Ctrl+Q enqueues a prompt while a picker is open:** No more lost keystrokes when a completion picker is in the foreground.
+- **Folder column in resume picker:** The session resume picker now shows a Folder column with each session's working directory.
+- **System light/dark mode:** The CLI automatically follows your system's light and dark mode preference.
+- **`/settings` readline keys:** The `/settings` search field now supports readline editing keys and cursor movement.
+- **`allow-all` in relay sessions:** `/allow-all` now works in relay sessions.
+- **Allow disabling built-in subagents:** The `task` and `explore` built-in subagents can now be disabled via settings.
 
 ---
 
