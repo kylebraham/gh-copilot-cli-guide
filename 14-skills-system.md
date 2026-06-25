@@ -200,6 +200,13 @@ To learn more: /skills info <name>
 
 > **v1.0.53+:** The `/skills` picker correctly honors `--config-dir` when saving skill preferences — preferences are written to the custom config directory rather than the default one.
 
+> **v1.0.65+:** `/skill` is now an alias for `/skills`. A new `copilot skill` CLI subcommand lets you list, add, and remove skills directly from the shell without launching an interactive session:
+> ```bash
+> $ copilot skill list
+> $ copilot skill add python-expert
+> $ copilot skill remove python-expert
+> ```
+
 ### Getting Skill Information
 
 ```bash

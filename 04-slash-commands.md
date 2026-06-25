@@ -357,6 +357,7 @@ View or change the current working directory.
 - AI can only access files in/below working directory
 - Changes Git context if new directory is a repo
 - Use absolute or relative paths
+- **v1.0.65+:** The chosen directory is persisted across session resumes — reopening a session returns to the same directory automatically. Changing directory also discovers custom agents defined there.
 
 ### /add-dir <directory>
 
@@ -1094,6 +1095,7 @@ Customize which items appear in the status bar at the bottom of the CLI. Also av
 | `quota` | Premium request quota remaining |
 | `changes` | Lines added/removed in the current session (v1.0.36+) |
 | `username` | Active GitHub account name (v1.0.43+) |
+| `ci` | CI check status for the current branch: passing/running/failing (v1.0.65+, opt-in) |
 
 **Use when:** You want to declutter the status bar or focus on specific metrics during your workflow.
 
@@ -1672,7 +1674,7 @@ See [Advanced Features](08-advanced-features.md) for MCP details.
 
 ### /skills [subcommand] [args]
 
-Manage skills for enhanced capabilities.
+Manage skills for enhanced capabilities. `/skill` is an alias for `/skills` (v1.0.65+).
 
 ```
 # List available skills
@@ -1689,6 +1691,14 @@ Manage skills for enhanced capabilities.
 
 # Reload skills
 > /skills reload
+```
+
+You can also manage skills from the shell without launching an interactive session using the `copilot skill` subcommand (v1.0.65+):
+
+```bash
+$ copilot skill list
+$ copilot skill add python-expert
+$ copilot skill remove python-expert
 ```
 
 **Skills are:**
@@ -2051,6 +2061,7 @@ Some commands have shorter aliases:
 /agents        = /subagents
 /branch        = /fork
 /loop          = /every
+/skill         = /skills
 ```
 
 ## Error Messages

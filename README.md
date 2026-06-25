@@ -81,6 +81,10 @@ npm update -g @github/copilot
 ```
 
 **Latest features:**
+- 💾 `/cd` now persists the working directory across session resumes and discovers custom agents in the new directory (v1.0.65)
+- 🛠️ New `copilot skill` CLI subcommand + `/skill` alias for `/skills` to list, add, and remove skills (v1.0.65)
+- 🚦 Opt-in CI check status bar item shows passing/running/failing CI status for the current branch (v1.0.65)
+- ⌨️ Up/down history and Ctrl+R reverse search now include past shell commands in normal mode (v1.0.65)
 - 🔒 `/security-review` is now available to all users — no `--experimental` flag required (v1.0.64)
 - 🌿 `/branch` — new alias for `/fork` matching Claude Code's command naming (v1.0.64)
 - 🔁 `/loop` — new alias for `/every` scheduled prompts (v1.0.64)
@@ -377,4 +381,4 @@ Go to **Actions → Daily Doc Maintenance → Run workflow** to trigger it on de
 
 ---
 
-**Note:** This guide covers GitHub Copilot CLI v1.0.64. Some capabilities may vary by version — run `/update` to stay current.
+**Note:** This guide covers GitHub Copilot CLI v1.0.65. Some capabilities may vary by version — run `/update` to stay current.

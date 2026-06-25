@@ -1,4 +1,4 @@
-# Latest Features in GitHub Copilot CLI — v1.0.64
+# Latest Features in GitHub Copilot CLI — v1.0.65
 
 This file covers recent additions to GitHub Copilot CLI. Features marked with "Full guide →" have their own dedicated documentation file — the entries here are summaries with links. Features without a dedicated file are covered in full below.
 
@@ -10,7 +10,8 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 3. [Research Command (`/research`)](#research-command-research) — [Full guide →](19-research-command.md)
 
 ### Features covered in this file
-4. [New in v1.0.64](#new-in-v1064)
+4. [New in v1.0.65](#new-in-v1065)
+5. [New in v1.0.64](#new-in-v1064)
 5. [New in v1.0.63](#new-in-v1063)
 5. [New in v1.0.62](#new-in-v1062)
 5. [New in v1.0.61](#new-in-v1061)
@@ -71,6 +72,81 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 24. [Staying Up to Date](#staying-up-to-date)
 
 ---
+
+---
+
+---
+
+## New in v1.0.65
+
+Released: 2026-06-24
+
+### `/cd` Persists Working Directory
+
+`/cd` (and its alias `/cwd`) now persists the working directory across session resumes. When you resume a session, the CLI automatically returns to the directory you were in when you last used that session. In addition, changing directories with `/cd` now also discovers and loads any custom agents defined in the new directory.
+
+```
+> /cd ~/projects/my-app
+# Directory is saved — resuming this session later returns here
+```
+
+**Why it matters:** No more manually navigating to your project directory after each session resume.
+
+### `copilot skill` CLI Subcommand and `/skill` Alias
+
+A new `copilot skill` subcommand is available directly from the shell (no interactive session required), and `/skill` is now an alias for `/skills` inside the CLI.
+
+```bash
+# From the shell — list, add, and remove skills
+$ copilot skill list
+$ copilot skill add python-expert
+$ copilot skill remove python-expert
+```
+
+```
+# Inside the CLI — /skill is now an alias for /skills
+> /skill list
+> /skill add security-audit
+```
+
+**Why it matters:** Manage skills from scripts and CI pipelines without launching an interactive session.
+
+### Opt-in CI Check Status Bar Item
+
+A new opt-in status bar item shows the CI check status (passing / running / failing) for the current branch directly in the CLI's status bar.
+
+```
+> /statusline ci
+# Toggles the CI check status item on or off
+```
+
+When enabled, the status bar displays a real-time indicator:
+- ✅ `CI: passing` — all checks passed
+- 🔄 `CI: running` — checks are in progress
+- ❌ `CI: failing` — one or more checks failed
+
+**Why it matters:** See CI status without switching to a browser or running `gh run list`.
+
+### Shell Command History in Normal Mode
+
+Up/down arrow history and `Ctrl+R` reverse search now include past shell commands while in normal mode. Previously, shell commands (prefixed with `!`) were only searchable after you entered shell mode with `!`. Now you can recall and re-run a shell command directly from the normal prompt.
+
+```
+# In normal mode, press ↑ or Ctrl+R to search — shell commands are included
+> ↑  →  npm run build       # recalled from shell history
+```
+
+### Additional Improvements
+
+- **Canvas resume:** Open canvases are automatically restored after restarting the CLI.
+- **Slash-prefixed arguments:** Commands with slash-prefixed string arguments (e.g., `--body "/azp run"`) no longer trigger spurious filesystem permission prompts.
+- **Custom status line in `/settings`:** Custom status line commands can now be saved via `/settings` for persistence across sessions.
+- **Windows path handling:** Windows paths stay intact when adding stdio MCP servers.
+- **MCP improvements:** MCP shutdown no longer waits on in-flight server connects; silent MCP OAuth refresh reuses the granted scope so reconnects stay signed in.
+- **Subagent model persistence:** Custom-agent subagent model selections are kept when using BYOK providers.
+- **Inline image rendering:** Images render reliably in tmux sessions.
+- **`/every` scheduling:** Schedules are now parsed on the session's main model.
+- **Fullscreen timeline:** The timeline stays anchored when older content is trimmed.
 
 ---
 

@@ -1,6 +1,23 @@
 # Documentation Updates
 
-## 2026-06-24 — Docs updated for v1.0.64
+## 2026-06-25 — Docs updated for v1.0.65
+
+- `README.md`: Bumped version note to v1.0.65; updated "Latest features" list with v1.0.65 highlights
+- `16-new-features.md`: Updated title to v1.0.65; added TOC entry; added v1.0.65 section covering `/cd` working directory persistence, new `copilot skill` CLI subcommand + `/skill` alias, opt-in CI check status bar item, shell command history in normal mode, and additional improvements
+- `04-slash-commands.md`: Updated `/cwd`/`/cd` with persistence note; updated `/skills` with `/skill` alias and `copilot skill` shell subcommand; added `ci` item to `/statusline` table; added `/skill` to Command Aliases
+- `00-cheat-sheet.md`: Updated `/cwd` entry with persistence note; updated `/skills` with `/skill` alias and subcommand; updated `/statusline` with `ci` item
+- `14-skills-system.md`: Added v1.0.65 callout for `/skill` alias and `copilot skill` CLI subcommand
+
+### Feature Summary (v1.0.65)
+- **Improved:** `/cd` persists working directory across session resumes; discovers custom agents in new directory
+- **New:** `copilot skill` shell subcommand for managing skills outside the interactive session
+- **New alias:** `/skill` → `/skills`
+- **New:** Opt-in CI check status bar item (`/statusline ci`) showing passing/running/failing
+- **Improved:** Up/down history and Ctrl+R now include past shell commands in normal mode
+- **Fixed:** Slash-prefixed string arguments no longer trigger spurious filesystem permission prompts
+- **Improved:** Open canvases auto-resume after CLI restart
+
+
 
 - `README.md`: Bumped version note to v1.0.64; updated "Latest features" list with v1.0.64 highlights
 - `16-new-features.md`: Updated title to v1.0.64; added TOC entry; added v1.0.64 section covering `/security-review` GA (no longer experimental), new `/branch` alias for `/fork`, new `/loop` alias for `/every`, new `/diagnose` command, autopilot returns to interactive after `task_complete` and auto-handles prompts, model family aliases (opus/sonnet/haiku/gpt/gemini), HTTP(S) proxy user setting, `/diff` in non-git folders, `/mcp registry`, and additional improvements

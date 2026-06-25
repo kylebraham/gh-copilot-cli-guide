@@ -81,7 +81,7 @@
 ### Navigation
 | Command | Description |
 |---------|-------------|
-| `/cwd` | Show current working directory |
+| `/cwd` | Show current working directory; persists across session resumes (v1.0.65+) |
 | `/add-dir` | Add a directory to the active context |
 | `/list-dirs` | List all directories currently in context |
 
@@ -111,7 +111,7 @@
 |---------|-------------|
 | `/mcp` | Manage MCP (Model Context Protocol) server connections; `/mcp search <query>` to find from registry; `/mcp registry` to browse interactively (v1.0.64+) |
 | `/lsp` | Manage language server connections |
-| `/skills` | List or manage available skills |
+| `/skills` | List or manage available skills; alias `/skill` (v1.0.65+); `copilot skill` subcommand available from shell (v1.0.65+) |
 | `/plugin` | Manage installed plugins; `/plugin update --all` updates all plugins at once (v1.0.49+) |
 | `/rubber-duck` | Get an independent critique of the agent's current work (v1.0.49+; enabled by default in v1.0.58+) |
 | `/voice` | Dictate a prompt using local speech-to-text (v1.0.59+) |
@@ -157,7 +157,7 @@
 |---------|-------------|
 | `/theme` | Change the color theme |
 | `/streamer-mode` | Toggle streamer-safe mode (hides sensitive info) |
-| `/statusline` | Customize status bar items (alias: `/footer`); items: `directory`, `branch`, `effort`, `context`, `quota`, `changes`, `username` (v1.0.43+) |
+| `/statusline` | Customize status bar items (alias: `/footer`); items: `directory`, `branch`, `effort`, `context`, `quota`, `changes`, `username` (v1.0.43+), `ci` for CI check status (v1.0.65+) |
 | `/keep-alive` | Prevent system sleep while active (v1.0.36+) |
 | `/terminal-setup` | Configure terminal integration |
 | `/ide` | Configure IDE integration |
