@@ -81,12 +81,21 @@ npm update -g @github/copilot
 ```
 
 **Latest features:**
+- 💾 `/cd` now persists the working directory across session resumes and discovers custom agents in the new directory (v1.0.65)
+- 🛠️ New `copilot skill` CLI subcommand + `/skill` alias for `/skills` to list, add, and remove skills (v1.0.65)
+- 🚦 Opt-in CI check status bar item shows passing/running/failing CI status for the current branch (v1.0.65)
+- ⌨️ Up/down history and Ctrl+R reverse search now include past shell commands in normal mode (v1.0.65)
+- 🔒 `/security-review` is now available to all users — no `--experimental` flag required (v1.0.64)
+- 🌿 `/branch` — new alias for `/fork` matching Claude Code's command naming (v1.0.64)
+- 🔁 `/loop` — new alias for `/every` scheduled prompts (v1.0.64)
+- 🩺 `/diagnose` — new command to analyze session logs (v1.0.64)
+- 🤖 Autopilot mode now returns to interactive mode after the agent calls `task_complete` (v1.0.64)
+- 🌐 HTTP(S) proxy can be set as a persistent user setting in addition to environment variables (v1.0.64)
+- 🏷️ Model family aliases (`opus`, `sonnet`, `haiku`, `gpt`, `gemini`) for `/model` shorthand (v1.0.64)
 - 🔍 Press `w` in `/diff` to hide whitespace-only changes (v1.0.63)
 - 🔒 Auth validation errors (VPN / IP allowlist failures) now appear in the sign-in banner with network guidance (v1.0.63)
 - 🔀 Fork-based pull requests now shown in `/pr` and the branch PR badge (v1.0.63)
 - 🔧 `deferTools` option for MCP server config keeps a server's tools always available even when tool search is enabled (v1.0.63)
-- 🔄 Agent mode is now tracked per session and no longer carries over when you create, clear, or switch sessions (v1.0.63)
-- ⏪ `/rewind` (experimental) no longer requires git and restores only files Copilot changed, leaving your own edits intact (v1.0.63)
 - 📱 `/app` slash command — open the GitHub app or a browser fallback (v1.0.62)
 - 🤖 `/subagents` (alias `/agents`) picker — configure subagent model, reasoning effort, and context tier (v1.0.62)
 - 🌿 `/worktree` (alias `/move`) — create a new git worktree and switch into it, carrying uncommitted changes (v1.0.61)
@@ -122,7 +131,7 @@ npm update -g @github/copilot
 - 🔄 `/restart` and `/update` preserve the current session ID after restarting (v1.0.52)
 - 🤖 General-purpose subagents use GPT-5.4 or GPT-5.5 when available (v1.0.52)
 - 🗑️ Old process log files in `~/.copilot/logs/` are automatically pruned at startup (v1.0.52)
-- 🔒 `/security-review` — dedicated security-focused code review (experimental, v1.0.51)
+- 🔒 `/security-review` — dedicated security-focused code review (v1.0.51; GA in v1.0.64)
 - 🆔 `--session-id=<id>` — resume or start sessions with a specific UUID (v1.0.51)
 - 🪝 `preMcpToolCall` hook — control outgoing MCP request metadata (v1.0.51)
 - 💡 `/chronicle cost-tips` — personalized token cost recommendations (v1.0.51)
@@ -372,4 +381,4 @@ Go to **Actions → Daily Doc Maintenance → Run workflow** to trigger it on de
 
 ---
 
-**Note:** This guide covers GitHub Copilot CLI v1.0.63. Some capabilities may vary by version — run `/update` to stay current.
+**Note:** This guide covers GitHub Copilot CLI v1.0.65. Some capabilities may vary by version — run `/update` to stay current.

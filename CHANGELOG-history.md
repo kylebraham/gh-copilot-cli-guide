@@ -1,6 +1,43 @@
 # Documentation Updates
 
-## 2026-06-16 — Docs updated for v1.0.63
+## 2026-06-25 — Docs updated for v1.0.65
+
+- `README.md`: Bumped version note to v1.0.65; updated "Latest features" list with v1.0.65 highlights
+- `16-new-features.md`: Updated title to v1.0.65; added TOC entry; added v1.0.65 section covering `/cd` working directory persistence, new `copilot skill` CLI subcommand + `/skill` alias, opt-in CI check status bar item, shell command history in normal mode, and additional improvements
+- `04-slash-commands.md`: Updated `/cwd`/`/cd` with persistence note; updated `/skills` with `/skill` alias and `copilot skill` shell subcommand; added `ci` item to `/statusline` table; added `/skill` to Command Aliases
+- `00-cheat-sheet.md`: Updated `/cwd` entry with persistence note; updated `/skills` with `/skill` alias and subcommand; updated `/statusline` with `ci` item
+- `14-skills-system.md`: Added v1.0.65 callout for `/skill` alias and `copilot skill` CLI subcommand
+
+### Feature Summary (v1.0.65)
+- **Improved:** `/cd` persists working directory across session resumes; discovers custom agents in new directory
+- **New:** `copilot skill` shell subcommand for managing skills outside the interactive session
+- **New alias:** `/skill` → `/skills`
+- **New:** Opt-in CI check status bar item (`/statusline ci`) showing passing/running/failing
+- **Improved:** Up/down history and Ctrl+R now include past shell commands in normal mode
+- **Fixed:** Slash-prefixed string arguments no longer trigger spurious filesystem permission prompts
+- **Improved:** Open canvases auto-resume after CLI restart
+
+
+
+- `README.md`: Bumped version note to v1.0.64; updated "Latest features" list with v1.0.64 highlights
+- `16-new-features.md`: Updated title to v1.0.64; added TOC entry; added v1.0.64 section covering `/security-review` GA (no longer experimental), new `/branch` alias for `/fork`, new `/loop` alias for `/every`, new `/diagnose` command, autopilot returns to interactive after `task_complete` and auto-handles prompts, model family aliases (opus/sonnet/haiku/gpt/gemini), HTTP(S) proxy user setting, `/diff` in non-git folders, `/mcp registry`, and additional improvements
+- `04-slash-commands.md`: Added `/branch` alias to `/fork` section; removed "(experimental)" from `/security-review`; updated `/diff` with non-git folder note; added model family aliases to `/model`; added `/loop` alias to `/every`; added `/diagnose` command section; updated `/mcp` with registry note; updated both quick reference tables with new commands; updated Command Aliases with `/branch` and `/loop`
+- `00-cheat-sheet.md`: Updated `/fork` description with `/branch` alias; updated `/security-review` to remove experimental label; added `/diagnose` entry; updated `/every` with `/loop` alias; updated `/mcp` with registry note
+- `17-autopilot-mode.md`: Added v1.0.64 notes — autopilot returns to interactive after `task_complete`; auto-handles elicitation/ask_user/sampling/permission prompts
+- `08-advanced-features.md`: Added HTTP(S) proxy user setting note to configuration section
+
+### Feature Summary (v1.0.64)
+- **GA:** `/security-review` available to all users without `--experimental`
+- **New alias:** `/branch` → `/fork` (matches Claude Code naming)
+- **New alias:** `/loop` → `/every`
+- **New:** `/diagnose` command analyzes session logs
+- **Changed:** Autopilot returns to interactive mode after agent calls `task_complete`
+- **New:** Model family aliases (`opus`, `sonnet`, `haiku`, `gpt`, `gemini`) for `/model`
+- **New:** HTTP(S) proxy configurable as a persistent user setting
+- **Improved:** `/diff` now works in non-git folders
+- **New:** `/mcp registry` for browsing and installing MCP servers interactively
+
+
 
 - `README.md`: Bumped version note to v1.0.63; updated "Latest features" list with v1.0.63 highlights
 - `16-new-features.md`: Updated title to v1.0.63; added TOC entry; added v1.0.63 section covering whitespace toggle in `/diff` (`w` key), auth validation errors in sign-in banner (VPN/IP allowlist), fork-based PRs in `/pr`, `deferTools` MCP option, agent mode per session, `/rewind` experimental improvements (no git required, restores only Copilot-changed files), and additional improvements (chronicle standup, /responses WebSocket, transient 401 retry, read_bash spill path, Enter key for issue details, PostToolUse matcher fix, plan review on OpenAI-compatible backends)

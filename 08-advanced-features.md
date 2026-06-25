@@ -1119,7 +1119,19 @@ export COPILOT_LOG_FILE="/tmp/copilot.log"
 # Network
 export HTTPS_PROXY="http://proxy:8080"
 export NO_PROXY="localhost,127.0.0.1"
+```
 
+> **v1.0.64:** You can also set the HTTP(S) proxy as a persistent user setting via `/settings` or `~/.copilot/settings.json`, so you no longer need to export the environment variable in every shell session:
+>
+> ```json
+> {
+>   "network": {
+>     "proxy": "http://proxy.example.com:8080"
+>   }
+> }
+> ```
+
+```bash
 # Model selection
 export COPILOT_DEFAULT_MODEL="claude-opus-4.5"
 ```
