@@ -1,5 +1,28 @@
 # Documentation Updates
 
+## 2026-07-01 — Docs updated for v1.0.67
+
+- `README.md`: Bumped version note to v1.0.67; updated "Latest features" list with v1.0.66 and v1.0.67 highlights
+- `16-new-features.md`: Updated title to v1.0.67; added TOC entries; added v1.0.66 section covering `/pr auto`/`/pr automerge` self-paced loops, `/chronicle skills review`, `/worktree` task argument and smarter default naming, `@`-style imports in instruction files, subagent concurrency/depth limits in `/settings`, custom agent `reasoning-effort`, Claude Opus 4.8 Fast (deprecating Opus 4.6 Fast), and Pull Requests tab merge status; added v1.0.67 section covering Claude Sonnet 5 support, minimum 30-credit session limits, and immediate sandbox disable
+- `04-slash-commands.md`: Added `/pr auto`/`/pr automerge` under `/pr`; added task-argument and default-naming behavior to `/worktree`; added subagent limits note to `/settings`; added `pr` status-line item; added `/chronicle skills review`; added MCP list-view enable/disable toggle note to `/mcp`; added Claude Sonnet 5 to `/model`
+- `00-cheat-sheet.md`: Updated `/pr`, `/worktree`, `/chronicle`, and `/statusline` entries with v1.0.66 additions
+- `07-github-integration.md`: Added "Driving a PR to Green Automatically" section for `/pr auto`/`/pr automerge`; added "Pull Requests Tab Merge Status" section
+- `22-models-and-costs.md`: Added Claude Sonnet 5 and Claude Opus 4.8 Fast; marked Claude Opus 4.6 Fast as deprecated
+- `08-advanced-features.md`: Added `/settings` subagent limits note to Fleet Mode; added custom agent `reasoning-effort` frontmatter section; added immediate sandbox-disable and session-limit notes to Security Best Practices
+- `13-agents-file.md`: Added note on `@`-style imports in `AGENTS.md`, `CLAUDE.md`, and Copilot instruction files
+
+### Feature Summary (v1.0.66 – v1.0.67)
+- **New:** `/pr auto` and `/pr automerge` self-paced loops to drive PRs to green and merge
+- **New:** `/chronicle skills review` for reviewing proposed draft skill changes
+- **Improved:** `/worktree` accepts a task argument to name the branch and seed the first prompt; smarter default branch naming; exact branch names preserved
+- **New:** `@`-style imports in `AGENTS.md`, `CLAUDE.md`, and Copilot instruction files
+- **New:** Configure subagent concurrency/depth limits from `/settings`
+- **New:** Custom agents can set their own `reasoning-effort`
+- **New:** Claude Opus 4.8 Fast (deprecates Claude Opus 4.6 Fast); Claude Sonnet 5 added
+- **New:** Pull Requests tab shows merge status per PR, refreshable with `r`
+- **Changed:** Session limits (`sessionLimits`) must be at least 30 AI credits and now apply across the whole conversation, resetting on `/clear`
+- **Improved:** Disabling the sandbox for the rest of a session takes effect immediately
+
 ## 2026-06-25 — Docs updated for v1.0.65
 
 - `README.md`: Bumped version note to v1.0.65; updated "Latest features" list with v1.0.65 highlights

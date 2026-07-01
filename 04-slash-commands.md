@@ -202,6 +202,7 @@ Select or change the AI model.
 **Available models:**
 - `claude-sonnet-4.5` (default) - Balanced performance
 - `claude-sonnet-4` - Previous generation Sonnet
+- `claude-sonnet-5` - Newest Sonnet, added v1.0.67
 - `gpt-5` - OpenAI flagship
 - And more available via `/model` selection menu...
 
@@ -209,6 +210,8 @@ Select or change the AI model.
 - Task complexity (use Opus for complex reasoning)
 - Speed requirements (use Haiku for quick tasks)
 - Cost considerations (Haiku is most economical)
+
+> **v1.0.67+:** Claude Sonnet 5 is now available as a supported model. See [Model Selection Strategy](22-models-and-costs.md) for details.
 
 ### /context
 
@@ -591,6 +594,16 @@ Operate on pull requests for the current branch.
 
 > **v1.0.63+:** Fork-based pull requests are now shown in `/pr` and the branch PR badge, in addition to PRs from branches within the same repository.
 
+> **v1.0.66+:** `/pr auto` starts a self-paced loop that fixes one thing per run and paces itself around CI to drive the PR to green. `/pr automerge` keeps looping until the PR is merged. Manage or stop either loop from `/loop` or `/every`.
+
+```
+# Drive the PR to green, one fix per run, paced around CI
+> /pr auto
+
+# Keep looping until the PR is merged
+> /pr automerge
+```
+
 ### /review
 
 Run the code review agent on your current changes. Focuses exclusively on high-signal issues — bugs, security vulnerabilities, and logic errors — not style or formatting.
@@ -935,6 +948,12 @@ Create a new git worktree and switch the active working directory into it, movin
 
 > **Tip (v1.0.62+):** Press `W` on the expanded issue or pull request details panel to create a worktree for that item in one keystroke.
 
+> **v1.0.66+:** Pass a task to `/worktree` to name the branch after that task and run the task as the first prompt in the new worktree:
+> ```
+> > /worktree fix the login redirect
+> ```
+> With no argument, `/worktree` names the branch from your uncommitted changes and recent conversation using your active model. Branch names typed exactly (e.g. `feature/JIRA-123`) are kept as-is instead of being flattened to a slug (e.g. `feature-jira-123`).
+
 ### /app (v1.0.62+)
 
 Open the GitHub app if it is installed, or fall back to opening your browser to the GitHub web interface.
@@ -991,6 +1010,8 @@ Open an interactive dialog to browse and edit all user settings in one place.
 - Discover settings you didn't know existed
 - Edit values without leaving the CLI
 - Safer than manual JSON editing
+
+> **v1.0.66+:** Usage-based billing users can configure subagent concurrency and depth limits directly from `/settings`, instead of only via config files. See [Fleet Mode — Sub-Agent Depth and Concurrency Limits](08-advanced-features.md#sub-agent-depth-and-concurrency-limits-v10122).
 
 ### /memory [on|off|show] (v1.0.49+)
 
@@ -1096,6 +1117,7 @@ Customize which items appear in the status bar at the bottom of the CLI. Also av
 | `changes` | Lines added/removed in the current session (v1.0.36+) |
 | `username` | Active GitHub account name (v1.0.43+) |
 | `ci` | CI check status for the current branch: passing/running/failing (v1.0.65+, opt-in) |
+| `pr` | Link to the current pull request for the active branch (v1.0.66+) |
 
 **Use when:** You want to declutter the status bar or focus on specific metrics during your workflow.
 
@@ -1396,7 +1418,7 @@ Display the changelog for CLI versions. `/release-notes` is an alias for `/chang
 
 ### /chronicle
 
-View a **narrative history** of what the current session has done — file edits, commands run, and key decisions — formatted as a readable summary. Use the `search` subcommand to query all session content by keyword or topic (v1.0.49+). Use `cost-tips` for personalized token cost recommendations (v1.0.51+).
+View a **narrative history** of what the current session has done — file edits, commands run, and key decisions — formatted as a readable summary. Use the `search` subcommand to query all session content by keyword or topic (v1.0.49+). Use `cost-tips` for personalized token cost recommendations (v1.0.51+). Use `skills review` to review proposed draft skill changes (v1.0.66+).
 
 ```
 > /chronicle
@@ -1407,6 +1429,9 @@ View a **narrative history** of what the current session has done — file edits
 
 # Get personalized token usage and cost reduction tips (v1.0.51+)
 > /chronicle cost-tips
+
+# Review proposed draft skill changes (v1.0.66+)
+> /chronicle skills review
 ```
 
 **Use when:**
@@ -1414,8 +1439,11 @@ View a **narrative history** of what the current session has done — file edits
 - Reviewing what was changed before opening a pull request
 - Handing off work to a colleague
 - Finding past decisions or context with a keyword search
+- Deciding whether to accept, reject, or defer a draft skill change proposed during the session
 
 > **v1.0.40+:** Session history, file tracking, and `/chronicle` are available to all users.
+
+> **v1.0.66+:** `/chronicle skills review` lets you step through each proposed draft skill change and accept, reject, or defer it individually.
 
 ### /update, /upgrade
 
@@ -1663,6 +1691,8 @@ Manage MCP (Model Context Protocol) server configuration.
 > /mcp search <query>
 > /mcp registry   # browse registry interactively (v1.0.64+)
 ```
+
+> **v1.0.66+:** The `/mcp show` list view now includes a toggle to enable or disable each server directly, in addition to the `/mcp enable`/`/mcp disable` commands.
 
 **MCP Servers extend CLI capabilities:**
 - Database access

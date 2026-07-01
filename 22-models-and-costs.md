@@ -23,10 +23,12 @@ Understanding how to choose the right model — and when to switch — is one of
 | Auto | `auto` | Varies | Let Copilot pick the best model for each session automatically |
 | Claude Sonnet 4.5 | `claude-sonnet-4.5` | Fast | Default — general coding, balanced quality/cost |
 | Claude Sonnet 4.6 | `claude-sonnet-4.6` | Fast | Latest Sonnet — improved reasoning over 4.5 |
+| Claude Sonnet 5 | `claude-sonnet-5` | Fast | Newest Sonnet generation (v1.0.67+) |
 | Claude Opus 4.6 | `claude-opus-4.6` | Slower | Most capable — complex reasoning, architecture, security; uses **medium reasoning effort** by default (v1.0.36+); all effort levels (`low`, `medium`, `high`, `max`) available on every plan (v1.0.60) |
-| Claude Opus 4.6 (fast) | `claude-opus-4.6-fast` | Fast | Opus quality with faster response times |
+| Claude Opus 4.6 (fast) | `claude-opus-4.6-fast` | Fast | ⚠️ Deprecated (v1.0.66) — replaced by Claude Opus 4.8 Fast |
 | Claude Opus 4.7 | `claude-opus-4.7` | Slower | Latest Opus — most capable model (v1.0.29+) |
 | Claude Opus 4.8 | `claude-opus-4.8` | Slower | Newest Opus — top-tier reasoning and coding (v1.0.55+) |
+| Claude Opus 4.8 (fast) | `claude-opus-4.8-fast` | Fast | Opus 4.8 quality with faster response times (v1.0.66+) |
 | Claude Fable 5 | `claude-fable-5` | Varies | New Claude Fable family model (v1.0.61+) |
 | Claude Haiku 4.5 | `claude-haiku-4.5` | Fastest | Quick tasks, fleet subagents, docs, formatting |
 | GPT-5.4 | `gpt-5.4` | Fast | Strong alternative for general code generation |
@@ -34,6 +36,8 @@ Understanding how to choose the right model — and when to switch — is one of
 | GPT-5.2-Codex | `gpt-5.2-codex` | Fast | Code-specialized, stable alternative |
 | GPT-5.4 mini | `gpt-5.4-mini` | Fastest | Ultra-cheap for trivial or bulk tasks |
 | GPT-4.1 | `gpt-4.1` | Fast | Fast, cost-effective general tasks |
+
+> ⚠️ **Deprecated in v1.0.66:** Claude Opus 4.6 Fast (`claude-opus-4.6-fast`) is deprecated in favor of Claude Opus 4.8 Fast (`claude-opus-4.8-fast`), which offers newer Opus quality at comparable speed.
 
 > **Note:** Multipliers can change as GitHub updates pricing. Always run `/model` to see current multipliers and available models before committing to a long session.
 

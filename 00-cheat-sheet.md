@@ -91,7 +91,7 @@
 | `/diff` | Show current git diff; press `/` to search, `n`/`N` to navigate matches, `Tab` for file tree, `w` to hide whitespace (v1.0.62+) |
 | `/review` | Request a code review of staged or recent changes |
 | `/security-review` | Run a security-focused code review (v1.0.51+; no longer requires `--experimental` as of v1.0.64) |
-| `/pr` | Create or manage a pull request |
+| `/pr` | Create or manage a pull request; `/pr auto` self-paces one fix per run against CI to drive a PR to green, `/pr automerge` keeps going until merged — manage from `/loop` or `/every` (v1.0.66+) |
 | `/delegate` | Hand off a task to an autonomous subagent |
 | `/app` | Open the GitHub app or browser fallback (v1.0.62+) |
 
@@ -123,7 +123,7 @@
 | `/experimental` | Toggle experimental features |
 | `/autopilot [objective]` | Toggle autopilot mode on/off; optionally set a goal objective (v1.0.45+); `/goal` is an alias (v1.0.55+) |
 | `/settings` | Open an interactive dialog to browse and edit all user settings (v1.0.61+) |
-| `/worktree <branch>` | Create a new git worktree and switch into it, moving uncommitted changes; alias `/move` (v1.0.61+) |
+| `/worktree <branch>` | Create a new git worktree and switch into it, moving uncommitted changes; alias `/move` (v1.0.61+); pass a task (e.g. `/worktree fix the login redirect`) to name the branch and run it as the first prompt (v1.0.66+); with no argument, names the branch from uncommitted changes and recent conversation (v1.0.66+) |
 | `/allow-all` | Allow all tool calls without per-call confirmation |
 | `/yolo` | Alias for `/allow-all`; state persists across `/restart` |
 | `/reset-allowed-tools` | Reset tool allowlist to default (prompt-per-use) |
@@ -136,7 +136,7 @@
 | `/version` | Show Copilot CLI version |
 | `/changelog` | View recent release notes |
 | `/release-notes` | Alias for `/changelog` |
-| `/chronicle` | View a narrative history of session actions and file changes (v1.0.40+); add `search <query>` to search by keyword (v1.0.49+); add `cost-tips` for personalized token cost recommendations (v1.0.51+) |
+| `/chronicle` | View a narrative history of session actions and file changes (v1.0.40+); add `search <query>` to search by keyword (v1.0.49+); add `cost-tips` for personalized token cost recommendations (v1.0.51+); add `skills review` to review proposed draft skill changes (v1.0.66+) |
 | `/feedback` | Submit feedback to GitHub |
 | `/bug` | Alias for `/feedback` — report a bug |
 | `/instructions` | Show active instruction files in effect |
@@ -157,7 +157,7 @@
 |---------|-------------|
 | `/theme` | Change the color theme |
 | `/streamer-mode` | Toggle streamer-safe mode (hides sensitive info) |
-| `/statusline` | Customize status bar items (alias: `/footer`); items: `directory`, `branch`, `effort`, `context`, `quota`, `changes`, `username` (v1.0.43+), `ci` for CI check status (v1.0.65+) |
+| `/statusline` | Customize status bar items (alias: `/footer`); items: `directory`, `branch`, `effort`, `context`, `quota`, `changes`, `username` (v1.0.43+), `ci` for CI check status (v1.0.65+), current pull request link (v1.0.66+) |
 | `/keep-alive` | Prevent system sleep while active (v1.0.36+) |
 | `/terminal-setup` | Configure terminal integration |
 | `/ide` | Configure IDE integration |

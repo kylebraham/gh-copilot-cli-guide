@@ -1,4 +1,4 @@
-# Latest Features in GitHub Copilot CLI — v1.0.65
+# Latest Features in GitHub Copilot CLI — v1.0.67
 
 This file covers recent additions to GitHub Copilot CLI. Features marked with "Full guide →" have their own dedicated documentation file — the entries here are summaries with links. Features without a dedicated file are covered in full below.
 
@@ -10,6 +10,8 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 3. [Research Command (`/research`)](#research-command-research) — [Full guide →](19-research-command.md)
 
 ### Features covered in this file
+4. [New in v1.0.67](#new-in-v1067)
+4. [New in v1.0.66](#new-in-v1066)
 4. [New in v1.0.65](#new-in-v1065)
 5. [New in v1.0.64](#new-in-v1064)
 5. [New in v1.0.63](#new-in-v1063)
@@ -74,6 +76,125 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 ---
 
 ---
+
+---
+
+## New in v1.0.67
+
+Released: 2026-06-30
+
+### Claude Sonnet 5 Support
+
+Claude Sonnet 5 (`claude-sonnet-5`) is now available as a supported model.
+
+```
+> /model claude-sonnet-5
+> /model sonnet   # family alias resolves to the latest Sonnet
+```
+
+**Why it matters:** Access the newest Sonnet-generation model directly from `/model` without waiting for a manual config update. See [Model Selection Strategy](22-models-and-costs.md) for guidance on when to use it.
+
+### Session Limits Require at Least 30 AI Credits
+
+The `sessionLimits` setting (minimum credits before a session is capped) must now be set to at least 30 AI credits.
+
+**Why it matters:** Prevents accidentally configuring a limit so low that sessions get cut off before useful work can happen.
+
+### Immediate Sandbox Disable
+
+Disabling the sandbox for the rest of the session now takes effect immediately, so shell and search commands stop re-prompting to bypass it mid-turn.
+
+**Why it matters:** Once you've decided to trust the rest of a session, you no longer have to dismiss repeated bypass prompts for every subsequent command.
+
+### Other Improvements (v1.0.67)
+
+- Subagent sessions now keep their parent's tool restrictions
+- Warnings and errors are shown when host custom agents fail to load
+- Tool calls can continue even when hooks time out
+- `Ctrl+Q` now enqueues the highlighted slash-command argument completion
+- MCP OAuth against Microsoft Entra servers behind a tenant vanity domain (e.g. Copilot Studio) no longer fails to refresh or re-authenticate
+- Prompt mode's exit summary now shows a resume hint to continue the session
+
+---
+
+## New in v1.0.66
+
+Released: 2026-06-30
+
+### `/pr auto` and `/pr automerge` Self-Paced Loops
+
+`/pr auto` now starts a self-paced loop that fixes one thing per run and paces itself around CI to drive the PR to green. `/pr automerge` keeps going until the PR is actually merged. Manage or stop either loop from `/loop` or `/every`.
+
+```
+> /pr auto
+> /pr automerge
+```
+
+**Why it matters:** Turns "get this PR to green" into a hands-off background loop instead of a manual poll-and-fix cycle. Full guide → [GitHub Integration](07-github-integration.md).
+
+### `/chronicle skills review`
+
+A new `/chronicle skills review` subcommand lets you step through proposed draft skill changes and accept, reject, or defer each one.
+
+```
+> /chronicle skills review
+```
+
+**Why it matters:** Gives you control over auto-generated or suggested skill updates before they're applied.
+
+### `/worktree` Task Argument
+
+Pass a task to `/worktree` to name the branch after that task and run it as the first prompt in the new worktree.
+
+```
+> /worktree fix the login redirect
+```
+
+With no argument, `/worktree` now names the branch from your uncommitted changes and recent conversation using your active model (instead of a fixed small model). Branch names are also kept exactly as typed (e.g. `feature/JIRA-123`) instead of being flattened to a slug (e.g. `feature-jira-123`).
+
+**Why it matters:** Faster, more descriptive worktree branches with less manual naming.
+
+### `@`-Style Imports in Instruction Files
+
+`AGENTS.md`, `CLAUDE.md`, and Copilot instruction files now support `@`-style imports (e.g. `@docs/style-guide.md`), which are expanded inline.
+
+**Why it matters:** Split long project instructions across multiple files and share common content without copy-pasting. See [AGENTS.md Guide](13-agents-file.md).
+
+### Subagent Concurrency and Depth Limits in `/settings`
+
+Usage-based billing users can now configure subagent concurrency and depth limits directly from `/settings`.
+
+**Why it matters:** No more editing config files by hand to tune how aggressively fleet and autopilot spawn sub-agents. See [Fleet Mode](18-fleet-mode.md).
+
+### Custom Agent Reasoning Effort
+
+Custom agents can now set their own `reasoning-effort` in their frontmatter, independent of the session's default effort level.
+
+**Why it matters:** Pin high-stakes agents (security review, architecture) to higher reasoning effort while keeping the rest of a session fast and cheap. See [Advanced Features — Custom Agents](08-advanced-features.md#creating-custom-agents).
+
+### New Claude Opus 4.8 Fast Model
+
+Claude Opus 4.8 Fast (`claude-opus-4.8-fast`) is now available, and Claude Opus 4.6 Fast (`claude-opus-4.6-fast`) is deprecated.
+
+**Why it matters:** Get newer Opus-quality output at fast-model speed. See [Model Selection Strategy](22-models-and-costs.md).
+
+### Pull Requests Tab Merge Status
+
+The Pull requests tab now shows merge status for each pull request, and pressing `r` refreshes the cached statuses on demand.
+
+**Why it matters:** Spot merge conflicts or blocked PRs at a glance without opening each one. See [GitHub Integration](07-github-integration.md).
+
+### Other Improvements (v1.0.66)
+
+- Add a toggle to enable or disable MCP servers directly from the `/mcp` list view
+- Show the current pull request link as a status-line item (`/statusline`)
+- Add `--allow-all-mcp-server-instructions` to optionally include instructions from all MCP servers in system prompts
+- Add persisted `dynamicRetrieval` setting (and `--dynamic-retrieval skills=<on|off>` flag) to enable or disable embeddings-based skill retrieval
+- Session limits now apply across the whole current conversation, resetting on `/clear`, via the `sessionLimits` option key
+- Desktop notifications for attention prompts and idle sessions (macOS)
+- `/rename` is now enabled in remote-hosted (cloud and relay) sessions
+- Add Claude Opus 4.8 Fast support and deprecate Claude Opus 4.6 Fast
+- Use a non-blinking block cursor during interactive sessions, restoring the terminal's default cursor on exit
 
 ---
 

@@ -669,6 +669,21 @@ This agent loads tools on demand, keeping startup fast even with large tool list
 
 **Why it matters:** Agents with large tool lists start faster and avoid exceeding context limits from unused tool descriptions. The agent discovers and loads tools dynamically as they are needed.
 
+### Setting Reasoning Effort (v1.0.66+)
+
+Custom agents can set their own reasoning effort in their frontmatter, independent of the session's active effort setting:
+
+```yaml
+---
+name: deep-reasoning-agent
+model: claude-opus-4.8
+reasoning-effort: high
+---
+This agent always runs with high reasoning effort, regardless of the session default.
+```
+
+**Why it matters:** Lets you pin high-stakes agents (e.g., security review, architecture planning) to a higher effort level while keeping the rest of the session on a faster, cheaper default.
+
 ## Skills System
 
 **Skills** are modular expertise packages that add specialized capabilities to Copilot CLI. Unlike AGENTS.md (project-specific) or instruction files (style guides), skills provide reusable domain expertise that can be activated across any project.
@@ -994,6 +1009,8 @@ To prevent runaway agent trees, the CLI enforces:
 - **Concurrency limit** — maximum number of agents running in parallel at any time
 
 When either limit is reached, the CLI surfaces a clear error rather than silently queuing more agents. These limits apply to fleet tasks, autopilot delegation chains, and any other sub-agent spawning.
+
+> **v1.0.66+:** Usage-based billing users can configure subagent concurrency and depth limits directly from [`/settings`](04-slash-commands.md#settings-v10161), instead of only via config files or environment variables.
 
 ### Enabling Fleet Mode
 
@@ -1371,6 +1388,10 @@ Set in config:
 # Be cautious adding directories
 > /add-dir /sensitive/data  # Think twice!
 ```
+
+> **v1.0.67+:** Disabling the sandbox for the rest of the session now takes effect immediately — shell and search commands stop re-prompting to bypass it mid-turn.
+
+> **v1.0.66+:** Session credit limits (the `sessionLimits` setting) must now be at least 30 AI credits, and now apply across the whole current conversation, resetting on `/clear`.
 
 ### Code Review
 
