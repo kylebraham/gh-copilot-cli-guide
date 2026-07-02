@@ -81,6 +81,7 @@ npm update -g @github/copilot
 ```
 
 **Latest features:**
+- 🧩 Added support for the `kimi-k2.7-code` model (v1.0.68)
 - 🧠 Claude Sonnet 5 added as a supported model (v1.0.67)
 - 🚧 Session limits must now be at least 30 AI credits (v1.0.67)
 - 🛡️ Disabling the sandbox for the rest of the session now takes effect immediately, with no more re-prompts mid-turn (v1.0.67)
@@ -390,4 +391,4 @@ Go to **Actions → Daily Doc Maintenance → Run workflow** to trigger it on de
 
 ---
 
-**Note:** This guide covers GitHub Copilot CLI v1.0.67. Some capabilities may vary by version — run `/update` to stay current.
+**Note:** This guide covers GitHub Copilot CLI v1.0.68. Some capabilities may vary by version — run `/update` to stay current.

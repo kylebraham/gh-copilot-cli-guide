@@ -1,4 +1,4 @@
-# Latest Features in GitHub Copilot CLI — v1.0.67
+# Latest Features in GitHub Copilot CLI — v1.0.68
 
 This file covers recent additions to GitHub Copilot CLI. Features marked with "Full guide →" have their own dedicated documentation file — the entries here are summaries with links. Features without a dedicated file are covered in full below.
 
@@ -10,6 +10,7 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 3. [Research Command (`/research`)](#research-command-research) — [Full guide →](19-research-command.md)
 
 ### Features covered in this file
+4. [New in v1.0.68](#new-in-v1068)
 4. [New in v1.0.67](#new-in-v1067)
 4. [New in v1.0.66](#new-in-v1066)
 4. [New in v1.0.65](#new-in-v1065)
@@ -76,6 +77,34 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 ---
 
 ---
+
+---
+
+## New in v1.0.68
+
+Released: 2026-07-01
+
+### Kimi K2.7 Code Model Support
+
+`kimi-k2.7-code` is now available as a supported model.
+
+```
+> /model kimi-k2.7-code
+```
+
+**Why it matters:** Adds another code-specialized model choice alongside GPT-5.3-Codex and GPT-5.2-Codex. See [Model Selection Strategy](22-models-and-costs.md) for guidance on when to use it.
+
+### Other Improvements (v1.0.68)
+
+- Tab completion shows slash command aliases inline (e.g. `/pr automerge|agentmerge`)
+- The Sessions sidebar can now browse, resume, and switch between sessions directly from the agents screen
+- The Sessions sidebar branch updates correctly after `/cd` and `/worktree`
+- `/mcp` config form marks the focused field with a "❯ " chevron instead of relying on color alone
+- Plan budget details now show in the statusline and `/usage` for supported plans
+- IDE tools stay available during transient IDE disconnects, returning a clear error while disconnected and recovering automatically on reconnect
+- Code review retries transient git failures when gathering changes
+- Custom agents keep their tool filters in nested subagents
+- Hooks no longer error and deny every tool when a session's working directory or git worktree has been deleted
 
 ---
 

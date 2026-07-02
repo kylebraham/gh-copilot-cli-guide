@@ -1,5 +1,18 @@
 # Documentation Updates
 
+## 2026-07-02 — Docs updated for v1.0.68
+
+- `README.md`: Bumped version note to v1.0.68; added "Latest features" bullet for the new `kimi-k2.7-code` model
+- `16-new-features.md`: Updated title to v1.0.68; added TOC entry; added v1.0.68 section covering the new `kimi-k2.7-code` model plus notable fixes/improvements (inline slash-command alias tab completion, Sessions sidebar session browsing/resume, `/cd`/`/worktree` sidebar branch sync, `/mcp` config focus indicator, statusline/`/usage` plan budget details, IDE tool resilience during transient disconnects, code review git-failure retries, custom agent tool filters in nested subagents, hook fix for deleted working directories)
+- `22-models-and-costs.md`: Added Kimi K2.7 Code (`kimi-k2.7-code`) to the models table and the code-specialized tasks recommendation row
+
+### Feature Summary (v1.0.68)
+- **New:** `kimi-k2.7-code` model support
+- **Improved:** Inline slash-command alias suggestions in tab completion
+- **Improved:** Sessions sidebar supports browsing, resuming, and switching sessions from the agents screen
+- **Fixed:** Sessions sidebar branch now updates after `/cd` and `/worktree`
+- **Fixed:** Hooks no longer deny every tool when a session's working directory or git worktree has been deleted
+
 ## 2026-07-01 — Docs updated for v1.0.67
 
 - `README.md`: Bumped version note to v1.0.67; updated "Latest features" list with v1.0.66 and v1.0.67 highlights

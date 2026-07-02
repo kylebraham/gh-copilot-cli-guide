@@ -204,6 +204,7 @@ Select or change the AI model.
 - `claude-sonnet-4` - Previous generation Sonnet
 - `claude-sonnet-5` - Newest Sonnet, added v1.0.67
 - `gpt-5` - OpenAI flagship
+- `kimi-k2.7-code` - Code-specialized model, added v1.0.68
 - And more available via `/model` selection menu...
 
 **Choose based on:**
@@ -212,6 +213,8 @@ Select or change the AI model.
 - Cost considerations (Haiku is most economical)
 
 > **v1.0.67+:** Claude Sonnet 5 is now available as a supported model. See [Model Selection Strategy](22-models-and-costs.md) for details.
+>
+> **v1.0.68+:** `kimi-k2.7-code` is now available as a supported model. See [Model Selection Strategy](22-models-and-costs.md) for details.
 
 ### /context
 

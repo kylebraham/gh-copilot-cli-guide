@@ -34,6 +34,7 @@ Understanding how to choose the right model — and when to switch — is one of
 | GPT-5.4 | `gpt-5.4` | Fast | Strong alternative for general code generation |
 | GPT-5.3-Codex | `gpt-5.3-codex` | Fast | Code-specialized tasks |
 | GPT-5.2-Codex | `gpt-5.2-codex` | Fast | Code-specialized, stable alternative |
+| Kimi K2.7 Code | `kimi-k2.7-code` | Fast | Code-specialized alternative model (v1.0.68+) |
 | GPT-5.4 mini | `gpt-5.4-mini` | Fastest | Ultra-cheap for trivial or bulk tasks |
 | GPT-4.1 | `gpt-4.1` | Fast | Fast, cost-effective general tasks |
 
@@ -92,7 +93,7 @@ This shows how many premium requests you've consumed in the current session. Che
 | Debugging complex issues | Claude Sonnet 4.5 or Opus 4.7 | Depends on how deep the issue goes |
 | Refactoring a large codebase | Claude Sonnet 4.5 | Balance of quality and cost across many files |
 | CI/CD automation | Claude Haiku 4.5 or GPT-5.4 mini | Cost-effective for automated / unattended runs |
-| Code-specialized tasks | GPT-5.3-Codex or GPT-5.2-Codex | Optimized for code generation |
+| Code-specialized tasks | GPT-5.3-Codex, GPT-5.2-Codex, or Kimi K2.7 Code | Optimized for code generation |
 | `/research` deep-dives | Fixed by research agent | The research command uses its own model — not configurable |
 
 ### Decision Tree
