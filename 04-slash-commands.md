@@ -414,6 +414,8 @@ Enable all permissions — all tools, paths, and URLs — in one command.
 
 > **v1.0.37+:** Individual tool approvals are automatically persisted per-directory by default. Approvals you grant in a session are remembered for future sessions in the same directory, so you do not need to re-approve the same operations each time you restart.
 
+> **v1.0.69+:** An **auto allow-all mode** is available that auto-approves requests an LLM judge evaluates as acceptable, instead of blanket-approving everything. Enabling it via `/allow-all auto` now requires **experimental mode** (`/experimental on` or `--experimental`) — it can no longer be enabled solely with the `AUTO_APPROVAL` environment variable or feature flag.
+
 **⚠️ Use with caution:**
 - Only use in fully trusted, local-only environments
 - Grants broad access; avoid with untrusted projects or shared machines
@@ -853,6 +855,8 @@ Proceed? (y/n) y
 > /delegate --base develop Add new feature
 ```
 
+> **v1.0.69+:** `/delegate` now creates the PR against your **current branch** by default (instead of the repository's default branch). Use `--base` to target a different branch, as shown above.
+
 **Draft PR:**
 ```
 > /delegate --draft Experimental: try new caching strategy
@@ -1262,6 +1266,8 @@ Manage plugins and plugin marketplaces.
 # Update a specific plugin
 > /plugin update
 ```
+
+> **v1.0.69+:** A `/plugins` dashboard is available for managing installed plugins, and installed plugin extensions can now be reloaded without restarting the session.
 
 **Shell command — refresh plugin catalogs without starting a session:**
 
@@ -1693,9 +1699,14 @@ Manage MCP (Model Context Protocol) server configuration.
 # Search and install MCP servers from the registry (v1.0.49+)
 > /mcp search <query>
 > /mcp registry   # browse registry interactively (v1.0.64+)
+
+# List attached MCP servers and their status (v1.0.69+)
+> /mcp list
 ```
 
 > **v1.0.66+:** The `/mcp show` list view now includes a toggle to enable or disable each server directly, in addition to the `/mcp enable`/`/mcp disable` commands.
+
+> **v1.0.69+:** `/mcp list` shows attached MCP servers and their status. Both `/mcp list` and `/plugin list` can run while the agent is working. The `/mcp` manager can also be opened mid-turn to enable or disable servers; adding, editing, deleting, and re-authenticating a server still wait until the current turn finishes.
 
 **MCP Servers extend CLI capabilities:**
 - Database access

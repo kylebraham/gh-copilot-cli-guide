@@ -81,6 +81,12 @@ npm update -g @github/copilot
 ```
 
 **Latest features:**
+- 🗂️ `/mcp list` shows attached MCP servers and status; runs while the agent is working, and the `/mcp` manager can be opened mid-turn (v1.0.69)
+- ✅ New auto allow-all mode auto-approves LLM-judged acceptable requests; enabling it now requires experimental mode (v1.0.69)
+- 🔁 `stayInAutopilot` setting keeps the CLI in autopilot mode after a task completes (v1.0.69)
+- 🌿 `/delegate` now targets your current branch by default instead of the repo's default branch; use `--base` to override (v1.0.69)
+- 🧩 `/plugins` dashboard and plugin reload without restarting the session (v1.0.69)
+- ⚡ Minimal reasoning effort available for `gemini-3.5-flash` (v1.0.69)
 - 🧩 Added support for the `kimi-k2.7-code` model (v1.0.68)
 - 🧠 Claude Sonnet 5 added as a supported model (v1.0.67)
 - 🚧 Session limits must now be at least 30 AI credits (v1.0.67)
@@ -391,4 +397,4 @@ Go to **Actions → Daily Doc Maintenance → Run workflow** to trigger it on de
 
 ---
 
-**Note:** This guide covers GitHub Copilot CLI v1.0.68. Some capabilities may vary by version — run `/update` to stay current.
+**Note:** This guide covers GitHub Copilot CLI v1.0.69. Some capabilities may vary by version — run `/update` to stay current.

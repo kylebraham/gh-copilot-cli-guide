@@ -1076,6 +1076,8 @@ Opens the plugin manager, where you can:
 - **Uninstall** plugins you no longer need
 - **Update** plugins to their latest versions
 
+> **v1.0.69+:** A `/plugins` dashboard is available for managing installed plugins, and `/plugin list` can now run while the agent is working. Installed plugin extensions can also be reloaded without restarting the session.
+
 ### Plugin Marketplaces
 
 Plugins are sourced from marketplaces. You can manage marketplace sources from within the plugin manager:

@@ -1,5 +1,23 @@
 # Documentation Updates
 
+## 2026-07-08 — Docs updated for v1.0.69
+
+- `README.md`: Bumped version note to v1.0.69; added "Latest features" bullets for `/mcp list`, auto allow-all mode, `stayInAutopilot`, `/delegate` current-branch default, `/plugins` dashboard, and minimal reasoning effort for `gemini-3.5-flash`
+- `16-new-features.md`: Updated title to v1.0.69; added TOC entry; added v1.0.69 section covering `/mcp list` and mid-turn MCP management, auto allow-all mode (now requiring experimental mode), the `stayInAutopilot` setting, `/delegate` defaulting to the current branch, the `/plugins` dashboard and plugin reload without restart, minimal reasoning effort for `gemini-3.5-flash`, plus notable improvements (reasoning-effort labels in the footer, sandbox policy badge rename, `web_fetch` sandbox network policy, Chronicle/session SQL usage details, remote session resume confirmation, faster large-session resume/`/diff`, `/rubber-duck` in pre-auth help, MCP OAuth callback sign-in, worktree branch PR lookup)
+- `04-slash-commands.md`: Added `/mcp list` under `/mcp`; added a note on `/delegate` defaulting to the current branch with `--base` to override; added auto allow-all mode note under `/allow-all`; added `/plugins` dashboard and reload note under `/plugin`
+- `08-advanced-features.md`: Added `/plugins` dashboard and reload-without-restart note to the Plugin System section
+- `17-autopilot-mode.md`: Added `stayInAutopilot` setting note to the Stopping Autopilot section
+- `22-models-and-costs.md`: Added Gemini 3.5 Flash (`gemini-3.5-flash`) to the models table, noting the new minimal reasoning effort level
+- `00-cheat-sheet.md`: Updated `/mcp`, `/plugin`, and `/allow-all` entries with v1.0.69 additions
+
+### Feature Summary (v1.0.69)
+- **New:** `/mcp list` to show attached MCP servers and status; `/mcp list` and `/plugin list` can run while the agent is working
+- **New:** Auto allow-all mode (LLM-judged auto-approval), now gated behind experimental mode
+- **New:** `stayInAutopilot` setting to remain in autopilot mode after task completion
+- **New:** `/plugins` dashboard and plugin reload without restarting the session
+- **New:** Minimal reasoning effort for `gemini-3.5-flash`
+- **Changed:** `/delegate` targets the current branch by default instead of the repository's default branch
+
 ## 2026-07-02 — Docs updated for v1.0.68
 
 - `README.md`: Bumped version note to v1.0.68; added "Latest features" bullet for the new `kimi-k2.7-code` model

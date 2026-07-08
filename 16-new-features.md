@@ -1,4 +1,4 @@
-# Latest Features in GitHub Copilot CLI — v1.0.68
+# Latest Features in GitHub Copilot CLI — v1.0.69
 
 This file covers recent additions to GitHub Copilot CLI. Features marked with "Full guide →" have their own dedicated documentation file — the entries here are summaries with links. Features without a dedicated file are covered in full below.
 
@@ -10,6 +10,7 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 3. [Research Command (`/research`)](#research-command-research) — [Full guide →](19-research-command.md)
 
 ### Features covered in this file
+4. [New in v1.0.69](#new-in-v1069)
 4. [New in v1.0.68](#new-in-v1068)
 4. [New in v1.0.67](#new-in-v1067)
 4. [New in v1.0.66](#new-in-v1066)
@@ -77,6 +78,88 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 ---
 
 ---
+
+---
+
+## New in v1.0.69
+
+Released: 2026-07-07
+
+### `/mcp list` and Mid-Turn MCP Management
+
+`/mcp list` shows attached MCP servers and their status. Both `/mcp list` and `/plugin list` can now run while the agent is working, and the `/mcp` manager can be opened mid-turn to enable or disable servers (adding, editing, deleting, and re-authenticating still wait until the turn finishes).
+
+```
+> /mcp list
+```
+
+**Why it matters:** Check server health or toggle a server on/off without interrupting the agent's current turn. See [Advanced Features](08-advanced-features.md) for MCP details.
+
+### Auto Allow-All Mode
+
+A new auto allow-all mode auto-approves requests that an LLM judge evaluates as acceptable, instead of blanket-approving everything. Enabling it now requires **experimental mode** — `/allow-all auto` no longer works from just the `AUTO_APPROVAL` environment variable or feature flag.
+
+```
+> /experimental on
+> /allow-all auto
+```
+
+**Why it matters:** Gives a middle ground between full `/allow-all` and per-call confirmation, while keeping the behavior behind an explicit opt-in.
+
+### `stayInAutopilot` Setting
+
+A new `stayInAutopilot` setting (default `false`) keeps the CLI in autopilot mode after an autopilot task completes, instead of automatically returning to interactive mode.
+
+```json
+{
+  "stayInAutopilot": true
+}
+```
+
+**Why it matters:** Useful for long-running autonomous workflows where you want autopilot to keep picking up follow-on work. See [Autopilot Mode](17-autopilot-mode.md) for details.
+
+### `/delegate` Targets the Current Branch by Default
+
+`/delegate` now creates PRs against your **current branch** by default, rather than the repository's default branch. Use `/delegate --base <branch>` to target a different branch.
+
+```
+> /delegate --base develop Add new feature
+```
+
+**Why it matters:** Matches the common workflow of stacking a delegated change on top of the branch you're already working from.
+
+### `/plugins` Dashboard and Plugin Reload
+
+A `/plugins` dashboard is available for managing installed plugins, and installed plugin extensions can now be reloaded without restarting the session.
+
+**Why it matters:** Faster iteration when developing or updating plugins — no need to restart your session to pick up changes.
+
+### Minimal Reasoning Effort for Gemini 3.5 Flash
+
+`gemini-3.5-flash` now supports a **minimal** reasoning effort level for the fastest possible responses.
+
+```
+> /model gemini-3.5-flash
+```
+```bash
+copilot --model gemini-3.5-flash --reasoning-effort minimal
+```
+
+**Why it matters:** Trims latency further for quick, low-stakes prompts where even "low" effort is more than you need.
+
+### Other Improvements (v1.0.69)
+
+- Reasoning-effort labels are now displayed in the CLI footer
+- Built-in file edits are labeled with a "(sandbox policy)" badge instead of "(sandboxed)" since they follow the sandbox policy on a best-effort basis; you can approve letting built-in file edits bypass the sandbox
+- `web_fetch` now follows the active sandbox network policy (denying blocked outbound or local targets) and can prompt for a one-time bypass when the host opts in via `sandbox.allowBypass`
+- Exact local assistant usage is shown in Chronicle and session SQL
+- The CLI confirms before resuming a remote session from a different repository
+- Read-only remote session creation is delayed until you send the first message
+- `/settings` now shows descriptions for sandbox `userPolicy` settings
+- Resuming and switching large sessions is faster, and `/diff` rendering and scrolling is faster on large diffs
+- `/rubber-duck` now appears in pre-auth help and self-documentation
+- `/mcp` config supports signing in to servers through the CLI OAuth callback flow
+- Sessions can be found from worktree branches even when the local branch name differs from the PR head ref
 
 ---
 
