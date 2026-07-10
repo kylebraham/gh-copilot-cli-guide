@@ -319,6 +319,8 @@ $ copilot mcp          # Show help and available subcommands
 
 **Installing from the registry (v1.0.25+):** `/mcp install` opens an interactive browser of the MCP server registry. Select a server, answer the prompted configuration questions, and the CLI adds it to `~/.copilot/mcp-config.json` automatically — no manual JSON editing required.
 
+> **v1.0.70+:** The SDK exposes paginated `session.mcp.resources.read` / `list` / `listTemplates` RPCs, letting SDK-based integrations manage live MCP servers and read their exposed resources programmatically from a running session.
+
 ---
 
 ### Available MCP Servers
@@ -1108,6 +1110,20 @@ When configuring marketplaces in `config.json`, use the `extraKnownMarketplaces`
 
 > ⚠️ **Removed in v1.0.16:** The `marketplaces` config key has been removed. Use `extraKnownMarketplaces` instead.
 
+### Pinning a Plugin to an Exact Commit (v1.0.70+)
+
+Add a `sha` field to a plugin's source configuration to lock it to an exact commit, so updates to the source ref (e.g., a branch move) don't silently change what's installed:
+
+```json
+{
+  "name": "copilot-terraform",
+  "source": "https://github.com/example/copilot-terraform-plugin.git",
+  "sha": "a1b2c3d4e5f6..."
+}
+```
+
+**Why use it:** Reproducible plugin installs across a team or CI — everyone gets the exact same plugin version until the pin is deliberately updated.
+
 ### What Plugins Can Add
 
 - New slash commands (e.g., `/deploy`, `/storybook`)
@@ -1392,6 +1408,8 @@ Set in config:
 ```
 
 > **v1.0.67+:** Disabling the sandbox for the rest of the session now takes effect immediately — shell and search commands stop re-prompting to bypass it mid-turn.
+
+> **v1.0.70+:** Use `--sandbox` or `--no-sandbox` on the command line to force the OS-level shell sandbox on or off for just the current session, without changing your saved sandbox setting. This is especially useful alongside `-p` for one-off non-interactive runs that need a different sandbox posture than your default.
 
 > **v1.0.66+:** Session credit limits (the `sessionLimits` setting) must now be at least 30 AI credits, and now apply across the whole current conversation, resetting on `/clear`.
 

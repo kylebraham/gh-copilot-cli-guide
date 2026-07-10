@@ -204,6 +204,7 @@ Select or change the AI model.
 - `claude-sonnet-4` - Previous generation Sonnet
 - `claude-sonnet-5` - Newest Sonnet, added v1.0.67
 - `gpt-5` - OpenAI flagship
+- `gpt-5.6` - Newest GPT generation, added v1.0.70
 - `kimi-k2.7-code` - Code-specialized model, added v1.0.68
 - And more available via `/model` selection menu...
 
@@ -212,9 +213,18 @@ Select or change the AI model.
 - Speed requirements (use Haiku for quick tasks)
 - Cost considerations (Haiku is most economical)
 
+**Scoped changes (v1.0.70+):** Add `--repo` or `--local` to change the model for just the current repository or local config instead of your global default:
+
+```
+> /model gpt-5.6 --repo
+> /model claude-opus-4.8 --local
+```
+
 > **v1.0.67+:** Claude Sonnet 5 is now available as a supported model. See [Model Selection Strategy](22-models-and-costs.md) for details.
 >
 > **v1.0.68+:** `kimi-k2.7-code` is now available as a supported model. See [Model Selection Strategy](22-models-and-costs.md) for details.
+>
+> **v1.0.70+:** `gpt-5.6` is now available as a supported model. See [Model Selection Strategy](22-models-and-costs.md) for details.
 
 ### /context
 
@@ -1020,6 +1030,20 @@ Open an interactive dialog to browse and edit all user settings in one place.
 
 > **v1.0.66+:** Usage-based billing users can configure subagent concurrency and depth limits directly from `/settings`, instead of only via config files. See [Fleet Mode — Sub-Agent Depth and Concurrency Limits](08-advanced-features.md#sub-agent-depth-and-concurrency-limits-v10122).
 
+> **v1.0.70+:** Add `--repo` or `--local` to scope a settings change to the current repository or local config instead of the global user config: `/settings --repo`. A new setting also controls whether timeline timestamps are shown or hidden.
+
+### /refine <prompt> (v1.0.70+)
+
+Rewrite a rough, stream-of-consciousness prompt into a clear, well-structured one before sending it.
+
+```
+> /refine fix the thing where login sometimes doesnt work and also clean up that file its messy
+```
+
+**What it does:** Copilot restructures the input into a clear, actionable prompt (e.g., separating the bug report from the cleanup request) and shows it for confirmation before running.
+
+**Why use it:** Skip manually rewording a messy prompt — useful when dictating or jotting down ideas quickly.
+
 ### /memory [on|off|show] (v1.0.49+)
 
 Enable, disable, or view persistent memory. When memory is on, Copilot can store information across sessions (such as preferences or recurring context). Memory is scoped to either the user account or a specific repository.
@@ -1268,6 +1292,8 @@ Manage plugins and plugin marketplaces.
 ```
 
 > **v1.0.69+:** A `/plugins` dashboard is available for managing installed plugins, and installed plugin extensions can now be reloaded without restarting the session.
+
+> **v1.0.70+:** Pin a plugin to an exact commit using the `sha` field in its plugin source configuration, so the plugin version stays fixed even if the source ref moves.
 
 **Shell command — refresh plugin catalogs without starting a session:**
 
@@ -1707,6 +1733,8 @@ Manage MCP (Model Context Protocol) server configuration.
 > **v1.0.66+:** The `/mcp show` list view now includes a toggle to enable or disable each server directly, in addition to the `/mcp enable`/`/mcp disable` commands.
 
 > **v1.0.69+:** `/mcp list` shows attached MCP servers and their status. Both `/mcp list` and `/plugin list` can run while the agent is working. The `/mcp` manager can also be opened mid-turn to enable or disable servers; adding, editing, deleting, and re-authenticating a server still wait until the current turn finishes.
+
+> **v1.0.70+:** `/mcp list` marks locally-spawned MCP servers that run inside the sandbox, e.g. `connected (sandboxed)`, so you can tell at a glance which servers are sandbox-isolated.
 
 **MCP Servers extend CLI capabilities:**
 - Database access

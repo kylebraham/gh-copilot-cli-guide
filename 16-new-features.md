@@ -1,4 +1,4 @@
-# Latest Features in GitHub Copilot CLI — v1.0.69
+# Latest Features in GitHub Copilot CLI — v1.0.70
 
 This file covers recent additions to GitHub Copilot CLI. Features marked with "Full guide →" have their own dedicated documentation file — the entries here are summaries with links. Features without a dedicated file are covered in full below.
 
@@ -10,6 +10,7 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 3. [Research Command (`/research`)](#research-command-research) — [Full guide →](19-research-command.md)
 
 ### Features covered in this file
+4. [New in v1.0.70](#new-in-v1070)
 4. [New in v1.0.69](#new-in-v1069)
 4. [New in v1.0.68](#new-in-v1068)
 4. [New in v1.0.67](#new-in-v1067)
@@ -78,6 +79,104 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 ---
 
 ---
+
+---
+
+## New in v1.0.70
+
+Released: 2026-07-09
+
+### GPT-5.6 Model Support
+
+`gpt-5.6` joins the list of selectable models.
+
+```
+> /model gpt-5.6
+```
+
+**Why it matters:** A newer GPT generation option for general coding tasks. See [Model Selection Strategy](22-models-and-costs.md) for details.
+
+### `/refine` — Clean Up a Rough Prompt
+
+`/refine` rewrites a rough, stream-of-consciousness prompt into a clear, well-structured one before it's sent.
+
+```
+> /refine fix the thing where login sometimes doesnt work and also clean up that file its messy
+```
+
+**Why it matters:** Skip manually rewording a messy prompt — useful when dictating quickly or jotting down ideas without stopping to structure them.
+
+### `--sandbox` / `--no-sandbox` Flags
+
+New command-line flags force the OS-level shell sandbox on or off for just the current session, without touching your saved sandbox setting.
+
+```bash
+copilot -p "run the test suite" --no-sandbox
+```
+
+**Why it matters:** Useful with `-p` for one-off non-interactive runs that need a different sandbox posture than your default, without editing `~/.copilot/settings.json`.
+
+### `--repo` / `--local` Scoping for `/settings` and `/model`
+
+`/settings` and `/model` now accept `--repo` or `--local` to scope a change to the current repository or local config, instead of updating your global user default.
+
+```
+> /model gpt-5.6 --repo
+> /settings --local
+```
+
+**Why it matters:** Set a project-specific model or setting without changing your defaults everywhere else.
+
+### Timeline Timestamps Setting
+
+A new setting controls whether timestamps are shown or hidden in the timeline. Configure it from `/settings`.
+
+**Why it matters:** Declutter the timeline for screen recordings or narrow terminals, or turn timestamps on when you need precise timing for debugging.
+
+### Trusted-Repo Policy via `.github/copilot/settings.json`
+
+A trusted repository can commit `.github/copilot/settings.json` to pin the model, reasoning effort level, and context tier for anyone working in that repo, and to extend the URL, MCP server, and skill deny lists.
+
+**Why it matters:** Centralizes cost and security policy at the repo level instead of relying on individual configuration. See [Team Setup](21-team-setup.md#pinning-model-and-deny-lists-via-githubcopilotsettingsjson-v1070) for details.
+
+### Plugin Pinning to an Exact Commit
+
+Plugin source configuration now supports a `sha` field to pin a plugin to an exact commit, so it doesn't change if the source ref moves.
+
+```json
+{ "name": "copilot-terraform", "source": "https://github.com/example/copilot-terraform-plugin.git", "sha": "a1b2c3d4..." }
+```
+
+**Why it matters:** Reproducible plugin installs across a team or in CI. See [Advanced Features — Plugin System](08-advanced-features.md#pinning-a-plugin-to-an-exact-commit-v1070).
+
+### `/mcp list` Marks Sandboxed Servers
+
+`/mcp list` now marks locally-spawned MCP servers that run inside the sandbox, e.g. `connected (sandboxed)`.
+
+**Why it matters:** See at a glance which MCP servers are sandbox-isolated versus running unrestricted.
+
+### `Ctrl+Y` Works in Any Mode
+
+`Ctrl+Y` now opens the current plan file or the most recent research report from any mode, not just immediately after `/plan` or `/research` finishes.
+
+**Why it matters:** Jump back to a plan or report at any point in the session without re-running the command that generated it.
+
+### Notable Improvements
+
+- **SDK MCP resource management:** New paginated `session.mcp.resources.read`/`list`/`listTemplates` RPCs let SDK-based integrations manage live MCP servers and read their resources programmatically.
+- **GPT-5.6:** Improved commentary guidance for tool-driven progress updates.
+- Single `Error` prefix shown for `/mcp` and `/skill` command failures, and the real parse error is shown when `--agent` selects a malformed custom agent.
+- `web_fetch` now works through mandatory HTTPS proxies.
+- `preToolUse` hooks that exit with code 2 now deny the tool call.
+- Forge creates draft skills when it finds a clear workflow pattern.
+- The GitHub App install nudge is hidden in remote terminals, and browser launches are skipped in remote terminals.
+- Declining an extension's permission prompt no longer disables tool approvals for the rest of the session.
+- Startup auth errors now recommend the real `copilot login` command.
+- The active user's models are shown after `/user switch`.
+- `/chronicle` search is prefilled so it can accept a query directly.
+- `/pr` tables stay aligned in compact timeline view.
+- Clear validation errors are shown for empty or non-ASCII skill and command names.
+- Long-running sessions refresh enterprise managed settings hourly.
 
 ---
 

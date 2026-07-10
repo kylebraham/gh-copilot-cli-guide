@@ -1,5 +1,27 @@
 # Documentation Updates
 
+## 2026-07-10 — Docs updated for v1.0.70
+
+- `README.md`: Bumped version note to v1.0.70; added "Latest features" bullets for `gpt-5.6`, `/refine`, `--sandbox`/`--no-sandbox` flags, `--repo`/`--local` scoping for `/settings` and `/model`, `.github/copilot/settings.json` trusted-repo policy, plugin `sha` pinning, `/mcp list` sandboxed-server marking, and `Ctrl+Y` working in any mode
+- `16-new-features.md`: Updated title to v1.0.70; added TOC entry; added v1.0.70 section covering `gpt-5.6`, `/refine`, `--sandbox`/`--no-sandbox`, `--repo`/`--local` scoping, timeline timestamps setting, `.github/copilot/settings.json` policy pinning, plugin `sha` pinning, `/mcp list` sandboxed marking, `Ctrl+Y` in any mode, plus notable improvements (SDK MCP resource RPCs, GPT-5.6 commentary guidance, single Error prefix for `/mcp`/`/skill` failures, `web_fetch` HTTPS proxy support, `preToolUse` hook deny-on-exit-2, Forge draft skills, remote terminal nudges, extension permission decline behavior, auth error messaging, `/user switch` model display, `/chronicle` prefilled search, `/pr` table alignment, skill/command name validation, hourly enterprise settings refresh)
+- `04-slash-commands.md`: Added `/refine` command entry; added `--repo`/`--local` scoping notes to `/model` and `/settings`; added sandboxed-server marking note to `/mcp`; added `sha` pinning note to `/plugin`
+- `00-cheat-sheet.md`: Added `/refine` to the command table; added `--sandbox`/`--no-sandbox` flags; updated `/model`, `/settings`, `/mcp`, `/plugin` entries; updated the `Ctrl+Y` shortcut description
+- `22-models-and-costs.md`: Added GPT-5.6 (`gpt-5.6`) to the models table
+- `08-advanced-features.md`: Added plugin `sha` pinning section; added `--sandbox`/`--no-sandbox` note; added SDK MCP resource RPC note
+- `21-team-setup.md`: Added a new section on pinning model/effort/context tier and extending deny lists via `.github/copilot/settings.json`
+- `09-plan-mode.md`, `19-research-command.md`: Noted `Ctrl+Y` now works from any mode
+
+### Feature Summary (v1.0.70)
+- **New:** `gpt-5.6` model support
+- **New:** `/refine` command to rewrite a rough prompt into a clear one
+- **New:** `--sandbox`/`--no-sandbox` flags to override the sandbox setting for one session
+- **New:** `--repo`/`--local` flags for `/settings` and `/model` to scope changes
+- **New:** Setting to show/hide timeline timestamps
+- **New:** `.github/copilot/settings.json` lets a trusted repo pin model/effort/context tier and extend deny lists
+- **New:** Plugin `sha` field to pin a plugin to an exact commit
+- **New:** SDK `session.mcp.resources` RPCs for managing live MCP servers
+- **Changed:** `/mcp list` marks sandboxed servers; `Ctrl+Y` opens the plan file/research report from any mode
+
 ## 2026-07-08 — Docs updated for v1.0.69
 
 - `README.md`: Bumped version note to v1.0.69; added "Latest features" bullets for `/mcp list`, auto allow-all mode, `stayInAutopilot`, `/delegate` current-branch default, `/plugins` dashboard, and minimal reasoning effort for `gemini-3.5-flash`

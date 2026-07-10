@@ -24,7 +24,7 @@
 | `Ctrl+E` | Expand all timeline entries (when no input) |
 | `Ctrl+X → O` | Open link from most recent timeline event |
 | `Ctrl+X → B` | Move current running task or shell command to the background (v1.0.39+) |
-| `Tab` / `Ctrl+Y` | Accept highlighted completion option (`@`-mentions, paths, slash commands) |
+| `Tab` / `Ctrl+Y` | Accept highlighted completion option (`@`-mentions, paths, slash commands); also opens the current plan file or research report if one exists, now from any mode (v1.0.70+) |
 | `!` | Execute command in local shell (bypass Copilot); uses `$SHELL` when set |
 | `s` | Cycle session picker sort order (relevance → last used → created → name) — press while in the `/resume` picker |
 
@@ -77,6 +77,7 @@
 | `/ask` | Ask a quick question without affecting conversation history |
 | `/fork` | Fork the current session into a new independent session; accepts optional name (v1.0.45+, named forks v1.0.47+); alias `/branch` (v1.0.64+) |
 | `/diagnose` | Analyze session logs to surface errors, warnings, and diagnostic insights (v1.0.64+) |
+| `/refine` | Rewrite a rough, stream-of-consciousness prompt into a clear one before sending it (v1.0.70+) |
 
 ### Navigation
 | Command | Description |
@@ -98,7 +99,7 @@
 ### AI & Models
 | Command | Description |
 |---------|-------------|
-| `/model` | View or switch the active AI model |
+| `/model` | View or switch the active AI model; add `--repo` or `--local` to scope the change to the repo/local config instead of the global default (v1.0.70+) |
 | `/agent` | Configure or inspect the active agent |
 | `/subagents` | Configure subagent model, reasoning effort, and context tier; alias `/agents` (v1.0.62+) |
 | `/fleet` | Launch parallel subagents for distributed tasks |
@@ -109,10 +110,10 @@
 ### Config & Tools
 | Command | Description |
 |---------|-------------|
-| `/mcp` | Manage MCP (Model Context Protocol) server connections; `/mcp search <query>` to find from registry; `/mcp registry` to browse interactively (v1.0.64+); `/mcp list` shows attached servers and status and can run while the agent is working (v1.0.69+) |
+| `/mcp` | Manage MCP (Model Context Protocol) server connections; `/mcp search <query>` to find from registry; `/mcp registry` to browse interactively (v1.0.64+); `/mcp list` shows attached servers and status and can run while the agent is working (v1.0.69+); marks sandboxed servers, e.g. `connected (sandboxed)` (v1.0.70+) |
 | `/lsp` | Manage language server connections |
 | `/skills` | List or manage available skills; alias `/skill` (v1.0.65+); `copilot skill` subcommand available from shell (v1.0.65+) |
-| `/plugin` | Manage installed plugins; `/plugin update --all` updates all plugins at once (v1.0.49+); `/plugins` dashboard and reload without restart (v1.0.69+) |
+| `/plugin` | Manage installed plugins; `/plugin update --all` updates all plugins at once (v1.0.49+); `/plugins` dashboard and reload without restart (v1.0.69+); pin a plugin to an exact commit with the `sha` field in its source config (v1.0.70+) |
 | `/rubber-duck` | Get an independent critique of the agent's current work (v1.0.49+; enabled by default in v1.0.58+) |
 | `/voice` | Dictate a prompt using local speech-to-text (v1.0.59+) |
 | `/every <interval> <prompt>` | Repeat a prompt on a fixed schedule, e.g. `/every 10m check notifications`; supports natural language expressions; alias `/loop` (v1.0.64+) (experimental, v1.0.58+) |
@@ -122,7 +123,7 @@
 | `/init` | Initialize Copilot configuration for the current repo |
 | `/experimental` | Toggle experimental features |
 | `/autopilot [objective]` | Toggle autopilot mode on/off; optionally set a goal objective (v1.0.45+); `/goal` is an alias (v1.0.55+) |
-| `/settings` | Open an interactive dialog to browse and edit all user settings (v1.0.61+) |
+| `/settings` | Open an interactive dialog to browse and edit all user settings (v1.0.61+); add `--repo` or `--local` to scope a change to the repo/local config instead of the global default; includes a setting to show/hide timeline timestamps (v1.0.70+) |
 | `/worktree <branch>` | Create a new git worktree and switch into it, moving uncommitted changes; alias `/move` (v1.0.61+); pass a task (e.g. `/worktree fix the login redirect`) to name the branch and run it as the first prompt (v1.0.66+); with no argument, names the branch from uncommitted changes and recent conversation (v1.0.66+) |
 | `/allow-all` | Allow all tool calls without per-call confirmation; `/allow-all auto` auto-approves LLM-judged acceptable requests and requires experimental mode (v1.0.69+) |
 | `/yolo` | Alias for `/allow-all`; state persists across `/restart` |
@@ -184,6 +185,7 @@
 | `--name NAME` | Assign a friendly name to the session; use with `--resume=<name>` to resume by name |
 | `--allow-tool TOOL` | Allow a specific tool without prompting |
 | `--deny-tool TOOL` | Block a specific tool |
+| `--sandbox` / `--no-sandbox` | Force the OS-level shell sandbox on/off for just this session, without changing your saved sandbox setting; useful alongside `-p` (v1.0.70+) |
 | `--remote` | Sync session with the remote GitHub repository |
 | `--no-auto-update` | Disable automatic CLI updates |
 | `--output-format FORMAT` | Set output format (e.g., `json`, `text`) |

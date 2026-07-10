@@ -81,6 +81,14 @@ npm update -g @github/copilot
 ```
 
 **Latest features:**
+- 🧠 Added support for the `gpt-5.6` model (v1.0.70)
+- ✍️ New `/refine` command rewrites a rough prompt into a clear one before sending (v1.0.70)
+- 🛡️ New `--sandbox` / `--no-sandbox` flags force the shell sandbox on/off for just the current session, without changing your saved setting — handy with `-p` (v1.0.70)
+- ⚙️ `/settings` and `/model` accept `--repo` / `--local` to scope a change instead of updating the global default (v1.0.70)
+- 🔒 Trusted repos can pin model, effort, and context tier and extend the URL/MCP/skill deny lists via `.github/copilot/settings.json` (v1.0.70)
+- 🔌 Pin a plugin to an exact commit with the `sha` field in its source config (v1.0.70)
+- 🗂️ `/mcp list` marks sandboxed servers, e.g. `connected (sandboxed)` (v1.0.70)
+- ⌨️ `Ctrl+Y` now opens the plan file or research report from any mode (v1.0.70)
 - 🗂️ `/mcp list` shows attached MCP servers and status; runs while the agent is working, and the `/mcp` manager can be opened mid-turn (v1.0.69)
 - ✅ New auto allow-all mode auto-approves LLM-judged acceptable requests; enabling it now requires experimental mode (v1.0.69)
 - 🔁 `stayInAutopilot` setting keeps the CLI in autopilot mode after a task completes (v1.0.69)
@@ -397,4 +405,4 @@ Go to **Actions → Daily Doc Maintenance → Run workflow** to trigger it on de
 
 ---
 
-**Note:** This guide covers GitHub Copilot CLI v1.0.69. Some capabilities may vary by version — run `/update` to stay current.
+**Note:** This guide covers GitHub Copilot CLI v1.0.70. Some capabilities may vary by version — run `/update` to stay current.
