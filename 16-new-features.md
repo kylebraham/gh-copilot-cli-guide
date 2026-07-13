@@ -1,4 +1,4 @@
-# Latest Features in GitHub Copilot CLI — v1.0.65
+# Latest Features in GitHub Copilot CLI — v1.0.70
 
 This file covers recent additions to GitHub Copilot CLI. Features marked with "Full guide →" have their own dedicated documentation file — the entries here are summaries with links. Features without a dedicated file are covered in full below.
 
@@ -10,6 +10,11 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 3. [Research Command (`/research`)](#research-command-research) — [Full guide →](19-research-command.md)
 
 ### Features covered in this file
+4. [New in v1.0.70](#new-in-v1070)
+4. [New in v1.0.69](#new-in-v1069)
+4. [New in v1.0.68](#new-in-v1068)
+4. [New in v1.0.67](#new-in-v1067)
+4. [New in v1.0.66](#new-in-v1066)
 4. [New in v1.0.65](#new-in-v1065)
 5. [New in v1.0.64](#new-in-v1064)
 5. [New in v1.0.63](#new-in-v1063)
@@ -74,6 +79,333 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 ---
 
 ---
+
+---
+
+## New in v1.0.70
+
+Released: 2026-07-09
+
+### GPT-5.6 Model Support
+
+`gpt-5.6` joins the list of selectable models.
+
+```
+> /model gpt-5.6
+```
+
+**Why it matters:** A newer GPT generation option for general coding tasks. See [Model Selection Strategy](22-models-and-costs.md) for details.
+
+### `/refine` — Clean Up a Rough Prompt
+
+`/refine` rewrites a rough, stream-of-consciousness prompt into a clear, well-structured one before it's sent.
+
+```
+> /refine fix the thing where login sometimes doesnt work and also clean up that file its messy
+```
+
+**Why it matters:** Skip manually rewording a messy prompt — useful when dictating quickly or jotting down ideas without stopping to structure them.
+
+### `--sandbox` / `--no-sandbox` Flags
+
+New command-line flags force the OS-level shell sandbox on or off for just the current session, without touching your saved sandbox setting.
+
+```bash
+copilot -p "run the test suite" --no-sandbox
+```
+
+**Why it matters:** Useful with `-p` for one-off non-interactive runs that need a different sandbox posture than your default, without editing `~/.copilot/settings.json`.
+
+### `--repo` / `--local` Scoping for `/settings` and `/model`
+
+`/settings` and `/model` now accept `--repo` or `--local` to scope a change to the current repository or local config, instead of updating your global user default.
+
+```
+> /model gpt-5.6 --repo
+> /settings --local
+```
+
+**Why it matters:** Set a project-specific model or setting without changing your defaults everywhere else.
+
+### Timeline Timestamps Setting
+
+A new setting controls whether timestamps are shown or hidden in the timeline. Configure it from `/settings`.
+
+**Why it matters:** Declutter the timeline for screen recordings or narrow terminals, or turn timestamps on when you need precise timing for debugging.
+
+### Trusted-Repo Policy via `.github/copilot/settings.json`
+
+A trusted repository can commit `.github/copilot/settings.json` to pin the model, reasoning effort level, and context tier for anyone working in that repo, and to extend the URL, MCP server, and skill deny lists.
+
+**Why it matters:** Centralizes cost and security policy at the repo level instead of relying on individual configuration. See [Team Setup](21-team-setup.md#pinning-model-and-deny-lists-via-githubcopilotsettingsjson-v1070) for details.
+
+### Plugin Pinning to an Exact Commit
+
+Plugin source configuration now supports a `sha` field to pin a plugin to an exact commit, so it doesn't change if the source ref moves.
+
+```json
+{ "name": "copilot-terraform", "source": "https://github.com/example/copilot-terraform-plugin.git", "sha": "a1b2c3d4..." }
+```
+
+**Why it matters:** Reproducible plugin installs across a team or in CI. See [Advanced Features — Plugin System](08-advanced-features.md#pinning-a-plugin-to-an-exact-commit-v1070).
+
+### `/mcp list` Marks Sandboxed Servers
+
+`/mcp list` now marks locally-spawned MCP servers that run inside the sandbox, e.g. `connected (sandboxed)`.
+
+**Why it matters:** See at a glance which MCP servers are sandbox-isolated versus running unrestricted.
+
+### `Ctrl+Y` Works in Any Mode
+
+`Ctrl+Y` now opens the current plan file or the most recent research report from any mode, not just immediately after `/plan` or `/research` finishes.
+
+**Why it matters:** Jump back to a plan or report at any point in the session without re-running the command that generated it.
+
+### Notable Improvements
+
+- **SDK MCP resource management:** New paginated `session.mcp.resources.read`/`list`/`listTemplates` RPCs let SDK-based integrations manage live MCP servers and read their resources programmatically.
+- **GPT-5.6:** Improved commentary guidance for tool-driven progress updates.
+- Single `Error` prefix shown for `/mcp` and `/skill` command failures, and the real parse error is shown when `--agent` selects a malformed custom agent.
+- `web_fetch` now works through mandatory HTTPS proxies.
+- `preToolUse` hooks that exit with code 2 now deny the tool call.
+- Forge creates draft skills when it finds a clear workflow pattern.
+- The GitHub App install nudge is hidden in remote terminals, and browser launches are skipped in remote terminals.
+- Declining an extension's permission prompt no longer disables tool approvals for the rest of the session.
+- Startup auth errors now recommend the real `copilot login` command.
+- The active user's models are shown after `/user switch`.
+- `/chronicle` search is prefilled so it can accept a query directly.
+- `/pr` tables stay aligned in compact timeline view.
+- Clear validation errors are shown for empty or non-ASCII skill and command names.
+- Long-running sessions refresh enterprise managed settings hourly.
+
+---
+
+## New in v1.0.69
+
+Released: 2026-07-07
+
+### `/mcp list` and Mid-Turn MCP Management
+
+`/mcp list` shows attached MCP servers and their status. Both `/mcp list` and `/plugin list` can now run while the agent is working, and the `/mcp` manager can be opened mid-turn to enable or disable servers (adding, editing, deleting, and re-authenticating still wait until the turn finishes).
+
+```
+> /mcp list
+```
+
+**Why it matters:** Check server health or toggle a server on/off without interrupting the agent's current turn. See [Advanced Features](08-advanced-features.md) for MCP details.
+
+### Auto Allow-All Mode
+
+A new auto allow-all mode auto-approves requests that an LLM judge evaluates as acceptable, instead of blanket-approving everything. Enabling it now requires **experimental mode** — `/allow-all auto` no longer works from just the `AUTO_APPROVAL` environment variable or feature flag.
+
+```
+> /experimental on
+> /allow-all auto
+```
+
+**Why it matters:** Gives a middle ground between full `/allow-all` and per-call confirmation, while keeping the behavior behind an explicit opt-in.
+
+### `stayInAutopilot` Setting
+
+A new `stayInAutopilot` setting (default `false`) keeps the CLI in autopilot mode after an autopilot task completes, instead of automatically returning to interactive mode.
+
+```json
+{
+  "stayInAutopilot": true
+}
+```
+
+**Why it matters:** Useful for long-running autonomous workflows where you want autopilot to keep picking up follow-on work. See [Autopilot Mode](17-autopilot-mode.md) for details.
+
+### `/delegate` Targets the Current Branch by Default
+
+`/delegate` now creates PRs against your **current branch** by default, rather than the repository's default branch. Use `/delegate --base <branch>` to target a different branch.
+
+```
+> /delegate --base develop Add new feature
+```
+
+**Why it matters:** Matches the common workflow of stacking a delegated change on top of the branch you're already working from.
+
+### `/plugins` Dashboard and Plugin Reload
+
+A `/plugins` dashboard is available for managing installed plugins, and installed plugin extensions can now be reloaded without restarting the session.
+
+**Why it matters:** Faster iteration when developing or updating plugins — no need to restart your session to pick up changes.
+
+### Minimal Reasoning Effort for Gemini 3.5 Flash
+
+`gemini-3.5-flash` now supports a **minimal** reasoning effort level for the fastest possible responses.
+
+```
+> /model gemini-3.5-flash
+```
+```bash
+copilot --model gemini-3.5-flash --reasoning-effort minimal
+```
+
+**Why it matters:** Trims latency further for quick, low-stakes prompts where even "low" effort is more than you need.
+
+### Other Improvements (v1.0.69)
+
+- Reasoning-effort labels are now displayed in the CLI footer
+- Built-in file edits are labeled with a "(sandbox policy)" badge instead of "(sandboxed)" since they follow the sandbox policy on a best-effort basis; you can approve letting built-in file edits bypass the sandbox
+- `web_fetch` now follows the active sandbox network policy (denying blocked outbound or local targets) and can prompt for a one-time bypass when the host opts in via `sandbox.allowBypass`
+- Exact local assistant usage is shown in Chronicle and session SQL
+- The CLI confirms before resuming a remote session from a different repository
+- Read-only remote session creation is delayed until you send the first message
+- `/settings` now shows descriptions for sandbox `userPolicy` settings
+- Resuming and switching large sessions is faster, and `/diff` rendering and scrolling is faster on large diffs
+- `/rubber-duck` now appears in pre-auth help and self-documentation
+- `/mcp` config supports signing in to servers through the CLI OAuth callback flow
+- Sessions can be found from worktree branches even when the local branch name differs from the PR head ref
+
+---
+
+## New in v1.0.68
+
+Released: 2026-07-01
+
+### Kimi K2.7 Code Model Support
+
+`kimi-k2.7-code` is now available as a supported model.
+
+```
+> /model kimi-k2.7-code
+```
+
+**Why it matters:** Adds another code-specialized model choice alongside GPT-5.3-Codex and GPT-5.2-Codex. See [Model Selection Strategy](22-models-and-costs.md) for guidance on when to use it.
+
+### Other Improvements (v1.0.68)
+
+- Tab completion shows slash command aliases inline (e.g. `/pr automerge|agentmerge`)
+- The Sessions sidebar can now browse, resume, and switch between sessions directly from the agents screen
+- The Sessions sidebar branch updates correctly after `/cd` and `/worktree`
+- `/mcp` config form marks the focused field with a "❯ " chevron instead of relying on color alone
+- Plan budget details now show in the statusline and `/usage` for supported plans
+- IDE tools stay available during transient IDE disconnects, returning a clear error while disconnected and recovering automatically on reconnect
+- Code review retries transient git failures when gathering changes
+- Custom agents keep their tool filters in nested subagents
+- Hooks no longer error and deny every tool when a session's working directory or git worktree has been deleted
+
+---
+
+## New in v1.0.67
+
+Released: 2026-06-30
+
+### Claude Sonnet 5 Support
+
+Claude Sonnet 5 (`claude-sonnet-5`) is now available as a supported model.
+
+```
+> /model claude-sonnet-5
+> /model sonnet   # family alias resolves to the latest Sonnet
+```
+
+**Why it matters:** Access the newest Sonnet-generation model directly from `/model` without waiting for a manual config update. See [Model Selection Strategy](22-models-and-costs.md) for guidance on when to use it.
+
+### Session Limits Require at Least 30 AI Credits
+
+The `sessionLimits` setting (minimum credits before a session is capped) must now be set to at least 30 AI credits.
+
+**Why it matters:** Prevents accidentally configuring a limit so low that sessions get cut off before useful work can happen.
+
+### Immediate Sandbox Disable
+
+Disabling the sandbox for the rest of the session now takes effect immediately, so shell and search commands stop re-prompting to bypass it mid-turn.
+
+**Why it matters:** Once you've decided to trust the rest of a session, you no longer have to dismiss repeated bypass prompts for every subsequent command.
+
+### Other Improvements (v1.0.67)
+
+- Subagent sessions now keep their parent's tool restrictions
+- Warnings and errors are shown when host custom agents fail to load
+- Tool calls can continue even when hooks time out
+- `Ctrl+Q` now enqueues the highlighted slash-command argument completion
+- MCP OAuth against Microsoft Entra servers behind a tenant vanity domain (e.g. Copilot Studio) no longer fails to refresh or re-authenticate
+- Prompt mode's exit summary now shows a resume hint to continue the session
+
+---
+
+## New in v1.0.66
+
+Released: 2026-06-30
+
+### `/pr auto` and `/pr automerge` Self-Paced Loops
+
+`/pr auto` now starts a self-paced loop that fixes one thing per run and paces itself around CI to drive the PR to green. `/pr automerge` keeps going until the PR is actually merged. Manage or stop either loop from `/loop` or `/every`.
+
+```
+> /pr auto
+> /pr automerge
+```
+
+**Why it matters:** Turns "get this PR to green" into a hands-off background loop instead of a manual poll-and-fix cycle. Full guide → [GitHub Integration](07-github-integration.md).
+
+### `/chronicle skills review`
+
+A new `/chronicle skills review` subcommand lets you step through proposed draft skill changes and accept, reject, or defer each one.
+
+```
+> /chronicle skills review
+```
+
+**Why it matters:** Gives you control over auto-generated or suggested skill updates before they're applied.
+
+### `/worktree` Task Argument
+
+Pass a task to `/worktree` to name the branch after that task and run it as the first prompt in the new worktree.
+
+```
+> /worktree fix the login redirect
+```
+
+With no argument, `/worktree` now names the branch from your uncommitted changes and recent conversation using your active model (instead of a fixed small model). Branch names are also kept exactly as typed (e.g. `feature/JIRA-123`) instead of being flattened to a slug (e.g. `feature-jira-123`).
+
+**Why it matters:** Faster, more descriptive worktree branches with less manual naming.
+
+### `@`-Style Imports in Instruction Files
+
+`AGENTS.md`, `CLAUDE.md`, and Copilot instruction files now support `@`-style imports (e.g. `@docs/style-guide.md`), which are expanded inline.
+
+**Why it matters:** Split long project instructions across multiple files and share common content without copy-pasting. See [AGENTS.md Guide](13-agents-file.md).
+
+### Subagent Concurrency and Depth Limits in `/settings`
+
+Usage-based billing users can now configure subagent concurrency and depth limits directly from `/settings`.
+
+**Why it matters:** No more editing config files by hand to tune how aggressively fleet and autopilot spawn sub-agents. See [Fleet Mode](18-fleet-mode.md).
+
+### Custom Agent Reasoning Effort
+
+Custom agents can now set their own `reasoning-effort` in their frontmatter, independent of the session's default effort level.
+
+**Why it matters:** Pin high-stakes agents (security review, architecture) to higher reasoning effort while keeping the rest of a session fast and cheap. See [Advanced Features — Custom Agents](08-advanced-features.md#creating-custom-agents).
+
+### New Claude Opus 4.8 Fast Model
+
+Claude Opus 4.8 Fast (`claude-opus-4.8-fast`) is now available, and Claude Opus 4.6 Fast (`claude-opus-4.6-fast`) is deprecated.
+
+**Why it matters:** Get newer Opus-quality output at fast-model speed. See [Model Selection Strategy](22-models-and-costs.md).
+
+### Pull Requests Tab Merge Status
+
+The Pull requests tab now shows merge status for each pull request, and pressing `r` refreshes the cached statuses on demand.
+
+**Why it matters:** Spot merge conflicts or blocked PRs at a glance without opening each one. See [GitHub Integration](07-github-integration.md).
+
+### Other Improvements (v1.0.66)
+
+- Add a toggle to enable or disable MCP servers directly from the `/mcp` list view
+- Show the current pull request link as a status-line item (`/statusline`)
+- Add `--allow-all-mcp-server-instructions` to optionally include instructions from all MCP servers in system prompts
+- Add persisted `dynamicRetrieval` setting (and `--dynamic-retrieval skills=<on|off>` flag) to enable or disable embeddings-based skill retrieval
+- Session limits now apply across the whole current conversation, resetting on `/clear`, via the `sessionLimits` option key
+- Desktop notifications for attention prompts and idle sessions (macOS)
+- `/rename` is now enabled in remote-hosted (cloud and relay) sessions
+- Add Claude Opus 4.8 Fast support and deprecate Claude Opus 4.6 Fast
+- Use a non-blinking block cursor during interactive sessions, restoring the terminal's default cursor on exit
 
 ---
 

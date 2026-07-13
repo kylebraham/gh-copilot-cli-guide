@@ -348,6 +348,27 @@ For interactive sessions, add restrictions to AGENTS.md:
 - Do not modify files in src/legacy/ without explicit instruction
 ```
 
+### Pinning Model and Deny Lists via `.github/copilot/settings.json` (v1.0.70+)
+
+A trusted repository can commit `.github/copilot/settings.json` to enforce consistent, org-approved defaults for everyone who runs Copilot CLI in that repo — no per-engineer configuration required:
+
+```json
+{
+  "model": "claude-sonnet-4.6",
+  "effort": "medium",
+  "contextTier": "default",
+  "denyUrls": ["https://internal-only.example.com/**"],
+  "denyMcpServers": ["untrusted-server"],
+  "denySkills": ["experimental-skill"]
+}
+```
+
+**What it does:**
+- Pins the **model**, **reasoning effort level**, and **context tier** for anyone working in the repo — engineers can't accidentally run an unapproved or overly expensive model
+- **Extends** (not replaces) the existing URL, MCP server, and skill deny lists, so org-wide restrictions still apply on top of repo-level ones
+
+**Why use it:** Centralize cost and security policy at the repository level instead of relying on every engineer to configure `--deny-tool`, `/model`, or `/settings` correctly.
+
 ### Protecting Sensitive Paths via AGENTS.md
 
 Explicitly instruct Copilot to avoid sensitive paths:

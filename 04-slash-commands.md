@@ -202,13 +202,29 @@ Select or change the AI model.
 **Available models:**
 - `claude-sonnet-4.5` (default) - Balanced performance
 - `claude-sonnet-4` - Previous generation Sonnet
+- `claude-sonnet-5` - Newest Sonnet, added v1.0.67
 - `gpt-5` - OpenAI flagship
+- `gpt-5.6` - Newest GPT generation, added v1.0.70
+- `kimi-k2.7-code` - Code-specialized model, added v1.0.68
 - And more available via `/model` selection menu...
 
 **Choose based on:**
 - Task complexity (use Opus for complex reasoning)
 - Speed requirements (use Haiku for quick tasks)
 - Cost considerations (Haiku is most economical)
+
+**Scoped changes (v1.0.70+):** Add `--repo` or `--local` to change the model for just the current repository or local config instead of your global default:
+
+```
+> /model gpt-5.6 --repo
+> /model claude-opus-4.8 --local
+```
+
+> **v1.0.67+:** Claude Sonnet 5 is now available as a supported model. See [Model Selection Strategy](22-models-and-costs.md) for details.
+>
+> **v1.0.68+:** `kimi-k2.7-code` is now available as a supported model. See [Model Selection Strategy](22-models-and-costs.md) for details.
+>
+> **v1.0.70+:** `gpt-5.6` is now available as a supported model. See [Model Selection Strategy](22-models-and-costs.md) for details.
 
 ### /context
 
@@ -408,6 +424,8 @@ Enable all permissions — all tools, paths, and URLs — in one command.
 
 > **v1.0.37+:** Individual tool approvals are automatically persisted per-directory by default. Approvals you grant in a session are remembered for future sessions in the same directory, so you do not need to re-approve the same operations each time you restart.
 
+> **v1.0.69+:** An **auto allow-all mode** is available that auto-approves requests an LLM judge evaluates as acceptable, instead of blanket-approving everything. Enabling it via `/allow-all auto` now requires **experimental mode** (`/experimental on` or `--experimental`) — it can no longer be enabled solely with the `AUTO_APPROVAL` environment variable or feature flag.
+
 **⚠️ Use with caution:**
 - Only use in fully trusted, local-only environments
 - Grants broad access; avoid with untrusted projects or shared machines
@@ -590,6 +608,16 @@ Operate on pull requests for the current branch.
 - Viewing review comments or CI run results
 
 > **v1.0.63+:** Fork-based pull requests are now shown in `/pr` and the branch PR badge, in addition to PRs from branches within the same repository.
+
+> **v1.0.66+:** `/pr auto` starts a self-paced loop that fixes one thing per run and paces itself around CI to drive the PR to green. `/pr automerge` keeps looping until the PR is merged. Manage or stop either loop from `/loop` or `/every`.
+
+```
+# Drive the PR to green, one fix per run, paced around CI
+> /pr auto
+
+# Keep looping until the PR is merged
+> /pr automerge
+```
 
 ### /review
 
@@ -837,6 +865,8 @@ Proceed? (y/n) y
 > /delegate --base develop Add new feature
 ```
 
+> **v1.0.69+:** `/delegate` now creates the PR against your **current branch** by default (instead of the repository's default branch). Use `--base` to target a different branch, as shown above.
+
 **Draft PR:**
 ```
 > /delegate --draft Experimental: try new caching strategy
@@ -935,6 +965,12 @@ Create a new git worktree and switch the active working directory into it, movin
 
 > **Tip (v1.0.62+):** Press `W` on the expanded issue or pull request details panel to create a worktree for that item in one keystroke.
 
+> **v1.0.66+:** Pass a task to `/worktree` to name the branch after that task and run the task as the first prompt in the new worktree:
+> ```
+> > /worktree fix the login redirect
+> ```
+> With no argument, `/worktree` names the branch from your uncommitted changes and recent conversation using your active model. Branch names typed exactly (e.g. `feature/JIRA-123`) are kept as-is instead of being flattened to a slug (e.g. `feature-jira-123`).
+
 ### /app (v1.0.62+)
 
 Open the GitHub app if it is installed, or fall back to opening your browser to the GitHub web interface.
@@ -991,6 +1027,22 @@ Open an interactive dialog to browse and edit all user settings in one place.
 - Discover settings you didn't know existed
 - Edit values without leaving the CLI
 - Safer than manual JSON editing
+
+> **v1.0.66+:** Usage-based billing users can configure subagent concurrency and depth limits directly from `/settings`, instead of only via config files. See [Fleet Mode — Sub-Agent Depth and Concurrency Limits](08-advanced-features.md#sub-agent-depth-and-concurrency-limits-v10122).
+
+> **v1.0.70+:** Add `--repo` or `--local` to scope a settings change to the current repository or local config instead of the global user config: `/settings --repo`. A new setting also controls whether timeline timestamps are shown or hidden.
+
+### /refine <prompt> (v1.0.70+)
+
+Rewrite a rough, stream-of-consciousness prompt into a clear, well-structured one before sending it.
+
+```
+> /refine fix the thing where login sometimes doesnt work and also clean up that file its messy
+```
+
+**What it does:** Copilot restructures the input into a clear, actionable prompt (e.g., separating the bug report from the cleanup request) and shows it for confirmation before running.
+
+**Why use it:** Skip manually rewording a messy prompt — useful when dictating or jotting down ideas quickly.
 
 ### /memory [on|off|show] (v1.0.49+)
 
@@ -1096,6 +1148,7 @@ Customize which items appear in the status bar at the bottom of the CLI. Also av
 | `changes` | Lines added/removed in the current session (v1.0.36+) |
 | `username` | Active GitHub account name (v1.0.43+) |
 | `ci` | CI check status for the current branch: passing/running/failing (v1.0.65+, opt-in) |
+| `pr` | Link to the current pull request for the active branch (v1.0.66+) |
 
 **Use when:** You want to declutter the status bar or focus on specific metrics during your workflow.
 
@@ -1237,6 +1290,10 @@ Manage plugins and plugin marketplaces.
 # Update a specific plugin
 > /plugin update
 ```
+
+> **v1.0.69+:** A `/plugins` dashboard is available for managing installed plugins, and installed plugin extensions can now be reloaded without restarting the session.
+
+> **v1.0.70+:** Pin a plugin to an exact commit using the `sha` field in its plugin source configuration, so the plugin version stays fixed even if the source ref moves.
 
 **Shell command — refresh plugin catalogs without starting a session:**
 
@@ -1396,7 +1453,7 @@ Display the changelog for CLI versions. `/release-notes` is an alias for `/chang
 
 ### /chronicle
 
-View a **narrative history** of what the current session has done — file edits, commands run, and key decisions — formatted as a readable summary. Use the `search` subcommand to query all session content by keyword or topic (v1.0.49+). Use `cost-tips` for personalized token cost recommendations (v1.0.51+).
+View a **narrative history** of what the current session has done — file edits, commands run, and key decisions — formatted as a readable summary. Use the `search` subcommand to query all session content by keyword or topic (v1.0.49+). Use `cost-tips` for personalized token cost recommendations (v1.0.51+). Use `skills review` to review proposed draft skill changes (v1.0.66+).
 
 ```
 > /chronicle
@@ -1407,6 +1464,9 @@ View a **narrative history** of what the current session has done — file edits
 
 # Get personalized token usage and cost reduction tips (v1.0.51+)
 > /chronicle cost-tips
+
+# Review proposed draft skill changes (v1.0.66+)
+> /chronicle skills review
 ```
 
 **Use when:**
@@ -1414,8 +1474,11 @@ View a **narrative history** of what the current session has done — file edits
 - Reviewing what was changed before opening a pull request
 - Handing off work to a colleague
 - Finding past decisions or context with a keyword search
+- Deciding whether to accept, reject, or defer a draft skill change proposed during the session
 
 > **v1.0.40+:** Session history, file tracking, and `/chronicle` are available to all users.
+
+> **v1.0.66+:** `/chronicle skills review` lets you step through each proposed draft skill change and accept, reject, or defer it individually.
 
 ### /update, /upgrade
 
@@ -1662,7 +1725,16 @@ Manage MCP (Model Context Protocol) server configuration.
 # Search and install MCP servers from the registry (v1.0.49+)
 > /mcp search <query>
 > /mcp registry   # browse registry interactively (v1.0.64+)
+
+# List attached MCP servers and their status (v1.0.69+)
+> /mcp list
 ```
+
+> **v1.0.66+:** The `/mcp show` list view now includes a toggle to enable or disable each server directly, in addition to the `/mcp enable`/`/mcp disable` commands.
+
+> **v1.0.69+:** `/mcp list` shows attached MCP servers and their status. Both `/mcp list` and `/plugin list` can run while the agent is working. The `/mcp` manager can also be opened mid-turn to enable or disable servers; adding, editing, deleting, and re-authenticating a server still wait until the current turn finishes.
+
+> **v1.0.70+:** `/mcp list` marks locally-spawned MCP servers that run inside the sandbox, e.g. `connected (sandboxed)`, so you can tell at a glance which servers are sandbox-isolated.
 
 **MCP Servers extend CLI capabilities:**
 - Database access

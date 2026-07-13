@@ -168,6 +168,8 @@ Press Ctrl+Y
    - Add notes
    - Adjust approach
 3. Save and close
+
+> **v1.0.70+:** `Ctrl+Y` now opens the plan file (or the most recent research report) from **any mode** — interactive, autopilot, etc. — not just from Plan mode.
 4. Return to CLI
 
 ### Plan Review Prompts

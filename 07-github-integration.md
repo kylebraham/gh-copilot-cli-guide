@@ -206,6 +206,18 @@ Review comments on PR #147:
 > /diff     # Confirm the fix looks right
 ```
 
+### Driving a PR to Green Automatically (v1.0.66+)
+
+```
+# Fix one thing per run, pacing around CI, until checks are green
+> /pr auto
+
+# Keep looping until the PR is merged
+> /pr automerge
+```
+
+`/pr auto` starts a self-paced loop: it makes one fix per run, waits appropriately for CI, and repeats until the PR's checks are green. `/pr automerge` behaves the same way but keeps going until the PR is actually merged. Both loops can be managed or stopped from [`/loop`](04-slash-commands.md) or [`/every`](04-slash-commands.md).
+
 ### `/pr` vs `/delegate` vs `/review`
 
 | Command | Purpose |
@@ -285,6 +297,12 @@ You can create a git worktree for any pull request directly from the pull reques
 3. Copilot CLI runs `git worktree add` and checks out the PR branch in a new directory
 
 > **Note:** When a PR branch name contains slashes (e.g., `feature/cli/foo`), the worktree directory uses a flat name (`feature-cli-foo`) to avoid nested directory issues.
+
+---
+
+## Pull Requests Tab Merge Status (v1.0.66+)
+
+The **Pull requests** tab now shows the merge status for each listed pull request (e.g., clean, blocked, has conflicts) alongside its checks and review status. Press `r` in the tab to refresh the cached statuses on demand instead of waiting for the next automatic refresh.
 
 ---
 

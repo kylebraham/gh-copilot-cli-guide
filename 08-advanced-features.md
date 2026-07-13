@@ -319,6 +319,8 @@ $ copilot mcp          # Show help and available subcommands
 
 **Installing from the registry (v1.0.25+):** `/mcp install` opens an interactive browser of the MCP server registry. Select a server, answer the prompted configuration questions, and the CLI adds it to `~/.copilot/mcp-config.json` automatically — no manual JSON editing required.
 
+> **v1.0.70+:** The SDK exposes paginated `session.mcp.resources.read` / `list` / `listTemplates` RPCs, letting SDK-based integrations manage live MCP servers and read their exposed resources programmatically from a running session.
+
 ---
 
 ### Available MCP Servers
@@ -669,6 +671,21 @@ This agent loads tools on demand, keeping startup fast even with large tool list
 
 **Why it matters:** Agents with large tool lists start faster and avoid exceeding context limits from unused tool descriptions. The agent discovers and loads tools dynamically as they are needed.
 
+### Setting Reasoning Effort (v1.0.66+)
+
+Custom agents can set their own reasoning effort in their frontmatter, independent of the session's active effort setting:
+
+```yaml
+---
+name: deep-reasoning-agent
+model: claude-opus-4.8
+reasoning-effort: high
+---
+This agent always runs with high reasoning effort, regardless of the session default.
+```
+
+**Why it matters:** Lets you pin high-stakes agents (e.g., security review, architecture planning) to a higher effort level while keeping the rest of the session on a faster, cheaper default.
+
 ## Skills System
 
 **Skills** are modular expertise packages that add specialized capabilities to Copilot CLI. Unlike AGENTS.md (project-specific) or instruction files (style guides), skills provide reusable domain expertise that can be activated across any project.
@@ -995,6 +1012,8 @@ To prevent runaway agent trees, the CLI enforces:
 
 When either limit is reached, the CLI surfaces a clear error rather than silently queuing more agents. These limits apply to fleet tasks, autopilot delegation chains, and any other sub-agent spawning.
 
+> **v1.0.66+:** Usage-based billing users can configure subagent concurrency and depth limits directly from [`/settings`](04-slash-commands.md#settings-v10161), instead of only via config files or environment variables.
+
 ### Enabling Fleet Mode
 
 ```
@@ -1059,6 +1078,8 @@ Opens the plugin manager, where you can:
 - **Uninstall** plugins you no longer need
 - **Update** plugins to their latest versions
 
+> **v1.0.69+:** A `/plugins` dashboard is available for managing installed plugins, and `/plugin list` can now run while the agent is working. Installed plugin extensions can also be reloaded without restarting the session.
+
 ### Plugin Marketplaces
 
 Plugins are sourced from marketplaces. You can manage marketplace sources from within the plugin manager:
@@ -1088,6 +1109,20 @@ When configuring marketplaces in `config.json`, use the `extraKnownMarketplaces`
 ```
 
 > ⚠️ **Removed in v1.0.16:** The `marketplaces` config key has been removed. Use `extraKnownMarketplaces` instead.
+
+### Pinning a Plugin to an Exact Commit (v1.0.70+)
+
+Add a `sha` field to a plugin's source configuration to lock it to an exact commit, so updates to the source ref (e.g., a branch move) don't silently change what's installed:
+
+```json
+{
+  "name": "copilot-terraform",
+  "source": "https://github.com/example/copilot-terraform-plugin.git",
+  "sha": "a1b2c3d4e5f6..."
+}
+```
+
+**Why use it:** Reproducible plugin installs across a team or CI — everyone gets the exact same plugin version until the pin is deliberately updated.
 
 ### What Plugins Can Add
 
@@ -1371,6 +1406,12 @@ Set in config:
 # Be cautious adding directories
 > /add-dir /sensitive/data  # Think twice!
 ```
+
+> **v1.0.67+:** Disabling the sandbox for the rest of the session now takes effect immediately — shell and search commands stop re-prompting to bypass it mid-turn.
+
+> **v1.0.70+:** Use `--sandbox` or `--no-sandbox` on the command line to force the OS-level shell sandbox on or off for just the current session, without changing your saved sandbox setting. This is especially useful alongside `-p` for one-off non-interactive runs that need a different sandbox posture than your default.
+
+> **v1.0.66+:** Session credit limits (the `sessionLimits` setting) must now be at least 30 AI credits, and now apply across the whole current conversation, resetting on `/clear`.
 
 ### Code Review
 

@@ -119,6 +119,8 @@ If you want a technical deep-dive but phrase the question as "What is X?", the a
 
 After research completes, press **Ctrl+Y** to open the most recent report in your terminal editor.
 
+> **v1.0.70+:** `Ctrl+Y` now works from any mode, not just immediately after `/research` finishes, so you can open the most recent report or plan file whenever one exists.
+
 The editor used is determined by environment variables (checked in order):
 1. `COPILOT_EDITOR`
 2. `VISUAL`

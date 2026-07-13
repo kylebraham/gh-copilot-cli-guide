@@ -340,6 +340,8 @@ This means:
 
 > **Default recommendation:** Put project coding standards in `AGENTS.md`. Only add `.github/copilot-instructions.md` if your team uses Copilot Chat in IDEs or the Copilot coding agent on github.com and you want those tools to follow the same instructions.
 
+> **v1.0.66+:** `@`-style imports (e.g. `@docs/style-guide.md`) are now expanded inline in `AGENTS.md`, `CLAUDE.md`, and Copilot instruction files, letting you split long instructions across multiple files and reference shared content without duplicating it.
+
 | Aspect | AGENTS.md | .github/copilot-instructions.md | CLAUDE.md / GEMINI.md |
 |--------|-----------|----------------------------------|------------------------|
 | **Scope** | Project-specific agent behavior | GitHub Copilot ecosystem | Model-specific instructions |

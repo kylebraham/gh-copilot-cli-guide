@@ -133,6 +133,8 @@ Autopilot runs until one of these conditions is met:
 
 > **v1.0.64:** When the agent calls `task_complete`, autopilot mode **automatically returns to interactive mode**. Previously the session stayed in autopilot and your next prompt would trigger another autonomous run. Now you are returned to interactive mode to review the results before proceeding.
 
+> **v1.0.69+:** Set `"stayInAutopilot": true` in `~/.copilot/settings.json` to keep the CLI in autopilot mode after a task completes instead of automatically returning to interactive mode. Defaults to `false` (the v1.0.64 behavior described above).
+
 > **v1.0.64:** Autopilot now auto-handles elicitation, `ask_user`, sampling, and permission prompts — including prompts shown at launch with `--autopilot` and during continuation turns — so they no longer surface dialogs during an autonomous run.
 
 Pressing **Ctrl+C** or **Escape** cleanly stops the current autonomous step and autopilot will not resume (v1.0.15+). You can then review what was done, switch back to interactive mode with Shift+Tab, and continue manually.

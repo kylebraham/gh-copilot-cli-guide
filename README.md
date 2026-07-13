@@ -81,6 +81,30 @@ npm update -g @github/copilot
 ```
 
 **Latest features:**
+- 🧠 Added support for the `gpt-5.6` model (v1.0.70)
+- ✍️ New `/refine` command rewrites a rough prompt into a clear one before sending (v1.0.70)
+- 🛡️ New `--sandbox` / `--no-sandbox` flags force the shell sandbox on/off for just the current session, without changing your saved setting — handy with `-p` (v1.0.70)
+- ⚙️ `/settings` and `/model` accept `--repo` / `--local` to scope a change instead of updating the global default (v1.0.70)
+- 🔒 Trusted repos can pin model, effort, and context tier and extend the URL/MCP/skill deny lists via `.github/copilot/settings.json` (v1.0.70)
+- 🔌 Pin a plugin to an exact commit with the `sha` field in its source config (v1.0.70)
+- 🗂️ `/mcp list` marks sandboxed servers, e.g. `connected (sandboxed)` (v1.0.70)
+- ⌨️ `Ctrl+Y` now opens the plan file or research report from any mode (v1.0.70)
+- 🗂️ `/mcp list` shows attached MCP servers and status; runs while the agent is working, and the `/mcp` manager can be opened mid-turn (v1.0.69)
+- ✅ New auto allow-all mode auto-approves LLM-judged acceptable requests; enabling it now requires experimental mode (v1.0.69)
+- 🔁 `stayInAutopilot` setting keeps the CLI in autopilot mode after a task completes (v1.0.69)
+- 🌿 `/delegate` now targets your current branch by default instead of the repo's default branch; use `--base` to override (v1.0.69)
+- 🧩 `/plugins` dashboard and plugin reload without restarting the session (v1.0.69)
+- ⚡ Minimal reasoning effort available for `gemini-3.5-flash` (v1.0.69)
+- 🧩 Added support for the `kimi-k2.7-code` model (v1.0.68)
+- 🧠 Claude Sonnet 5 added as a supported model (v1.0.67)
+- 🚧 Session limits must now be at least 30 AI credits (v1.0.67)
+- 🛡️ Disabling the sandbox for the rest of the session now takes effect immediately, with no more re-prompts mid-turn (v1.0.67)
+- ⚡ New Claude Opus 4.8 Fast model; Claude Opus 4.6 Fast is now deprecated (v1.0.66)
+- 🔁 `/pr auto` now runs a self-paced loop that fixes one thing per run and paces around CI to drive a PR to green; `/pr automerge` keeps going until the PR is merged (v1.0.66)
+- 📓 `/chronicle skills review` for reviewing proposed draft skill changes — accept, reject, or defer each one (v1.0.66)
+- 🌲 Pass a task to `/worktree` (e.g. `/worktree fix the login redirect`) to name the branch and run it as the first prompt in the new worktree (v1.0.66)
+- 🔗 `@`-style imports now expand in `AGENTS.md`, `CLAUDE.md`, and Copilot instruction files (v1.0.66)
+- 🎚️ Configure subagent concurrency and depth limits from `/settings` (usage-based billing users) (v1.0.66)
 - 💾 `/cd` now persists the working directory across session resumes and discovers custom agents in the new directory (v1.0.65)
 - 🛠️ New `copilot skill` CLI subcommand + `/skill` alias for `/skills` to list, add, and remove skills (v1.0.65)
 - 🚦 Opt-in CI check status bar item shows passing/running/failing CI status for the current branch (v1.0.65)
@@ -381,4 +405,4 @@ Go to **Actions → Daily Doc Maintenance → Run workflow** to trigger it on de
 
 ---
 
-**Note:** This guide covers GitHub Copilot CLI v1.0.65. Some capabilities may vary by version — run `/update` to stay current.
+**Note:** This guide covers GitHub Copilot CLI v1.0.70. Some capabilities may vary by version — run `/update` to stay current.

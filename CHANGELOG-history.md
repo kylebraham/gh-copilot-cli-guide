@@ -1,5 +1,81 @@
 # Documentation Updates
 
+## 2026-07-10 — Docs updated for v1.0.70
+
+- `README.md`: Bumped version note to v1.0.70; added "Latest features" bullets for `gpt-5.6`, `/refine`, `--sandbox`/`--no-sandbox` flags, `--repo`/`--local` scoping for `/settings` and `/model`, `.github/copilot/settings.json` trusted-repo policy, plugin `sha` pinning, `/mcp list` sandboxed-server marking, and `Ctrl+Y` working in any mode
+- `16-new-features.md`: Updated title to v1.0.70; added TOC entry; added v1.0.70 section covering `gpt-5.6`, `/refine`, `--sandbox`/`--no-sandbox`, `--repo`/`--local` scoping, timeline timestamps setting, `.github/copilot/settings.json` policy pinning, plugin `sha` pinning, `/mcp list` sandboxed marking, `Ctrl+Y` in any mode, plus notable improvements (SDK MCP resource RPCs, GPT-5.6 commentary guidance, single Error prefix for `/mcp`/`/skill` failures, `web_fetch` HTTPS proxy support, `preToolUse` hook deny-on-exit-2, Forge draft skills, remote terminal nudges, extension permission decline behavior, auth error messaging, `/user switch` model display, `/chronicle` prefilled search, `/pr` table alignment, skill/command name validation, hourly enterprise settings refresh)
+- `04-slash-commands.md`: Added `/refine` command entry; added `--repo`/`--local` scoping notes to `/model` and `/settings`; added sandboxed-server marking note to `/mcp`; added `sha` pinning note to `/plugin`
+- `00-cheat-sheet.md`: Added `/refine` to the command table; added `--sandbox`/`--no-sandbox` flags; updated `/model`, `/settings`, `/mcp`, `/plugin` entries; updated the `Ctrl+Y` shortcut description
+- `22-models-and-costs.md`: Added GPT-5.6 (`gpt-5.6`) to the models table
+- `08-advanced-features.md`: Added plugin `sha` pinning section; added `--sandbox`/`--no-sandbox` note; added SDK MCP resource RPC note
+- `21-team-setup.md`: Added a new section on pinning model/effort/context tier and extending deny lists via `.github/copilot/settings.json`
+- `09-plan-mode.md`, `19-research-command.md`: Noted `Ctrl+Y` now works from any mode
+
+### Feature Summary (v1.0.70)
+- **New:** `gpt-5.6` model support
+- **New:** `/refine` command to rewrite a rough prompt into a clear one
+- **New:** `--sandbox`/`--no-sandbox` flags to override the sandbox setting for one session
+- **New:** `--repo`/`--local` flags for `/settings` and `/model` to scope changes
+- **New:** Setting to show/hide timeline timestamps
+- **New:** `.github/copilot/settings.json` lets a trusted repo pin model/effort/context tier and extend deny lists
+- **New:** Plugin `sha` field to pin a plugin to an exact commit
+- **New:** SDK `session.mcp.resources` RPCs for managing live MCP servers
+- **Changed:** `/mcp list` marks sandboxed servers; `Ctrl+Y` opens the plan file/research report from any mode
+
+## 2026-07-08 — Docs updated for v1.0.69
+
+- `README.md`: Bumped version note to v1.0.69; added "Latest features" bullets for `/mcp list`, auto allow-all mode, `stayInAutopilot`, `/delegate` current-branch default, `/plugins` dashboard, and minimal reasoning effort for `gemini-3.5-flash`
+- `16-new-features.md`: Updated title to v1.0.69; added TOC entry; added v1.0.69 section covering `/mcp list` and mid-turn MCP management, auto allow-all mode (now requiring experimental mode), the `stayInAutopilot` setting, `/delegate` defaulting to the current branch, the `/plugins` dashboard and plugin reload without restart, minimal reasoning effort for `gemini-3.5-flash`, plus notable improvements (reasoning-effort labels in the footer, sandbox policy badge rename, `web_fetch` sandbox network policy, Chronicle/session SQL usage details, remote session resume confirmation, faster large-session resume/`/diff`, `/rubber-duck` in pre-auth help, MCP OAuth callback sign-in, worktree branch PR lookup)
+- `04-slash-commands.md`: Added `/mcp list` under `/mcp`; added a note on `/delegate` defaulting to the current branch with `--base` to override; added auto allow-all mode note under `/allow-all`; added `/plugins` dashboard and reload note under `/plugin`
+- `08-advanced-features.md`: Added `/plugins` dashboard and reload-without-restart note to the Plugin System section
+- `17-autopilot-mode.md`: Added `stayInAutopilot` setting note to the Stopping Autopilot section
+- `22-models-and-costs.md`: Added Gemini 3.5 Flash (`gemini-3.5-flash`) to the models table, noting the new minimal reasoning effort level
+- `00-cheat-sheet.md`: Updated `/mcp`, `/plugin`, and `/allow-all` entries with v1.0.69 additions
+
+### Feature Summary (v1.0.69)
+- **New:** `/mcp list` to show attached MCP servers and status; `/mcp list` and `/plugin list` can run while the agent is working
+- **New:** Auto allow-all mode (LLM-judged auto-approval), now gated behind experimental mode
+- **New:** `stayInAutopilot` setting to remain in autopilot mode after task completion
+- **New:** `/plugins` dashboard and plugin reload without restarting the session
+- **New:** Minimal reasoning effort for `gemini-3.5-flash`
+- **Changed:** `/delegate` targets the current branch by default instead of the repository's default branch
+
+## 2026-07-02 — Docs updated for v1.0.68
+
+- `README.md`: Bumped version note to v1.0.68; added "Latest features" bullet for the new `kimi-k2.7-code` model
+- `16-new-features.md`: Updated title to v1.0.68; added TOC entry; added v1.0.68 section covering the new `kimi-k2.7-code` model plus notable fixes/improvements (inline slash-command alias tab completion, Sessions sidebar session browsing/resume, `/cd`/`/worktree` sidebar branch sync, `/mcp` config focus indicator, statusline/`/usage` plan budget details, IDE tool resilience during transient disconnects, code review git-failure retries, custom agent tool filters in nested subagents, hook fix for deleted working directories)
+- `22-models-and-costs.md`: Added Kimi K2.7 Code (`kimi-k2.7-code`) to the models table and the code-specialized tasks recommendation row
+
+### Feature Summary (v1.0.68)
+- **New:** `kimi-k2.7-code` model support
+- **Improved:** Inline slash-command alias suggestions in tab completion
+- **Improved:** Sessions sidebar supports browsing, resuming, and switching sessions from the agents screen
+- **Fixed:** Sessions sidebar branch now updates after `/cd` and `/worktree`
+- **Fixed:** Hooks no longer deny every tool when a session's working directory or git worktree has been deleted
+
+## 2026-07-01 — Docs updated for v1.0.67
+
+- `README.md`: Bumped version note to v1.0.67; updated "Latest features" list with v1.0.66 and v1.0.67 highlights
+- `16-new-features.md`: Updated title to v1.0.67; added TOC entries; added v1.0.66 section covering `/pr auto`/`/pr automerge` self-paced loops, `/chronicle skills review`, `/worktree` task argument and smarter default naming, `@`-style imports in instruction files, subagent concurrency/depth limits in `/settings`, custom agent `reasoning-effort`, Claude Opus 4.8 Fast (deprecating Opus 4.6 Fast), and Pull Requests tab merge status; added v1.0.67 section covering Claude Sonnet 5 support, minimum 30-credit session limits, and immediate sandbox disable
+- `04-slash-commands.md`: Added `/pr auto`/`/pr automerge` under `/pr`; added task-argument and default-naming behavior to `/worktree`; added subagent limits note to `/settings`; added `pr` status-line item; added `/chronicle skills review`; added MCP list-view enable/disable toggle note to `/mcp`; added Claude Sonnet 5 to `/model`
+- `00-cheat-sheet.md`: Updated `/pr`, `/worktree`, `/chronicle`, and `/statusline` entries with v1.0.66 additions
+- `07-github-integration.md`: Added "Driving a PR to Green Automatically" section for `/pr auto`/`/pr automerge`; added "Pull Requests Tab Merge Status" section
+- `22-models-and-costs.md`: Added Claude Sonnet 5 and Claude Opus 4.8 Fast; marked Claude Opus 4.6 Fast as deprecated
+- `08-advanced-features.md`: Added `/settings` subagent limits note to Fleet Mode; added custom agent `reasoning-effort` frontmatter section; added immediate sandbox-disable and session-limit notes to Security Best Practices
+- `13-agents-file.md`: Added note on `@`-style imports in `AGENTS.md`, `CLAUDE.md`, and Copilot instruction files
+
+### Feature Summary (v1.0.66 – v1.0.67)
+- **New:** `/pr auto` and `/pr automerge` self-paced loops to drive PRs to green and merge
+- **New:** `/chronicle skills review` for reviewing proposed draft skill changes
+- **Improved:** `/worktree` accepts a task argument to name the branch and seed the first prompt; smarter default branch naming; exact branch names preserved
+- **New:** `@`-style imports in `AGENTS.md`, `CLAUDE.md`, and Copilot instruction files
+- **New:** Configure subagent concurrency/depth limits from `/settings`
+- **New:** Custom agents can set their own `reasoning-effort`
+- **New:** Claude Opus 4.8 Fast (deprecates Claude Opus 4.6 Fast); Claude Sonnet 5 added
+- **New:** Pull Requests tab shows merge status per PR, refreshable with `r`
+- **Changed:** Session limits (`sessionLimits`) must be at least 30 AI credits and now apply across the whole conversation, resetting on `/clear`
+- **Improved:** Disabling the sandbox for the rest of a session takes effect immediately
+
 ## 2026-06-25 — Docs updated for v1.0.65
 
 - `README.md`: Bumped version note to v1.0.65; updated "Latest features" list with v1.0.65 highlights
