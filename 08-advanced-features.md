@@ -1014,6 +1014,8 @@ When either limit is reached, the CLI surfaces a clear error rather than silentl
 
 > **v1.0.66+:** Usage-based billing users can configure subagent concurrency and depth limits directly from [`/settings`](04-slash-commands.md#settings-v10161), instead of only via config files or environment variables.
 
+> **v1.0.71+:** The default maximum sub-agent nesting depth is now **4** (down from 6) to curb runaway recursive sub-agent delegation. Usage-based billing users can still raise `subagents.maxDepth` up to 128 via `/settings` or config.
+
 ### Enabling Fleet Mode
 
 ```
@@ -1099,6 +1101,20 @@ You can also refresh catalogs from the shell without starting a session:
 ```bash
 copilot plugin marketplace update
 ```
+
+### Plugins Marketplace CLI Subcommands (v1.0.71+)
+
+Manage plugin marketplaces directly from the shell without an interactive session using `copilot plugins marketplace`:
+
+```bash
+copilot plugins marketplace list           # List configured marketplaces
+copilot plugins marketplace add <url>      # Add a marketplace
+copilot plugins marketplace remove <name>  # Remove a marketplace
+copilot plugins marketplace browse         # Browse available plugins
+copilot plugins marketplace update         # Refresh plugin catalogs
+```
+
+**Why it matters:** Script marketplace setup for CI or shared team environments instead of configuring it interactively per machine.
 
 When configuring marketplaces in `config.json`, use the `extraKnownMarketplaces` key:
 

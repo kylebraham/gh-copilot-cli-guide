@@ -207,6 +207,8 @@ To learn more: /skills info <name>
 > $ copilot skill remove python-expert
 > ```
 
+> **v1.0.71+:** `copilot skill list` and its JSON output now mark disabled skills, matching the in-app `/skills list` picker.
+
 ### Getting Skill Information
 
 ```bash

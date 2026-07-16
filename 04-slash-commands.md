@@ -942,26 +942,30 @@ Proceed? (y/n) y
 - **"Permission denied"**: Authenticate with `gh auth login`
 - **"Branch already exists"**: Use custom branch name with `--branch`
 
-### /worktree <branch> (alias /move) (v1.0.61+)
+### /worktree \<branch\> and /move \<branch\> (v1.0.61+)
 
-Create a new git worktree and switch the active working directory into it, moving any uncommitted changes along.
+Create a new git worktree and switch the active working directory into it.
 
 ```
 > /worktree new-branch-name
 > /move my-experiment
 ```
 
-**What it does:**
-1. Creates a new git worktree for the specified branch (creating the branch if it doesn't exist)
-2. Moves uncommitted changes into the new worktree
-3. Switches Copilot CLI's working directory to the new worktree
+**What they do:**
+1. Create a new git worktree for the specified branch (creating the branch if it doesn't exist)
+2. Switch Copilot CLI's working directory to the new worktree
+
+> **v1.0.71+: `/worktree` and `/move` are no longer aliases.** They now behave differently:
+> - `/worktree` creates the new worktree and **leaves your uncommitted changes behind** in the original checkout.
+> - `/move` creates the new worktree and **carries your uncommitted changes into it**.
+>
+> If you previously relied on `/move` (or `/worktree`) always bringing in-progress work along, double-check which command you're using — this is a breaking behavior change from earlier versions where the two commands were identical.
 
 **Use when:**
-- You want to start a fresh branch without stashing or committing in-progress work
+- You want to start a fresh branch without stashing or committing in-progress work (`/move`)
+- You want a clean new worktree while keeping your current checkout's uncommitted changes untouched (`/worktree`)
 - Context-switching between branches mid-task
 - Experimenting with a risky change without disrupting the current checkout
-
-> **Tip:** `/move` is a direct alias — both commands behave identically.
 
 > **Tip (v1.0.62+):** Press `W` on the expanded issue or pull request details panel to create a worktree for that item in one keystroke.
 
@@ -1031,6 +1035,8 @@ Open an interactive dialog to browse and edit all user settings in one place.
 > **v1.0.66+:** Usage-based billing users can configure subagent concurrency and depth limits directly from `/settings`, instead of only via config files. See [Fleet Mode — Sub-Agent Depth and Concurrency Limits](08-advanced-features.md#sub-agent-depth-and-concurrency-limits-v10122).
 
 > **v1.0.70+:** Add `--repo` or `--local` to scope a settings change to the current repository or local config instead of the global user config: `/settings --repo`. A new setting also controls whether timeline timestamps are shown or hidden.
+
+> **v1.0.71+:** The `/settings` dashboard adds dedicated **Repo** and **Repo (local)** scope tabs, so you can browse and edit repo-scoped settings visually instead of only through the `--repo`/`--local` flags. GitHub MCP toolset and tool selections (`githubMcpToolsets`, `githubMcpTools`, and related settings) now persist via `settings.json` instead of being session-only.
 
 ### /refine <prompt> (v1.0.70+)
 
@@ -1295,6 +1301,15 @@ Manage plugins and plugin marketplaces.
 
 > **v1.0.70+:** Pin a plugin to an exact commit using the `sha` field in its plugin source configuration, so the plugin version stays fixed even if the source ref moves.
 
+> **v1.0.71+:** New `copilot plugins marketplace` CLI subcommands manage plugin marketplaces directly from the shell:
+> ```bash
+> copilot plugins marketplace list
+> copilot plugins marketplace add <url>
+> copilot plugins marketplace remove <name>
+> copilot plugins marketplace browse
+> copilot plugins marketplace update
+> ```
+
 **Shell command — refresh plugin catalogs without starting a session:**
 
 ```bash
@@ -1494,6 +1509,11 @@ Add the optional `prerelease` argument to install the latest prerelease build (v
 > /update prerelease
 ```
 
+> **v1.0.71+:** `copilot update` and `/update` also accept `stable` as an explicit channel argument.
+> ```
+> > /update stable
+> ```
+
 **What it does:**
 1. Checks for the latest available release
 2. Downloads and installs the update
@@ -1667,6 +1687,8 @@ Open the subagents picker to configure how background subagents behave — choos
 
 **Why it matters:** Reduce costs for routine background tasks by configuring a fast/cheap model for subagents while keeping a powerful model for your main session.
 
+> **v1.0.71+:** Reopening the `/subagents` model picker keeps each agent's previously configured reasoning effort and context tier instead of resetting them. The default maximum sub-agent nesting depth is now 4 (down from 6); usage-based billing users can raise `subagents.maxDepth` up to 128.
+
 ### /security-review (v1.0.51+)
 
 Run a dedicated security review agent on your current changes. Unlike `/review`, which covers general code quality, `/security-review` focuses exclusively on security vulnerabilities — injection risks, authentication flaws, secrets exposure, and related concerns.
@@ -1773,6 +1795,7 @@ $ copilot skill add python-expert
 $ copilot skill remove python-expert
 ```
 
+> **v1.0.71+:** `copilot skill list` and its JSON output now mark disabled skills, matching the `/skills list` picker in the interactive session.
 **Skills are:**
 - Modular expertise packages (e.g., "Python expert", "React patterns")
 - Reusable across any project
@@ -1909,6 +1932,11 @@ Dictate a prompt using local speech-to-text. Copilot CLI records audio, transcri
 After transcription completes, review and optionally edit the text, then submit.
 
 **Why it matters:** Hands-free prompt entry — useful for long, natural-language prompts or accessibility.
+
+> **v1.0.71+:** `/voice devices` lets you choose which microphone to use and persists the selection across sessions.
+> ```
+> > /voice devices
+> ```
 
 ### /every \<interval\> \<prompt\> (experimental, v1.0.58+)
 
@@ -2087,12 +2115,13 @@ Some commands affect subsequent prompts:
 | `/share` | Export session | `/share file out.md` |
 | `/restart` | Restart CLI | `/restart` |
 | `/exit` | Quit CLI; add `print` to print session first (v1.0.49+) | `/exit` |
-| `/voice` | Dictate a prompt with local speech-to-text (v1.0.59+) | `/voice` |
+| `/voice` | Dictate a prompt with local speech-to-text (v1.0.59+); `/voice devices` to choose/persist the microphone (v1.0.71+) | `/voice` |
 | `/every` | Repeat a prompt on a schedule (experimental, v1.0.58+) | `/every 10m check issues` |
 | `/loop` | Alias for `/every` (v1.0.64+) | `/loop 10m check issues` |
 | `/after` | Run a prompt after a delay (experimental, v1.0.58+) | `/after 1h remind me` |
 | `/settings` | Browse and edit all user settings interactively (v1.0.61+) | `/settings` |
-| `/worktree` | Create a new git worktree and switch into it (v1.0.61+) | `/worktree my-branch` |
+| `/worktree` | Create a new git worktree and switch into it, leaving uncommitted changes behind (v1.0.61+; behavior split from `/move` in v1.0.71+) | `/worktree my-branch` |
+| `/move` | Create a new git worktree and switch into it, carrying uncommitted changes along; no longer an alias for `/worktree` (v1.0.71+) | `/move my-branch` |
 | `/app` | Open the GitHub app or browser fallback (v1.0.62+) | `/app` |
 | `/subagents` | Configure subagent model, reasoning effort, and context tier (v1.0.62+); alias `/agents` | `/subagents` |
 | `/branch` | Fork the current session into a new independent session (v1.0.64+); alias for `/fork` | `/branch my-experiment` |
@@ -2129,7 +2158,6 @@ Some commands have shorter aliases:
 /export        = /share
 /h             = /help (if supported)
 /q             = /quit (if supported)
-/move          = /worktree
 /agents        = /subagents
 /branch        = /fork
 /loop          = /every
