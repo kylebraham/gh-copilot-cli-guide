@@ -101,7 +101,7 @@
 |---------|-------------|
 | `/model` | View or switch the active AI model; add `--repo` or `--local` to scope the change to the repo/local config instead of the global default (v1.0.70+) |
 | `/agent` | Configure or inspect the active agent |
-| `/subagents` | Configure subagent model, reasoning effort, and context tier; alias `/agents` (v1.0.62+) |
+| `/subagents` | Configure subagent model, reasoning effort, and context tier; alias `/agents` (v1.0.62+); default max nesting depth is 4, configurable up to 128 via `subagents.maxDepth` (v1.0.71+) |
 | `/fleet` | Launch parallel subagents for distributed tasks |
 | `/tasks` | View or manage running agent tasks (`j`/`k` to navigate, `x` to cancel) |
 | `/research` | Run a deep research pass on a topic or codebase |
@@ -112,10 +112,10 @@
 |---------|-------------|
 | `/mcp` | Manage MCP (Model Context Protocol) server connections; `/mcp search <query>` to find from registry; `/mcp registry` to browse interactively (v1.0.64+); `/mcp list` shows attached servers and status and can run while the agent is working (v1.0.69+); marks sandboxed servers, e.g. `connected (sandboxed)` (v1.0.70+) |
 | `/lsp` | Manage language server connections |
-| `/skills` | List or manage available skills; alias `/skill` (v1.0.65+); `copilot skill` subcommand available from shell (v1.0.65+) |
-| `/plugin` | Manage installed plugins; `/plugin update --all` updates all plugins at once (v1.0.49+); `/plugins` dashboard and reload without restart (v1.0.69+); pin a plugin to an exact commit with the `sha` field in its source config (v1.0.70+) |
+| `/skills` | List or manage available skills; alias `/skill` (v1.0.65+); `copilot skill` subcommand available from shell (v1.0.65+); marks disabled skills in `copilot skill list`/JSON output (v1.0.71+) |
+| `/plugin` | Manage installed plugins; `/plugin update --all` updates all plugins at once (v1.0.49+); `/plugins` dashboard and reload without restart (v1.0.69+); pin a plugin to an exact commit with the `sha` field in its source config (v1.0.70+); `copilot plugins marketplace` subcommands (list/add/remove/browse/update) manage marketplaces from the shell (v1.0.71+) |
 | `/rubber-duck` | Get an independent critique of the agent's current work (v1.0.49+; enabled by default in v1.0.58+) |
-| `/voice` | Dictate a prompt using local speech-to-text (v1.0.59+) |
+| `/voice` | Dictate a prompt using local speech-to-text (v1.0.59+); `/voice devices` to choose/persist the microphone (v1.0.71+) |
 | `/every <interval> <prompt>` | Repeat a prompt on a fixed schedule, e.g. `/every 10m check notifications`; supports natural language expressions; alias `/loop` (v1.0.64+) (experimental, v1.0.58+) |
 | `/after <delay> <prompt>` | Run a prompt once after a delay, e.g. `/after 1h remind me`; supports natural language expressions (experimental, v1.0.58+) |
 | `/remote` | Show remote control status; `/remote on` enables, `/remote off` disables |
@@ -123,8 +123,9 @@
 | `/init` | Initialize Copilot configuration for the current repo |
 | `/experimental` | Toggle experimental features |
 | `/autopilot [objective]` | Toggle autopilot mode on/off; optionally set a goal objective (v1.0.45+); `/goal` is an alias (v1.0.55+) |
-| `/settings` | Open an interactive dialog to browse and edit all user settings (v1.0.61+); add `--repo` or `--local` to scope a change to the repo/local config instead of the global default; includes a setting to show/hide timeline timestamps (v1.0.70+) |
-| `/worktree <branch>` | Create a new git worktree and switch into it, moving uncommitted changes; alias `/move` (v1.0.61+); pass a task (e.g. `/worktree fix the login redirect`) to name the branch and run it as the first prompt (v1.0.66+); with no argument, names the branch from uncommitted changes and recent conversation (v1.0.66+) |
+| `/settings` | Open an interactive dialog to browse and edit all user settings (v1.0.61+); add `--repo` or `--local` to scope a change to the repo/local config instead of the global default; includes a setting to show/hide timeline timestamps (v1.0.70+); adds Repo and Repo (local) scope tabs (v1.0.71+) |
+| `/worktree <branch>` | Create a new git worktree and switch into it, leaving uncommitted changes behind (v1.0.61+); pass a task (e.g. `/worktree fix the login redirect`) to name the branch and run it as the first prompt (v1.0.66+); with no argument, names the branch from uncommitted changes and recent conversation (v1.0.66+); `/move` is no longer an alias — it carries uncommitted changes into the new worktree instead (v1.0.71+) |
+| `/move <branch>` | Create a new git worktree and switch into it, carrying uncommitted changes along; no longer an alias for `/worktree` (v1.0.71+) |
 | `/allow-all` | Allow all tool calls without per-call confirmation; `/allow-all auto` auto-approves LLM-judged acceptable requests and requires experimental mode (v1.0.69+) |
 | `/yolo` | Alias for `/allow-all`; state persists across `/restart` |
 | `/reset-allowed-tools` | Reset tool allowlist to default (prompt-per-use) |
@@ -149,7 +150,7 @@
 | `/logout` | Sign out |
 | `/restart` | Restart the current session |
 | `/memory` | Enable, disable, or view persistent memory (v1.0.49+); `/memory on`, `/memory off`, `/memory show` |
-| `/update` | Update CLI to the latest version; add `prerelease` to fetch latest prerelease (v1.0.44+) |
+| `/update` | Update CLI to the latest version; add `prerelease` to fetch latest prerelease (v1.0.44+); accepts `stable` as an explicit channel (v1.0.71+) |
 | `/upgrade` | Alias for `/update` |
 | `/exit` | Exit Copilot CLI; add `print` to print session to terminal first (v1.0.49+) |
 

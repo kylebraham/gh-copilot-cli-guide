@@ -1,5 +1,26 @@
 # Documentation Updates
 
+## 2026-07-16 — Docs updated for v1.0.71
+
+- `README.md`: Bumped version note to v1.0.71; added "Latest features" bullets for the `/worktree`/`/move` split, Plan Mode hard-blocking built-in mutating tool calls, `/voice devices`, `plugins marketplace` CLI subcommands, lowered default sub-agent nesting depth, `copilot skill list` disabled-skill marking, persisted GitHub MCP toolset config, and `/settings` Repo/Repo (local) tabs; added a changed-behavior note to the historical `/worktree` (alias `/move`) bullet
+- `16-new-features.md`: Updated title to v1.0.71; added TOC entry; added v1.0.71 section covering the `/worktree`/`/move` split, Plan Mode read-only enforcement, `/voice devices`, `plugins marketplace` CLI subcommands, lowered sub-agent nesting depth default, `copilot skill list` disabled-skill marking, persisted GitHub MCP toolset config, `/settings` Repo/Repo (local) tabs, plus notable improvements (autopilot `-p` background task timeout handling, `/subagents` picker retaining reasoning effort/context tier, 30-minute memory context refresh, MCP tool list freshness, background git process cleanup, `Ctrl+R` history max setting, invalid `settings.json` startup warning, `/terminal-setup` kitty keyboard detection fix, canvas support, sandbox filesystem policy for LSP, `/chronicle` cost profiles, Markdown hex color highlighting, sidebar session persistence, autopilot mid-turn auto-answer, custom agent shell tool aliasing, case-insensitive slash commands, `--max-autopilot-continues` validation, bare `copilot mcp`/`copilot skill` help+exit 0, `/update stable` channel); added a changed-behavior note to the historical v1.0.61 `/worktree` (alias `/move`) entry
+- `04-slash-commands.md`: Rewrote the `/worktree`/`/move` entry to document the v1.0.71 split (no longer aliases — `/worktree` leaves uncommitted changes behind, `/move` carries them along); added `/voice devices` subcommand; added `plugins marketplace` CLI subcommands under `/plugin`; added `/update stable` channel note; added sub-agent nesting depth default note under `/subagents`; added disabled-skill marking note under `/skills`/`copilot skill list`; added Repo/Repo (local) tabs and GitHub MCP toolset persistence note under `/settings`; updated the quick reference table and Command Aliases list to drop `/move = /worktree` and add a separate `/move` row
+- `00-cheat-sheet.md`: Updated `/worktree` entry for the split; added a new `/move` row; updated `/skills`, `/plugin`, `/voice`, `/settings`, `/update`, and `/subagents` entries for their v1.0.71 changes
+- `09-plan-mode.md`: Added a "Plan Mode Is Read-Only for Built-in Tools (v1.0.71+)" section documenting the new hard block on workspace-modifying built-in tool calls during planning
+- `08-advanced-features.md`: Added a note that the default sub-agent nesting depth is now 4 (down from 6, configurable up to 128 via `subagents.maxDepth`); added a "Plugins Marketplace CLI Subcommands (v1.0.71+)" section under Plugin System
+- `14-skills-system.md`: Added a note that `copilot skill list` and its JSON output now mark disabled skills
+
+### Feature Summary (v1.0.71)
+- **Changed:** `/worktree` and `/move` are no longer aliases — `/worktree` leaves uncommitted changes behind, `/move` carries them into the new worktree (breaking behavior change)
+- **Changed:** Plan Mode now hard-blocks built-in tool calls that would modify the workspace
+- **Changed:** Default maximum sub-agent nesting depth lowered from 6 to 4 (still configurable up to 128)
+- **New:** `/voice devices` to choose and persist the microphone used for voice mode
+- **New:** `plugins marketplace` CLI subcommands to list, add, remove, browse, and update plugin marketplaces
+- **New:** `copilot skill list` (and JSON output) marks disabled skills
+- **New:** GitHub MCP toolset/tool configuration persists via `settings.json`
+- **New:** Repo and Repo (local) scope tabs in the `/settings` dashboard
+- **New:** `copilot update`/`/update` accepts `stable` as an explicit channel
+
 ## 2026-07-10 — Docs updated for v1.0.70
 
 - `README.md`: Bumped version note to v1.0.70; added "Latest features" bullets for `gpt-5.6`, `/refine`, `--sandbox`/`--no-sandbox` flags, `--repo`/`--local` scoping for `/settings` and `/model`, `.github/copilot/settings.json` trusted-repo policy, plugin `sha` pinning, `/mcp list` sandboxed-server marking, and `Ctrl+Y` working in any mode

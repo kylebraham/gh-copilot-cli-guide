@@ -81,6 +81,14 @@ npm update -g @github/copilot
 ```
 
 **Latest features:**
+- 🌳 `/worktree` and `/move` are now separate commands: `/worktree` creates a new worktree and leaves uncommitted changes behind, while `/move` carries them into the new worktree (v1.0.71)
+- 🚧 Plan Mode now hard-blocks built-in tool calls that would modify the workspace — the agent can't edit files or run mutating shell commands while planning (v1.0.71)
+- 🎙️ `/voice devices` lets you choose and persist the microphone used for voice mode (v1.0.71)
+- 🏪 New `plugins marketplace` CLI subcommands to list, add, remove, browse, and update plugin marketplaces (v1.0.71)
+- 🧩 Lowered the default maximum sub-agent nesting depth from 6 to 4 to curb runaway recursion; usage-based billing users can still raise `subagents.maxDepth` up to 128 (v1.0.71)
+- 🗂️ `copilot skill list` (and its JSON output) now marks disabled skills (v1.0.71)
+- 💾 GitHub MCP toolset/tool configuration (`githubMcpToolsets`, `githubMcpTools`, etc.) now persists via `settings.json` (v1.0.71)
+- 🖥️ `/settings` dashboard adds Repo and Repo (local) scope tabs alongside the existing `--repo`/`--local` flags (v1.0.71)
 - 🧠 Added support for the `gpt-5.6` model (v1.0.70)
 - ✍️ New `/refine` command rewrites a rough prompt into a clear one before sending (v1.0.70)
 - 🛡️ New `--sandbox` / `--no-sandbox` flags force the shell sandbox on/off for just the current session, without changing your saved setting — handy with `-p` (v1.0.70)
@@ -122,7 +130,7 @@ npm update -g @github/copilot
 - 🔧 `deferTools` option for MCP server config keeps a server's tools always available even when tool search is enabled (v1.0.63)
 - 📱 `/app` slash command — open the GitHub app or a browser fallback (v1.0.62)
 - 🤖 `/subagents` (alias `/agents`) picker — configure subagent model, reasoning effort, and context tier (v1.0.62)
-- 🌿 `/worktree` (alias `/move`) — create a new git worktree and switch into it, carrying uncommitted changes (v1.0.61)
+- 🌿 `/worktree` (alias `/move` until v1.0.71 — [now separate commands](04-slash-commands.md#worktree-branch-and-move-branch-v1061)) — create a new git worktree and switch into it, carrying uncommitted changes (v1.0.61)
 - 🤖 Claude Fable 5 model added (v1.0.61)
 - 📂 Auto-load MCP servers from `.github/mcp.json` workspace config file (v1.0.61)
 - 🗓️ `/every` and `/after` now accept natural language scheduling (cron, calendar times, relative durations) (v1.0.61)
@@ -405,4 +413,4 @@ Go to **Actions → Daily Doc Maintenance → Run workflow** to trigger it on de
 
 ---
 
-**Note:** This guide covers GitHub Copilot CLI v1.0.70. Some capabilities may vary by version — run `/update` to stay current.
+**Note:** This guide covers GitHub Copilot CLI v1.0.71. Some capabilities may vary by version — run `/update` to stay current.

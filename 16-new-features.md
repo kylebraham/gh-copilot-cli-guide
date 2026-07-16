@@ -1,4 +1,4 @@
-# Latest Features in GitHub Copilot CLI — v1.0.70
+# Latest Features in GitHub Copilot CLI — v1.0.71
 
 This file covers recent additions to GitHub Copilot CLI. Features marked with "Full guide →" have their own dedicated documentation file — the entries here are summaries with links. Features without a dedicated file are covered in full below.
 
@@ -10,6 +10,7 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 3. [Research Command (`/research`)](#research-command-research) — [Full guide →](19-research-command.md)
 
 ### Features covered in this file
+4. [New in v1.0.71](#new-in-v1071)
 4. [New in v1.0.70](#new-in-v1070)
 4. [New in v1.0.69](#new-in-v1069)
 4. [New in v1.0.68](#new-in-v1068)
@@ -79,6 +80,104 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 ---
 
 ---
+
+---
+
+## New in v1.0.71
+
+Released: 2026-07-16
+
+### `/worktree` and `/move` Are Now Separate Commands
+
+`/move` was previously a direct alias for `/worktree`. They now behave differently: `/worktree` creates a new git worktree and leaves your uncommitted changes behind in the original checkout, while `/move` creates a new worktree **and** carries your uncommitted changes into it.
+
+```
+> /worktree new-branch-name   # New worktree, uncommitted changes stay behind
+> /move my-experiment         # New worktree, uncommitted changes come with you
+```
+
+**Why it matters:** This is a **breaking behavior change** — if you relied on `/move` (or `/worktree`) always bringing your in-progress work along, double-check which command you're using. See [Slash Commands — `/worktree` and `/move`](04-slash-commands.md#worktree-branch-and-move-branch-v1061) for details.
+
+### Plan Mode Hard-Blocks Workspace-Modifying Tool Calls
+
+Plan mode now blocks built-in tool calls that would modify the workspace — the agent can no longer edit files or run mutating shell commands while planning. Built-in mutating actions (like opening a pull request) are blocked; MCP and external tools are still allowed.
+
+**Why it matters:** Guarantees Plan Mode stays read-only with respect to built-in tools, so a plan can be reviewed with confidence that nothing was changed while it was drafted. See [Plan Mode](09-plan-mode.md#plan-mode-is-read-only-for-built-in-tools-v1071).
+
+### `/voice devices`
+
+`/voice` gains a `devices` subcommand to choose and persist which microphone is used for voice mode.
+
+```
+> /voice devices
+```
+
+**Why it matters:** Useful on machines with multiple audio inputs — pick the right mic once instead of relying on the OS default every session.
+
+### `plugins marketplace` CLI Subcommands
+
+New `copilot plugins marketplace` subcommands let you list, add, remove, browse, and update plugin marketplaces directly from the shell.
+
+```bash
+copilot plugins marketplace list
+copilot plugins marketplace add <url>
+copilot plugins marketplace remove <name>
+copilot plugins marketplace browse
+copilot plugins marketplace update
+```
+
+**Why it matters:** Manage plugin sources without launching an interactive session — handy for scripting or CI setup. See [Advanced Features — Plugin System](08-advanced-features.md#plugins-marketplace-cli-subcommands-v1071).
+
+### Lower Default Sub-Agent Nesting Depth
+
+The default maximum sub-agent nesting depth is now 4 (down from 6) to curb runaway recursive sub-agent delegation. Usage-based billing users can still raise `subagents.maxDepth` up to 128.
+
+**Why it matters:** Reduces the risk of runaway agent trees by default while keeping the limit configurable for teams that need deeper delegation. See [Fleet Mode — Sub-Agent Depth and Concurrency Limits](08-advanced-features.md#sub-agent-depth-and-concurrency-limits-v1022).
+
+### `copilot skill list` Marks Disabled Skills
+
+`copilot skill list` and its JSON output now mark disabled skills, matching the in-app `/skills list` picker.
+
+**Why it matters:** Quickly spot disabled skills from the shell without opening an interactive session. See [Skills System](14-skills-system.md#managing-skills).
+
+### Persisted GitHub MCP Toolset Configuration
+
+GitHub MCP toolset and tool selections (`githubMcpToolsets`, `githubMcpTools`, and related settings) now persist via `settings.json` instead of being session-only.
+
+**Why it matters:** Your GitHub MCP tool configuration survives restarts instead of needing to be reapplied each session.
+
+### Repo and Repo (Local) Scope Tabs in `/settings`
+
+The `/settings` dashboard now has dedicated **Repo** and **Repo (local)** tabs, complementing the `--repo`/`--local` flags introduced in v1.0.70.
+
+**Why it matters:** Browse and edit repo-scoped settings visually instead of only through command-line flags.
+
+### Notable Improvements
+
+- `copilot -p --autopilot` no longer hangs when a background shell or agent outlives the turn; it now honors `COPILOT_TASK_WAIT_TIMEOUT_SECONDS` the same way plain `-p` does.
+- Reopening the `/subagents` model picker keeps each agent's reasoning effort and context tier.
+- Memory context refreshes after 30 minutes in long-lived sessions.
+- MCP tool lists stay up to date when servers change.
+- No more leaked long-running background git processes after exit.
+- A configurable maximum for `Ctrl+R` command history.
+- An invalid `settings.json` now shows a warning identifying the offending value on startup instead of silently ignoring your settings.
+- `/terminal-setup` no longer skips setup on terminals without real kitty keyboard support.
+- Canvas support in the CLI for extension-driven interactions.
+- The sandbox filesystem policy is now enforced on LSP file reads and rename edits.
+- `/chronicle` cost-tips gets richer cost profiles, including local and cloud cost profiles.
+- Standalone hex colors are highlighted inline in Markdown.
+- Sidebar sessions persist across restarts.
+- Switching to autopilot mid-turn now auto-answers questions asked during that same turn.
+- Custom agents that request a shell tool by alias now also receive the matching read, list, and stop shell tools.
+- Slash commands and their autocomplete now match regardless of case (e.g. `/SESSION` works like `/session`).
+- Repo-enabled plugins show in `/plugin list` and skill pickers.
+- Press `?` twice to dismiss quick help and start a prompt with a literal `?`.
+- `--max-autopilot-continues` now rejects NaN, negative, and fractional values.
+- `NO_COLOR` is honored even when chalk cached a color level.
+- `/settings` changes (shell flags, streaming, custom agent defaults) apply immediately.
+- Bare `copilot mcp` and `copilot skill` now print help and exit 0, matching `copilot plugin`.
+- `copilot update`/`/update` accepts `stable` as a channel.
+- Backgrounded sessions stay alive when you switch away from them.
 
 ---
 
@@ -786,6 +885,8 @@ The dialog lists every available setting with its current value. Navigate with a
 ---
 
 ### `/worktree` Command (alias `/move`)
+
+> **Changed in v1.0.71:** `/move` is no longer an alias for `/worktree` — see [New in v1.0.71](#worktree-and-move-are-now-separate-commands).
 
 Create a new git worktree and switch into it, carrying any uncommitted changes along. This lets you context-switch between branches without stashing or committing work in progress.
 

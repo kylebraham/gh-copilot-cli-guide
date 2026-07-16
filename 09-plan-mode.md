@@ -188,6 +188,12 @@ AI: I've created a plan with 12 main tasks.
 > Use TypeScript, jsonwebtoken, and MongoDB
 ```
 
+## Plan Mode Is Read-Only for Built-in Tools (v1.0.71+)
+
+While in Plan Mode, the agent now hard-blocks built-in tool calls that would modify the workspace — it can no longer edit files or run mutating shell commands while drafting a plan. Built-in mutating actions (like opening a pull request) are blocked too. MCP and external tools are still allowed, since Plan Mode can't guarantee what side effects they have.
+
+**Why it matters:** You can review a plan with confidence that nothing in the workspace changed while it was being drafted — Plan Mode is now enforced as read-only for the built-in toolset, not just a convention.
+
 ## Executing the Plan
 
 ### Starting Execution
