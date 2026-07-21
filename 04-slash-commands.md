@@ -220,6 +220,13 @@ Select or change the AI model.
 > /model claude-opus-4.8 --local
 ```
 
+**Session-only changes (v1.0.72+):** Add `--session` (or `-s`) to change the model, reasoning effort, or context window for just the current session, leaving global settings unchanged:
+
+```
+> /model claude-opus-4.8 --session
+> /model gpt-5.6 -s
+```
+
 > **v1.0.67+:** Claude Sonnet 5 is now available as a supported model. See [Model Selection Strategy](22-models-and-costs.md) for details.
 >
 > **v1.0.68+:** `kimi-k2.7-code` is now available as a supported model. See [Model Selection Strategy](22-models-and-costs.md) for details.
@@ -1309,6 +1316,17 @@ Manage plugins and plugin marketplaces.
 > copilot plugins marketplace browse
 > copilot plugins marketplace update
 > ```
+
+> **v1.0.72+:** `/plugins` (and `copilot plugins`) gains `update` and `uninstall` verbs, and `enable`, `disable`, and `remove` now accept `--plugin`, `--mcp`, or `--skill` flags — or a positional kind — to target plugins, MCP servers, or skills through the same set of subcommands. Skills can now be installed and removed the same way:
+> ```bash
+> copilot plugins install --skill <file-path-or-url-or-directory>
+> copilot plugins install --skill ./my-skill.skill.md --scope project
+> copilot plugins remove --skill my-skill
+> copilot plugins update --skill my-skill
+> copilot plugins enable --mcp my-server
+> copilot plugins disable --plugin my-plugin
+> ```
+> A `/plugins help` command documents the full set of subcommands and flags.
 
 **Shell command — refresh plugin catalogs without starting a session:**
 

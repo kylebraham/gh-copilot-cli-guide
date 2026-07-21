@@ -630,6 +630,10 @@ Custom agents are defined in your `.copilot/` directory or referenced via the `/
 
 See [Fleet Mode — Specialisation](18-fleet-mode.md#specialisation-custom-agents-and-models) for detailed examples.
 
+> **v1.0.72+:** Multi-turn subagents are always enabled — you can send follow-up messages to a running sub-agent instead of only reading its final result once it finishes.
+
+> **v1.0.73+:** Relative links inside a custom agent's instructions now resolve from the location of the agent file itself, instead of the session's working directory — so an agent file that links to a sibling doc (e.g. `../docs/style-guide.md`) works regardless of which directory you launch the session from.
+
 Custom agents extend capabilities with:
 - Specialized prompts
 - Custom tools
@@ -1140,6 +1144,23 @@ Add a `sha` field to a plugin's source configuration to lock it to an exact comm
 
 **Why use it:** Reproducible plugin installs across a team or CI — everyone gets the exact same plugin version until the pin is deliberately updated.
 
+### Full Parity Across Plugins, MCP Servers, and Skills (v1.0.72+)
+
+`/plugins` and `copilot plugins` add `update` and `uninstall` verbs, and `enable`, `disable`, and `remove` now accept `--plugin`, `--mcp`, or `--skill` flags (or a positional kind) so the same subcommands manage plugins, MCP servers, and skills:
+
+```bash
+copilot plugins install --skill <file-path-or-url-or-directory>
+copilot plugins install --skill ./my-skill.skill.md --scope project
+copilot plugins remove --skill my-skill
+copilot plugins update --skill my-skill
+copilot plugins enable --mcp my-server
+copilot plugins disable --plugin my-plugin
+copilot plugins uninstall --plugin my-plugin
+copilot plugins help
+```
+
+**Why it matters:** One consistent CLI surface for managing plugins, MCP servers, and skills instead of separate tooling per kind — including installing skills straight from a file, URL, or directory. See [Skills System — Adding Skills](14-skills-system.md#adding-skills).
+
 ### What Plugins Can Add
 
 - New slash commands (e.g., `/deploy`, `/storybook`)
@@ -1268,6 +1289,8 @@ The `userPromptSubmitted` event fires when the user submits a prompt, **before t
 **Use cases:** Instant responses to common questions, template-based replies, local tool integrations without consuming model quota.
 
 > **v1.0.45+:** The `agentStop` hook now fires correctly when the agent stops via `task_complete`. Previously it was not triggered in that code path.
+
+> **v1.0.72+:** An `agentStop` hook that always blocks no longer loops indefinitely — the CLI ends the turn after 8 consecutive blocks. `agentStop` hooks now receive a `stop_hook_active` flag in their payload so they can detect a forced continuation and self-limit instead of blocking forever. Lifecycle and subagent hook commands also now run in the current session directory after `/cd`, instead of the directory the session started in.
 
 ---
 
@@ -1426,6 +1449,8 @@ Set in config:
 > **v1.0.67+:** Disabling the sandbox for the rest of the session now takes effect immediately — shell and search commands stop re-prompting to bypass it mid-turn.
 
 > **v1.0.70+:** Use `--sandbox` or `--no-sandbox` on the command line to force the OS-level shell sandbox on or off for just the current session, without changing your saved sandbox setting. This is especially useful alongside `-p` for one-off non-interactive runs that need a different sandbox posture than your default.
+
+> **v1.0.72+:** Git and `gh` authentication inside the OS sandbox is now opt-in. Sandboxed macOS keychain access now defaults to **off** for tighter isolation — re-enable it via `/sandbox` if a command needs it. Toggling `/sandbox` now restarts only local MCP servers, leaving remote servers connected.
 
 > **v1.0.66+:** Session credit limits (the `sessionLimits` setting) must now be at least 30 AI credits, and now apply across the whole current conversation, resetting on `/clear`.
 

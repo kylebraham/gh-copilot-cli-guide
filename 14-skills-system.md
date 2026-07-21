@@ -209,6 +209,8 @@ To learn more: /skills info <name>
 
 > **v1.0.71+:** `copilot skill list` and its JSON output now mark disabled skills, matching the in-app `/skills list` picker.
 
+> **v1.0.72+:** `copilot skill list` now strips terminal control characters from skill names and descriptions, so a crafted skill can no longer inject ANSI escape sequences into the listing output. Skills can also be installed and removed via `copilot plugins install --skill <file, URL, or directory>` (add `--scope project` to install into the repository) and `copilot plugins remove --skill <name>`, alongside the existing `copilot skill add`/`copilot skill remove`.
+
 ### Getting Skill Information
 
 ```bash

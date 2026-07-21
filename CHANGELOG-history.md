@@ -1,5 +1,29 @@
 # Documentation Updates
 
+## 2026-07-21 — Docs updated for v1.0.73
+
+- `README.md`: Bumped version note to v1.0.73; added "Latest features" bullets for v1.0.73 (relative links in custom agent instructions, Anthropic subagent fix) and v1.0.72 (`/plugins` full parity, `/model --session`, `$` shell shortcut, sessions sidebar navigation, sandbox git/gh auth opt-in and macOS keychain default off, multi-turn subagents always enabled, `copilot skill list` control-character stripping)
+- `16-new-features.md`: Updated title to v1.0.73; added TOC entries; added a "New in v1.0.73" section (relative link resolution in custom agent instructions, Anthropic subagent fix) and a "New in v1.0.72" section (`/plugins` full parity across plugins/MCP servers/skills, `/model --session`/`-s`, `$` shell shortcut, sessions sidebar keyboard navigation, sandbox git/gh auth opt-in and macOS keychain default off, multi-turn subagents always enabled, `copilot skill list` control-character stripping, plus notable improvements: `agentStop` loop cap and `stop_hook_active` flag, hook commands running in the post-`/cd` directory, `/mcp delete` stopping background processes, command approvals not carrying over after `/cd`, GitHub tab "Open in web" Windows fix, pasted-prompt preservation on `Ctrl+X`→`/model`, `/worktree`/`/move` collision fixes, `renderHexColors` setting, Claude Haiku 4.5+ tool search, SSO enforcement and masked `/settings show` secrets, nested Markdown list rendering, emoji shortcode fix, scheduled prompts as steering messages)
+- `04-slash-commands.md`: Added `/model --session`/`-s` scoped-change note; added a v1.0.72 note under `/plugin` documenting the `update`/`uninstall` verbs, `--plugin`/`--mcp`/`--skill` flags, `install --skill`, and `/plugins help`
+- `00-cheat-sheet.md`: Updated `/model` and `/plugin` entries for v1.0.72; added a `$` shell-shortcut row to the keyboard shortcuts table; added a Sessions sidebar row; updated the `--sandbox`/`--no-sandbox` entry with the git/gh auth and macOS keychain notes
+- `08-advanced-features.md`: Added a "Full Parity Across Plugins, MCP Servers, and Skills (v1.0.72+)" section under Plugin System; added v1.0.72 sandbox notes (opt-in git/gh auth, macOS keychain default off, sandbox toggle restarting only local MCP servers) to Security Best Practices; added an `agentStop` loop-cap/`stop_hook_active` and hook-directory note under Advanced Configuration hooks; added multi-turn-subagents-always-enabled (v1.0.72+) and relative-link-resolution (v1.0.73+) notes under Creating Custom Agents
+- `14-skills-system.md`: Added a v1.0.72 note under `copilot skill list` documenting terminal control-character stripping and `copilot plugins install --skill`/`remove --skill` support
+- `03-interactive-features.md`: Added a v1.0.72 note under "Direct Shell Execution with !" for the `$` interactive shell shortcut; added a v1.0.72 note under Session Management for Sessions sidebar keyboard navigation
+
+### Feature Summary (v1.0.73)
+- **Fixed:** Relative links in custom agent instructions now resolve from the agent file's location instead of the session working directory
+- **Fixed:** Anthropic subagents continue working when additional directories are configured
+
+### Feature Summary (v1.0.72)
+- **New:** `/plugins` (`copilot plugins`) gains `update`/`uninstall` verbs and `--plugin`/`--mcp`/`--skill` flags for full parity across plugins, MCP servers, and skills, including `install --skill`
+- **New:** `/model --session` (`-s`) scopes a model/reasoning-effort/context-window change to just the current session
+- **New:** `$` opens an interactive shell in the current session directory (opt-in via `/settings shellShortcut on`)
+- **New:** Sessions sidebar is keyboard/mouse navigable
+- **New:** Opt-in git/`gh` authentication inside the OS sandbox
+- **Changed:** Sandbox macOS keychain access now defaults off
+- **Changed:** Multi-turn subagents are always enabled
+- **Security:** `copilot skill list` strips terminal control characters from skill names/descriptions
+
 ## 2026-07-16 — Docs updated for v1.0.71
 
 - `README.md`: Bumped version note to v1.0.71; added "Latest features" bullets for the `/worktree`/`/move` split, Plan Mode hard-blocking built-in mutating tool calls, `/voice devices`, `plugins marketplace` CLI subcommands, lowered default sub-agent nesting depth, `copilot skill list` disabled-skill marking, persisted GitHub MCP toolset config, and `/settings` Repo/Repo (local) tabs; added a changed-behavior note to the historical `/worktree` (alias `/move`) bullet

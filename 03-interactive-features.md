@@ -263,6 +263,13 @@ Execute shell commands without AI processing:
 
 The `!` prefix bypasses the AI and runs commands immediately in your shell.
 
+> **v1.0.72+:** Typing `$` at the prompt opens a full interactive shell in the current session directory, instead of running a single command. It's opt-in — enable it with `/settings shellShortcut on` (off by default).
+>
+> ```
+> > /settings shellShortcut on
+> $
+> ```
+
 ## Interactive Prompts
 
 ### Confirmations
@@ -401,6 +408,8 @@ Delete sessions you no longer need:
 In the picker, press `x` on any entry to delete it immediately.
 
 Sessions persist across launches, so you can continue where you left off.
+
+> **v1.0.72+:** The Sessions sidebar is now navigable with the keyboard as well as the mouse — arrow keys open, focus, and move the sidebar selection, and `Enter` (or a click) switches to a session. Press `n` to spawn a new session or `x` twice to close one from the keyboard. `/settings` can disable the sidebar entirely or stop it from restoring remembered sessions.
 
 ## Advanced Context & Session Strategies
 
