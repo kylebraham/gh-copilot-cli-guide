@@ -81,6 +81,15 @@ npm update -g @github/copilot
 ```
 
 **Latest features:**
+- 🔗 Relative links in custom agent instructions now resolve from the agent file's location (v1.0.73)
+- 🔀 Anthropic subagents keep working when additional directories are configured (v1.0.73)
+- 🧩 `/plugins` gains `update`/`uninstall` verbs, and `enable`/`disable`/`remove`/`install` support `--plugin`/`--mcp`/`--skill` flags (or a positional kind) for full parity across plugins, MCP servers, and skills — including `copilot plugins install --skill` (v1.0.72)
+- 🎯 `/model --session` (`-s`) changes the model, reasoning effort, or context window for just the current session, leaving global settings unchanged (v1.0.72)
+- ⌨️ Type `$` at the prompt to open an interactive shell in the current session directory (opt in via `/settings shellShortcut on`) (v1.0.72)
+- 🗂️ Sessions sidebar is now keyboard/mouse navigable — arrows to open/focus/select, `Enter` to switch, `n` to spawn, `x` twice to close (v1.0.72)
+- 🔐 Opt-in git and `gh` authentication inside the OS sandbox; sandbox macOS keychain access now defaults off (re-enable in `/sandbox`) (v1.0.72)
+- 🔁 Multi-turn subagents are always enabled, so you can send follow-up messages to running agents (v1.0.72)
+- 🛡️ `copilot skill list` strips terminal control characters from skill names/descriptions, closing an ANSI-injection vector (v1.0.72)
 - 🌳 `/worktree` and `/move` are now separate commands: `/worktree` creates a new worktree and leaves uncommitted changes behind, while `/move` carries them into the new worktree (v1.0.71)
 - 🚧 Plan Mode now hard-blocks built-in tool calls that would modify the workspace — the agent can't edit files or run mutating shell commands while planning (v1.0.71)
 - 🎙️ `/voice devices` lets you choose and persist the microphone used for voice mode (v1.0.71)
@@ -413,4 +422,4 @@ Go to **Actions → Daily Doc Maintenance → Run workflow** to trigger it on de
 
 ---
 
-**Note:** This guide covers GitHub Copilot CLI v1.0.71. Some capabilities may vary by version — run `/update` to stay current.
+**Note:** This guide covers GitHub Copilot CLI v1.0.73. Some capabilities may vary by version — run `/update` to stay current.

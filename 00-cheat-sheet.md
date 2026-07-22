@@ -26,6 +26,7 @@
 | `Ctrl+X → B` | Move current running task or shell command to the background (v1.0.39+) |
 | `Tab` / `Ctrl+Y` | Accept highlighted completion option (`@`-mentions, paths, slash commands); also opens the current plan file or research report if one exists, now from any mode (v1.0.70+) |
 | `!` | Execute command in local shell (bypass Copilot); uses `$SHELL` when set |
+| `$` | Open an interactive shell in the current session directory; opt in with `/settings shellShortcut on` (off by default) (v1.0.72+) |
 | `s` | Cycle session picker sort order (relevance → last used → created → name) — press while in the `/resume` picker |
 
 ### Text Editing
@@ -70,6 +71,7 @@
 | `/resume` | Resume a previous session (picker shows branch and idle/in-use status) |
 | `/continue` | Alias for `/resume` |
 | `/rename` | Rename the current session |
+| Sessions sidebar | Keyboard/mouse navigable: arrows open/focus/select, `Enter` switches, `n` spawns a session, `x` twice closes one; `/settings` can disable it (v1.0.72+) |
 | `/share` | Share session as markdown, gist, or HTML (`/share html`) |
 | `/export` | Alias for `/share` |
 | `/copy` | Copy last response to clipboard |
@@ -99,7 +101,7 @@
 ### AI & Models
 | Command | Description |
 |---------|-------------|
-| `/model` | View or switch the active AI model; add `--repo` or `--local` to scope the change to the repo/local config instead of the global default (v1.0.70+) |
+| `/model` | View or switch the active AI model; add `--repo` or `--local` to scope the change to the repo/local config instead of the global default (v1.0.70+); add `--session`/`-s` to change it for just the current session (v1.0.72+) |
 | `/agent` | Configure or inspect the active agent |
 | `/subagents` | Configure subagent model, reasoning effort, and context tier; alias `/agents` (v1.0.62+); default max nesting depth is 4, configurable up to 128 via `subagents.maxDepth` (v1.0.71+) |
 | `/fleet` | Launch parallel subagents for distributed tasks |
@@ -113,7 +115,7 @@
 | `/mcp` | Manage MCP (Model Context Protocol) server connections; `/mcp search <query>` to find from registry; `/mcp registry` to browse interactively (v1.0.64+); `/mcp list` shows attached servers and status and can run while the agent is working (v1.0.69+); marks sandboxed servers, e.g. `connected (sandboxed)` (v1.0.70+) |
 | `/lsp` | Manage language server connections |
 | `/skills` | List or manage available skills; alias `/skill` (v1.0.65+); `copilot skill` subcommand available from shell (v1.0.65+); marks disabled skills in `copilot skill list`/JSON output (v1.0.71+) |
-| `/plugin` | Manage installed plugins; `/plugin update --all` updates all plugins at once (v1.0.49+); `/plugins` dashboard and reload without restart (v1.0.69+); pin a plugin to an exact commit with the `sha` field in its source config (v1.0.70+); `copilot plugins marketplace` subcommands (list/add/remove/browse/update) manage marketplaces from the shell (v1.0.71+) |
+| `/plugin` | Manage installed plugins; `/plugin update --all` updates all plugins at once (v1.0.49+); `/plugins` dashboard and reload without restart (v1.0.69+); pin a plugin to an exact commit with the `sha` field in its source config (v1.0.70+); `copilot plugins marketplace` subcommands (list/add/remove/browse/update) manage marketplaces from the shell (v1.0.71+); `update`/`uninstall` verbs plus `--plugin`/`--mcp`/`--skill` flags target plugins, MCP servers, or skills through one set of subcommands, including `install --skill` (v1.0.72+) |
 | `/rubber-duck` | Get an independent critique of the agent's current work (v1.0.49+; enabled by default in v1.0.58+) |
 | `/voice` | Dictate a prompt using local speech-to-text (v1.0.59+); `/voice devices` to choose/persist the microphone (v1.0.71+) |
 | `/every <interval> <prompt>` | Repeat a prompt on a fixed schedule, e.g. `/every 10m check notifications`; supports natural language expressions; alias `/loop` (v1.0.64+) (experimental, v1.0.58+) |
@@ -186,7 +188,7 @@
 | `--name NAME` | Assign a friendly name to the session; use with `--resume=<name>` to resume by name |
 | `--allow-tool TOOL` | Allow a specific tool without prompting |
 | `--deny-tool TOOL` | Block a specific tool |
-| `--sandbox` / `--no-sandbox` | Force the OS-level shell sandbox on/off for just this session, without changing your saved sandbox setting; useful alongside `-p` (v1.0.70+) |
+| `--sandbox` / `--no-sandbox` | Force the OS-level shell sandbox on/off for just this session, without changing your saved sandbox setting; useful alongside `-p` (v1.0.70+); git/`gh` auth inside the sandbox is now opt-in and macOS keychain access defaults off — re-enable via `/sandbox` (v1.0.72+) |
 | `--remote` | Sync session with the remote GitHub repository |
 | `--no-auto-update` | Disable automatic CLI updates |
 | `--output-format FORMAT` | Set output format (e.g., `json`, `text`) |

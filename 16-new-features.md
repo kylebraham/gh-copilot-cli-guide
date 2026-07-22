@@ -1,4 +1,4 @@
-# Latest Features in GitHub Copilot CLI — v1.0.71
+# Latest Features in GitHub Copilot CLI — v1.0.73
 
 This file covers recent additions to GitHub Copilot CLI. Features marked with "Full guide →" have their own dedicated documentation file — the entries here are summaries with links. Features without a dedicated file are covered in full below.
 
@@ -10,6 +10,8 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 3. [Research Command (`/research`)](#research-command-research) — [Full guide →](19-research-command.md)
 
 ### Features covered in this file
+4. [New in v1.0.73](#new-in-v1073)
+4. [New in v1.0.72](#new-in-v1072)
 4. [New in v1.0.71](#new-in-v1071)
 4. [New in v1.0.70](#new-in-v1070)
 4. [New in v1.0.69](#new-in-v1069)
@@ -80,6 +82,103 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 ---
 
 ---
+
+---
+
+## New in v1.0.73
+
+Released: 2026-07-21
+
+### Relative Links in Custom Agent Instructions Now Resolve Correctly
+
+Relative links inside a custom agent's instructions are resolved from the location of the agent file itself, instead of the session's working directory.
+
+**Why it matters:** Custom agent files that link to sibling docs (e.g. `../docs/style-guide.md`) now work regardless of which directory you launch the session from. See [Advanced Features — Creating Custom Agents](08-advanced-features.md#creating-custom-agents).
+
+### Notable Fixes
+
+- Anthropic subagents continue working correctly when additional directories are configured with `/add-dir`.
+
+---
+
+## New in v1.0.72
+
+Released: 2026-07-20
+
+### `/plugins` Gains Full Parity Across Plugins, MCP Servers, and Skills
+
+`/plugins` (and the `copilot plugins` CLI) adds `update` and `uninstall` verbs, and `enable`, `disable`, and `remove` now accept `--plugin`, `--mcp`, or `--skill` flags (or a positional kind) so a single set of subcommands can target plugins, MCP servers, or skills. You can now also install skills directly:
+
+```bash
+copilot plugins install --skill <file-path-or-url-or-directory>
+copilot plugins install --skill ./my-skill.skill.md --scope project
+copilot plugins remove --skill my-skill
+```
+
+**Why it matters:** One consistent management surface for plugins, MCP servers, and skills instead of separate commands for each. See [Slash Commands — `/plugin`](04-slash-commands.md#plugin-subcommand) and [Advanced Features — Plugin System](08-advanced-features.md#plugin-system).
+
+### `/model --session` (`-s`)
+
+Add `--session` (or `-s`) to `/model` to change the model, reasoning effort, or context window for just the current session, leaving your global default untouched.
+
+```
+> /model claude-opus-4.8 --session
+> /model gpt-5.6 -s
+```
+
+**Why it matters:** Try a different model for one task without permanently switching your default. See [Slash Commands — `/model`](04-slash-commands.md#model-model).
+
+### `$` Interactive Shell Shortcut
+
+Typing `$` at the prompt opens an interactive shell in the current session directory. It's opt-in — enable it with `/settings shellShortcut on` (off by default).
+
+```
+> /settings shellShortcut on
+$
+```
+
+**Why it matters:** Quick access to a real shell without leaving the CLI session, for anything that doesn't fit a one-off `!command`. See [Interactive Features — Direct Shell Execution](03-interactive-features.md#direct-shell-execution-with-).
+
+### Sessions Sidebar Is Keyboard and Mouse Navigable
+
+The Sessions sidebar can now be driven from the keyboard as well as the mouse: arrow keys open, focus, and move the selection; `Enter` or a click switches to a session; `n` spawns a new session; pressing `x` twice closes one. `/settings` can disable the sidebar or stop it from restoring remembered sessions.
+
+**Why it matters:** Manage sessions without reaching for the mouse. See [Interactive Features — Switching Sessions](03-interactive-features.md#switching-sessions).
+
+### Sandbox: Opt-In Git/GH Auth, macOS Keychain Off by Default
+
+The OS-level shell sandbox now supports opt-in git and `gh` authentication inside the sandbox. Sandboxed macOS keychain access now defaults to **off** for tighter isolation — re-enable it via `/sandbox` if a command needs it. Toggling the sandbox now restarts only local MCP servers, leaving remote servers connected.
+
+**Why it matters:** Tighter default isolation with an explicit opt-in path for the git/gh auth flows that commonly need sandbox access. See [Advanced Features — Security Best Practices](08-advanced-features.md#security-best-practices).
+
+### Multi-Turn Subagents Always Enabled
+
+Multi-turn subagents are now always on — you can send follow-up messages to a running sub-agent instead of only reading its final result.
+
+**Why it matters:** Iterate with a delegated sub-agent the same way you would in the main conversation. See [Advanced Features — Custom Agents](08-advanced-features.md#custom-agents).
+
+### `copilot skill list` Strips Terminal Control Characters
+
+`copilot skill list` now strips terminal control characters from skill names and descriptions, so a crafted skill can no longer inject ANSI escape sequences into the listing output.
+
+**Why it matters:** Closes a potential terminal-injection vector when listing untrusted or third-party skills. See [Skills System — Managing Skills](14-skills-system.md#managing-skills).
+
+### Notable Improvements
+
+- An `agentStop` hook that always blocks no longer loops indefinitely: the CLI ends the turn after 8 consecutive blocks, and `agentStop` hooks now receive a `stop_hook_active` flag so they can detect a forced continuation and self-limit.
+- Lifecycle and subagent hook commands now run in the current session directory after `/cd`.
+- `/mcp delete` now stops the MCP server's running background process.
+- Command approvals no longer carry over to another repository after switching with `/cd`.
+- The GitHub tab's "Open in web" action now reliably launches your browser on Windows.
+- Pasted prompt content is preserved when changing models through `Ctrl+X` → `/model`.
+- Corrected the added-line count shown when creating a file so files ending in a trailing newline no longer report one extra line.
+- `/worktree` and `/move` no longer fail to create a worktree for an auto-generated branch name when many similarly-named branches or a leftover worktree directory already exist.
+- A new `renderHexColors` setting (on by default) toggles inline hex-color swatches (e.g. `#FF0000`).
+- Tool search is enabled for Claude Haiku 4.5+.
+- SSO is now required for remote control when managed settings demand it; secret values are masked in `/settings show` output.
+- Nested Markdown lists render correctly in buffered output (`-p --stream off` and detail screens).
+- Emoji shortcodes like `:tada:` no longer render with a spurious trailing space in printed and PR/issue/gist output.
+- Scheduled prompts are delivered as steering messages when the agent is busy.
 
 ---
 
