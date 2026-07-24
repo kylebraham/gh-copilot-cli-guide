@@ -26,7 +26,7 @@
 | `Ctrl+X → B` | Move current running task or shell command to the background (v1.0.39+) |
 | `Tab` / `Ctrl+Y` | Accept highlighted completion option (`@`-mentions, paths, slash commands); also opens the current plan file or research report if one exists, now from any mode (v1.0.70+) |
 | `!` | Execute command in local shell (bypass Copilot); uses `$SHELL` when set |
-| `$` | Open an interactive shell in the current session directory; opt in with `/settings shellShortcut on` (off by default) (v1.0.72+) |
+| `$` | Open an interactive shell in the current session directory; opt in with `/settings shellShortcut on` (off by default) (v1.0.72+); now works even while the agent is still responding (v1.0.74+) |
 | `s` | Cycle session picker sort order (relevance → last used → created → name) — press while in the `/resume` picker |
 
 ### Text Editing
@@ -101,7 +101,7 @@
 ### AI & Models
 | Command | Description |
 |---------|-------------|
-| `/model` | View or switch the active AI model; add `--repo` or `--local` to scope the change to the repo/local config instead of the global default (v1.0.70+); add `--session`/`-s` to change it for just the current session (v1.0.72+) |
+| `/model` | View or switch the active AI model; add `--repo` or `--local` to scope the change to the repo/local config instead of the global default (v1.0.70+); add `--session`/`-s` to change it for just the current session (v1.0.72+); add `plan`/`--plan` to set a model used only in Plan Mode (v1.0.74+) |
 | `/agent` | Configure or inspect the active agent |
 | `/subagents` | Configure subagent model, reasoning effort, and context tier; alias `/agents` (v1.0.62+); default max nesting depth is 4, configurable up to 128 via `subagents.maxDepth` (v1.0.71+) |
 | `/fleet` | Launch parallel subagents for distributed tasks |

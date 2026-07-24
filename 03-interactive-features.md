@@ -269,6 +269,8 @@ The `!` prefix bypasses the AI and runs commands immediately in your shell.
 > > /settings shellShortcut on
 > $
 > ```
+>
+> **v1.0.74+:** The `$` shortcut now opens a shell even while the agent is still working on a response, instead of requiring you to wait for it to finish.
 
 ## Interactive Prompts
 
