@@ -29,6 +29,7 @@ Understanding how to choose the right model — and when to switch — is one of
 | Claude Opus 4.7 | `claude-opus-4.7` | Slower | Latest Opus — most capable model (v1.0.29+) |
 | Claude Opus 4.8 | `claude-opus-4.8` | Slower | Newest Opus — top-tier reasoning and coding (v1.0.55+) |
 | Claude Opus 4.8 (fast) | `claude-opus-4.8-fast` | Fast | Opus 4.8 quality with faster response times (v1.0.66+) |
+| Claude Opus 5 | `claude-opus-5` | Slower | Newest Opus generation — top-tier reasoning and coding, added v1.0.75 |
 | Claude Fable 5 | `claude-fable-5` | Varies | New Claude Fable family model (v1.0.61+) |
 | Claude Haiku 4.5 | `claude-haiku-4.5` | Fastest | Quick tasks, fleet subagents, docs, formatting |
 | GPT-5.6 | `gpt-5.6` | Fast | Newest GPT generation — added v1.0.70 |

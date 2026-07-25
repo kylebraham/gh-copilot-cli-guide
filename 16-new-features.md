@@ -1,4 +1,4 @@
-# Latest Features in GitHub Copilot CLI — v1.0.74
+# Latest Features in GitHub Copilot CLI — v1.0.75
 
 This file covers recent additions to GitHub Copilot CLI. Features marked with "Full guide →" have their own dedicated documentation file — the entries here are summaries with links. Features without a dedicated file are covered in full below.
 
@@ -10,6 +10,7 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 3. [Research Command (`/research`)](#research-command-research) — [Full guide →](19-research-command.md)
 
 ### Features covered in this file
+4. [New in v1.0.75](#new-in-v1075)
 4. [New in v1.0.74](#new-in-v1074)
 4. [New in v1.0.73](#new-in-v1073)
 4. [New in v1.0.72](#new-in-v1072)
@@ -85,6 +86,16 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 ---
 
 ---
+
+## New in v1.0.75
+
+Released: 2026-07-24
+
+### Claude Opus 5 Support
+
+Copilot CLI adds support for `claude-opus-5`, the newest model in the Opus family, available in the `/model` picker.
+
+**Why it matters:** A newer top-tier Opus option for the most demanding reasoning, architecture, and coding tasks. See [Model Selection Strategy](22-models-and-costs.md).
 
 ## New in v1.0.74
 

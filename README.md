@@ -81,6 +81,7 @@ npm update -g @github/copilot
 ```
 
 **Latest features:**
+- 🚀 Adding support for Claude Opus 5 (v1.0.75)
 - 🧭 `/model plan` (or `/model --plan`) sets a model to use only while in Plan Mode — pass a model id, `off` to clear it, or no id to open the picker; reverts to the session model when you leave Plan Mode (v1.0.74)
 - 📝 Plan Mode now allows planning artifacts inside the session folder while still hard-blocking file mutations elsewhere (v1.0.74)
 - 🧩 Open Plugin Spec v1 plugin manifests and `mcp.json` configuration are now supported (v1.0.74)
@@ -426,4 +427,4 @@ Go to **Actions → Daily Doc Maintenance → Run workflow** to trigger it on de
 
 ---
 
-**Note:** This guide covers GitHub Copilot CLI v1.0.74. Some capabilities may vary by version — run `/update` to stay current.
+**Note:** This guide covers GitHub Copilot CLI v1.0.75. Some capabilities may vary by version — run `/update` to stay current.

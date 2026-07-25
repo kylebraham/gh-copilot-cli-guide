@@ -1,5 +1,11 @@
 # Documentation Updates
 
+## 2026-07-25 — Docs updated for v1.0.75
+
+- `README.md`: Bumped version note to v1.0.75; added a "Latest features" bullet for v1.0.75 (Claude Opus 5 support)
+- `16-new-features.md`: Updated title to v1.0.75; added TOC entry; added a "New in v1.0.75" section covering Claude Opus 5 support
+- `22-models-and-costs.md`: Added `claude-opus-5` to the model table
+
 ## 2026-07-24 — Docs updated for v1.0.74
 
 - `README.md`: Bumped version note to v1.0.74; added "Latest features" bullets for v1.0.74 (`/model plan`/`--plan` Plan Mode model override, Plan Mode session-folder planning artifact exception, Open Plugin Spec v1 support, `gemini-3.6-flash`)
