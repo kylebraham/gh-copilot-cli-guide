@@ -1,4 +1,4 @@
-# Latest Features in GitHub Copilot CLI — v1.0.73
+# Latest Features in GitHub Copilot CLI — v1.0.75
 
 This file covers recent additions to GitHub Copilot CLI. Features marked with "Full guide →" have their own dedicated documentation file — the entries here are summaries with links. Features without a dedicated file are covered in full below.
 
@@ -10,6 +10,8 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 3. [Research Command (`/research`)](#research-command-research) — [Full guide →](19-research-command.md)
 
 ### Features covered in this file
+4. [New in v1.0.75](#new-in-v1075)
+4. [New in v1.0.74](#new-in-v1074)
 4. [New in v1.0.73](#new-in-v1073)
 4. [New in v1.0.72](#new-in-v1072)
 4. [New in v1.0.71](#new-in-v1071)
@@ -82,6 +84,70 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 ---
 
 ---
+
+---
+
+## New in v1.0.75
+
+Released: 2026-07-24
+
+### Claude Opus 5 Support
+
+Copilot CLI adds support for `claude-opus-5`, the newest model in the Opus family, available in the `/model` picker.
+
+**Why it matters:** A newer top-tier Opus option for the most demanding reasoning, architecture, and coding tasks. See [Model Selection Strategy](22-models-and-costs.md).
+
+## New in v1.0.74
+
+Released: 2026-07-23
+
+### `/model plan` — Choose a Model for Plan Mode
+
+`/model plan` (also `/model --plan`) sets a model to use only while you're in Plan Mode. Pass a model id to set it, `off` to clear the override, or no argument to open the picker. The override applies only during Plan Mode and reverts to your regular session model as soon as you leave it.
+
+```
+> /model plan claude-opus-4.8
+> /model --plan gpt-5.6
+> /model plan off
+> /model plan
+```
+
+**Why it matters:** Use a stronger (or cheaper) model specifically for drafting plans without changing your model for the rest of the session. See [Plan Mode](09-plan-mode.md#plan-mode-model-override-v1074).
+
+### Plan Mode Allows Session-Folder Planning Artifacts
+
+Plan Mode still hard-blocks file mutations everywhere in the workspace, but now makes an exception for planning artifacts written inside the session folder (e.g., `~/.copilot/session-state/<id>/plan.md`) so the agent can save its own planning notes without leaving Plan Mode.
+
+**Why it matters:** Plans can persist scratch notes and drafts to the session folder while drafting, without weakening the read-only guarantee for the rest of your workspace. See [Plan Mode — Read-Only for Built-in Tools](09-plan-mode.md#plan-mode-is-read-only-for-built-in-tools-v1071).
+
+### Open Plugin Spec v1 Support
+
+Copilot CLI can now load plugins defined with the Open Plugin Spec v1 manifest format, alongside `mcp.json`-based configuration. This broadens which third-party and community plugins can be installed without a Copilot-specific manifest.
+
+**Why it matters:** Plugins built to the open, cross-tool spec work with Copilot CLI out of the box. See [Advanced Features — Plugin System](08-advanced-features.md#plugin-system).
+
+### Newest Gemini Model
+
+`gemini-3.6-flash` is now available as a supported model.
+
+**Why it matters:** A newer, faster Gemini option for lightweight tasks. See [Model Selection Strategy](22-models-and-costs.md).
+
+### Notable Fixes and Improvements
+
+- `/mcp add` and `/mcp edit` preserve `=` characters in environment variable values (e.g. base64 padding), so secrets and tokens are stored correctly.
+- Typing `?` while the `/search` bar is open enters it as text instead of opening quick help.
+- IDE integration reconnects reliably when the CLI reloads MCP servers or changes directory.
+- Multi-turn subagent timelines show every prompt and response in the correct order after reopening `/tasks`, and identify whether each message came from the main agent or another subagent.
+- A first-run splash now lets you opt into the default sandbox.
+- The `$` interactive shell shortcut now opens a shell even while the agent is working.
+- The skill `disable-model-invocation` flag is now fully honored, preventing the model from auto-invoking a skill marked with it.
+- Steering interrupts shell output waits without stopping the running command.
+- Resume search now matches session titles even when whitespace differs.
+- Oversized tool-result images are downscaled so CAPI Responses requests continue instead of failing.
+- Remote session uploads stop retrying permanent Mission Control 400/404 responses.
+- `/settings` footer shows a `Tab` hint for switching scope tabs.
+- Session dialogs no longer leak into another session when multiplexing; eligible pickers reopen when you switch back.
+- A warning is shown when a participating language server reports a different symbol than the one requested.
 
 ---
 

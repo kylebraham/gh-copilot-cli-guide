@@ -29,6 +29,7 @@ Understanding how to choose the right model — and when to switch — is one of
 | Claude Opus 4.7 | `claude-opus-4.7` | Slower | Latest Opus — most capable model (v1.0.29+) |
 | Claude Opus 4.8 | `claude-opus-4.8` | Slower | Newest Opus — top-tier reasoning and coding (v1.0.55+) |
 | Claude Opus 4.8 (fast) | `claude-opus-4.8-fast` | Fast | Opus 4.8 quality with faster response times (v1.0.66+) |
+| Claude Opus 5 | `claude-opus-5` | Slower | Newest Opus generation — top-tier reasoning and coding, added v1.0.75 |
 | Claude Fable 5 | `claude-fable-5` | Varies | New Claude Fable family model (v1.0.61+) |
 | Claude Haiku 4.5 | `claude-haiku-4.5` | Fastest | Quick tasks, fleet subagents, docs, formatting |
 | GPT-5.6 | `gpt-5.6` | Fast | Newest GPT generation — added v1.0.70 |
@@ -37,6 +38,7 @@ Understanding how to choose the right model — and when to switch — is one of
 | GPT-5.2-Codex | `gpt-5.2-codex` | Fast | Code-specialized, stable alternative |
 | Kimi K2.7 Code | `kimi-k2.7-code` | Fast | Code-specialized alternative model (v1.0.68+) |
 | Gemini 3.5 Flash | `gemini-3.5-flash` | Fastest | Lightweight Gemini model; now supports a **minimal** reasoning effort level (v1.0.69+) for the quickest possible responses |
+| Gemini 3.6 Flash | `gemini-3.6-flash` | Fastest | Newest Gemini Flash generation, added v1.0.74 |
 | GPT-5.4 mini | `gpt-5.4-mini` | Fastest | Ultra-cheap for trivial or bulk tasks |
 | GPT-4.1 | `gpt-4.1` | Fast | Fast, cost-effective general tasks |
 

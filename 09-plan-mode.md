@@ -194,6 +194,23 @@ While in Plan Mode, the agent now hard-blocks built-in tool calls that would mod
 
 **Why it matters:** You can review a plan with confidence that nothing in the workspace changed while it was being drafted — Plan Mode is now enforced as read-only for the built-in toolset, not just a convention.
 
+> **v1.0.74+:** Plan Mode makes a narrow exception for planning artifacts written inside the session folder (e.g., `~/.copilot/session-state/<id>/plan.md`), so the agent can save its own planning notes and drafts without leaving Plan Mode. File mutations everywhere else in the workspace are still hard-blocked.
+
+## Plan Mode Model Override (v1.0.74+)
+
+Use `/model plan` (or `/model --plan`) to set a model that's used only while you're in Plan Mode:
+
+```
+> /model plan claude-opus-4.8
+> /model --plan gpt-5.6
+```
+
+- Pass a model id to set the override.
+- Pass `off` to clear it.
+- Pass no argument to open the model picker.
+
+The override applies only during Plan Mode and automatically reverts to your regular session model once you leave Plan Mode (e.g., via `Shift+Tab`). See [Slash Commands — `/model`](04-slash-commands.md#model-model).
+
 ## Executing the Plan
 
 ### Starting Execution

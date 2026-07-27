@@ -149,6 +149,8 @@ Skills can be:
 - **Project-specific** (enabled per project)
 - **On-demand** (activated when needed)
 
+> **v1.0.74+:** The `disable-model-invocation` frontmatter flag is now fully honored. Setting it on a skill prevents the model from auto-invoking that skill during a conversation — the skill can still be run explicitly (e.g., via `/skill` or a direct reference), but the model won't select it on its own.
+
 ### Context Integration
 
 When a skill is active:

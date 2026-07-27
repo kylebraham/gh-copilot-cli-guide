@@ -321,6 +321,8 @@ $ copilot mcp          # Show help and available subcommands
 
 > **v1.0.70+:** The SDK exposes paginated `session.mcp.resources.read` / `list` / `listTemplates` RPCs, letting SDK-based integrations manage live MCP servers and read their exposed resources programmatically from a running session.
 
+> **v1.0.74+:** `/mcp add` and `/mcp edit` now preserve `=` characters in environment variable values (such as base64 padding), so secrets and tokens configured through the wizard are stored correctly instead of being truncated at the first `=`.
+
 ---
 
 ### Available MCP Servers
@@ -1160,6 +1162,12 @@ copilot plugins help
 ```
 
 **Why it matters:** One consistent CLI surface for managing plugins, MCP servers, and skills instead of separate tooling per kind — including installing skills straight from a file, URL, or directory. See [Skills System — Adding Skills](14-skills-system.md#adding-skills).
+
+### Open Plugin Spec v1 Support (v1.0.74+)
+
+In addition to Copilot-specific plugin manifests, Copilot CLI now supports plugins defined with the [Open Plugin Spec v1](https://github.com/github/copilot-cli) manifest format, as well as `mcp.json`-based plugin configuration.
+
+**Why it matters:** Plugins authored against the open, cross-tool spec — including those that ship a plain `mcp.json` — can be installed without a Copilot-specific manifest, widening the pool of plugins you can use.
 
 ### What Plugins Can Add
 

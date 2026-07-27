@@ -1,5 +1,23 @@
 # Documentation Updates
 
+## 2026-07-25 — Docs updated for v1.0.75
+
+- `README.md`: Bumped version note to v1.0.75; added a "Latest features" bullet for v1.0.75 (Claude Opus 5 support)
+- `16-new-features.md`: Updated title to v1.0.75; added TOC entry; added a "New in v1.0.75" section covering Claude Opus 5 support
+- `22-models-and-costs.md`: Added `claude-opus-5` to the model table
+
+## 2026-07-24 — Docs updated for v1.0.74
+
+- `README.md`: Bumped version note to v1.0.74; added "Latest features" bullets for v1.0.74 (`/model plan`/`--plan` Plan Mode model override, Plan Mode session-folder planning artifact exception, Open Plugin Spec v1 support, `gemini-3.6-flash`)
+- `16-new-features.md`: Updated title to v1.0.74; added TOC entry; added a "New in v1.0.74" section covering `/model plan`, the Plan Mode session-folder exception, Open Plugin Spec v1 support, `gemini-3.6-flash`, plus notable fixes (`/mcp add`/`edit` `=` preservation, `/search` `?` text-entry fix, IDE reconnect reliability, multi-turn subagent timeline ordering/attribution, sandbox opt-in splash, `$` shortcut working mid-response, skill `disable-model-invocation` flag fully honored, steering shell-output interrupts, resume search whitespace-insensitive title matching, oversized tool-result image downscaling, Mission Control permanent-error retry fix, `/settings` footer Tab hint, multiplexed session dialog leak fix, language-server symbol mismatch warning)
+- `04-slash-commands.md`: Added a `/model plan`/`--plan` subsection documenting the Plan Mode model override
+- `09-plan-mode.md`: Added a v1.0.74 note on the session-folder planning artifact exception to the read-only section; added a new "Plan Mode Model Override (v1.0.74+)" section for `/model plan`
+- `22-models-and-costs.md`: Added `gemini-3.6-flash` to the model table
+- `08-advanced-features.md`: Added an "Open Plugin Spec v1 Support (v1.0.74+)" subsection under Plugin System; added a v1.0.74 note under MCP Management Commands for the `/mcp add`/`edit` `=`-preservation fix
+- `14-skills-system.md`: Added a v1.0.74 note under Skill Activation documenting that the `disable-model-invocation` frontmatter flag is now fully honored
+- `03-interactive-features.md`: Added a v1.0.74 note that the `$` shell shortcut now opens a shell even while the agent is working
+- `00-cheat-sheet.md`: Updated the `/model` and `$` shortcut rows for v1.0.74
+
 ## 2026-07-21 — Docs updated for v1.0.73
 
 - `README.md`: Bumped version note to v1.0.73; added "Latest features" bullets for v1.0.73 (relative links in custom agent instructions, Anthropic subagent fix) and v1.0.72 (`/plugins` full parity, `/model --session`, `$` shell shortcut, sessions sidebar navigation, sandbox git/gh auth opt-in and macOS keychain default off, multi-turn subagents always enabled, `copilot skill list` control-character stripping)

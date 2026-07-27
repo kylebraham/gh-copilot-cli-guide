@@ -227,6 +227,14 @@ Select or change the AI model.
 > /model gpt-5.6 -s
 ```
 
+**Plan Mode model override (v1.0.74+):** Add `plan` (or `--plan`) to set a model used only while in Plan Mode. Pass a model id, `off` to clear it, or no id to open the picker. The override reverts to your regular session model when you leave Plan Mode:
+
+```
+> /model plan claude-opus-4.8
+> /model --plan gpt-5.6
+> /model plan off
+```
+
 > **v1.0.67+:** Claude Sonnet 5 is now available as a supported model. See [Model Selection Strategy](22-models-and-costs.md) for details.
 >
 > **v1.0.68+:** `kimi-k2.7-code` is now available as a supported model. See [Model Selection Strategy](22-models-and-costs.md) for details.
