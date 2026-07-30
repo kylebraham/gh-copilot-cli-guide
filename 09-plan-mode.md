@@ -196,6 +196,8 @@ While in Plan Mode, the agent now hard-blocks built-in tool calls that would mod
 
 > **v1.0.74+:** Plan Mode makes a narrow exception for planning artifacts written inside the session folder (e.g., `~/.copilot/session-state/<id>/plan.md`), so the agent can save its own planning notes and drafts without leaving Plan Mode. File mutations everywhere else in the workspace are still hard-blocked.
 
+> **v1.0.76:** Resuming a session (`/resume`) now restores Plan Mode if that's the mode the session was in when you left, instead of reverting to interactive mode. See [Autopilot Mode](17-autopilot-mode.md) for the equivalent behavior with autopilot sessions.
+
 ## Plan Mode Model Override (v1.0.74+)
 
 Use `/model plan` (or `/model --plan`) to set a model that's used only while you're in Plan Mode:

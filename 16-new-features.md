@@ -1,4 +1,4 @@
-# Latest Features in GitHub Copilot CLI — v1.0.75
+# Latest Features in GitHub Copilot CLI — v1.0.76
 
 This file covers recent additions to GitHub Copilot CLI. Features marked with "Full guide →" have their own dedicated documentation file — the entries here are summaries with links. Features without a dedicated file are covered in full below.
 
@@ -10,6 +10,7 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 3. [Research Command (`/research`)](#research-command-research) — [Full guide →](19-research-command.md)
 
 ### Features covered in this file
+4. [New in v1.0.76](#new-in-v1076)
 4. [New in v1.0.75](#new-in-v1075)
 4. [New in v1.0.74](#new-in-v1074)
 4. [New in v1.0.73](#new-in-v1073)
@@ -86,6 +87,57 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 ---
 
 ---
+
+## New in v1.0.76
+
+Released: 2026-07-30
+
+### Plugin Enable/Disable Extended to Instructions, Agents, LSP Servers, and Hooks
+
+`/plugins` enable/disable controls now cover custom instructions, custom agents, LSP servers, and hooks, in addition to plugins, MCP servers, and skills. See [Advanced Features — Plugin System](08-advanced-features.md#plugin-system).
+
+**Why it matters:** One consistent way to temporarily turn off any extension type without uninstalling it.
+
+### Grok 4.5 Model Support
+
+Copilot CLI adds support for `grok-4.5` in the `/model` picker. See [Model Selection Strategy](22-models-and-costs.md).
+
+### Autopilot Stays Selected After `task_complete` by Default
+
+The default behavior flips: autopilot mode now stays selected after a task completes, instead of automatically returning to interactive mode. Set `"stayInAutopilot": false` in `~/.copilot/settings.json` to restore the previous behavior. See [Autopilot Mode](17-autopilot-mode.md).
+
+### Resuming a Session Restores Its Mode
+
+`/resume` now restores whichever mode a session was in — autopilot or Plan Mode — instead of reverting to interactive mode, so the autopilot-only `task_complete` tool stays available and the mode matches the session you left. See [Autopilot Mode](17-autopilot-mode.md) and [Plan Mode](09-plan-mode.md).
+
+### Enterprise Sandbox Floor Enforcement
+
+Enterprise administrators can enforce a restrictive sandbox floor: managed settings tighten (but never loosen) a user's sandbox policy, and the `/sandbox` dialog surfaces the org-configured managed values with locked fields and managed filesystem paths. See [Team Setup — Security Configuration](21-team-setup.md#7-security-configuration-for-teams).
+
+### Experimental Sessions Sidebar for Concurrent Sessions
+
+A new Sessions sidebar for managing multiple concurrent sessions — switch between them, spawn new ones, and see their status at a glance — is available. Turn it on with `/experimental on`. See [Interactive Features — Session Management](03-interactive-features.md#session-management).
+
+### `/limits predict`
+
+`/limits predict` suggests a session AI-credit limit based on similar past sessions. See [Slash Commands — /limits](04-slash-commands.md).
+
+### Notable Fixes and Improvements
+
+- Sandbox denied paths are now enforced for relative and symlinked entries on macOS and Linux
+- Unsent prompt text stays with the session it was typed for instead of following you to the session you switch to
+- URL permission prompts keep their sandbox-bypass warning and the model's reason when a host integration rebuilds the prompt
+- `/diff` scrolls and syntax-highlights large multi-file diffs faster
+- Split-view sidebar: hover-to-focus is off by default (`sidebar.hoverFocus`), the active session card is accented by default (`sidebar.accentActiveSession`)
+- `web_fetch` now follows HTTP redirects, asking permission when the redirect target is on a different origin, and routes through the configured sandbox proxy
+- A directable queue manager lets you reorder, edit, remove, repeat, and immediately send queued messages
+- Sessions no longer fail every turn with "Holder terminated during creation" after a subagent finishes
+- Startup tips only suggest `/init` in repositories without existing Copilot instructions
+- Hook output is bounded at 10 MiB per invocation, and malformed hook return values (e.g., non-string `modifiedPrompt`) no longer corrupt the session
+- The `/instructions` picker now respects `--no-custom-instructions`
+- Changing the `mouse` setting mid-session now takes effect immediately
+- MCP tools load faster from definition-scoped snapshots, with cache opt-outs
+- Queued mid-turn `/model` changes now apply after the current response finishes
 
 ## New in v1.0.75
 

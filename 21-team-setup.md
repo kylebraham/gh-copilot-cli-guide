@@ -394,6 +394,16 @@ Do not commit Copilot session logs or local config that may contain sensitive co
 
 Note: `AGENTS.md` and `.github/copilot-instructions.md` **should** be committed — they contain coding standards, not secrets.
 
+### Enforcing a Managed Sandbox Floor (v1.0.76+)
+
+Enterprise administrators can enforce a restrictive sandbox floor via managed settings. This tightens — but never loosens — an individual user's sandbox policy, so engineers can still restrict things further for themselves but can't weaken org-mandated protections:
+
+- The `/sandbox` dialog surfaces the org-configured managed values with **locked fields** so users can see exactly what's enforced
+- Managed filesystem paths (allowed/denied) are shown alongside the user's own settings
+- Users retain the ability to add stricter local restrictions on top of the managed floor
+
+**Why use it:** Guarantee a minimum sandbox security baseline across the org (e.g., blocking network egress or sensitive paths) without relying on every engineer to configure `/sandbox` correctly, while still letting teams add their own tighter restrictions per repo or role.
+
 ### Audit Considerations
 
 - Copilot CLI logs sessions to `~/.copilot/logs/` — review these if an automated job behaves unexpectedly

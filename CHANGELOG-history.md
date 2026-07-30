@@ -1,5 +1,18 @@
 # Documentation Updates
 
+## 2026-07-30 — Docs updated for v1.0.76
+
+- `README.md`: Bumped version note to v1.0.76; added "Latest features" bullets for v1.0.76 (`/plugins` enable/disable extended to instructions/agents/LSP servers/hooks, `grok-4.5`, resume restores autopilot/Plan Mode, autopilot stays selected by default after `task_complete`, enterprise sandbox floor enforcement, experimental Sessions sidebar, `/limits predict`)
+- `16-new-features.md`: Updated title to v1.0.76; added TOC entry; added a "New in v1.0.76" section covering all v1.0.76 features plus notable fixes
+- `22-models-and-costs.md`: Added `grok-4.5` to the model table
+- `08-advanced-features.md`: Added a "v1.0.76+" subsection under Plugin System documenting enable/disable extended to custom instructions, agents, LSP servers, and hooks
+- `17-autopilot-mode.md`: Added v1.0.76 notes documenting the `stayInAutopilot` default flip and that `/resume` now restores autopilot mode
+- `09-plan-mode.md`: Added a v1.0.76 note that `/resume` now restores Plan Mode
+- `21-team-setup.md`: Added an "Enforcing a Managed Sandbox Floor (v1.0.76+)" subsection under Security Configuration for Teams
+- `04-slash-commands.md`: Added a new `/limits` command entry documenting `/limits predict`
+- `00-cheat-sheet.md`: Added a `/limits predict` row; updated the `/plugin` and Sessions sidebar rows for v1.0.76
+- `03-interactive-features.md`: Added a "Queued Messages" subsection documenting the v1.0.76 directable queue manager; added a v1.0.76 note on the experimental Sessions sidebar
+
 ## 2026-07-25 — Docs updated for v1.0.75
 
 - `README.md`: Bumped version note to v1.0.75; added a "Latest features" bullet for v1.0.75 (Claude Opus 5 support)

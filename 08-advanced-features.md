@@ -1163,6 +1163,12 @@ copilot plugins help
 
 **Why it matters:** One consistent CLI surface for managing plugins, MCP servers, and skills instead of separate tooling per kind — including installing skills straight from a file, URL, or directory. See [Skills System — Adding Skills](14-skills-system.md#adding-skills).
 
+### Enable/Disable Controls Extended to Instructions, Agents, LSP Servers, and Hooks (v1.0.76+)
+
+`/plugins` (and `copilot plugins`) `enable`/`disable` now cover custom instructions, custom agents, LSP servers, and hooks — not just plugins, MCP servers, and skills. This gives you one consistent way to temporarily turn off any extension without uninstalling it.
+
+**Why it matters:** You can quickly disable a misbehaving hook, an LSP server that's slowing things down, or an instruction file that's steering the agent wrong — then re-enable it later — without deleting configuration.
+
 ### Open Plugin Spec v1 Support (v1.0.74+)
 
 In addition to Copilot-specific plugin manifests, Copilot CLI now supports plugins defined with the [Open Plugin Spec v1](https://github.com/github/copilot-cli) manifest format, as well as `mcp.json`-based plugin configuration.

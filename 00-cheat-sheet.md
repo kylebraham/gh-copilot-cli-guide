@@ -71,7 +71,7 @@
 | `/resume` | Resume a previous session (picker shows branch and idle/in-use status) |
 | `/continue` | Alias for `/resume` |
 | `/rename` | Rename the current session |
-| Sessions sidebar | Keyboard/mouse navigable: arrows open/focus/select, `Enter` switches, `n` spawns a session, `x` twice closes one; `/settings` can disable it (v1.0.72+) |
+| Sessions sidebar | Keyboard/mouse navigable: arrows open/focus/select, `Enter` switches, `n` spawns a session, `x` twice closes one; `/settings` can disable it (v1.0.72+); gated behind `/experimental on` for managing multiple concurrent sessions at a glance (v1.0.76+) |
 | `/share` | Share session as markdown, gist, or HTML (`/share html`) |
 | `/export` | Alias for `/share` |
 | `/copy` | Copy last response to clipboard |
@@ -115,7 +115,7 @@
 | `/mcp` | Manage MCP (Model Context Protocol) server connections; `/mcp search <query>` to find from registry; `/mcp registry` to browse interactively (v1.0.64+); `/mcp list` shows attached servers and status and can run while the agent is working (v1.0.69+); marks sandboxed servers, e.g. `connected (sandboxed)` (v1.0.70+) |
 | `/lsp` | Manage language server connections |
 | `/skills` | List or manage available skills; alias `/skill` (v1.0.65+); `copilot skill` subcommand available from shell (v1.0.65+); marks disabled skills in `copilot skill list`/JSON output (v1.0.71+) |
-| `/plugin` | Manage installed plugins; `/plugin update --all` updates all plugins at once (v1.0.49+); `/plugins` dashboard and reload without restart (v1.0.69+); pin a plugin to an exact commit with the `sha` field in its source config (v1.0.70+); `copilot plugins marketplace` subcommands (list/add/remove/browse/update) manage marketplaces from the shell (v1.0.71+); `update`/`uninstall` verbs plus `--plugin`/`--mcp`/`--skill` flags target plugins, MCP servers, or skills through one set of subcommands, including `install --skill` (v1.0.72+) |
+| `/plugin` | Manage installed plugins; `/plugin update --all` updates all plugins at once (v1.0.49+); `/plugins` dashboard and reload without restart (v1.0.69+); pin a plugin to an exact commit with the `sha` field in its source config (v1.0.70+); `copilot plugins marketplace` subcommands (list/add/remove/browse/update) manage marketplaces from the shell (v1.0.71+); `update`/`uninstall` verbs plus `--plugin`/`--mcp`/`--skill` flags target plugins, MCP servers, or skills through one set of subcommands, including `install --skill` (v1.0.72+); enable/disable controls extend to custom instructions, agents, LSP servers, and hooks (v1.0.76+) |
 | `/rubber-duck` | Get an independent critique of the agent's current work (v1.0.49+; enabled by default in v1.0.58+) |
 | `/voice` | Dictate a prompt using local speech-to-text (v1.0.59+); `/voice devices` to choose/persist the microphone (v1.0.71+) |
 | `/every <interval> <prompt>` | Repeat a prompt on a fixed schedule, e.g. `/every 10m check notifications`; supports natural language expressions; alias `/loop` (v1.0.64+) (experimental, v1.0.58+) |
@@ -137,6 +137,7 @@
 |---------|-------------|
 | `/help` | Show available commands and shortcuts |
 | `/usage` | Show premium request usage for this session with quota progress bars (v1.0.52+) |
+| `/limits predict` | Suggest a session AI-credit limit based on similar past sessions (v1.0.76+) |
 | `/version` | Show Copilot CLI version |
 | `/changelog` | View recent release notes |
 | `/release-notes` | Alias for `/changelog` |

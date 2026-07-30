@@ -1452,6 +1452,16 @@ Monthly Quota:
   Resets: January 28, 2026
 ```
 
+### /limits
+
+Manage and predict AI-credit session limits.
+
+```
+> /limits predict
+```
+
+**v1.0.76+:** `/limits predict` suggests a session AI-credit limit based on similar past sessions (same repo, similar task size), helping you set a realistic cap before starting a long-running or autopilot task.
+
 ### /user [show|list|switch]
 
 Manage GitHub user accounts.

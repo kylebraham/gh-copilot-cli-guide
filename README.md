@@ -81,6 +81,13 @@ npm update -g @github/copilot
 ```
 
 **Latest features:**
+- 🧩 `/plugins` gains enable/disable controls for plugins, custom instructions, agents, LSP servers, and hooks — not just plugins and MCP servers (v1.0.76)
+- ✨ Adding support for the `grok-4.5` model (v1.0.76)
+- 🔁 Resuming a session now restores its autopilot or Plan Mode instead of reverting to interactive mode (v1.0.76)
+- 🛑 Autopilot now stays selected by default after `task_complete`; set `stayInAutopilot: false` to return to interactive mode after each task (v1.0.76)
+- 🏢 Enterprise administrators can enforce a restrictive sandbox floor that tightens (but never loosens) a user's sandbox policy, with `/sandbox` surfacing locked, org-managed values (v1.0.76)
+- 🗂️ New experimental Sessions sidebar for managing multiple concurrent sessions — switch, spawn, and see status at a glance; enable with `/experimental on` (v1.0.76)
+- 📊 `/limits predict` suggests a session AI-credit limit based on similar past sessions (v1.0.76)
 - 🚀 Adding support for Claude Opus 5 (v1.0.75)
 - 🧭 `/model plan` (or `/model --plan`) sets a model to use only while in Plan Mode — pass a model id, `off` to clear it, or no id to open the picker; reverts to the session model when you leave Plan Mode (v1.0.74)
 - 📝 Plan Mode now allows planning artifacts inside the session folder while still hard-blocking file mutations elsewhere (v1.0.74)
@@ -427,4 +434,4 @@ Go to **Actions → Daily Doc Maintenance → Run workflow** to trigger it on de
 
 ---
 
-**Note:** This guide covers GitHub Copilot CLI v1.0.75. Some capabilities may vary by version — run `/update` to stay current.
+**Note:** This guide covers GitHub Copilot CLI v1.0.76. Some capabilities may vary by version — run `/update` to stay current.

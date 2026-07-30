@@ -247,6 +247,12 @@ Reference files directly in your prompts:
 **Auto-completion:**
 Type `@` and start typing a filename - the CLI will suggest matches.
 
+### Queued Messages
+
+Press `Ctrl+Q` or `Ctrl+Enter` to queue a message while the agent is running instead of interrupting it; queued messages are delivered as soon as the current turn finishes.
+
+> **v1.0.76:** A directable queue manager lets you reorder, edit, remove, repeat, and immediately send queued messages instead of only appending to the end of the queue. The queued-messages list no longer shows a blank row or an inflated count, and `Ctrl+C` removes only your own newest queued message.
+
 ### Direct Shell Execution with !
 
 Execute shell commands without AI processing:
@@ -412,6 +418,8 @@ In the picker, press `x` on any entry to delete it immediately.
 Sessions persist across launches, so you can continue where you left off.
 
 > **v1.0.72+:** The Sessions sidebar is now navigable with the keyboard as well as the mouse — arrow keys open, focus, and move the sidebar selection, and `Enter` (or a click) switches to a session. Press `n` to spawn a new session or `x` twice to close one from the keyboard. `/settings` can disable the sidebar entirely or stop it from restoring remembered sessions.
+
+> **v1.0.76:** A new Sessions sidebar for managing multiple concurrent sessions — switch between them, spawn new ones, and see their status at a glance — is available behind experimental mode. Turn it on with `/experimental on`.
 
 ## Advanced Context & Session Strategies
 
