@@ -118,6 +118,8 @@ You can grant full permissions at any point during an autopilot session with:
 
 > **v1.0.46+:** Read-only `gh` CLI commands (`gh issue list`, `gh pr view`, `gh repo status`, `gh pr diff`, etc.) are **auto-approved** in autopilot mode — no confirmation prompt is shown. Only write operations still require approval.
 
+> **v1.0.77+:** Choosing "Enable all permissions" (or running with `--allow-all`) now also **disables the sandbox** for the rest of the current session, when your sandbox policy allows bypass. Previously, granting full tool approval didn't automatically lift sandbox restrictions, which could still silently constrain what autopilot could do.
+
 ---
 
 ## Stopping Autopilot

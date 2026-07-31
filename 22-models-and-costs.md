@@ -268,6 +268,8 @@ Opus 4.7 is the latest and most capable Opus model (available from v1.0.29). Use
 - Consider switching *back* to Sonnet once you have a clear plan and just need implementation
 
 > **v1.0.60:** All reasoning effort levels (`low`, `medium`, `high`, `max`) are now available for Anthropic models on **every plan**. Use `--reasoning-effort max` for the deepest analysis on the most demanding tasks.
+>
+> **v1.0.77+:** Reasoning effort no longer has to be set explicitly — leave it unset and the server picks a sensible default for the selected model.
 
 ### Claude Haiku 4.5 — Ideal For
 

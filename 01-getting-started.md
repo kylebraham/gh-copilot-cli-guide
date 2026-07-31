@@ -255,6 +255,8 @@ Follow the on-screen instructions:
 2. You'll be asked to authorize the CLI
 3. Return to your terminal once authorized
 
+> **v1.0.77+:** On local interactive terminals, `copilot login` (and `/login`) now default to this **browser-based (web) OAuth flow**, opening your browser directly instead of showing a device code. On remote or headless terminals (e.g., SSH sessions), device code login remains the default. Force a specific mode with `--web-flow` or `--device-code`, or pick one from the interactive `/login` command.
+
 ### Method 2: Personal Access Token (PAT)
 
 For automated environments or CI/CD:

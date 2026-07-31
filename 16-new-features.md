@@ -1,4 +1,4 @@
-# Latest Features in GitHub Copilot CLI — v1.0.76
+# Latest Features in GitHub Copilot CLI — v1.0.77
 
 This file covers recent additions to GitHub Copilot CLI. Features marked with "Full guide →" have their own dedicated documentation file — the entries here are summaries with links. Features without a dedicated file are covered in full below.
 
@@ -10,6 +10,7 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 3. [Research Command (`/research`)](#research-command-research) — [Full guide →](19-research-command.md)
 
 ### Features covered in this file
+4. [New in v1.0.77](#new-in-v1077)
 4. [New in v1.0.76](#new-in-v1076)
 4. [New in v1.0.75](#new-in-v1075)
 4. [New in v1.0.74](#new-in-v1074)
@@ -87,6 +88,40 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 ---
 
 ---
+
+## New in v1.0.77
+
+Released: 2026-07-30
+
+### Unconditional Autopilot Approval Disables Sandbox When Bypass Is Allowed
+
+When you choose "Enable all permissions" for autopilot mode (or run with `--allow-all`) and your sandbox policy allows bypass, the sandbox is now automatically disabled for the rest of the current session instead of staying enforced alongside blanket tool approval. See [Autopilot Mode — Permissions Prompt](17-autopilot-mode.md#permissions-prompt).
+
+**Why it matters:** Removes a confusing double gate where you'd already granted full tool access but the sandbox could still silently restrict what autopilot could do.
+
+### `Ctrl+G` Edits `ask_user` Freeform Answers
+
+Pressing `Ctrl+G` while answering a freeform `ask_user` question now opens your `$EDITOR` to compose the answer, without closing the prompt. See [Interactive Features — Keyboard Shortcuts](03-interactive-features.md#keyboard-shortcuts).
+
+**Why it matters:** Lets you draft longer or multi-line answers to agent questions in your preferred editor instead of a single input line.
+
+### Browser-Based (Web) OAuth Login by Default
+
+`copilot login` (and the interactive `/login` command) now default to a browser-based OAuth flow on local interactive terminals, opening your browser directly to complete sign-in. Device code login remains the default on remote or headless terminals (e.g., SSH sessions without browser access). Use `--web-flow` or `--device-code` to force a specific mode, or choose one from the interactive `/login` command. See [Getting Started — Authentication](01-getting-started.md#authentication) and [Slash Commands — /login](04-slash-commands.md#login).
+
+**Why it matters:** Skips the device-code copy/paste step for the common case of running Copilot CLI on your own machine, while keeping device code available for remote and headless environments.
+
+### Managed Sandbox Policy via Native MDM Settings
+
+Enterprise administrators can now enforce the managed sandbox policy through native macOS and Windows MDM (Mobile Device Management) settings, in addition to existing managed-settings mechanisms. See [Team Setup — Enforcing a Managed Sandbox Floor](21-team-setup.md#enforcing-a-managed-sandbox-floor-v1076).
+
+**Why it matters:** Lets IT teams roll out and audit the sandbox floor using the same MDM tooling they already use to manage other endpoint policies.
+
+### Reasoning Effort Can Be Omitted
+
+Reasoning effort is no longer required when configuring a model — you can leave it unset so the server selects the default effort level for that model. See [Model Selection Strategy](22-models-and-costs.md).
+
+**Why it matters:** Simplifies model configuration when you don't have a strong preference and want Copilot CLI to pick a sensible default automatically.
 
 ## New in v1.0.76
 

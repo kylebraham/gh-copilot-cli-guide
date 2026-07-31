@@ -65,6 +65,8 @@ Mastering keyboard shortcuts makes you significantly more efficient:
 | `Ctrl+K` | Delete to end | Delete from cursor to end of line (joins lines at end of line) |
 | `Ctrl+G` | Open external editor | Edit the current prompt in your `$EDITOR` *(new)* |
 
+> **v1.0.77+:** `Ctrl+G` also works while answering a freeform `ask_user` question — it opens your `$EDITOR` to compose the answer without closing the prompt.
+
 ### Timeline Shortcuts
 
 > **Note:** `Ctrl+O` and `Ctrl+E` behave differently depending on whether the input prompt is empty.

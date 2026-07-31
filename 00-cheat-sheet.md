@@ -41,7 +41,7 @@
 | `Ctrl+K` | Delete from cursor to end of line (joins lines at end) |
 | `Ctrl+H` | Delete previous character (backspace) |
 | `Meta+← / →` | Move cursor by word |
-| `Ctrl+G` | Edit prompt in external editor |
+| `Ctrl+G` | Edit prompt (or an `ask_user` freeform answer, v1.0.77+) in external editor |
 
 ---
 

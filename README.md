@@ -81,6 +81,11 @@ npm update -g @github/copilot
 ```
 
 **Latest features:**
+- 🔓 Unconditional autopilot approval (or `--allow-all`) now disables the sandbox for the rest of the session when your policy allows bypass (v1.0.77)
+- ⌨️ `Ctrl+G` opens your editor to edit `ask_user` freeform answers without closing the prompt (v1.0.77)
+- 🌐 Browser-based (web) OAuth is now the default `copilot login` flow on local interactive terminals; device code remains the default remotely — force a mode with `--web-flow`/`--device-code` (v1.0.77)
+- 🏢 Managed sandbox policy can now be enforced via native macOS and Windows MDM settings (v1.0.77)
+- 🧠 Reasoning effort can now be left unset so the server selects the default for the model (v1.0.77)
 - 🧩 `/plugins` gains enable/disable controls for plugins, custom instructions, agents, LSP servers, and hooks — not just plugins and MCP servers (v1.0.76)
 - ✨ Adding support for the `grok-4.5` model (v1.0.76)
 - 🔁 Resuming a session now restores its autopilot or Plan Mode instead of reverting to interactive mode (v1.0.76)
@@ -434,4 +439,4 @@ Go to **Actions → Daily Doc Maintenance → Run workflow** to trigger it on de
 
 ---
 
-**Note:** This guide covers GitHub Copilot CLI v1.0.76. Some capabilities may vary by version — run `/update` to stay current.
+**Note:** This guide covers GitHub Copilot CLI v1.0.77. Some capabilities may vary by version — run `/update` to stay current.

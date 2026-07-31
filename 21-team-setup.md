@@ -404,6 +404,8 @@ Enterprise administrators can enforce a restrictive sandbox floor via managed se
 
 **Why use it:** Guarantee a minimum sandbox security baseline across the org (e.g., blocking network egress or sensitive paths) without relying on every engineer to configure `/sandbox` correctly, while still letting teams add their own tighter restrictions per repo or role.
 
+> **v1.0.77+:** The managed sandbox policy can also be enforced via **native macOS and Windows MDM (Mobile Device Management) settings**, in addition to existing managed-settings mechanisms. This lets IT teams roll out and audit the sandbox floor using the same MDM tooling they already use for other endpoint policies.
+
 ### Audit Considerations
 
 - Copilot CLI logs sessions to `~/.copilot/logs/` — review these if an automated job behaves unexpectedly

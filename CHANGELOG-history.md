@@ -1,5 +1,17 @@
 # Documentation Updates
 
+## 2026-07-31 — Docs updated for v1.0.77
+
+- `README.md`: Bumped version note to v1.0.77; added "Latest features" bullets for v1.0.77 (unconditional autopilot approval disabling sandbox when bypass is allowed, `Ctrl+G` editing `ask_user` freeform answers, browser-based/web OAuth login default with `--web-flow`/`--device-code`, managed sandbox policy via native macOS/Windows MDM, reasoning effort omission)
+- `16-new-features.md`: Updated title to v1.0.77; added TOC entry; added a "New in v1.0.77" section covering all five v1.0.77 changes
+- `17-autopilot-mode.md`: Added a v1.0.77 note under Permissions Prompt documenting that unconditional approval now disables the sandbox for the session when bypass is allowed
+- `03-interactive-features.md`: Added a v1.0.77 note under Editing Shortcuts that `Ctrl+G` now also edits `ask_user` freeform answers
+- `00-cheat-sheet.md`: Updated the `Ctrl+G` row to mention the v1.0.77 `ask_user` freeform-answer editing
+- `01-getting-started.md`: Added a v1.0.77 note in the Interactive Login section on the new browser-based OAuth default and `--web-flow`/`--device-code` flags
+- `04-slash-commands.md`: Updated the `/login` entry to describe the browser-based OAuth default and device-code fallback; added a v1.0.77 note under `/model` on omitting reasoning effort
+- `21-team-setup.md`: Added a v1.0.77 note under "Enforcing a Managed Sandbox Floor" documenting native macOS/Windows MDM enforcement
+- `22-models-and-costs.md`: Added a v1.0.77 note that reasoning effort can now be left unset
+
 ## 2026-07-30 — Docs updated for v1.0.76
 
 - `README.md`: Bumped version note to v1.0.76; added "Latest features" bullets for v1.0.76 (`/plugins` enable/disable extended to instructions/agents/LSP servers/hooks, `grok-4.5`, resume restores autopilot/Plan Mode, autopilot stays selected by default after `task_complete`, enterprise sandbox floor enforcement, experimental Sessions sidebar, `/limits predict`)

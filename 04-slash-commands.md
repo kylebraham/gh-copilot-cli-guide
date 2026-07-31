@@ -240,6 +240,8 @@ Select or change the AI model.
 > **v1.0.68+:** `kimi-k2.7-code` is now available as a supported model. See [Model Selection Strategy](22-models-and-costs.md) for details.
 >
 > **v1.0.70+:** `gpt-5.6` is now available as a supported model. See [Model Selection Strategy](22-models-and-costs.md) for details.
+>
+> **v1.0.77+:** Reasoning effort can now be left unset — omit it and the server selects the default effort level for the chosen model instead of requiring you to pick one explicitly.
 
 ### /context
 
@@ -1011,10 +1013,12 @@ Authenticate with GitHub Copilot.
 ```
 
 **Process:**
-1. Command generates device code
+1. Command opens a browser-based OAuth flow (or generates a device code)
 2. Browser opens automatically
-3. Enter code on GitHub
+3. Authorize (or enter the code) on GitHub
 4. Return to CLI when authorized
+
+> **v1.0.77+:** Browser-based (web) OAuth login is now the **default** for `copilot login`/`/login` on local interactive terminals — it opens your browser directly, skipping the device-code step. Device code login remains the default on remote/headless terminals without direct browser access. Use `--web-flow` or `--device-code` on the `copilot login` CLI command to force a mode, or choose one from the interactive `/login` command.
 
 **Alternative:** Use PAT with `GH_TOKEN` environment variable.
 
