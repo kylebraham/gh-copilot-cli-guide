@@ -26,7 +26,7 @@
 | `Ctrl+X → B` | Move current running task or shell command to the background (v1.0.39+) |
 | `Tab` / `Ctrl+Y` | Accept highlighted completion option (`@`-mentions, paths, slash commands); also opens the current plan file or research report if one exists, now from any mode (v1.0.70+) |
 | `!` | Execute command in local shell (bypass Copilot); uses `$SHELL` when set |
-| `$` | Open an interactive shell in the current session directory; opt in with `/settings shellShortcut on` (off by default) (v1.0.72+); now works even while the agent is still responding (v1.0.74+) |
+| `$` | Open an interactive shell in the current session directory; opt in with `/settings shellShortcut on` (off by default) (v1.0.72+); now works even while the agent is still responding (v1.0.74+); launches on `Enter` and shows an inline hint while armed (v1.0.78+) |
 | `s` | Cycle session picker sort order (relevance → last used → created → name) — press while in the `/resume` picker |
 
 ### Text Editing
@@ -115,7 +115,7 @@
 | `/mcp` | Manage MCP (Model Context Protocol) server connections; `/mcp search <query>` to find from registry; `/mcp registry` to browse interactively (v1.0.64+); `/mcp list` shows attached servers and status and can run while the agent is working (v1.0.69+); marks sandboxed servers, e.g. `connected (sandboxed)` (v1.0.70+) |
 | `/lsp` | Manage language server connections |
 | `/skills` | List or manage available skills; alias `/skill` (v1.0.65+); `copilot skill` subcommand available from shell (v1.0.65+); marks disabled skills in `copilot skill list`/JSON output (v1.0.71+) |
-| `/plugin` | Manage installed plugins; `/plugin update --all` updates all plugins at once (v1.0.49+); `/plugins` dashboard and reload without restart (v1.0.69+); pin a plugin to an exact commit with the `sha` field in its source config (v1.0.70+); `copilot plugins marketplace` subcommands (list/add/remove/browse/update) manage marketplaces from the shell (v1.0.71+); `update`/`uninstall` verbs plus `--plugin`/`--mcp`/`--skill` flags target plugins, MCP servers, or skills through one set of subcommands, including `install --skill` (v1.0.72+); enable/disable controls extend to custom instructions, agents, LSP servers, and hooks (v1.0.76+) |
+| `/plugin` | Manage installed plugins; `/plugin update --all` updates all plugins at once (v1.0.49+); `/plugins` dashboard and reload without restart (v1.0.69+); pin a plugin to an exact commit with the `sha` field in its source config (v1.0.70+); `copilot plugins marketplace` subcommands (list/add/remove/browse/update) manage marketplaces from the shell (v1.0.71+); `update`/`uninstall` verbs plus `--plugin`/`--mcp`/`--skill` flags target plugins, MCP servers, or skills through one set of subcommands, including `install --skill` (v1.0.72+); enable/disable controls extend to custom instructions, agents, LSP servers, and hooks (v1.0.76+); first-party plugins auto-update to the latest version at session start (v1.0.78+) |
 | `/rubber-duck` | Get an independent critique of the agent's current work (v1.0.49+; enabled by default in v1.0.58+) |
 | `/voice` | Dictate a prompt using local speech-to-text (v1.0.59+); `/voice devices` to choose/persist the microphone (v1.0.71+) |
 | `/every <interval> <prompt>` | Repeat a prompt on a fixed schedule, e.g. `/every 10m check notifications`; supports natural language expressions; alias `/loop` (v1.0.64+) (experimental, v1.0.58+) |
@@ -125,11 +125,13 @@
 | `/init` | Initialize Copilot configuration for the current repo |
 | `/experimental` | Toggle experimental features |
 | `/autopilot [objective]` | Toggle autopilot mode on/off; optionally set a goal objective (v1.0.45+); `/goal` is an alias (v1.0.55+) |
-| `/settings` | Open an interactive dialog to browse and edit all user settings (v1.0.61+); add `--repo` or `--local` to scope a change to the repo/local config instead of the global default; includes a setting to show/hide timeline timestamps (v1.0.70+); adds Repo and Repo (local) scope tabs (v1.0.71+) |
+| `/settings` | Open an interactive dialog to browse and edit all user settings (v1.0.61+); add `--repo` or `--local` to scope a change to the repo/local config instead of the global default; includes a setting to show/hide timeline timestamps (v1.0.70+); adds Repo and Repo (local) scope tabs (v1.0.71+); `showToolDurations` toggles live tool-call duration headers in the timeline, on by default (v1.0.78+) |
 | `/worktree <branch>` | Create a new git worktree and switch into it, leaving uncommitted changes behind (v1.0.61+); pass a task (e.g. `/worktree fix the login redirect`) to name the branch and run it as the first prompt (v1.0.66+); with no argument, names the branch from uncommitted changes and recent conversation (v1.0.66+); `/move` is no longer an alias — it carries uncommitted changes into the new worktree instead (v1.0.71+) |
 | `/move <branch>` | Create a new git worktree and switch into it, carrying uncommitted changes along; no longer an alias for `/worktree` (v1.0.71+) |
+| `/new-worktree <branch>` | Create a new git worktree and start a fresh conversation in it, instead of continuing the current one (experimental, v1.0.78+) |
 | `/allow-all` | Allow all tool calls without per-call confirmation; `/allow-all auto` auto-approves LLM-judged acceptable requests and requires experimental mode (v1.0.69+) |
 | `/yolo` | Alias for `/allow-all`; state persists across `/restart` |
+| `/permissions` | Switch between approval modes in one interactive picker (v1.0.78+) |
 | `/reset-allowed-tools` | Reset tool allowlist to default (prompt-per-use) |
 
 ### Info & Help

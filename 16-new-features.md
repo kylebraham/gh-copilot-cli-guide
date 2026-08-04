@@ -1,4 +1,4 @@
-# Latest Features in GitHub Copilot CLI — v1.0.77
+# Latest Features in GitHub Copilot CLI — v1.0.78
 
 This file covers recent additions to GitHub Copilot CLI. Features marked with "Full guide →" have their own dedicated documentation file — the entries here are summaries with links. Features without a dedicated file are covered in full below.
 
@@ -10,6 +10,7 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 3. [Research Command (`/research`)](#research-command-research) — [Full guide →](19-research-command.md)
 
 ### Features covered in this file
+4. [New in v1.0.78](#new-in-v1078)
 4. [New in v1.0.77](#new-in-v1077)
 4. [New in v1.0.76](#new-in-v1076)
 4. [New in v1.0.75](#new-in-v1075)
@@ -88,6 +89,52 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 ---
 
 ---
+
+## New in v1.0.78
+
+Released: 2026-08-03
+
+### Timeline Tool Call Duration Headers
+
+Timeline headers now show how long each tool call took, right-aligned and ticking live while the call runs, for calls of at least 5 seconds. This is on by default; disable it with `/settings showToolDurations`.
+
+**Why it matters:** Makes it obvious when a slow-running tool call is still in progress versus stalled, without needing to check logs.
+
+### `/new-worktree` Command (Experimental)
+
+The new experimental `/new-worktree` command creates a new git worktree and starts a **fresh conversation** in it, unlike `/worktree`, which switches the current conversation's working directory into the new worktree. See [Slash Commands — /new-worktree](04-slash-commands.md#new-worktree-experimental-v1078).
+
+**Why it matters:** Lets you branch off into an isolated worktree and conversation to explore an idea without disturbing your current session's history or working directory.
+
+### `/permissions` Command
+
+A new `/permissions` command lets you switch between approval modes directly, instead of only reaching for `/allow-all`, `--allow-tool`/`--deny-tool` flags, or the permissions prompt shown during a tool call. See [Slash Commands — /permissions](04-slash-commands.md#permissions-v1078).
+
+**Why it matters:** Gives you one command to change how much Copilot CLI can do without asking, instead of hunting across several commands and flags.
+
+### Browser-Based Login Extended to Local Desktop Subprocesses Without a TTY
+
+The browser-based (web) OAuth login default introduced in v1.0.77 now also applies to local desktop subprocesses that don't have a TTY, including IDE integrations — they open the browser flow instead of falling back to a device code. Remote and headless environments continue to default to device code. See [Getting Started — Authentication](01-getting-started.md#authentication).
+
+**Why it matters:** IDE-embedded and other subprocess-launched sessions on your own machine get the same streamlined sign-in as the interactive terminal, instead of an unnecessary device-code step.
+
+### `/rewind` Skips Files Copilot Didn't Write Last
+
+Building on the v1.0.63 experimental improvements, `/rewind` now also skips restoring any file whose contents no longer match what Copilot last wrote — for example, if you've since edited that file yourself. It continues to restore only the files Copilot changed and offers the **Conversation only** vs **Conversation + files** choice.
+
+**Why it matters:** Reduces the risk of `/rewind` clobbering your own edits to a file that Copilot also touched earlier in the conversation.
+
+### First-Party Plugins Auto-Update
+
+First-party plugins now automatically update to their latest version at session start, so you get fixes and improvements without running `/plugin update` manually.
+
+**Why it matters:** Keeps built-in plugin functionality current without extra maintenance steps.
+
+### Interactive Shell Shortcut Launches on Enter
+
+The `$` interactive shell shortcut now launches on `Enter` and shows an inline hint while it's armed, making it clearer when the shortcut is about to trigger. See [Interactive Features — Direct Shell Execution](03-interactive-features.md#direct-shell-execution-with-).
+
+**Why it matters:** Reduces accidental or unclear shell-shortcut activation by surfacing the armed state before you commit to it.
 
 ## New in v1.0.77
 

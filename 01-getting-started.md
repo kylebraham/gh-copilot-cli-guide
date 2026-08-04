@@ -257,6 +257,8 @@ Follow the on-screen instructions:
 
 > **v1.0.77+:** On local interactive terminals, `copilot login` (and `/login`) now default to this **browser-based (web) OAuth flow**, opening your browser directly instead of showing a device code. On remote or headless terminals (e.g., SSH sessions), device code login remains the default. Force a specific mode with `--web-flow` or `--device-code`, or pick one from the interactive `/login` command.
 
+> **v1.0.78+:** This browser-based default now also covers local desktop subprocesses without a TTY, including IDE integrations, so they get the browser flow too instead of falling back to a device code. Remote and headless environments are unaffected.
+
 ### Method 2: Personal Access Token (PAT)
 
 For automated environments or CI/CD:

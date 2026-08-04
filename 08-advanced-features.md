@@ -1088,6 +1088,8 @@ Opens the plugin manager, where you can:
 
 > **v1.0.69+:** A `/plugins` dashboard is available for managing installed plugins, and `/plugin list` can now run while the agent is working. Installed plugin extensions can also be reloaded without restarting the session.
 
+> **v1.0.78+:** First-party plugins now automatically update to their latest version at session start, so built-in plugin functionality stays current without running `/plugin update` manually.
+
 ### Plugin Marketplaces
 
 Plugins are sourced from marketplaces. You can manage marketplace sources from within the plugin manager:

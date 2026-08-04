@@ -81,6 +81,13 @@ npm update -g @github/copilot
 ```
 
 **Latest features:**
+- ⏱️ Timeline headers show how long each tool call took (for calls of at least 5 seconds), right-aligned and ticking live; disable with `/settings showToolDurations` (v1.0.78)
+- 🌳 Experimental `/new-worktree` command creates a new git worktree and starts a fresh conversation in it (v1.0.78)
+- 🔐 New `/permissions` command switches between approval modes (v1.0.78)
+- 🌐 Browser-based OAuth login now also defaults for local desktop subprocesses without a TTY, such as IDE integrations (v1.0.78)
+- ⏪ `/rewind` (experimental) now skips restoring any file whose contents no longer match what Copilot last wrote, in addition to restoring only Copilot-changed files (v1.0.78)
+- 🧩 First-party plugins automatically update to the latest version at session start (v1.0.78)
+- ⌨️ The `$` interactive shell shortcut now launches on `Enter` and shows an inline hint when armed (v1.0.78)
 - 🔓 Unconditional autopilot approval (or `--allow-all`) now disables the sandbox for the rest of the session when your policy allows bypass (v1.0.77)
 - ⌨️ `Ctrl+G` opens your editor to edit `ask_user` freeform answers without closing the prompt (v1.0.77)
 - 🌐 Browser-based (web) OAuth is now the default `copilot login` flow on local interactive terminals; device code remains the default remotely — force a mode with `--web-flow`/`--device-code` (v1.0.77)
@@ -439,4 +446,4 @@ Go to **Actions → Daily Doc Maintenance → Run workflow** to trigger it on de
 
 ---
 
-**Note:** This guide covers GitHub Copilot CLI v1.0.77. Some capabilities may vary by version — run `/update` to stay current.
+**Note:** This guide covers GitHub Copilot CLI v1.0.78. Some capabilities may vary by version — run `/update` to stay current.

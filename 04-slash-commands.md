@@ -161,6 +161,8 @@ Rewind the last turn and revert any file changes made during that turn. In v1.0.
 
 > **v1.0.63+ (experimental):** `/rewind` no longer requires a git repository. It also restores only the files Copilot changed — your own edits are preserved. A choice menu lets you pick **Conversation only** (roll back chat history, leave files alone) or **Conversation + files** (roll back chat history and restore Copilot-modified files).
 
+> **v1.0.78+:** `/rewind` also skips restoring any file whose contents no longer match what Copilot last wrote — for example, if you've edited that file yourself since. This prevents your own subsequent edits to a Copilot-touched file from being overwritten.
+
 ### /copy
 
 Copy the last AI response to the clipboard.
@@ -457,6 +459,20 @@ Alias for `/allow-all` — enables all permissions in one command. `/yolo` state
 ```
 
 See [/allow-all](#allow-all) for the full list of what this enables.
+
+### /permissions (v1.0.78+)
+
+Switch between approval modes without needing to remember separate commands or flags.
+
+```
+> /permissions
+```
+
+Opens an interactive picker for the current session's approval mode — for example, the default ask-before-use behavior, or a more permissive mode equivalent to `/allow-all`.
+
+**Use when:**
+- You want a single place to check or change how much Copilot CLI can do without prompting, instead of `/allow-all`, `/reset-allowed-tools`, and CLI flags separately
+- You're switching between a cautious review pass and a faster, less-interrupted pass on the same task
 
 ## Command-Line Flags
 
@@ -992,6 +1008,22 @@ Create a new git worktree and switch the active working directory into it.
 > ```
 > With no argument, `/worktree` names the branch from your uncommitted changes and recent conversation using your active model. Branch names typed exactly (e.g. `feature/JIRA-123`) are kept as-is instead of being flattened to a slug (e.g. `feature-jira-123`).
 
+### /new-worktree (Experimental, v1.0.78+)
+
+Create a new git worktree and start a **brand-new conversation** in it, rather than continuing the current one.
+
+```
+> /new-worktree feature/my-branch
+```
+
+**How it differs from `/worktree`:**
+- `/worktree` switches your **current conversation's** working directory into the new worktree, keeping the same chat history.
+- `/new-worktree` creates the worktree and opens a **fresh session** in it, leaving your current conversation and working directory untouched.
+
+**Use when:**
+- You want to start an unrelated task in its own worktree without branching off your current conversation's context
+- You want to keep exploring your current task while a separate, independent conversation runs in another worktree
+
 ### /app (v1.0.62+)
 
 Open the GitHub app if it is installed, or fall back to opening your browser to the GitHub web interface.
@@ -1019,6 +1051,8 @@ Authenticate with GitHub Copilot.
 4. Return to CLI when authorized
 
 > **v1.0.77+:** Browser-based (web) OAuth login is now the **default** for `copilot login`/`/login` on local interactive terminals — it opens your browser directly, skipping the device-code step. Device code login remains the default on remote/headless terminals without direct browser access. Use `--web-flow` or `--device-code` on the `copilot login` CLI command to force a mode, or choose one from the interactive `/login` command.
+
+> **v1.0.78+:** The browser-based default also now covers local desktop subprocesses without a TTY, including IDE integrations — they get the browser flow instead of a device code. Remote and headless environments are unaffected and continue to default to device code.
 
 **Alternative:** Use PAT with `GH_TOKEN` environment variable.
 
@@ -2134,6 +2168,7 @@ Some commands affect subsequent prompts:
 | `/cwd` | Change directory | `/cwd ~/projects` |
 | `/allow-all` | Enable all permissions | `/allow-all` |
 | `/yolo` | Alias for `/allow-all`; persists across `/restart` | `/yolo` |
+| `/permissions` | Switch between approval modes (v1.0.78+) | `/permissions` |
 | `/context` | Check memory | `/context` |
 | `/compact` | Compress history | `/compact` |
 | `/plan` | Create plan | `/plan Build API` |
@@ -2162,6 +2197,7 @@ Some commands affect subsequent prompts:
 | `/settings` | Browse and edit all user settings interactively (v1.0.61+) | `/settings` |
 | `/worktree` | Create a new git worktree and switch into it, leaving uncommitted changes behind (v1.0.61+; behavior split from `/move` in v1.0.71+) | `/worktree my-branch` |
 | `/move` | Create a new git worktree and switch into it, carrying uncommitted changes along; no longer an alias for `/worktree` (v1.0.71+) | `/move my-branch` |
+| `/new-worktree` | Create a new git worktree and start a fresh conversation in it (experimental, v1.0.78+) | `/new-worktree my-branch` |
 | `/app` | Open the GitHub app or browser fallback (v1.0.62+) | `/app` |
 | `/subagents` | Configure subagent model, reasoning effort, and context tier (v1.0.62+); alias `/agents` | `/subagents` |
 | `/branch` | Fork the current session into a new independent session (v1.0.64+); alias for `/fork` | `/branch my-experiment` |

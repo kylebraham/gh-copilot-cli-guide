@@ -1,5 +1,15 @@
 # Documentation Updates
 
+## 2026-08-04 — Docs updated for v1.0.78
+
+- `README.md`: Bumped version note to v1.0.78; added "Latest features" bullets for v1.0.78 (timeline tool-call duration headers with `/settings showToolDurations`, experimental `/new-worktree` command, new `/permissions` command, browser-based login extended to local desktop subprocesses without a TTY, `/rewind` skipping files that no longer match what Copilot last wrote, first-party plugin auto-update, `$` shell shortcut launching on `Enter`)
+- `16-new-features.md`: Updated title to v1.0.78; added TOC entry; added a "New in v1.0.78" section covering all seven v1.0.78 changes above
+- `04-slash-commands.md`: Added a new `/new-worktree` entry documenting the experimental worktree-plus-fresh-conversation command; added a new `/permissions` entry; added a v1.0.78 note under `/rewind` on skipping files that no longer match what Copilot wrote; added a v1.0.78 note under `/login` on the browser-flow default extending to local desktop subprocesses without a TTY; updated the quick reference table with `/new-worktree` and `/permissions`
+- `00-cheat-sheet.md`: Added `/new-worktree` and `/permissions` rows; updated the `$` shortcut row for launching on `Enter`; updated the `/plugin` row for first-party plugin auto-update; updated the `/settings` row for `showToolDurations`
+- `01-getting-started.md`: Added a v1.0.78 note in the Interactive Login section that the browser-based default now also covers local desktop subprocesses without a TTY
+- `03-interactive-features.md`: Added a v1.0.78 note under Timeline Commands documenting live tool-call duration headers and `/settings showToolDurations`; added a v1.0.78 note under Direct Shell Execution that the `$` shortcut now launches on `Enter` with an inline armed hint
+- `08-advanced-features.md`: Added a v1.0.78 note under Plugin System documenting first-party plugin auto-update at session start
+
 ## 2026-07-31 — Docs updated for v1.0.77
 
 - `README.md`: Bumped version note to v1.0.77; added "Latest features" bullets for v1.0.77 (unconditional autopilot approval disabling sandbox when bypass is allowed, `Ctrl+G` editing `ask_user` freeform answers, browser-based/web OAuth login default with `--web-flow`/`--device-code`, managed sandbox policy via native macOS/Windows MDM, reasoning effort omission)

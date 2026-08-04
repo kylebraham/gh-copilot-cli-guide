@@ -199,6 +199,8 @@ Ctrl+X → O     # Open a link from the most recent timeline event
 
 > When the input prompt is **not** empty, `Ctrl+E` moves the cursor to the end of line and `Ctrl+O` runs the current command while preserving input.
 
+> **v1.0.78+:** Timeline headers show how long each tool call took, right-aligned and ticking live while the call is still running, for calls of at least 5 seconds. This is on by default; disable it with `/settings showToolDurations off`.
+
 ### Why Use Timeline?
 
 - **Review context** - See what was discussed
@@ -278,6 +280,7 @@ The `!` prefix bypasses the AI and runs commands immediately in your shell.
 > $
 > ```
 >
+> **v1.0.78+:** The shortcut now launches on `Enter` (instead of immediately on typing `$`) and shows an inline hint while it's armed, making it clear the shell is about to open before you commit to it.
 > **v1.0.74+:** The `$` shortcut now opens a shell even while the agent is still working on a response, instead of requiring you to wait for it to finish.
 
 ## Interactive Prompts
