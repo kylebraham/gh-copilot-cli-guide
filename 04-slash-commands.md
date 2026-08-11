@@ -208,6 +208,7 @@ Select or change the AI model.
 - `gpt-5` - OpenAI flagship
 - `gpt-5.6` - Newest GPT generation, added v1.0.70
 - `kimi-k2.7-code` - Code-specialized model, added v1.0.68
+- `kimi-k3` - Newest Kimi generation, added v1.0.79
 - And more available via `/model` selection menu...
 
 **Choose based on:**
@@ -244,6 +245,8 @@ Select or change the AI model.
 > **v1.0.70+:** `gpt-5.6` is now available as a supported model. See [Model Selection Strategy](22-models-and-costs.md) for details.
 >
 > **v1.0.77+:** Reasoning effort can now be left unset — omit it and the server selects the default effort level for the chosen model instead of requiring you to pick one explicitly.
+>
+> **v1.0.79+:** `kimi-k3` is now available as a supported model. See [Model Selection Strategy](22-models-and-costs.md) for details. The model picker also now groups models into **Recent**, **Recommended**, **New**, and other sections; press `Shift+Tab` to cycle between grouping views. `/model` changes are now **session-scoped by default**; use `/config model <model-id>` to set the default model for future sessions instead.
 
 ### /context
 
@@ -1008,21 +1011,25 @@ Create a new git worktree and switch the active working directory into it.
 > ```
 > With no argument, `/worktree` names the branch from your uncommitted changes and recent conversation using your active model. Branch names typed exactly (e.g. `feature/JIRA-123`) are kept as-is instead of being flattened to a slug (e.g. `feature-jira-123`).
 
-### /new-worktree (Experimental, v1.0.78+)
+> **v1.0.79+:** A new `worktreeBaseRef` setting in `settings.json` controls whether `/worktree`, `/worktree new`, and `--worktree` start from `HEAD` or the remote default branch. All three now **default to `HEAD`**; previously `--worktree` started from the remote default branch. See [.copilot Directory Guide](15-copilot-directory.md#settingsjson) for the setting.
+
+### /worktree new (v1.0.79+, replaces experimental /new-worktree)
 
 Create a new git worktree and start a **brand-new conversation** in it, rather than continuing the current one.
 
 ```
-> /new-worktree feature/my-branch
+> /worktree new feature/my-branch
 ```
 
 **How it differs from `/worktree`:**
 - `/worktree` switches your **current conversation's** working directory into the new worktree, keeping the same chat history.
-- `/new-worktree` creates the worktree and opens a **fresh session** in it, leaving your current conversation and working directory untouched.
+- `/worktree new` creates the worktree and opens a **fresh session** in it, leaving your current conversation and working directory untouched.
 
 **Use when:**
 - You want to start an unrelated task in its own worktree without branching off your current conversation's context
 - You want to keep exploring your current task while a separate, independent conversation runs in another worktree
+
+> **v1.0.79+:** The experimental `/new-worktree` command from v1.0.78 is now `/worktree new` — a subcommand of `/worktree` instead of a separate top-level command. Update any muscle memory or scripts that referenced `/new-worktree`.
 
 ### /app (v1.0.62+)
 
@@ -1035,6 +1042,8 @@ Open the GitHub app if it is installed, or fall back to opening your browser to 
 **Use when:**
 - You want to jump from the CLI to the GitHub app without navigating manually
 - The app is not installed and you need the browser fallback
+
+> **v1.0.79+:** `/app` now opens the current session directly in the GitHub Copilot desktop app (requires GitHub Copilot app 1.1.3 or later), instead of landing on the app's Home screen with the wrong folder selected.
 
 ### /login
 
@@ -2197,8 +2206,8 @@ Some commands affect subsequent prompts:
 | `/settings` | Browse and edit all user settings interactively (v1.0.61+) | `/settings` |
 | `/worktree` | Create a new git worktree and switch into it, leaving uncommitted changes behind (v1.0.61+; behavior split from `/move` in v1.0.71+) | `/worktree my-branch` |
 | `/move` | Create a new git worktree and switch into it, carrying uncommitted changes along; no longer an alias for `/worktree` (v1.0.71+) | `/move my-branch` |
-| `/new-worktree` | Create a new git worktree and start a fresh conversation in it (experimental, v1.0.78+) | `/new-worktree my-branch` |
-| `/app` | Open the GitHub app or browser fallback (v1.0.62+) | `/app` |
+| `/worktree new` | Create a new git worktree and start a fresh conversation in it (v1.0.79+, replaces experimental `/new-worktree`) | `/worktree new my-branch` |
+| `/app` | Open the current session in the GitHub Copilot desktop app, or browser fallback (v1.0.62+; opens directly to the session in v1.0.79+) | `/app` |
 | `/subagents` | Configure subagent model, reasoning effort, and context tier (v1.0.62+); alias `/agents` | `/subagents` |
 | `/branch` | Fork the current session into a new independent session (v1.0.64+); alias for `/fork` | `/branch my-experiment` |
 | `/diagnose` | Analyze session logs to surface errors and insights (v1.0.64+) | `/diagnose` |

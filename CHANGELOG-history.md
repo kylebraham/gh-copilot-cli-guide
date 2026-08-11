@@ -1,5 +1,18 @@
 # Documentation Updates
 
+## 2026-08-11 — Docs updated for v1.0.79
+
+- `README.md`: Bumped version note to v1.0.79; added "Latest features" bullets for v1.0.79 (`/worktree new` replacing experimental `/new-worktree`, `worktreeBaseRef` setting defaulting worktrees to HEAD, model picker grouping with `Shift+Tab` and new `kimi-k3` model, `/model` session-scoped by default with `/config model` for future-session defaults, combining `--plan` with `--mode autopilot`, sandbox Auth tab and `sandbox.auth.git`/`sandbox.auth.gh` rename (breaking), `allowDevToolCaches` → `allowDevToolAccess` rename (breaking), `/sandbox policy`, `/app` opening the current session, queued prompts/shell commands/slash commands together)
+- `16-new-features.md`: Updated title to v1.0.79; added TOC entry; added a "New in v1.0.79" section covering all eleven v1.0.79 changes above
+- `04-slash-commands.md`: Renamed the experimental `/new-worktree` section to `/worktree new`; added a `worktreeBaseRef` note under `/worktree`; added a v1.0.79 note under `/model` covering `kimi-k3`, model picker grouping, and session-scoped changes; added `kimi-k3` to the available models list; added a v1.0.79 note under `/app` on opening the current session directly; updated the quick reference table for `/worktree new` and `/app`
+- `00-cheat-sheet.md`: Replaced the `/new-worktree` row with `/worktree new`; updated the `/worktree` row for the `worktreeBaseRef` default change; updated the `/model` row for v1.0.79 changes; updated the `/app` row; updated the `--plan` row to mention combining with `--mode autopilot`; added a `/sandbox` row covering the Auth tab and `/sandbox policy`
+- `09-plan-mode.md`: Added "Method 4: Combine --plan with --mode autopilot" under Entering Plan Mode
+- `17-autopilot-mode.md`: Added a v1.0.79 cross-reference note under Activating Autopilot Mode for the `--plan`/`--mode autopilot` combo
+- `22-models-and-costs.md`: Added a `kimi-k3` row to the available models table
+- `15-copilot-directory.md`: Added `worktreeBaseRef`, `pinnedPrompts`, `sandbox.auth.git`/`sandbox.auth.gh`, and `allowDevToolAccess` to the example `settings.json` options
+- `08-advanced-features.md`: Added v1.0.79 notes under File Access Control documenting the sandbox Auth tab, `sandbox.auth.git`/`sandbox.auth.gh` rename, `allowDevToolAccess` rename, and `/sandbox policy`; added a v1.0.79 note under Plugin Marketplaces for the `extraKnownMarketplaces` `autoUpdate` field
+- `03-interactive-features.md`: Added a v1.0.79 note under Queued Messages documenting queuing prompts, shell commands, and slash commands together
+
 ## 2026-08-04 — Docs updated for v1.0.78
 
 - `README.md`: Bumped version note to v1.0.78; added "Latest features" bullets for v1.0.78 (timeline tool-call duration headers with `/settings showToolDurations`, experimental `/new-worktree` command, new `/permissions` command, browser-based login extended to local desktop subprocesses without a TTY, `/rewind` skipping files that no longer match what Copilot last wrote, first-party plugin auto-update, `$` shell shortcut launching on `Enter`)

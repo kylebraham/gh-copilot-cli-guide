@@ -53,6 +53,16 @@ Messages prefixed with `[[PLAN]]` automatically trigger plan mode:
 [[PLAN]] Build a user authentication system with JWT tokens
 ```
 
+### Method 4: Combine --plan with --mode autopilot (v1.0.79+)
+
+Pass both `--plan` and `--mode autopilot` on the command line to plan first, then implement the plan automatically without waiting for approval to enter autopilot:
+
+```bash
+copilot --plan --mode autopilot -p "Add rate limiting to the API"
+```
+
+**Why it matters:** Previously you had to plan and autopilot in separate steps (or accept plans manually); this combo chains the two so non-interactive runs can plan and then execute unattended in one command.
+
 ## Creating a Plan
 
 ### Simple Plan Request

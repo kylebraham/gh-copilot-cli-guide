@@ -146,6 +146,22 @@ As of v1.0.35, user-editable settings live in `~/.copilot/settings.json`. This f
   "tabs": {
     "order": ["chat", "sessions", "mcp", "settings"],
     "hidden": ["changelog"]
+  },
+
+  // Which ref /worktree, /worktree new, and --worktree start from: "head" or "default-branch" (v1.0.79+; default is now "head")
+  "worktreeBaseRef": "head",
+
+  // Pin the current prompt one row above the timeline (off by default, and on terminals under 30 rows even if enabled — v1.0.79+)
+  "pinnedPrompts": false,
+
+  // Sandbox git/gh auth — renamed from sandbox.gitAuth/sandbox.ghAuth in v1.0.79; old keys are ignored, no migration
+  "sandbox": {
+    "auth": {
+      "git": false,
+      "gh": false
+    },
+    // Renamed from allowDevToolCaches in v1.0.79 — grants dev-tool config/registries, not just caches; old key is ignored
+    "allowDevToolAccess": true
   }
 }
 ```

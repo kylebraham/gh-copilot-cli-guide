@@ -96,12 +96,12 @@
 | `/security-review` | Run a security-focused code review (v1.0.51+; no longer requires `--experimental` as of v1.0.64) |
 | `/pr` | Create or manage a pull request; `/pr auto` self-paces one fix per run against CI to drive a PR to green, `/pr automerge` keeps going until merged — manage from `/loop` or `/every` (v1.0.66+) |
 | `/delegate` | Hand off a task to an autonomous subagent |
-| `/app` | Open the GitHub app or browser fallback (v1.0.62+) |
+| `/app` | Open the current session in the GitHub Copilot desktop app, or browser fallback (v1.0.62+; opens directly to the session, requires app 1.1.3+, v1.0.79+) |
 
 ### AI & Models
 | Command | Description |
 |---------|-------------|
-| `/model` | View or switch the active AI model; add `--repo` or `--local` to scope the change to the repo/local config instead of the global default (v1.0.70+); add `--session`/`-s` to change it for just the current session (v1.0.72+); add `plan`/`--plan` to set a model used only in Plan Mode (v1.0.74+) |
+| `/model` | View or switch the active AI model; add `--repo` or `--local` to scope the change to the repo/local config instead of the global default (v1.0.70+); add `--session`/`-s` to change it for just the current session (v1.0.72+); add `plan`/`--plan` to set a model used only in Plan Mode (v1.0.74+); changes are session-scoped by default — use `/config model` to set the future-session default (v1.0.79+); picker groups models into Recent/Recommended/New sections, `Shift+Tab` cycles views (v1.0.79+) |
 | `/agent` | Configure or inspect the active agent |
 | `/subagents` | Configure subagent model, reasoning effort, and context tier; alias `/agents` (v1.0.62+); default max nesting depth is 4, configurable up to 128 via `subagents.maxDepth` (v1.0.71+) |
 | `/fleet` | Launch parallel subagents for distributed tasks |
@@ -126,10 +126,11 @@
 | `/experimental` | Toggle experimental features |
 | `/autopilot [objective]` | Toggle autopilot mode on/off; optionally set a goal objective (v1.0.45+); `/goal` is an alias (v1.0.55+) |
 | `/settings` | Open an interactive dialog to browse and edit all user settings (v1.0.61+); add `--repo` or `--local` to scope a change to the repo/local config instead of the global default; includes a setting to show/hide timeline timestamps (v1.0.70+); adds Repo and Repo (local) scope tabs (v1.0.71+); `showToolDurations` toggles live tool-call duration headers in the timeline, on by default (v1.0.78+) |
-| `/worktree <branch>` | Create a new git worktree and switch into it, leaving uncommitted changes behind (v1.0.61+); pass a task (e.g. `/worktree fix the login redirect`) to name the branch and run it as the first prompt (v1.0.66+); with no argument, names the branch from uncommitted changes and recent conversation (v1.0.66+); `/move` is no longer an alias — it carries uncommitted changes into the new worktree instead (v1.0.71+) |
+| `/worktree <branch>` | Create a new git worktree and switch into it, leaving uncommitted changes behind (v1.0.61+); pass a task (e.g. `/worktree fix the login redirect`) to name the branch and run it as the first prompt (v1.0.66+); with no argument, names the branch from uncommitted changes and recent conversation (v1.0.66+); `/move` is no longer an alias — it carries uncommitted changes into the new worktree instead (v1.0.71+); defaults to starting from `HEAD` instead of the remote default branch, configurable via `worktreeBaseRef` (v1.0.79+) |
 | `/move <branch>` | Create a new git worktree and switch into it, carrying uncommitted changes along; no longer an alias for `/worktree` (v1.0.71+) |
-| `/new-worktree <branch>` | Create a new git worktree and start a fresh conversation in it, instead of continuing the current one (experimental, v1.0.78+) |
+| `/worktree new <branch>` | Create a new git worktree and start a fresh conversation in it, instead of continuing the current one (v1.0.79+, replaces experimental `/new-worktree`) |
 | `/allow-all` | Allow all tool calls without per-call confirmation; `/allow-all auto` auto-approves LLM-judged acceptable requests and requires experimental mode (v1.0.69+) |
+| `/sandbox` | Configure the OS-level shell sandbox; groups git/`gh`/keychain auth settings under an Auth tab and shows where sandbox settings are stored (v1.0.79+); `/sandbox policy` shows effective sandbox paths, denials, and network access (v1.0.79+) |
 | `/yolo` | Alias for `/allow-all`; state persists across `/restart` |
 | `/permissions` | Switch between approval modes in one interactive picker (v1.0.78+) |
 | `/reset-allowed-tools` | Reset tool allowlist to default (prompt-per-use) |
@@ -182,7 +183,7 @@
 | `--experimental` | Enable experimental features |
 | `--mode MODE` | Start in a specific mode: `interactive`, `plan`, or `autopilot` |
 | `--autopilot` | Shorthand for `--mode autopilot` — start in autopilot mode |
-| `--plan` | Shorthand for `--mode plan` — start in plan mode |
+| `--plan` | Shorthand for `--mode plan` — start in plan mode; combine with `--mode autopilot` to plan first, then implement automatically without waiting for approval (v1.0.79+) |
 | `--max-autopilot-continues N` | Cap the number of autonomous continuation steps |
 | `--no-ask-user` | Never pause to ask clarifying questions |
 | `--continue` / `--resume` / `-r` | Resume the most recent session from CWD (accepts 7+ char ID prefix or session name); auto-inherits `--remote` for remote sessions; `-r` is a shorthand alias for `--resume` (v1.0.60) |

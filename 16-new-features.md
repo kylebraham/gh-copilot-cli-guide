@@ -1,4 +1,4 @@
-# Latest Features in GitHub Copilot CLI — v1.0.78
+# Latest Features in GitHub Copilot CLI — v1.0.79
 
 This file covers recent additions to GitHub Copilot CLI. Features marked with "Full guide →" have their own dedicated documentation file — the entries here are summaries with links. Features without a dedicated file are covered in full below.
 
@@ -10,6 +10,7 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 3. [Research Command (`/research`)](#research-command-research) — [Full guide →](19-research-command.md)
 
 ### Features covered in this file
+4. [New in v1.0.79](#new-in-v1079)
 4. [New in v1.0.78](#new-in-v1078)
 4. [New in v1.0.77](#new-in-v1077)
 4. [New in v1.0.76](#new-in-v1076)
@@ -89,6 +90,76 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 ---
 
 ---
+
+## New in v1.0.79
+
+Released: 2026-08-10
+
+### `/worktree new` Replaces Experimental `/new-worktree`
+
+The experimental `/new-worktree` command introduced in v1.0.78 is now `/worktree new` — a subcommand of `/worktree` rather than a separate top-level command. It still creates a new git worktree and starts a fresh conversation in it, leaving your current conversation and working directory untouched. See [Slash Commands — /worktree new](04-slash-commands.md#worktree-new-v1079-replaces-experimental-new-worktree).
+
+**Why it matters:** Consolidates worktree creation under one command family instead of two separate commands with overlapping purposes.
+
+### `worktreeBaseRef` Setting and New Default of HEAD
+
+A new `worktreeBaseRef` setting controls whether `/worktree`, `/worktree new`, and `--worktree` start from `HEAD` or the remote default branch. All three now default to `HEAD`; previously `--worktree` started from the remote default branch. See [.copilot Directory Guide — settings.json](15-copilot-directory.md#settingsjson).
+
+**Why it matters:** Worktrees now consistently branch off your current checkout by default instead of silently rebasing onto the remote default branch.
+
+### Model Picker Grouping and `kimi-k3`
+
+The model picker now groups models into **Recent**, **Recommended**, **New**, and other sections, with `Shift+Tab` cycling between grouping views. The `kimi-k3` model is now available. See [Slash Commands — /model](04-slash-commands.md#model-model) and [Model Selection Strategy](22-models-and-costs.md).
+
+**Why it matters:** Makes it faster to find the model you actually want in a long, growing list instead of scrolling through every available model.
+
+### `/model` Is Session-Scoped by Default
+
+`/model` changes now apply only to the current session by default; use `/config model` to set the default model for future sessions instead.
+
+**Why it matters:** Reduces accidental global model changes from a quick per-session switch.
+
+### Combine `--plan` with `--mode autopilot`
+
+Pass both flags together to plan a task first, then implement the plan automatically without waiting for approval to enter autopilot. See [Plan Mode — Method 4](09-plan-mode.md#method-4-combine---plan-with---mode-autopilot-v1079).
+
+**Why it matters:** Lets non-interactive runs plan and then execute unattended in a single command instead of two separate steps.
+
+### `/app` Opens the Current Session
+
+The `/app` command now opens the current session in the GitHub Copilot desktop app instead of landing on Home with the wrong folder selected (requires GitHub Copilot app 1.1.3 or later). See [Slash Commands — /app](04-slash-commands.md#app-v1062).
+
+**Why it matters:** Jumping to the desktop app now lands you exactly where you were working, instead of requiring manual navigation.
+
+### Sandbox Auth Settings Renamed (BREAKING)
+
+The `/sandbox` configuration dialog groups git, `gh`, and (on macOS) keychain settings under a new **Auth** tab, and the settings keys move from `sandbox.gitAuth`/`sandbox.ghAuth` to `sandbox.auth.git`/`sandbox.auth.gh`. There is no migration — old keys are silently ignored in settings files, and SDK requests that still send them are rejected as invalid. See [Advanced Features — File Access Control](08-advanced-features.md#file-access-control).
+
+**Why it matters:** If you set these keys via `settings.json` or a managed/MDM policy, you must rename them after upgrading or your sandbox auth configuration will silently stop applying.
+
+### `allowDevToolCaches` Renamed to `allowDevToolAccess` (BREAKING)
+
+The sandbox setting `allowDevToolCaches` is renamed `allowDevToolAccess`, since it grants dev-tool config and registries too, not just caches. The old key is no longer read and is ignored silently, so an existing `false` opt-out reverts to the default (on).
+
+**Why it matters:** Anyone who disabled dev-tool sandbox access via the old key needs to rename it to keep that restriction in effect — otherwise it silently re-enables.
+
+### `/sandbox policy` Command
+
+`/sandbox policy` shows effective sandbox paths, denials, and network access.
+
+**Why it matters:** Gives you a single view to audit exactly what the sandbox currently allows and blocks, instead of piecing it together from multiple settings.
+
+### Queue Prompts, Shell Commands, and Slash Commands Together
+
+Local sessions can now queue prompts, shell commands, and supported slash commands together, running them in order after the current task finishes.
+
+**Why it matters:** Lets you line up a mixed sequence of follow-up work — chat instructions, `!` shell commands, and slash commands — without waiting for each one to finish before queuing the next.
+
+### Plugin Marketplace Auto-Update
+
+Set `"autoUpdate": true` on an `extraKnownMarketplaces` entry to auto-update that marketplace's plugins at session start, matching the first-party plugin auto-update introduced in v1.0.78. See [Advanced Features — Plugin Marketplaces](08-advanced-features.md#plugin-marketplaces).
+
+**Why it matters:** Extends the "always current" plugin behavior to third-party marketplaces, not just first-party ones.
 
 ## New in v1.0.78
 

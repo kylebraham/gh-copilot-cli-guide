@@ -90,6 +90,8 @@ You can also start the CLI directly in autopilot mode from the command line:
 copilot --autopilot "Your task description here"
 ```
 
+> **v1.0.79+:** Combine `--plan` with `--mode autopilot` to plan the task first, then implement it automatically without waiting for approval to enter autopilot — useful for non-interactive runs that should both plan and execute unattended. See [Plan Mode — Method 4](09-plan-mode.md#method-4-combine---plan-with---mode-autopilot-v1079).
+
 ---
 
 ## Permissions Prompt

@@ -37,6 +37,7 @@ Understanding how to choose the right model — and when to switch — is one of
 | GPT-5.3-Codex | `gpt-5.3-codex` | Fast | Code-specialized tasks |
 | GPT-5.2-Codex | `gpt-5.2-codex` | Fast | Code-specialized, stable alternative |
 | Kimi K2.7 Code | `kimi-k2.7-code` | Fast | Code-specialized alternative model (v1.0.68+) |
+| Kimi K3 | `kimi-k3` | Fast | Newest Kimi generation (v1.0.79+) |
 | Gemini 3.5 Flash | `gemini-3.5-flash` | Fastest | Lightweight Gemini model; now supports a **minimal** reasoning effort level (v1.0.69+) for the quickest possible responses |
 | Gemini 3.6 Flash | `gemini-3.6-flash` | Fastest | Newest Gemini Flash generation, added v1.0.74 |
 | GPT-5.4 mini | `gpt-5.4-mini` | Fastest | Ultra-cheap for trivial or bulk tasks |

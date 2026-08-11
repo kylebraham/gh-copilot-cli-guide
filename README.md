@@ -81,8 +81,13 @@ npm update -g @github/copilot
 ```
 
 **Latest features:**
+- 🌳 `/worktree new` replaces the experimental `/new-worktree`, and a `worktreeBaseRef` setting controls whether `/worktree`, `/worktree new`, and `--worktree` start from `HEAD` (now the default for all three) or the remote default branch (v1.0.79)
+- 🧠 Model picker groups models into Recent, Recommended, New, and other sections (`Shift+Tab` to switch views); `/model` changes are session-scoped by default — use `/config model` for future-session defaults; new `kimi-k3` model available (v1.0.79)
+- 🗺️ Combine `--plan` with `--mode autopilot` to plan a task first, then implement it automatically without waiting for approval (v1.0.79)
+- 🔐 The `/sandbox` dialog gets a new Auth tab and shows where settings are stored; `sandbox.gitAuth`/`sandbox.ghAuth` move to `sandbox.auth.git`/`sandbox.auth.gh` with no migration (BREAKING); `allowDevToolCaches` is renamed `allowDevToolAccess` (BREAKING); `/sandbox policy` shows effective sandbox paths, denials, and network access (v1.0.79)
+- 📱 `/app` now opens the current session directly in the GitHub Copilot desktop app instead of landing on Home with the wrong folder (requires app 1.1.3+) (v1.0.79)
+- 📋 Queue prompts, shell commands, and supported slash commands together in local sessions to run in order after the current task finishes (v1.0.79)
 - ⏱️ Timeline headers show how long each tool call took (for calls of at least 5 seconds), right-aligned and ticking live; disable with `/settings showToolDurations` (v1.0.78)
-- 🌳 Experimental `/new-worktree` command creates a new git worktree and starts a fresh conversation in it (v1.0.78)
 - 🔐 New `/permissions` command switches between approval modes (v1.0.78)
 - 🌐 Browser-based OAuth login now also defaults for local desktop subprocesses without a TTY, such as IDE integrations (v1.0.78)
 - ⏪ `/rewind` (experimental) now skips restoring any file whose contents no longer match what Copilot last wrote, in addition to restoring only Copilot-changed files (v1.0.78)
@@ -446,4 +451,4 @@ Go to **Actions → Daily Doc Maintenance → Run workflow** to trigger it on de
 
 ---
 
-**Note:** This guide covers GitHub Copilot CLI v1.0.78. Some capabilities may vary by version — run `/update` to stay current.
+**Note:** This guide covers GitHub Copilot CLI v1.0.79. Some capabilities may vary by version — run `/update` to stay current.

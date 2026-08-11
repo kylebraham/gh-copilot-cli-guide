@@ -257,6 +257,8 @@ Press `Ctrl+Q` or `Ctrl+Enter` to queue a message while the agent is running ins
 
 > **v1.0.76:** A directable queue manager lets you reorder, edit, remove, repeat, and immediately send queued messages instead of only appending to the end of the queue. The queued-messages list no longer shows a blank row or an inflated count, and `Ctrl+C` removes only your own newest queued message.
 
+> **v1.0.79+:** Local sessions can queue prompts, shell commands (`!`), and supported slash commands together, running them in order after the current task finishes — not just plain chat messages.
+
 ### Direct Shell Execution with !
 
 Execute shell commands without AI processing:
