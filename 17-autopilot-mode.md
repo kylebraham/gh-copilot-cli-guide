@@ -90,6 +90,8 @@ You can also start the CLI directly in autopilot mode from the command line:
 copilot --autopilot "Your task description here"
 ```
 
+> **v1.0.79+:** Combine `--plan` with `--mode autopilot` to plan the task first, then implement it automatically without waiting for approval to enter autopilot — useful for non-interactive runs that should both plan and execute unattended. See [Plan Mode — Method 4](09-plan-mode.md#method-4-combine---plan-with---mode-autopilot-v1079).
+
 ---
 
 ## Permissions Prompt
@@ -118,6 +120,8 @@ You can grant full permissions at any point during an autopilot session with:
 
 > **v1.0.46+:** Read-only `gh` CLI commands (`gh issue list`, `gh pr view`, `gh repo status`, `gh pr diff`, etc.) are **auto-approved** in autopilot mode — no confirmation prompt is shown. Only write operations still require approval.
 
+> **v1.0.77+:** Choosing "Enable all permissions" (or running with `--allow-all`) now also **disables the sandbox** for the rest of the current session, when your sandbox policy allows bypass. Previously, granting full tool approval didn't automatically lift sandbox restrictions, which could still silently constrain what autopilot could do.
+
 ---
 
 ## Stopping Autopilot
@@ -134,6 +138,10 @@ Autopilot runs until one of these conditions is met:
 > **v1.0.64:** When the agent calls `task_complete`, autopilot mode **automatically returns to interactive mode**. Previously the session stayed in autopilot and your next prompt would trigger another autonomous run. Now you are returned to interactive mode to review the results before proceeding.
 
 > **v1.0.69+:** Set `"stayInAutopilot": true` in `~/.copilot/settings.json` to keep the CLI in autopilot mode after a task completes instead of automatically returning to interactive mode. Defaults to `false` (the v1.0.64 behavior described above).
+
+> **v1.0.76:** The default flipped — autopilot now **stays selected** after `task_complete` by default. Set `"stayInAutopilot": false` in `~/.copilot/settings.json` to restore the v1.0.64 behavior of returning to interactive mode after each task.
+
+> **v1.0.76:** Resuming a session (`/resume`) now restores whichever mode it was in — autopilot or Plan Mode — instead of reverting to interactive mode. This keeps the autopilot-only `task_complete` tool available and ensures the mode matches the session you left.
 
 > **v1.0.64:** Autopilot now auto-handles elicitation, `ask_user`, sampling, and permission prompts — including prompts shown at launch with `--autopilot` and during continuation turns — so they no longer surface dialogs during an autonomous run.
 

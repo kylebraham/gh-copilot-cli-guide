@@ -1088,6 +1088,8 @@ Opens the plugin manager, where you can:
 
 > **v1.0.69+:** A `/plugins` dashboard is available for managing installed plugins, and `/plugin list` can now run while the agent is working. Installed plugin extensions can also be reloaded without restarting the session.
 
+> **v1.0.78+:** First-party plugins now automatically update to their latest version at session start, so built-in plugin functionality stays current without running `/plugin update` manually.
+
 ### Plugin Marketplaces
 
 Plugins are sourced from marketplaces. You can manage marketplace sources from within the plugin manager:
@@ -1132,6 +1134,16 @@ When configuring marketplaces in `config.json`, use the `extraKnownMarketplaces`
 
 > ⚠️ **Removed in v1.0.16:** The `marketplaces` config key has been removed. Use `extraKnownMarketplaces` instead.
 
+> **v1.0.79+:** Set `"autoUpdate": true` on an individual `extraKnownMarketplaces` entry to auto-update that marketplace's plugins at session start, the same way first-party plugins already do (v1.0.78+):
+>
+> ```json
+> {
+>   "extraKnownMarketplaces": [
+>     { "url": "https://plugins.example.com/registry.json", "autoUpdate": true }
+>   ]
+> }
+> ```
+
 ### Pinning a Plugin to an Exact Commit (v1.0.70+)
 
 Add a `sha` field to a plugin's source configuration to lock it to an exact commit, so updates to the source ref (e.g., a branch move) don't silently change what's installed:
@@ -1162,6 +1174,12 @@ copilot plugins help
 ```
 
 **Why it matters:** One consistent CLI surface for managing plugins, MCP servers, and skills instead of separate tooling per kind — including installing skills straight from a file, URL, or directory. See [Skills System — Adding Skills](14-skills-system.md#adding-skills).
+
+### Enable/Disable Controls Extended to Instructions, Agents, LSP Servers, and Hooks (v1.0.76+)
+
+`/plugins` (and `copilot plugins`) `enable`/`disable` now cover custom instructions, custom agents, LSP servers, and hooks — not just plugins, MCP servers, and skills. This gives you one consistent way to temporarily turn off any extension without uninstalling it.
+
+**Why it matters:** You can quickly disable a misbehaving hook, an LSP server that's slowing things down, or an instruction file that's steering the agent wrong — then re-enable it later — without deleting configuration.
 
 ### Open Plugin Spec v1 Support (v1.0.74+)
 
@@ -1459,6 +1477,10 @@ Set in config:
 > **v1.0.70+:** Use `--sandbox` or `--no-sandbox` on the command line to force the OS-level shell sandbox on or off for just the current session, without changing your saved sandbox setting. This is especially useful alongside `-p` for one-off non-interactive runs that need a different sandbox posture than your default.
 
 > **v1.0.72+:** Git and `gh` authentication inside the OS sandbox is now opt-in. Sandboxed macOS keychain access now defaults to **off** for tighter isolation — re-enable it via `/sandbox` if a command needs it. Toggling `/sandbox` now restarts only local MCP servers, leaving remote servers connected.
+
+> **v1.0.79+:** The `/sandbox` configuration dialog groups the git, `gh`, and (on macOS) keychain settings under a new **Auth** tab, and the underlying settings keys move from `sandbox.gitAuth`/`sandbox.ghAuth` to `sandbox.auth.git`/`sandbox.auth.gh`. **There is no migration** — the old keys are silently ignored in settings files, and SDK requests that still send them are rejected as invalid. Rename these keys in `settings.json` and any managed/MDM policy after upgrading. Separately, `/sandbox` also shows where sandbox settings are stored, and a new `/sandbox policy` view shows effective sandbox paths, denials, and network access.
+>
+> **BREAKING (v1.0.79+):** The sandbox setting `allowDevToolCaches` is renamed `allowDevToolAccess`, since it grants dev-tool config and registries too, not just caches. The old key is no longer read and is ignored silently, so an existing `false` opt-out **reverts to the default (on)** — rename it in `settings.json` and any managed/MDM policy to keep the opt-out in effect.
 
 > **v1.0.66+:** Session credit limits (the `sessionLimits` setting) must now be at least 30 AI credits, and now apply across the whole current conversation, resetting on `/clear`.
 

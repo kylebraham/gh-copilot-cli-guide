@@ -37,10 +37,12 @@ Understanding how to choose the right model — and when to switch — is one of
 | GPT-5.3-Codex | `gpt-5.3-codex` | Fast | Code-specialized tasks |
 | GPT-5.2-Codex | `gpt-5.2-codex` | Fast | Code-specialized, stable alternative |
 | Kimi K2.7 Code | `kimi-k2.7-code` | Fast | Code-specialized alternative model (v1.0.68+) |
+| Kimi K3 | `kimi-k3` | Fast | Newest Kimi generation (v1.0.79+) |
 | Gemini 3.5 Flash | `gemini-3.5-flash` | Fastest | Lightweight Gemini model; now supports a **minimal** reasoning effort level (v1.0.69+) for the quickest possible responses |
 | Gemini 3.6 Flash | `gemini-3.6-flash` | Fastest | Newest Gemini Flash generation, added v1.0.74 |
 | GPT-5.4 mini | `gpt-5.4-mini` | Fastest | Ultra-cheap for trivial or bulk tasks |
 | GPT-4.1 | `gpt-4.1` | Fast | Fast, cost-effective general tasks |
+| Grok 4.5 | `grok-4.5` | Fast | New Grok family model, added v1.0.76 |
 
 > ⚠️ **Deprecated in v1.0.66:** Claude Opus 4.6 Fast (`claude-opus-4.6-fast`) is deprecated in favor of Claude Opus 4.8 Fast (`claude-opus-4.8-fast`), which offers newer Opus quality at comparable speed.
 
@@ -267,6 +269,8 @@ Opus 4.7 is the latest and most capable Opus model (available from v1.0.29). Use
 - Consider switching *back* to Sonnet once you have a clear plan and just need implementation
 
 > **v1.0.60:** All reasoning effort levels (`low`, `medium`, `high`, `max`) are now available for Anthropic models on **every plan**. Use `--reasoning-effort max` for the deepest analysis on the most demanding tasks.
+>
+> **v1.0.77+:** Reasoning effort no longer has to be set explicitly — leave it unset and the server picks a sensible default for the selected model.
 
 ### Claude Haiku 4.5 — Ideal For
 

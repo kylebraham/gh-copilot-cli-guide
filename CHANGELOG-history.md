@@ -1,5 +1,53 @@
 # Documentation Updates
 
+## 2026-08-11 — Docs updated for v1.0.79
+
+- `README.md`: Bumped version note to v1.0.79; added "Latest features" bullets for v1.0.79 (`/worktree new` replacing experimental `/new-worktree`, `worktreeBaseRef` setting defaulting worktrees to HEAD, model picker grouping with `Shift+Tab` and new `kimi-k3` model, `/model` session-scoped by default with `/config model` for future-session defaults, combining `--plan` with `--mode autopilot`, sandbox Auth tab and `sandbox.auth.git`/`sandbox.auth.gh` rename (breaking), `allowDevToolCaches` → `allowDevToolAccess` rename (breaking), `/sandbox policy`, `/app` opening the current session, queued prompts/shell commands/slash commands together)
+- `16-new-features.md`: Updated title to v1.0.79; added TOC entry; added a "New in v1.0.79" section covering all eleven v1.0.79 changes above
+- `04-slash-commands.md`: Renamed the experimental `/new-worktree` section to `/worktree new`; added a `worktreeBaseRef` note under `/worktree`; added a v1.0.79 note under `/model` covering `kimi-k3`, model picker grouping, and session-scoped changes; added `kimi-k3` to the available models list; added a v1.0.79 note under `/app` on opening the current session directly; updated the quick reference table for `/worktree new` and `/app`
+- `00-cheat-sheet.md`: Replaced the `/new-worktree` row with `/worktree new`; updated the `/worktree` row for the `worktreeBaseRef` default change; updated the `/model` row for v1.0.79 changes; updated the `/app` row; updated the `--plan` row to mention combining with `--mode autopilot`; added a `/sandbox` row covering the Auth tab and `/sandbox policy`
+- `09-plan-mode.md`: Added "Method 4: Combine --plan with --mode autopilot" under Entering Plan Mode
+- `17-autopilot-mode.md`: Added a v1.0.79 cross-reference note under Activating Autopilot Mode for the `--plan`/`--mode autopilot` combo
+- `22-models-and-costs.md`: Added a `kimi-k3` row to the available models table
+- `15-copilot-directory.md`: Added `worktreeBaseRef`, `pinnedPrompts`, `sandbox.auth.git`/`sandbox.auth.gh`, and `allowDevToolAccess` to the example `settings.json` options
+- `08-advanced-features.md`: Added v1.0.79 notes under File Access Control documenting the sandbox Auth tab, `sandbox.auth.git`/`sandbox.auth.gh` rename, `allowDevToolAccess` rename, and `/sandbox policy`; added a v1.0.79 note under Plugin Marketplaces for the `extraKnownMarketplaces` `autoUpdate` field
+- `03-interactive-features.md`: Added a v1.0.79 note under Queued Messages documenting queuing prompts, shell commands, and slash commands together
+
+## 2026-08-04 — Docs updated for v1.0.78
+
+- `README.md`: Bumped version note to v1.0.78; added "Latest features" bullets for v1.0.78 (timeline tool-call duration headers with `/settings showToolDurations`, experimental `/new-worktree` command, new `/permissions` command, browser-based login extended to local desktop subprocesses without a TTY, `/rewind` skipping files that no longer match what Copilot last wrote, first-party plugin auto-update, `$` shell shortcut launching on `Enter`)
+- `16-new-features.md`: Updated title to v1.0.78; added TOC entry; added a "New in v1.0.78" section covering all seven v1.0.78 changes above
+- `04-slash-commands.md`: Added a new `/new-worktree` entry documenting the experimental worktree-plus-fresh-conversation command; added a new `/permissions` entry; added a v1.0.78 note under `/rewind` on skipping files that no longer match what Copilot wrote; added a v1.0.78 note under `/login` on the browser-flow default extending to local desktop subprocesses without a TTY; updated the quick reference table with `/new-worktree` and `/permissions`
+- `00-cheat-sheet.md`: Added `/new-worktree` and `/permissions` rows; updated the `$` shortcut row for launching on `Enter`; updated the `/plugin` row for first-party plugin auto-update; updated the `/settings` row for `showToolDurations`
+- `01-getting-started.md`: Added a v1.0.78 note in the Interactive Login section that the browser-based default now also covers local desktop subprocesses without a TTY
+- `03-interactive-features.md`: Added a v1.0.78 note under Timeline Commands documenting live tool-call duration headers and `/settings showToolDurations`; added a v1.0.78 note under Direct Shell Execution that the `$` shortcut now launches on `Enter` with an inline armed hint
+- `08-advanced-features.md`: Added a v1.0.78 note under Plugin System documenting first-party plugin auto-update at session start
+
+## 2026-07-31 — Docs updated for v1.0.77
+
+- `README.md`: Bumped version note to v1.0.77; added "Latest features" bullets for v1.0.77 (unconditional autopilot approval disabling sandbox when bypass is allowed, `Ctrl+G` editing `ask_user` freeform answers, browser-based/web OAuth login default with `--web-flow`/`--device-code`, managed sandbox policy via native macOS/Windows MDM, reasoning effort omission)
+- `16-new-features.md`: Updated title to v1.0.77; added TOC entry; added a "New in v1.0.77" section covering all five v1.0.77 changes
+- `17-autopilot-mode.md`: Added a v1.0.77 note under Permissions Prompt documenting that unconditional approval now disables the sandbox for the session when bypass is allowed
+- `03-interactive-features.md`: Added a v1.0.77 note under Editing Shortcuts that `Ctrl+G` now also edits `ask_user` freeform answers
+- `00-cheat-sheet.md`: Updated the `Ctrl+G` row to mention the v1.0.77 `ask_user` freeform-answer editing
+- `01-getting-started.md`: Added a v1.0.77 note in the Interactive Login section on the new browser-based OAuth default and `--web-flow`/`--device-code` flags
+- `04-slash-commands.md`: Updated the `/login` entry to describe the browser-based OAuth default and device-code fallback; added a v1.0.77 note under `/model` on omitting reasoning effort
+- `21-team-setup.md`: Added a v1.0.77 note under "Enforcing a Managed Sandbox Floor" documenting native macOS/Windows MDM enforcement
+- `22-models-and-costs.md`: Added a v1.0.77 note that reasoning effort can now be left unset
+
+## 2026-07-30 — Docs updated for v1.0.76
+
+- `README.md`: Bumped version note to v1.0.76; added "Latest features" bullets for v1.0.76 (`/plugins` enable/disable extended to instructions/agents/LSP servers/hooks, `grok-4.5`, resume restores autopilot/Plan Mode, autopilot stays selected by default after `task_complete`, enterprise sandbox floor enforcement, experimental Sessions sidebar, `/limits predict`)
+- `16-new-features.md`: Updated title to v1.0.76; added TOC entry; added a "New in v1.0.76" section covering all v1.0.76 features plus notable fixes
+- `22-models-and-costs.md`: Added `grok-4.5` to the model table
+- `08-advanced-features.md`: Added a "v1.0.76+" subsection under Plugin System documenting enable/disable extended to custom instructions, agents, LSP servers, and hooks
+- `17-autopilot-mode.md`: Added v1.0.76 notes documenting the `stayInAutopilot` default flip and that `/resume` now restores autopilot mode
+- `09-plan-mode.md`: Added a v1.0.76 note that `/resume` now restores Plan Mode
+- `21-team-setup.md`: Added an "Enforcing a Managed Sandbox Floor (v1.0.76+)" subsection under Security Configuration for Teams
+- `04-slash-commands.md`: Added a new `/limits` command entry documenting `/limits predict`
+- `00-cheat-sheet.md`: Added a `/limits predict` row; updated the `/plugin` and Sessions sidebar rows for v1.0.76
+- `03-interactive-features.md`: Added a "Queued Messages" subsection documenting the v1.0.76 directable queue manager; added a v1.0.76 note on the experimental Sessions sidebar
+
 ## 2026-07-25 — Docs updated for v1.0.75
 
 - `README.md`: Bumped version note to v1.0.75; added a "Latest features" bullet for v1.0.75 (Claude Opus 5 support)

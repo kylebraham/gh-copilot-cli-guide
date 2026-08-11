@@ -1,4 +1,4 @@
-# Latest Features in GitHub Copilot CLI — v1.0.75
+# Latest Features in GitHub Copilot CLI — v1.0.79
 
 This file covers recent additions to GitHub Copilot CLI. Features marked with "Full guide →" have their own dedicated documentation file — the entries here are summaries with links. Features without a dedicated file are covered in full below.
 
@@ -10,6 +10,10 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 3. [Research Command (`/research`)](#research-command-research) — [Full guide →](19-research-command.md)
 
 ### Features covered in this file
+4. [New in v1.0.79](#new-in-v1079)
+4. [New in v1.0.78](#new-in-v1078)
+4. [New in v1.0.77](#new-in-v1077)
+4. [New in v1.0.76](#new-in-v1076)
 4. [New in v1.0.75](#new-in-v1075)
 4. [New in v1.0.74](#new-in-v1074)
 4. [New in v1.0.73](#new-in-v1073)
@@ -86,6 +90,207 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 ---
 
 ---
+
+## New in v1.0.79
+
+Released: 2026-08-10
+
+### `/worktree new` Replaces Experimental `/new-worktree`
+
+The experimental `/new-worktree` command introduced in v1.0.78 is now `/worktree new` — a subcommand of `/worktree` rather than a separate top-level command. It still creates a new git worktree and starts a fresh conversation in it, leaving your current conversation and working directory untouched. See [Slash Commands — /worktree new](04-slash-commands.md#worktree-new-v1079-replaces-experimental-new-worktree).
+
+**Why it matters:** Consolidates worktree creation under one command family instead of two separate commands with overlapping purposes.
+
+### `worktreeBaseRef` Setting and New Default of HEAD
+
+A new `worktreeBaseRef` setting controls whether `/worktree`, `/worktree new`, and `--worktree` start from `HEAD` or the remote default branch. All three now default to `HEAD`; previously `--worktree` started from the remote default branch. See [.copilot Directory Guide — settings.json](15-copilot-directory.md#settingsjson).
+
+**Why it matters:** Worktrees now consistently branch off your current checkout by default instead of silently rebasing onto the remote default branch.
+
+### Model Picker Grouping and `kimi-k3`
+
+The model picker now groups models into **Recent**, **Recommended**, **New**, and other sections, with `Shift+Tab` cycling between grouping views. The `kimi-k3` model is now available. See [Slash Commands — /model](04-slash-commands.md#model-model) and [Model Selection Strategy](22-models-and-costs.md).
+
+**Why it matters:** Makes it faster to find the model you actually want in a long, growing list instead of scrolling through every available model.
+
+### `/model` Is Session-Scoped by Default
+
+`/model` changes now apply only to the current session by default; use `/config model` to set the default model for future sessions instead.
+
+**Why it matters:** Reduces accidental global model changes from a quick per-session switch.
+
+### Combine `--plan` with `--mode autopilot`
+
+Pass both flags together to plan a task first, then implement the plan automatically without waiting for approval to enter autopilot. See [Plan Mode — Method 4](09-plan-mode.md#method-4-combine---plan-with---mode-autopilot-v1079).
+
+**Why it matters:** Lets non-interactive runs plan and then execute unattended in a single command instead of two separate steps.
+
+### `/app` Opens the Current Session
+
+The `/app` command now opens the current session in the GitHub Copilot desktop app instead of landing on Home with the wrong folder selected (requires GitHub Copilot app 1.1.3 or later). See [Slash Commands — /app](04-slash-commands.md#app-v1062).
+
+**Why it matters:** Jumping to the desktop app now lands you exactly where you were working, instead of requiring manual navigation.
+
+### Sandbox Auth Settings Renamed (BREAKING)
+
+The `/sandbox` configuration dialog groups git, `gh`, and (on macOS) keychain settings under a new **Auth** tab, and the settings keys move from `sandbox.gitAuth`/`sandbox.ghAuth` to `sandbox.auth.git`/`sandbox.auth.gh`. There is no migration — old keys are silently ignored in settings files, and SDK requests that still send them are rejected as invalid. See [Advanced Features — File Access Control](08-advanced-features.md#file-access-control).
+
+**Why it matters:** If you set these keys via `settings.json` or a managed/MDM policy, you must rename them after upgrading or your sandbox auth configuration will silently stop applying.
+
+### `allowDevToolCaches` Renamed to `allowDevToolAccess` (BREAKING)
+
+The sandbox setting `allowDevToolCaches` is renamed `allowDevToolAccess`, since it grants dev-tool config and registries too, not just caches. The old key is no longer read and is ignored silently, so an existing `false` opt-out reverts to the default (on).
+
+**Why it matters:** Anyone who disabled dev-tool sandbox access via the old key needs to rename it to keep that restriction in effect — otherwise it silently re-enables.
+
+### `/sandbox policy` Command
+
+`/sandbox policy` shows effective sandbox paths, denials, and network access.
+
+**Why it matters:** Gives you a single view to audit exactly what the sandbox currently allows and blocks, instead of piecing it together from multiple settings.
+
+### Queue Prompts, Shell Commands, and Slash Commands Together
+
+Local sessions can now queue prompts, shell commands, and supported slash commands together, running them in order after the current task finishes.
+
+**Why it matters:** Lets you line up a mixed sequence of follow-up work — chat instructions, `!` shell commands, and slash commands — without waiting for each one to finish before queuing the next.
+
+### Plugin Marketplace Auto-Update
+
+Set `"autoUpdate": true` on an `extraKnownMarketplaces` entry to auto-update that marketplace's plugins at session start, matching the first-party plugin auto-update introduced in v1.0.78. See [Advanced Features — Plugin Marketplaces](08-advanced-features.md#plugin-marketplaces).
+
+**Why it matters:** Extends the "always current" plugin behavior to third-party marketplaces, not just first-party ones.
+
+## New in v1.0.78
+
+Released: 2026-08-03
+
+### Timeline Tool Call Duration Headers
+
+Timeline headers now show how long each tool call took, right-aligned and ticking live while the call runs, for calls of at least 5 seconds. This is on by default; disable it with `/settings showToolDurations`.
+
+**Why it matters:** Makes it obvious when a slow-running tool call is still in progress versus stalled, without needing to check logs.
+
+### `/new-worktree` Command (Experimental)
+
+The new experimental `/new-worktree` command creates a new git worktree and starts a **fresh conversation** in it, unlike `/worktree`, which switches the current conversation's working directory into the new worktree. See [Slash Commands — /new-worktree](04-slash-commands.md#new-worktree-experimental-v1078).
+
+**Why it matters:** Lets you branch off into an isolated worktree and conversation to explore an idea without disturbing your current session's history or working directory.
+
+### `/permissions` Command
+
+A new `/permissions` command lets you switch between approval modes directly, instead of only reaching for `/allow-all`, `--allow-tool`/`--deny-tool` flags, or the permissions prompt shown during a tool call. See [Slash Commands — /permissions](04-slash-commands.md#permissions-v1078).
+
+**Why it matters:** Gives you one command to change how much Copilot CLI can do without asking, instead of hunting across several commands and flags.
+
+### Browser-Based Login Extended to Local Desktop Subprocesses Without a TTY
+
+The browser-based (web) OAuth login default introduced in v1.0.77 now also applies to local desktop subprocesses that don't have a TTY, including IDE integrations — they open the browser flow instead of falling back to a device code. Remote and headless environments continue to default to device code. See [Getting Started — Authentication](01-getting-started.md#authentication).
+
+**Why it matters:** IDE-embedded and other subprocess-launched sessions on your own machine get the same streamlined sign-in as the interactive terminal, instead of an unnecessary device-code step.
+
+### `/rewind` Skips Files Copilot Didn't Write Last
+
+Building on the v1.0.63 experimental improvements, `/rewind` now also skips restoring any file whose contents no longer match what Copilot last wrote — for example, if you've since edited that file yourself. It continues to restore only the files Copilot changed and offers the **Conversation only** vs **Conversation + files** choice.
+
+**Why it matters:** Reduces the risk of `/rewind` clobbering your own edits to a file that Copilot also touched earlier in the conversation.
+
+### First-Party Plugins Auto-Update
+
+First-party plugins now automatically update to their latest version at session start, so you get fixes and improvements without running `/plugin update` manually.
+
+**Why it matters:** Keeps built-in plugin functionality current without extra maintenance steps.
+
+### Interactive Shell Shortcut Launches on Enter
+
+The `$` interactive shell shortcut now launches on `Enter` and shows an inline hint while it's armed, making it clearer when the shortcut is about to trigger. See [Interactive Features — Direct Shell Execution](03-interactive-features.md#direct-shell-execution-with-).
+
+**Why it matters:** Reduces accidental or unclear shell-shortcut activation by surfacing the armed state before you commit to it.
+
+## New in v1.0.77
+
+Released: 2026-07-30
+
+### Unconditional Autopilot Approval Disables Sandbox When Bypass Is Allowed
+
+When you choose "Enable all permissions" for autopilot mode (or run with `--allow-all`) and your sandbox policy allows bypass, the sandbox is now automatically disabled for the rest of the current session instead of staying enforced alongside blanket tool approval. See [Autopilot Mode — Permissions Prompt](17-autopilot-mode.md#permissions-prompt).
+
+**Why it matters:** Removes a confusing double gate where you'd already granted full tool access but the sandbox could still silently restrict what autopilot could do.
+
+### `Ctrl+G` Edits `ask_user` Freeform Answers
+
+Pressing `Ctrl+G` while answering a freeform `ask_user` question now opens your `$EDITOR` to compose the answer, without closing the prompt. See [Interactive Features — Keyboard Shortcuts](03-interactive-features.md#keyboard-shortcuts).
+
+**Why it matters:** Lets you draft longer or multi-line answers to agent questions in your preferred editor instead of a single input line.
+
+### Browser-Based (Web) OAuth Login by Default
+
+`copilot login` (and the interactive `/login` command) now default to a browser-based OAuth flow on local interactive terminals, opening your browser directly to complete sign-in. Device code login remains the default on remote or headless terminals (e.g., SSH sessions without browser access). Use `--web-flow` or `--device-code` to force a specific mode, or choose one from the interactive `/login` command. See [Getting Started — Authentication](01-getting-started.md#authentication) and [Slash Commands — /login](04-slash-commands.md#login).
+
+**Why it matters:** Skips the device-code copy/paste step for the common case of running Copilot CLI on your own machine, while keeping device code available for remote and headless environments.
+
+### Managed Sandbox Policy via Native MDM Settings
+
+Enterprise administrators can now enforce the managed sandbox policy through native macOS and Windows MDM (Mobile Device Management) settings, in addition to existing managed-settings mechanisms. See [Team Setup — Enforcing a Managed Sandbox Floor](21-team-setup.md#enforcing-a-managed-sandbox-floor-v1076).
+
+**Why it matters:** Lets IT teams roll out and audit the sandbox floor using the same MDM tooling they already use to manage other endpoint policies.
+
+### Reasoning Effort Can Be Omitted
+
+Reasoning effort is no longer required when configuring a model — you can leave it unset so the server selects the default effort level for that model. See [Model Selection Strategy](22-models-and-costs.md).
+
+**Why it matters:** Simplifies model configuration when you don't have a strong preference and want Copilot CLI to pick a sensible default automatically.
+
+## New in v1.0.76
+
+Released: 2026-07-30
+
+### Plugin Enable/Disable Extended to Instructions, Agents, LSP Servers, and Hooks
+
+`/plugins` enable/disable controls now cover custom instructions, custom agents, LSP servers, and hooks, in addition to plugins, MCP servers, and skills. See [Advanced Features — Plugin System](08-advanced-features.md#plugin-system).
+
+**Why it matters:** One consistent way to temporarily turn off any extension type without uninstalling it.
+
+### Grok 4.5 Model Support
+
+Copilot CLI adds support for `grok-4.5` in the `/model` picker. See [Model Selection Strategy](22-models-and-costs.md).
+
+### Autopilot Stays Selected After `task_complete` by Default
+
+The default behavior flips: autopilot mode now stays selected after a task completes, instead of automatically returning to interactive mode. Set `"stayInAutopilot": false` in `~/.copilot/settings.json` to restore the previous behavior. See [Autopilot Mode](17-autopilot-mode.md).
+
+### Resuming a Session Restores Its Mode
+
+`/resume` now restores whichever mode a session was in — autopilot or Plan Mode — instead of reverting to interactive mode, so the autopilot-only `task_complete` tool stays available and the mode matches the session you left. See [Autopilot Mode](17-autopilot-mode.md) and [Plan Mode](09-plan-mode.md).
+
+### Enterprise Sandbox Floor Enforcement
+
+Enterprise administrators can enforce a restrictive sandbox floor: managed settings tighten (but never loosen) a user's sandbox policy, and the `/sandbox` dialog surfaces the org-configured managed values with locked fields and managed filesystem paths. See [Team Setup — Security Configuration](21-team-setup.md#7-security-configuration-for-teams).
+
+### Experimental Sessions Sidebar for Concurrent Sessions
+
+A new Sessions sidebar for managing multiple concurrent sessions — switch between them, spawn new ones, and see their status at a glance — is available. Turn it on with `/experimental on`. See [Interactive Features — Session Management](03-interactive-features.md#session-management).
+
+### `/limits predict`
+
+`/limits predict` suggests a session AI-credit limit based on similar past sessions. See [Slash Commands — /limits](04-slash-commands.md).
+
+### Notable Fixes and Improvements
+
+- Sandbox denied paths are now enforced for relative and symlinked entries on macOS and Linux
+- Unsent prompt text stays with the session it was typed for instead of following you to the session you switch to
+- URL permission prompts keep their sandbox-bypass warning and the model's reason when a host integration rebuilds the prompt
+- `/diff` scrolls and syntax-highlights large multi-file diffs faster
+- Split-view sidebar: hover-to-focus is off by default (`sidebar.hoverFocus`), the active session card is accented by default (`sidebar.accentActiveSession`)
+- `web_fetch` now follows HTTP redirects, asking permission when the redirect target is on a different origin, and routes through the configured sandbox proxy
+- A directable queue manager lets you reorder, edit, remove, repeat, and immediately send queued messages
+- Sessions no longer fail every turn with "Holder terminated during creation" after a subagent finishes
+- Startup tips only suggest `/init` in repositories without existing Copilot instructions
+- Hook output is bounded at 10 MiB per invocation, and malformed hook return values (e.g., non-string `modifiedPrompt`) no longer corrupt the session
+- The `/instructions` picker now respects `--no-custom-instructions`
+- Changing the `mouse` setting mid-session now takes effect immediately
+- MCP tools load faster from definition-scoped snapshots, with cache opt-outs
+- Queued mid-turn `/model` changes now apply after the current response finishes
 
 ## New in v1.0.75
 

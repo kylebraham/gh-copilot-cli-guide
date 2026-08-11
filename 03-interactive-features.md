@@ -65,6 +65,8 @@ Mastering keyboard shortcuts makes you significantly more efficient:
 | `Ctrl+K` | Delete to end | Delete from cursor to end of line (joins lines at end of line) |
 | `Ctrl+G` | Open external editor | Edit the current prompt in your `$EDITOR` *(new)* |
 
+> **v1.0.77+:** `Ctrl+G` also works while answering a freeform `ask_user` question — it opens your `$EDITOR` to compose the answer without closing the prompt.
+
 ### Timeline Shortcuts
 
 > **Note:** `Ctrl+O` and `Ctrl+E` behave differently depending on whether the input prompt is empty.
@@ -197,6 +199,8 @@ Ctrl+X → O     # Open a link from the most recent timeline event
 
 > When the input prompt is **not** empty, `Ctrl+E` moves the cursor to the end of line and `Ctrl+O` runs the current command while preserving input.
 
+> **v1.0.78+:** Timeline headers show how long each tool call took, right-aligned and ticking live while the call is still running, for calls of at least 5 seconds. This is on by default; disable it with `/settings showToolDurations off`.
+
 ### Why Use Timeline?
 
 - **Review context** - See what was discussed
@@ -247,6 +251,14 @@ Reference files directly in your prompts:
 **Auto-completion:**
 Type `@` and start typing a filename - the CLI will suggest matches.
 
+### Queued Messages
+
+Press `Ctrl+Q` or `Ctrl+Enter` to queue a message while the agent is running instead of interrupting it; queued messages are delivered as soon as the current turn finishes.
+
+> **v1.0.76:** A directable queue manager lets you reorder, edit, remove, repeat, and immediately send queued messages instead of only appending to the end of the queue. The queued-messages list no longer shows a blank row or an inflated count, and `Ctrl+C` removes only your own newest queued message.
+
+> **v1.0.79+:** Local sessions can queue prompts, shell commands (`!`), and supported slash commands together, running them in order after the current task finishes — not just plain chat messages.
+
 ### Direct Shell Execution with !
 
 Execute shell commands without AI processing:
@@ -270,6 +282,7 @@ The `!` prefix bypasses the AI and runs commands immediately in your shell.
 > $
 > ```
 >
+> **v1.0.78+:** The shortcut now launches on `Enter` (instead of immediately on typing `$`) and shows an inline hint while it's armed, making it clear the shell is about to open before you commit to it.
 > **v1.0.74+:** The `$` shortcut now opens a shell even while the agent is still working on a response, instead of requiring you to wait for it to finish.
 
 ## Interactive Prompts
@@ -412,6 +425,8 @@ In the picker, press `x` on any entry to delete it immediately.
 Sessions persist across launches, so you can continue where you left off.
 
 > **v1.0.72+:** The Sessions sidebar is now navigable with the keyboard as well as the mouse — arrow keys open, focus, and move the sidebar selection, and `Enter` (or a click) switches to a session. Press `n` to spawn a new session or `x` twice to close one from the keyboard. `/settings` can disable the sidebar entirely or stop it from restoring remembered sessions.
+
+> **v1.0.76:** A new Sessions sidebar for managing multiple concurrent sessions — switch between them, spawn new ones, and see their status at a glance — is available behind experimental mode. Turn it on with `/experimental on`.
 
 ## Advanced Context & Session Strategies
 

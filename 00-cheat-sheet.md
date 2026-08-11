@@ -26,7 +26,7 @@
 | `Ctrl+X → B` | Move current running task or shell command to the background (v1.0.39+) |
 | `Tab` / `Ctrl+Y` | Accept highlighted completion option (`@`-mentions, paths, slash commands); also opens the current plan file or research report if one exists, now from any mode (v1.0.70+) |
 | `!` | Execute command in local shell (bypass Copilot); uses `$SHELL` when set |
-| `$` | Open an interactive shell in the current session directory; opt in with `/settings shellShortcut on` (off by default) (v1.0.72+); now works even while the agent is still responding (v1.0.74+) |
+| `$` | Open an interactive shell in the current session directory; opt in with `/settings shellShortcut on` (off by default) (v1.0.72+); now works even while the agent is still responding (v1.0.74+); launches on `Enter` and shows an inline hint while armed (v1.0.78+) |
 | `s` | Cycle session picker sort order (relevance → last used → created → name) — press while in the `/resume` picker |
 
 ### Text Editing
@@ -41,7 +41,7 @@
 | `Ctrl+K` | Delete from cursor to end of line (joins lines at end) |
 | `Ctrl+H` | Delete previous character (backspace) |
 | `Meta+← / →` | Move cursor by word |
-| `Ctrl+G` | Edit prompt in external editor |
+| `Ctrl+G` | Edit prompt (or an `ask_user` freeform answer, v1.0.77+) in external editor |
 
 ---
 
@@ -71,7 +71,7 @@
 | `/resume` | Resume a previous session (picker shows branch and idle/in-use status) |
 | `/continue` | Alias for `/resume` |
 | `/rename` | Rename the current session |
-| Sessions sidebar | Keyboard/mouse navigable: arrows open/focus/select, `Enter` switches, `n` spawns a session, `x` twice closes one; `/settings` can disable it (v1.0.72+) |
+| Sessions sidebar | Keyboard/mouse navigable: arrows open/focus/select, `Enter` switches, `n` spawns a session, `x` twice closes one; `/settings` can disable it (v1.0.72+); gated behind `/experimental on` for managing multiple concurrent sessions at a glance (v1.0.76+) |
 | `/share` | Share session as markdown, gist, or HTML (`/share html`) |
 | `/export` | Alias for `/share` |
 | `/copy` | Copy last response to clipboard |
@@ -96,12 +96,12 @@
 | `/security-review` | Run a security-focused code review (v1.0.51+; no longer requires `--experimental` as of v1.0.64) |
 | `/pr` | Create or manage a pull request; `/pr auto` self-paces one fix per run against CI to drive a PR to green, `/pr automerge` keeps going until merged — manage from `/loop` or `/every` (v1.0.66+) |
 | `/delegate` | Hand off a task to an autonomous subagent |
-| `/app` | Open the GitHub app or browser fallback (v1.0.62+) |
+| `/app` | Open the current session in the GitHub Copilot desktop app, or browser fallback (v1.0.62+; opens directly to the session, requires app 1.1.3+, v1.0.79+) |
 
 ### AI & Models
 | Command | Description |
 |---------|-------------|
-| `/model` | View or switch the active AI model; add `--repo` or `--local` to scope the change to the repo/local config instead of the global default (v1.0.70+); add `--session`/`-s` to change it for just the current session (v1.0.72+); add `plan`/`--plan` to set a model used only in Plan Mode (v1.0.74+) |
+| `/model` | View or switch the active AI model; add `--repo` or `--local` to scope the change to the repo/local config instead of the global default (v1.0.70+); add `--session`/`-s` to change it for just the current session (v1.0.72+); add `plan`/`--plan` to set a model used only in Plan Mode (v1.0.74+); changes are session-scoped by default — use `/config model` to set the future-session default (v1.0.79+); picker groups models into Recent/Recommended/New sections, `Shift+Tab` cycles views (v1.0.79+) |
 | `/agent` | Configure or inspect the active agent |
 | `/subagents` | Configure subagent model, reasoning effort, and context tier; alias `/agents` (v1.0.62+); default max nesting depth is 4, configurable up to 128 via `subagents.maxDepth` (v1.0.71+) |
 | `/fleet` | Launch parallel subagents for distributed tasks |
@@ -115,7 +115,7 @@
 | `/mcp` | Manage MCP (Model Context Protocol) server connections; `/mcp search <query>` to find from registry; `/mcp registry` to browse interactively (v1.0.64+); `/mcp list` shows attached servers and status and can run while the agent is working (v1.0.69+); marks sandboxed servers, e.g. `connected (sandboxed)` (v1.0.70+) |
 | `/lsp` | Manage language server connections |
 | `/skills` | List or manage available skills; alias `/skill` (v1.0.65+); `copilot skill` subcommand available from shell (v1.0.65+); marks disabled skills in `copilot skill list`/JSON output (v1.0.71+) |
-| `/plugin` | Manage installed plugins; `/plugin update --all` updates all plugins at once (v1.0.49+); `/plugins` dashboard and reload without restart (v1.0.69+); pin a plugin to an exact commit with the `sha` field in its source config (v1.0.70+); `copilot plugins marketplace` subcommands (list/add/remove/browse/update) manage marketplaces from the shell (v1.0.71+); `update`/`uninstall` verbs plus `--plugin`/`--mcp`/`--skill` flags target plugins, MCP servers, or skills through one set of subcommands, including `install --skill` (v1.0.72+) |
+| `/plugin` | Manage installed plugins; `/plugin update --all` updates all plugins at once (v1.0.49+); `/plugins` dashboard and reload without restart (v1.0.69+); pin a plugin to an exact commit with the `sha` field in its source config (v1.0.70+); `copilot plugins marketplace` subcommands (list/add/remove/browse/update) manage marketplaces from the shell (v1.0.71+); `update`/`uninstall` verbs plus `--plugin`/`--mcp`/`--skill` flags target plugins, MCP servers, or skills through one set of subcommands, including `install --skill` (v1.0.72+); enable/disable controls extend to custom instructions, agents, LSP servers, and hooks (v1.0.76+); first-party plugins auto-update to the latest version at session start (v1.0.78+) |
 | `/rubber-duck` | Get an independent critique of the agent's current work (v1.0.49+; enabled by default in v1.0.58+) |
 | `/voice` | Dictate a prompt using local speech-to-text (v1.0.59+); `/voice devices` to choose/persist the microphone (v1.0.71+) |
 | `/every <interval> <prompt>` | Repeat a prompt on a fixed schedule, e.g. `/every 10m check notifications`; supports natural language expressions; alias `/loop` (v1.0.64+) (experimental, v1.0.58+) |
@@ -125,11 +125,14 @@
 | `/init` | Initialize Copilot configuration for the current repo |
 | `/experimental` | Toggle experimental features |
 | `/autopilot [objective]` | Toggle autopilot mode on/off; optionally set a goal objective (v1.0.45+); `/goal` is an alias (v1.0.55+) |
-| `/settings` | Open an interactive dialog to browse and edit all user settings (v1.0.61+); add `--repo` or `--local` to scope a change to the repo/local config instead of the global default; includes a setting to show/hide timeline timestamps (v1.0.70+); adds Repo and Repo (local) scope tabs (v1.0.71+) |
-| `/worktree <branch>` | Create a new git worktree and switch into it, leaving uncommitted changes behind (v1.0.61+); pass a task (e.g. `/worktree fix the login redirect`) to name the branch and run it as the first prompt (v1.0.66+); with no argument, names the branch from uncommitted changes and recent conversation (v1.0.66+); `/move` is no longer an alias — it carries uncommitted changes into the new worktree instead (v1.0.71+) |
+| `/settings` | Open an interactive dialog to browse and edit all user settings (v1.0.61+); add `--repo` or `--local` to scope a change to the repo/local config instead of the global default; includes a setting to show/hide timeline timestamps (v1.0.70+); adds Repo and Repo (local) scope tabs (v1.0.71+); `showToolDurations` toggles live tool-call duration headers in the timeline, on by default (v1.0.78+) |
+| `/worktree <branch>` | Create a new git worktree and switch into it, leaving uncommitted changes behind (v1.0.61+); pass a task (e.g. `/worktree fix the login redirect`) to name the branch and run it as the first prompt (v1.0.66+); with no argument, names the branch from uncommitted changes and recent conversation (v1.0.66+); `/move` is no longer an alias — it carries uncommitted changes into the new worktree instead (v1.0.71+); defaults to starting from `HEAD` instead of the remote default branch, configurable via `worktreeBaseRef` (v1.0.79+) |
 | `/move <branch>` | Create a new git worktree and switch into it, carrying uncommitted changes along; no longer an alias for `/worktree` (v1.0.71+) |
+| `/worktree new <branch>` | Create a new git worktree and start a fresh conversation in it, instead of continuing the current one (v1.0.79+, replaces experimental `/new-worktree`) |
 | `/allow-all` | Allow all tool calls without per-call confirmation; `/allow-all auto` auto-approves LLM-judged acceptable requests and requires experimental mode (v1.0.69+) |
+| `/sandbox` | Configure the OS-level shell sandbox; groups git/`gh`/keychain auth settings under an Auth tab and shows where sandbox settings are stored (v1.0.79+); `/sandbox policy` shows effective sandbox paths, denials, and network access (v1.0.79+) |
 | `/yolo` | Alias for `/allow-all`; state persists across `/restart` |
+| `/permissions` | Switch between approval modes in one interactive picker (v1.0.78+) |
 | `/reset-allowed-tools` | Reset tool allowlist to default (prompt-per-use) |
 
 ### Info & Help
@@ -137,6 +140,7 @@
 |---------|-------------|
 | `/help` | Show available commands and shortcuts |
 | `/usage` | Show premium request usage for this session with quota progress bars (v1.0.52+) |
+| `/limits predict` | Suggest a session AI-credit limit based on similar past sessions (v1.0.76+) |
 | `/version` | Show Copilot CLI version |
 | `/changelog` | View recent release notes |
 | `/release-notes` | Alias for `/changelog` |
@@ -179,7 +183,7 @@
 | `--experimental` | Enable experimental features |
 | `--mode MODE` | Start in a specific mode: `interactive`, `plan`, or `autopilot` |
 | `--autopilot` | Shorthand for `--mode autopilot` — start in autopilot mode |
-| `--plan` | Shorthand for `--mode plan` — start in plan mode |
+| `--plan` | Shorthand for `--mode plan` — start in plan mode; combine with `--mode autopilot` to plan first, then implement automatically without waiting for approval (v1.0.79+) |
 | `--max-autopilot-continues N` | Cap the number of autonomous continuation steps |
 | `--no-ask-user` | Never pause to ask clarifying questions |
 | `--continue` / `--resume` / `-r` | Resume the most recent session from CWD (accepts 7+ char ID prefix or session name); auto-inherits `--remote` for remote sessions; `-r` is a shorthand alias for `--resume` (v1.0.60) |
