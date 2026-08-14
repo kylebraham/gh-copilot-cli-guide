@@ -1,4 +1,4 @@
-# Latest Features in GitHub Copilot CLI — v1.0.79
+# Latest Features in GitHub Copilot CLI — v1.0.80
 
 This file covers recent additions to GitHub Copilot CLI. Features marked with "Full guide →" have their own dedicated documentation file — the entries here are summaries with links. Features without a dedicated file are covered in full below.
 
@@ -10,6 +10,7 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 3. [Research Command (`/research`)](#research-command-research) — [Full guide →](19-research-command.md)
 
 ### Features covered in this file
+4. [New in v1.0.80](#new-in-v1080)
 4. [New in v1.0.79](#new-in-v1079)
 4. [New in v1.0.78](#new-in-v1078)
 4. [New in v1.0.77](#new-in-v1077)
@@ -90,6 +91,64 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 ---
 
 ---
+
+## New in v1.0.80
+
+Released: 2026-08-14
+
+### New `MAI-Code-1.1-Flash` Model
+
+Microsoft's small-tier coding model, `MAI-Code-1.1-Flash`, is now available in the model picker. It adds native vision support and improved coding/core performance. See [Model Selection Strategy](22-models-and-costs.md).
+
+**Why it matters:** Another fast, low-cost model option for quick tasks and bulk changes.
+
+### `/plugin marketplace update [name]`
+
+Refresh marketplace catalogs directly from inside an interactive session — omit `name` to refresh every configured marketplace, or pass one to refresh just that marketplace. See [Advanced Features — Plugin Marketplaces](08-advanced-features.md#plugin-marketplaces).
+
+**Why it matters:** No need to drop to the shell just to pull the latest plugin listings.
+
+### `extraKnownMarketplaces` `autoUpdate` Honored from Managed Settings
+
+The `autoUpdate` field on an `extraKnownMarketplaces` entry (added in v1.0.79) is now also honored when set via managed (MDM/enterprise server) settings, not just user settings.
+
+**Why it matters:** Administrators can enforce marketplace auto-updates fleet-wide instead of relying on each user's local config.
+
+### `/autopilot`/`/goal` Objectives Without Experimental Mode
+
+Setting an explicit objective with `/autopilot <objective>` or its `/goal <objective>` alias no longer requires experimental mode. Entering autopilot mode itself is still gated behind experimental mode. See [Autopilot Mode](17-autopilot-mode.md).
+
+**Why it matters:** You can anchor a session to a goal without first flipping on experimental mode, reducing friction for a lightweight, common use case.
+
+### New `--enable-mcp-server` and `--usage-output-file` Flags
+
+`--enable-mcp-server <name>` re-enables, for the current run only, an MCP server that's disabled in your saved settings. `--usage-output-file <path>` writes final usage/cost metrics to a JSON file when the session ends. See [Cheat Sheet — Command-Line Flags](00-cheat-sheet.md#most-useful-command-line-flags).
+
+**Why it matters:** Test a disabled server without editing settings, and capture usage data programmatically for CI dashboards or billing scripts.
+
+### MCP Server Timeouts Now Apply to Tool Discovery
+
+MCP server timeout settings now apply to tool discovery in addition to tool calls, with a 30-second default. See [Advanced Features — MCP Management Commands](08-advanced-features.md#mcp-management-commands).
+
+**Why it matters:** A slow-starting MCP server has time to report its tools reliably instead of being dropped before it responds.
+
+### Sandbox and `copilot init` Fixes
+
+Sandboxed MCP servers launched with `npx` or `uvx` now get a writable Copilot-owned package cache, plus missing Windows toolchain and Playwright browser grants. Turning off `sandbox.allowDevToolAccess` now also withholds tool directories discovered on `PATH` and in toolchain environment variables. A `readonlyPaths` entry nested inside your working directory now correctly blocks writes from the built-in file tools. `copilot init` no longer silently drops `--sandbox`/`--no-sandbox`. When an enterprise policy requires the sandbox, `--no-sandbox` now explains that it was ignored instead of silently having no effect. See [Advanced Features — File Access Control](08-advanced-features.md#file-access-control).
+
+**Why it matters:** Closes several gaps where sandbox settings didn't behave as documented, especially for dev-tool access and package manager caches.
+
+### Open Plugin Spec Plugin Layout (BREAKING)
+
+Open Plugin Spec plugins must now place `commands/`, `agents/`, `rules/`, `hooks/hooks.json`, `lsp.json`, and `extensions/` under a `com.github.copilot/` subdirectory — they are no longer read from the plugin root. A plugin that still has any of these at the root now reports the file and where to move it instead of silently losing that component. See [Advanced Features — Open Plugin Spec v1 Support](08-advanced-features.md#open-plugin-spec-v1-support-v1074).
+
+**Why it matters:** Plugin authors need to move these files/directories under `com.github.copilot/` or the CLI will stop picking them up.
+
+### `/settings` Problems Tab
+
+Unknown and ineffective settings keys are now moved into an actionable **Problems** tab within `/settings`, instead of being silently ignored, and retired CLI-owned keys are cleaned up automatically. See [Slash Commands — /settings](04-slash-commands.md#settings-v1061).
+
+**Why it matters:** Surfaces typos or stale config keys that were previously silent no-ops.
 
 ## New in v1.0.79
 

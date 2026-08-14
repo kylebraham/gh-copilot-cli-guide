@@ -92,6 +92,8 @@ copilot --autopilot "Your task description here"
 
 > **v1.0.79+:** Combine `--plan` with `--mode autopilot` to plan the task first, then implement it automatically without waiting for approval to enter autopilot — useful for non-interactive runs that should both plan and execute unattended. See [Plan Mode — Method 4](09-plan-mode.md#method-4-combine---plan-with---mode-autopilot-v1079).
 
+> **v1.0.80+:** Setting an explicit objective with `/autopilot <objective>` or `/goal <objective>` no longer requires experimental mode. You still need experimental mode enabled to enter autopilot mode itself — this change only lifts the requirement for anchoring an objective once you're in it.
+
 ---
 
 ## Permissions Prompt

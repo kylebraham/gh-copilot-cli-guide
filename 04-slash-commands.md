@@ -1100,6 +1100,8 @@ Open an interactive dialog to browse and edit all user settings in one place.
 
 > **v1.0.71+:** The `/settings` dashboard adds dedicated **Repo** and **Repo (local)** scope tabs, so you can browse and edit repo-scoped settings visually instead of only through the `--repo`/`--local` flags. GitHub MCP toolset and tool selections (`githubMcpToolsets`, `githubMcpTools`, and related settings) now persist via `settings.json` instead of being session-only.
 
+> **v1.0.80+:** Unknown and ineffective settings keys are now moved into an actionable **Problems** tab within `/settings`, instead of being silently ignored — retired CLI-owned keys are also cleaned up automatically.
+
 ### /refine <prompt> (v1.0.70+)
 
 Rewrite a rough, stream-of-consciousness prompt into a clear, well-structured one before sending it.
@@ -1357,7 +1359,13 @@ Manage plugins and plugin marketplaces.
 
 # Update a specific plugin
 > /plugin update
+
+# Refresh marketplace catalogs from inside a session (v1.0.80+)
+> /plugin marketplace update
+> /plugin marketplace update <name>
 ```
+
+> **v1.0.80+:** `/plugin marketplace update [name]` refreshes marketplace catalogs directly from within an interactive session, without needing to drop to the shell — omit `name` to refresh all configured marketplaces, or pass one to refresh just that marketplace.
 
 > **v1.0.69+:** A `/plugins` dashboard is available for managing installed plugins, and installed plugin extensions can now be reloaded without restarting the session.
 
@@ -1673,6 +1681,8 @@ Toggle autopilot mode on or off directly, without cycling through modes with Shi
 **Use when:**
 - You want a quick way to enter or exit autopilot without pressing Shift+Tab multiple times
 - You want to constrain a long autopilot run to a specific task
+
+> **v1.0.80+:** Setting an explicit objective with `/autopilot <objective>` (or `/goal <objective>`) no longer requires experimental mode — you can anchor an autopilot run to a goal without first running `/experimental enable`. Entering autopilot mode itself is still gated behind experimental mode.
 
 > **Full guide:** See [Autopilot Mode](17-autopilot-mode.md) for permissions, continuation limits, and examples.
 

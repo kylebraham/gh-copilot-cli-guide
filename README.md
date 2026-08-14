@@ -81,6 +81,13 @@ npm update -g @github/copilot
 ```
 
 **Latest features:**
+- ✨ New `MAI-Code-1.1-Flash` model — Microsoft's small-tier coding model with native vision support (v1.0.80)
+- 🔌 `/plugin marketplace update [name]` refreshes marketplace catalogs from inside a session; the `extraKnownMarketplaces` `autoUpdate` field is now honored from managed (MDM) settings too (v1.0.80)
+- 🎯 `/autopilot <objective>`/`/goal <objective>` no longer require experimental mode to set an objective (v1.0.80)
+- 🛠️ New `--enable-mcp-server <name>` flag re-enables a disabled MCP server for the current run; MCP timeout settings now apply to tool discovery with a 30-second default; `--usage-output-file` writes final usage metrics to a JSON file (v1.0.80)
+- 🔐 Sandboxed MCP servers get a writable package cache plus missing Windows toolchain and Playwright grants; `allowDevToolAccess` off now also withholds `PATH`-discovered tool directories; `copilot init` now respects `--sandbox`/`--no-sandbox` (v1.0.80)
+- ⚠️ **Breaking:** Open Plugin Spec plugins must now place `commands/`, `agents/`, `rules/`, `hooks/hooks.json`, `lsp.json`, and `extensions/` under `com.github.copilot/` — no longer read from the plugin root (v1.0.80)
+- 🩹 `/settings` moves unknown and ineffective settings into an actionable Problems tab (v1.0.80)
 - 🌳 `/worktree new` replaces the experimental `/new-worktree`, and a `worktreeBaseRef` setting controls whether `/worktree`, `/worktree new`, and `--worktree` start from `HEAD` (now the default for all three) or the remote default branch (v1.0.79)
 - 🧠 Model picker groups models into Recent, Recommended, New, and other sections (`Shift+Tab` to switch views); `/model` changes are session-scoped by default — use `/config model` for future-session defaults; new `kimi-k3` model available (v1.0.79)
 - 🗺️ Combine `--plan` with `--mode autopilot` to plan a task first, then implement it automatically without waiting for approval (v1.0.79)
@@ -451,4 +458,4 @@ Go to **Actions → Daily Doc Maintenance → Run workflow** to trigger it on de
 
 ---
 
-**Note:** This guide covers GitHub Copilot CLI v1.0.79. Some capabilities may vary by version — run `/update` to stay current.
+**Note:** This guide covers GitHub Copilot CLI v1.0.80. Some capabilities may vary by version — run `/update` to stay current.
