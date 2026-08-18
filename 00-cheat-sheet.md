@@ -115,7 +115,7 @@
 | `/mcp` | Manage MCP (Model Context Protocol) server connections; `/mcp search <query>` to find from registry; `/mcp registry` to browse interactively (v1.0.64+); `/mcp list` shows attached servers and status and can run while the agent is working (v1.0.69+); marks sandboxed servers, e.g. `connected (sandboxed)` (v1.0.70+) |
 | `/lsp` | Manage language server connections |
 | `/skills` | List or manage available skills; alias `/skill` (v1.0.65+); `copilot skill` subcommand available from shell (v1.0.65+); marks disabled skills in `copilot skill list`/JSON output (v1.0.71+) |
-| `/plugin` | Manage installed plugins; `/plugin update --all` updates all plugins at once (v1.0.49+); `/plugins` dashboard and reload without restart (v1.0.69+); pin a plugin to an exact commit with the `sha` field in its source config (v1.0.70+); `copilot plugins marketplace` subcommands (list/add/remove/browse/update) manage marketplaces from the shell (v1.0.71+); `update`/`uninstall` verbs plus `--plugin`/`--mcp`/`--skill` flags target plugins, MCP servers, or skills through one set of subcommands, including `install --skill` (v1.0.72+); enable/disable controls extend to custom instructions, agents, LSP servers, and hooks (v1.0.76+); first-party plugins auto-update to the latest version at session start (v1.0.78+) |
+| `/plugin` | Manage installed plugins; `/plugin update --all` updates all plugins at once (v1.0.49+); `/plugins` dashboard and reload without restart (v1.0.69+); pin a plugin to an exact commit with the `sha` field in its source config (v1.0.70+); `copilot plugins marketplace` subcommands (list/add/remove/browse/update) manage marketplaces from the shell (v1.0.71+); `update`/`uninstall` verbs plus `--plugin`/`--mcp`/`--skill` flags target plugins, MCP servers, or skills through one set of subcommands, including `install --skill` (v1.0.72+); enable/disable controls extend to custom instructions, agents, LSP servers, and hooks (v1.0.76+); first-party plugins auto-update to the latest version at session start (v1.0.78+); `/plugin marketplace update [name]` refreshes marketplace catalogs from inside a session (v1.0.80+) |
 | `/rubber-duck` | Get an independent critique of the agent's current work (v1.0.49+; enabled by default in v1.0.58+) |
 | `/voice` | Dictate a prompt using local speech-to-text (v1.0.59+); `/voice devices` to choose/persist the microphone (v1.0.71+) |
 | `/every <interval> <prompt>` | Repeat a prompt on a fixed schedule, e.g. `/every 10m check notifications`; supports natural language expressions; alias `/loop` (v1.0.64+) (experimental, v1.0.58+) |
@@ -124,7 +124,7 @@
 | `/keep-alive` | Prevent system sleep while Copilot CLI is active |
 | `/init` | Initialize Copilot configuration for the current repo |
 | `/experimental` | Toggle experimental features |
-| `/autopilot [objective]` | Toggle autopilot mode on/off; optionally set a goal objective (v1.0.45+); `/goal` is an alias (v1.0.55+) |
+| `/autopilot [objective]` | Toggle autopilot mode on/off; optionally set a goal objective (v1.0.45+); `/goal` is an alias (v1.0.55+); objectives can be set without enabling experimental mode (v1.0.80+) |
 | `/settings` | Open an interactive dialog to browse and edit all user settings (v1.0.61+); add `--repo` or `--local` to scope a change to the repo/local config instead of the global default; includes a setting to show/hide timeline timestamps (v1.0.70+); adds Repo and Repo (local) scope tabs (v1.0.71+); `showToolDurations` toggles live tool-call duration headers in the timeline, on by default (v1.0.78+) |
 | `/worktree <branch>` | Create a new git worktree and switch into it, leaving uncommitted changes behind (v1.0.61+); pass a task (e.g. `/worktree fix the login redirect`) to name the branch and run it as the first prompt (v1.0.66+); with no argument, names the branch from uncommitted changes and recent conversation (v1.0.66+); `/move` is no longer an alias — it carries uncommitted changes into the new worktree instead (v1.0.71+); defaults to starting from `HEAD` instead of the remote default branch, configurable via `worktreeBaseRef` (v1.0.79+) |
 | `/move <branch>` | Create a new git worktree and switch into it, carrying uncommitted changes along; no longer an alias for `/worktree` (v1.0.71+) |
@@ -199,6 +199,8 @@
 | `--print-debug-info` | Print version, terminal capabilities, and env vars, then exit |
 | `--session-id=<uuid>` | Resume a known session by UUID, or start a new session with that UUID (v1.0.51+) |
 | `--session-idle-timeout DUR` | Close idle session after duration (e.g., `30m`); disabled by default |
+| `--enable-mcp-server NAME` | Re-enable an MCP server that's disabled in settings, for this run only (v1.0.80+) |
+| `--usage-output-file PATH` | Write final usage/cost metrics to a JSON file when the session ends (v1.0.80+) |
 
 ### Shell Completion
 

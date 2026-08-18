@@ -1,5 +1,15 @@
 # Documentation Updates
 
+## 2026-08-14 — Docs updated for v1.0.80
+
+- `README.md`: Bumped version note to v1.0.80; added "Latest features" bullets for v1.0.80 (new `MAI-Code-1.1-Flash` model, `/plugin marketplace update [name]`, `extraKnownMarketplaces` `autoUpdate` honored from managed settings, `/autopilot`/`/goal` objectives without experimental mode, new `--enable-mcp-server` and `--usage-output-file` flags, sandbox/`copilot init` fixes, breaking Open Plugin Spec plugin layout change, `/settings` Problems tab)
+- `16-new-features.md`: Updated title to v1.0.80; added TOC entry; added a "New in v1.0.80" section covering all nine v1.0.80 changes above
+- `22-models-and-costs.md`: Added a `MAI-Code-1.1-Flash` row to the available models table
+- `00-cheat-sheet.md`: Added `--enable-mcp-server` and `--usage-output-file` to the command-line flags table; updated the `/plugin` row for `/plugin marketplace update [name]`; updated the `/autopilot [objective]` row for the experimental-mode change
+- `04-slash-commands.md`: Added `/plugin marketplace update [name]` usage and a v1.0.80 note under `/plugin`; added a v1.0.80 note under `/autopilot` on setting objectives without experimental mode; added a v1.0.80 note under `/settings` on the new Problems tab
+- `17-autopilot-mode.md`: Added a v1.0.80 note under Activating Autopilot Mode on setting objectives without experimental mode
+- `08-advanced-features.md`: Added a v1.0.80 note under MCP Management Commands documenting the tool-discovery timeout default and `--enable-mcp-server`; added a v1.0.80 breaking-change callout under Open Plugin Spec v1 Support for the `com.github.copilot/` plugin layout requirement; added a v1.0.80 note under Plugin Marketplaces for `extraKnownMarketplaces` `autoUpdate` from managed settings; added a v1.0.80 note under File Access Control for the sandbox and `copilot init` fixes
+
 ## 2026-08-11 — Docs updated for v1.0.79
 
 - `README.md`: Bumped version note to v1.0.79; added "Latest features" bullets for v1.0.79 (`/worktree new` replacing experimental `/new-worktree`, `worktreeBaseRef` setting defaulting worktrees to HEAD, model picker grouping with `Shift+Tab` and new `kimi-k3` model, `/model` session-scoped by default with `/config model` for future-session defaults, combining `--plan` with `--mode autopilot`, sandbox Auth tab and `sandbox.auth.git`/`sandbox.auth.gh` rename (breaking), `allowDevToolCaches` → `allowDevToolAccess` rename (breaking), `/sandbox policy`, `/app` opening the current session, queued prompts/shell commands/slash commands together)

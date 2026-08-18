@@ -323,6 +323,11 @@ $ copilot mcp          # Show help and available subcommands
 
 > **v1.0.74+:** `/mcp add` and `/mcp edit` now preserve `=` characters in environment variable values (such as base64 padding), so secrets and tokens configured through the wizard are stored correctly instead of being truncated at the first `=`.
 
+> **v1.0.80+:** MCP server timeout settings now apply to **tool discovery**, not just tool calls, with a 30-second default — so a slow-starting server has time to report its tools reliably instead of being dropped before it can respond. Use `--enable-mcp-server <name>` to re-enable, for the current run only, an MCP server that's disabled in your saved settings:
+> ```bash
+> copilot --enable-mcp-server my-server
+> ```
+
 ---
 
 ### Available MCP Servers
@@ -1144,6 +1149,8 @@ When configuring marketplaces in `config.json`, use the `extraKnownMarketplaces`
 > }
 > ```
 
+> **v1.0.80+:** The `extraKnownMarketplaces` `autoUpdate` field is now honored from managed (MDM/enterprise server) settings too, not just user settings — administrators can enforce marketplace auto-updates fleet-wide instead of relying on each user's local config.
+
 ### Pinning a Plugin to an Exact Commit (v1.0.70+)
 
 Add a `sha` field to a plugin's source configuration to lock it to an exact commit, so updates to the source ref (e.g., a branch move) don't silently change what's installed:
@@ -1186,6 +1193,8 @@ copilot plugins help
 In addition to Copilot-specific plugin manifests, Copilot CLI now supports plugins defined with the [Open Plugin Spec v1](https://github.com/github/copilot-cli) manifest format, as well as `mcp.json`-based plugin configuration.
 
 **Why it matters:** Plugins authored against the open, cross-tool spec — including those that ship a plain `mcp.json` — can be installed without a Copilot-specific manifest, widening the pool of plugins you can use.
+
+> ⚠️ **Breaking change in v1.0.80:** Spec plugins must now place `commands/`, `agents/`, `rules/`, `hooks/hooks.json`, `lsp.json`, and `extensions/` under a `com.github.copilot/` subdirectory — these are no longer read from the plugin root. A plugin that still leaves any of these at the root now reports the file and where to move it, instead of silently losing that component.
 
 ### What Plugins Can Add
 
@@ -1481,6 +1490,8 @@ Set in config:
 > **v1.0.79+:** The `/sandbox` configuration dialog groups the git, `gh`, and (on macOS) keychain settings under a new **Auth** tab, and the underlying settings keys move from `sandbox.gitAuth`/`sandbox.ghAuth` to `sandbox.auth.git`/`sandbox.auth.gh`. **There is no migration** — the old keys are silently ignored in settings files, and SDK requests that still send them are rejected as invalid. Rename these keys in `settings.json` and any managed/MDM policy after upgrading. Separately, `/sandbox` also shows where sandbox settings are stored, and a new `/sandbox policy` view shows effective sandbox paths, denials, and network access.
 >
 > **BREAKING (v1.0.79+):** The sandbox setting `allowDevToolCaches` is renamed `allowDevToolAccess`, since it grants dev-tool config and registries too, not just caches. The old key is no longer read and is ignored silently, so an existing `false` opt-out **reverts to the default (on)** — rename it in `settings.json` and any managed/MDM policy to keep the opt-out in effect.
+
+> **v1.0.80+:** Turning off `sandbox.allowDevToolAccess` now also withholds tool directories discovered on `PATH` and in toolchain environment variables (such as a relocated `CARGO_HOME`) — previously these could leak through even with the setting off. Sandboxed MCP servers launched with `npx` or `uvx` now get a writable Copilot-owned package cache, plus the Windows toolchain and Playwright browser grants they need (requires dev-tool access). A `readonlyPaths` entry nested inside your working directory now correctly blocks writes from the built-in file tools. When an enterprise policy requires the sandbox, `--no-sandbox` now explains that it was ignored instead of silently having no effect, and `copilot init` no longer silently drops `--sandbox`/`--no-sandbox` — the flag now applies to the init session, subject to the same feature gating and enterprise sandbox floor as other entry points.
 
 > **v1.0.66+:** Session credit limits (the `sessionLimits` setting) must now be at least 30 AI credits, and now apply across the whole current conversation, resetting on `/clear`.
 
