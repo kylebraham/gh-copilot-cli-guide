@@ -81,6 +81,12 @@ npm update -g @github/copilot
 ```
 
 **Latest features:**
+- 🔌 The plugins dashboard (`/plugin`, bare `/mcp`, `/skills`) is now open to everyone; the `PLUGINS_DASHBOARD` opt-out and the legacy skills picker have been removed (v1.0.81)
+- 📱 New `copilot app` command opens the GitHub Copilot app in the current directory; `/plugin` now flags installed plugins/marketplaces with a newer version upstream and offers an Update action (v1.0.81)
+- ⚙️ New `defaultMode` and `defaultPermissionMode` settings choose the startup mode and approval behavior for new interactive sessions; `--with-token` reads an auth token from stdin for `copilot login` (v1.0.81)
+- 🧠 Gemini 3.7 Flash added; Grok 4.6 gains `xhigh` reasoning effort; Auto mode now adapts model selection as your task evolves during a conversation (v1.0.81)
+- 💾 Startup offers to restore sessions left open after a crash or restart; resuming large sessions is faster by showing recent history first (v1.0.81)
+- 🔧 Skills and custom agents are now discovered from directories added with `--add-dir`; `--usage-output-file` JSON output includes per-agent usage metrics (v1.0.81)
 - ✨ New `MAI-Code-1.1-Flash` model — Microsoft's small-tier coding model with native vision support (v1.0.80)
 - 🔌 `/plugin marketplace update [name]` refreshes marketplace catalogs from inside a session; the `extraKnownMarketplaces` `autoUpdate` field is now honored from managed (MDM) settings too (v1.0.80)
 - 🎯 `/autopilot <objective>`/`/goal <objective>` no longer require experimental mode to set an objective (v1.0.80)
@@ -458,4 +464,4 @@ Go to **Actions → Daily Doc Maintenance → Run workflow** to trigger it on de
 
 ---
 
-**Note:** This guide covers GitHub Copilot CLI v1.0.80. Some capabilities may vary by version — run `/update` to stay current.
+**Note:** This guide covers GitHub Copilot CLI v1.0.81. Some capabilities may vary by version — run `/update` to stay current.

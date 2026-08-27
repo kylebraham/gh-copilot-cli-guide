@@ -259,6 +259,11 @@ Follow the on-screen instructions:
 
 > **v1.0.78+:** This browser-based default now also covers local desktop subprocesses without a TTY, including IDE integrations, so they get the browser flow too instead of falling back to a device code. Remote and headless environments are unaffected.
 
+> **v1.0.81+:** For scripted or CI logins, `copilot login --with-token` reads an auth token from stdin instead of using the browser or device-code flow:
+> ```bash
+> echo "$MY_TOKEN" | copilot login --with-token
+> ```
+
 ### Method 2: Personal Access Token (PAT)
 
 For automated environments or CI/CD:

@@ -151,6 +151,10 @@ As of v1.0.35, user-editable settings live in `~/.copilot/settings.json`. This f
   // Which ref /worktree, /worktree new, and --worktree start from: "head" or "default-branch" (v1.0.79+; default is now "head")
   "worktreeBaseRef": "head",
 
+  // Startup mode and approval behavior for new interactive sessions (v1.0.81+)
+  "defaultMode": "default",
+  "defaultPermissionMode": "default",
+
   // Pin the current prompt one row above the timeline (off by default, and on terminals under 30 rows even if enabled — v1.0.79+)
   "pinnedPrompts": false,
 

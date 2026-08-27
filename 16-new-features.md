@@ -1,4 +1,4 @@
-# Latest Features in GitHub Copilot CLI — v1.0.80
+# Latest Features in GitHub Copilot CLI — v1.0.81
 
 This file covers recent additions to GitHub Copilot CLI. Features marked with "Full guide →" have their own dedicated documentation file — the entries here are summaries with links. Features without a dedicated file are covered in full below.
 
@@ -10,6 +10,7 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 3. [Research Command (`/research`)](#research-command-research) — [Full guide →](19-research-command.md)
 
 ### Features covered in this file
+4. [New in v1.0.81](#new-in-v1081)
 4. [New in v1.0.80](#new-in-v1080)
 4. [New in v1.0.79](#new-in-v1079)
 4. [New in v1.0.78](#new-in-v1078)
@@ -91,6 +92,82 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 ---
 
 ---
+
+## New in v1.0.81
+
+Released: 2026-08-27
+
+### Plugins Dashboard Open to Everyone
+
+The plugins dashboard is now available to all users through `/plugin`, bare `/mcp`, and `/skills`. The `PLUGINS_DASHBOARD` environment variable opt-out and the legacy skills picker it kept alive have been removed, so these commands always open the dashboard (`/mcp config` still opens the dedicated MCP wizard). See [Slash Commands — /plugin](04-slash-commands.md#plugin-subcommand).
+
+**Why it matters:** One consistent dashboard experience for managing plugins, MCP servers, and skills, with less config to maintain.
+
+### New `copilot app` Command
+
+`copilot app` opens the GitHub Copilot app in the current directory, complementing the existing `/app` slash command. See [Slash Commands — /app](04-slash-commands.md#app-v1062).
+
+**Why it matters:** Jump to the desktop app for the current project directly from the shell, without starting an interactive session first.
+
+### `/plugin` Flags Outdated Plugins and Marketplaces
+
+`/plugin` now flags installed plugins and marketplaces that have a newer version upstream, and offers an **Update** action to pull it. See [Slash Commands — /plugin](04-slash-commands.md#plugin-subcommand).
+
+**Why it matters:** No more manually checking whether a plugin or marketplace is stale — the dashboard tells you and lets you update in place.
+
+### `defaultMode` and `defaultPermissionMode` Settings
+
+New `defaultMode` and `defaultPermissionMode` settings choose the startup mode and approval behavior for new interactive sessions. See [The ~/.copilot Directory — settings.json](15-copilot-directory.md#settingsjson).
+
+**Why it matters:** Standardize how new sessions start (e.g., always launch in plan mode, or with a specific permission posture) without setting flags every time.
+
+### `--with-token` for `copilot login`
+
+`copilot login --with-token` reads an auth token from stdin instead of requiring an interactive browser or device-code flow. See [Getting Started — Authentication](01-getting-started.md#authentication).
+
+**Why it matters:** Simplifies scripted and CI logins by piping a token straight into the command.
+
+### Gemini 3.7 Flash and Grok 4.6 `xhigh` Reasoning Effort
+
+Gemini 3.7 Flash joins the model picker, and Grok 4.6 now supports the `xhigh` reasoning effort level. See [Model Selection Strategy](22-models-and-costs.md).
+
+**Why it matters:** More model and reasoning-depth choices for balancing speed, cost, and quality.
+
+### Auto Mode Adapts Model Selection Mid-Conversation
+
+Auto mode now adapts model selection as your task evolves during a conversation, instead of only choosing a model once at the start. See [Model Selection Strategy](22-models-and-costs.md).
+
+**Why it matters:** `auto` stays well-matched to the task even as a conversation shifts from planning to implementation to cleanup.
+
+### Session Restore After Crash or Restart
+
+Startup now offers to restore sessions that were still open when their CLI process went away, so a crash or machine restart no longer means reopening each terminal by hand. Resuming large sessions is also faster, since recent history now loads and displays before older messages.
+
+**Why it matters:** Less lost context and faster recovery after an unexpected interruption.
+
+### Skills and Custom Agents Discovered from `--add-dir`
+
+Skills and custom agents are now discovered from directories added with `--add-dir`, not just the default skill/agent locations. See [Skills System](14-skills-system.md).
+
+**Why it matters:** Bring project- or repo-specific skills and agents into a session just by adding their directory, without installing them globally.
+
+### Per-Agent Usage Metrics in `--usage-output-file`
+
+The JSON written by `--usage-output-file` now includes per-agent usage metrics, in addition to the session totals. See [Cheat Sheet — Command-Line Flags](00-cheat-sheet.md#most-useful-command-line-flags).
+
+**Why it matters:** Better cost attribution when a session spawns subagents or custom agents, for billing and CI dashboards.
+
+### MCP 2026-07-28 Support
+
+The CLI, SDK, IDE integration, and in-memory clients now support the MCP 2026-07-28 protocol revision.
+
+**Why it matters:** Keeps Copilot CLI compatible with MCP servers built against the latest protocol spec.
+
+### Windows: MCP Sign-In via OS Authentication Broker
+
+On Windows, remote MCP servers protected by Microsoft Entra ID can now sign in through the OS authentication broker (WAM), usually with no prompt at all. Other platforms, `--device-code`, and machines without the broker library keep the existing browser flow.
+
+**Why it matters:** Fewer interruptions when connecting to enterprise-protected MCP servers on Windows.
 
 ## New in v1.0.80
 

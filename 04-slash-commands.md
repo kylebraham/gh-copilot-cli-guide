@@ -1045,6 +1045,11 @@ Open the GitHub app if it is installed, or fall back to opening your browser to 
 
 > **v1.0.79+:** `/app` now opens the current session directly in the GitHub Copilot desktop app (requires GitHub Copilot app 1.1.3 or later), instead of landing on the app's Home screen with the wrong folder selected.
 
+> **v1.0.81+:** A new `copilot app` shell command opens the GitHub Copilot app in the current directory, without starting an interactive session first:
+> ```bash
+> copilot app
+> ```
+
 ### /login
 
 Authenticate with GitHub Copilot.
@@ -1062,6 +1067,11 @@ Authenticate with GitHub Copilot.
 > **v1.0.77+:** Browser-based (web) OAuth login is now the **default** for `copilot login`/`/login` on local interactive terminals — it opens your browser directly, skipping the device-code step. Device code login remains the default on remote/headless terminals without direct browser access. Use `--web-flow` or `--device-code` on the `copilot login` CLI command to force a mode, or choose one from the interactive `/login` command.
 
 > **v1.0.78+:** The browser-based default also now covers local desktop subprocesses without a TTY, including IDE integrations — they get the browser flow instead of a device code. Remote and headless environments are unaffected and continue to default to device code.
+
+> **v1.0.81+:** `copilot login --with-token` reads an auth token from stdin instead of requiring an interactive browser or device-code flow, useful for scripted and CI logins:
+> ```bash
+> echo "$MY_TOKEN" | copilot login --with-token
+> ```
 
 **Alternative:** Use PAT with `GH_TOKEN` environment variable.
 
@@ -1314,6 +1324,8 @@ View and toggle custom instruction files.
 - Style guidelines and preferred patterns
 - Behavioral preferences for the AI
 
+> **v1.0.81+:** `/instructions` now shows each user instruction file separately, rather than grouping them, making it clearer which specific file is active or disabled.
+
 See [Copilot Directory Guide](15-copilot-directory.md) for setup details.
 
 ### /streamer-mode
@@ -1365,9 +1377,13 @@ Manage plugins and plugin marketplaces.
 > /plugin marketplace update <name>
 ```
 
+> **v1.0.81+:** The plugins dashboard opened by `/plugin` (as well as bare `/mcp` and `/skills`) is now available to everyone. The `PLUGINS_DASHBOARD` environment variable opt-out and the legacy skills picker it kept alive have been removed — these commands always open the dashboard (`/mcp config` still opens the dedicated MCP wizard). The standalone `/plugins` command has been removed; its resources are covered by `/plugin`, `/mcp`, and `/skills`, with `/subagents` for agents and `/instructions` for instructions. `/plugin` now also flags installed plugins and marketplaces that have a newer version upstream and offers an **Update** action to pull it.
+
 > **v1.0.80+:** `/plugin marketplace update [name]` refreshes marketplace catalogs directly from within an interactive session, without needing to drop to the shell — omit `name` to refresh all configured marketplaces, or pass one to refresh just that marketplace.
 
-> **v1.0.69+:** A `/plugins` dashboard is available for managing installed plugins, and installed plugin extensions can now be reloaded without restarting the session.
+> ⚠️ **Removed in v1.0.81:** The `/plugins` command has been removed. Use `/plugin`, `/mcp`, and `/skills` for plugin, MCP server, and skill management, `/subagents` for agents, and `/instructions` for instructions.
+
+> **v1.0.69+:** A `/plugins` dashboard was available for managing installed plugins, and installed plugin extensions could be reloaded without restarting the session. (Superseded — see the v1.0.81 note above.)
 
 > **v1.0.70+:** Pin a plugin to an exact commit using the `sha` field in its plugin source configuration, so the plugin version stays fixed even if the source ref moves.
 
@@ -1851,6 +1867,8 @@ Manage MCP (Model Context Protocol) server configuration.
 
 > **v1.0.70+:** `/mcp list` marks locally-spawned MCP servers that run inside the sandbox, e.g. `connected (sandboxed)`, so you can tell at a glance which servers are sandbox-isolated.
 
+> **v1.0.81+:** Bare `/mcp` and `/mcp show` (with no server name) now always open the unified plugins dashboard (`/mcp config` still opens the dedicated MCP wizard) — the `PLUGINS_DASHBOARD` opt-out has been removed. The CLI, SDK, IDE, and in-memory clients now support the MCP 2026-07-28 protocol revision. On Windows, remote MCP servers protected by Microsoft Entra ID can sign in through the OS authentication broker (WAM), usually with no prompt; other platforms, `--device-code`, and machines without the broker library keep the browser flow.
+
 **MCP Servers extend CLI capabilities:**
 - Database access
 - API integrations
@@ -1889,6 +1907,9 @@ $ copilot skill remove python-expert
 ```
 
 > **v1.0.71+:** `copilot skill list` and its JSON output now mark disabled skills, matching the `/skills list` picker in the interactive session.
+
+> **v1.0.81+:** Skills (and custom agents) are now also discovered from directories added with `--add-dir`, in addition to the default skill/agent locations. `/skills` always opens the unified plugins dashboard — the legacy standalone skills picker has been removed.
+
 **Skills are:**
 - Modular expertise packages (e.g., "Python expert", "React patterns")
 - Reusable across any project
