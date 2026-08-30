@@ -1013,6 +1013,8 @@ Create a new git worktree and switch the active working directory into it.
 
 > **v1.0.79+:** A new `worktreeBaseRef` setting in `settings.json` controls whether `/worktree`, `/worktree new`, and `--worktree` start from `HEAD` or the remote default branch. All three now **default to `HEAD`**; previously `--worktree` started from the remote default branch. See [.copilot Directory Guide](15-copilot-directory.md#settingsjson) for the setting.
 
+> **v1.0.82+:** Typing a message while `/worktree` or `/move` is preparing the new worktree no longer breaks the switch into it.
+
 ### /worktree new (v1.0.79+, replaces experimental /new-worktree)
 
 Create a new git worktree and start a **brand-new conversation** in it, rather than continuing the current one.

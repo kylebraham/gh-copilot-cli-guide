@@ -1,4 +1,4 @@
-# Latest Features in GitHub Copilot CLI — v1.0.81
+# Latest Features in GitHub Copilot CLI — v1.0.82
 
 This file covers recent additions to GitHub Copilot CLI. Features marked with "Full guide →" have their own dedicated documentation file — the entries here are summaries with links. Features without a dedicated file are covered in full below.
 
@@ -10,6 +10,7 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 3. [Research Command (`/research`)](#research-command-research) — [Full guide →](19-research-command.md)
 
 ### Features covered in this file
+4. [New in v1.0.82](#new-in-v1082)
 4. [New in v1.0.81](#new-in-v1081)
 4. [New in v1.0.80](#new-in-v1080)
 4. [New in v1.0.79](#new-in-v1079)
@@ -90,6 +91,20 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 ---
 
 ---
+
+---
+
+## New in v1.0.82
+
+Released: 2026-08-29
+
+A small bug-fix release with no new commands or settings.
+
+### Notable fixes
+
+- **Fixed:** Typing a message while `/worktree` or `/move` is preparing the new worktree no longer breaks the switch into it.
+- **Fixed:** `Ctrl+E` re-expands the plan approval card to show the full plan again after it collapses.
+- **Improved:** Authentication failures now show the specific error (such as `401 Bad credentials`) instead of only the `/login` prompt.
 
 ---
 

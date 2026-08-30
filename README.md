@@ -81,6 +81,7 @@ npm update -g @github/copilot
 ```
 
 **Latest features:**
+- 🩹 Typing a message no longer breaks `/worktree`/`/move` while the new worktree is being prepared; `Ctrl+E` re-expands a collapsed plan approval card; login failures now show the specific authentication error (e.g. `401 Bad credentials`) instead of only the `/login` prompt (v1.0.82)
 - 🔌 The plugins dashboard (`/plugin`, bare `/mcp`, `/skills`) is now open to everyone; the `PLUGINS_DASHBOARD` opt-out and the legacy skills picker have been removed (v1.0.81)
 - 📱 New `copilot app` command opens the GitHub Copilot app in the current directory; `/plugin` now flags installed plugins/marketplaces with a newer version upstream and offers an Update action (v1.0.81)
 - ⚙️ New `defaultMode` and `defaultPermissionMode` settings choose the startup mode and approval behavior for new interactive sessions; `--with-token` reads an auth token from stdin for `copilot login` (v1.0.81)
@@ -464,4 +465,4 @@ Go to **Actions → Daily Doc Maintenance → Run workflow** to trigger it on de
 
 ---
 
-**Note:** This guide covers GitHub Copilot CLI v1.0.81. Some capabilities may vary by version — run `/update` to stay current.
+**Note:** This guide covers GitHub Copilot CLI v1.0.82. Some capabilities may vary by version — run `/update` to stay current.

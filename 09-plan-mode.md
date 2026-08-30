@@ -182,6 +182,8 @@ Press Ctrl+Y
 > **v1.0.70+:** `Ctrl+Y` now opens the plan file (or the most recent research report) from **any mode** — interactive, autopilot, etc. — not just from Plan mode.
 4. Return to CLI
 
+> **v1.0.82+:** If the plan approval card collapses (for example, after scrolling), press `Ctrl+E` to expand it again and show the full plan.
+
 ### Plan Review Prompts
 
 Before execution, AI may ask:
