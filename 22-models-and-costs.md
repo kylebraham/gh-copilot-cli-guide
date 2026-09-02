@@ -20,7 +20,7 @@ Understanding how to choose the right model — and when to switch — is one of
 
 | Model | ID | Speed | Best for |
 |-------|-----|-------|---------|
-| Auto | `auto` | Varies | Let Copilot pick the best model for each session automatically |
+| Auto | `auto` | Varies | Let Copilot pick the best model for each session automatically; now adapts model selection as the task evolves during the conversation, not just once at the start (v1.0.81+) |
 | Claude Sonnet 4.5 | `claude-sonnet-4.5` | Fast | Default — general coding, balanced quality/cost |
 | Claude Sonnet 4.6 | `claude-sonnet-4.6` | Fast | Latest Sonnet — improved reasoning over 4.5 |
 | Claude Sonnet 5 | `claude-sonnet-5` | Fast | Newest Sonnet generation (v1.0.67+) |
@@ -40,9 +40,11 @@ Understanding how to choose the right model — and when to switch — is one of
 | Kimi K3 | `kimi-k3` | Fast | Newest Kimi generation (v1.0.79+) |
 | Gemini 3.5 Flash | `gemini-3.5-flash` | Fastest | Lightweight Gemini model; now supports a **minimal** reasoning effort level (v1.0.69+) for the quickest possible responses |
 | Gemini 3.6 Flash | `gemini-3.6-flash` | Fastest | Newest Gemini Flash generation, added v1.0.74 |
+| Gemini 3.7 Flash | `gemini-3.7-flash` | Fastest | Newest Gemini Flash generation, added v1.0.81 |
 | GPT-5.4 mini | `gpt-5.4-mini` | Fastest | Ultra-cheap for trivial or bulk tasks |
 | GPT-4.1 | `gpt-4.1` | Fast | Fast, cost-effective general tasks |
 | Grok 4.5 | `grok-4.5` | Fast | New Grok family model, added v1.0.76 |
+| Grok 4.6 | `grok-4.6` | Fast | Newest Grok generation; supports `xhigh` reasoning effort (v1.0.81+) |
 | MAI Code 1.1 Flash | `MAI-Code-1.1-Flash` | Fastest | Microsoft's small-tier coding model with native vision support (v1.0.80+) |
 
 > ⚠️ **Deprecated in v1.0.66:** Claude Opus 4.6 Fast (`claude-opus-4.6-fast`) is deprecated in favor of Claude Opus 4.8 Fast (`claude-opus-4.8-fast`), which offers newer Opus quality at comparable speed.
@@ -272,6 +274,8 @@ Opus 4.7 is the latest and most capable Opus model (available from v1.0.29). Use
 > **v1.0.60:** All reasoning effort levels (`low`, `medium`, `high`, `max`) are now available for Anthropic models on **every plan**. Use `--reasoning-effort max` for the deepest analysis on the most demanding tasks.
 >
 > **v1.0.77+:** Reasoning effort no longer has to be set explicitly — leave it unset and the server picks a sensible default for the selected model.
+>
+> **v1.0.81+:** Grok 4.6 gains support for the `xhigh` reasoning effort level, for its deepest level of analysis on the hardest tasks.
 
 ### Claude Haiku 4.5 — Ideal For
 

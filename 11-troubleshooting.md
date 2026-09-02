@@ -203,6 +203,8 @@ Error: Authentication failed
 
 2. **Network / VPN / IP allowlist (v1.0.63+):** If your organization uses VPN or IP allowlist policies, authentication may be blocked at the network level. Copilot CLI now surfaces these failures in the sign-in banner with guidance. Check that you are connected to the required VPN, or that your IP is permitted in your organization's GitHub IP allowlist settings.
 
+> **v1.0.82+:** Login failures now show the specific authentication error (for example, `401 Bad credentials`) instead of only prompting you back to `/login`. Use the specific error message to diagnose the problem faster — for example, a `401` usually means a stale or revoked token, while a network error points to the VPN/IP allowlist cause above.
+
 3. **Clear existing auth:**
 ```bash
 # Remove old tokens

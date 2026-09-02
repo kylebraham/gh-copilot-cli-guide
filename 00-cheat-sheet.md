@@ -96,7 +96,7 @@
 | `/security-review` | Run a security-focused code review (v1.0.51+; no longer requires `--experimental` as of v1.0.64) |
 | `/pr` | Create or manage a pull request; `/pr auto` self-paces one fix per run against CI to drive a PR to green, `/pr automerge` keeps going until merged — manage from `/loop` or `/every` (v1.0.66+) |
 | `/delegate` | Hand off a task to an autonomous subagent |
-| `/app` | Open the current session in the GitHub Copilot desktop app, or browser fallback (v1.0.62+; opens directly to the session, requires app 1.1.3+, v1.0.79+) |
+| `/app` | Open the current session in the GitHub Copilot desktop app, or browser fallback (v1.0.62+; opens directly to the session, requires app 1.1.3+, v1.0.79+); `copilot app` shell command opens it without an interactive session (v1.0.81+) |
 
 ### AI & Models
 | Command | Description |
@@ -112,10 +112,10 @@
 ### Config & Tools
 | Command | Description |
 |---------|-------------|
-| `/mcp` | Manage MCP (Model Context Protocol) server connections; `/mcp search <query>` to find from registry; `/mcp registry` to browse interactively (v1.0.64+); `/mcp list` shows attached servers and status and can run while the agent is working (v1.0.69+); marks sandboxed servers, e.g. `connected (sandboxed)` (v1.0.70+) |
+| `/mcp` | Manage MCP (Model Context Protocol) server connections; `/mcp search <query>` to find from registry; `/mcp registry` to browse interactively (v1.0.64+); `/mcp list` shows attached servers and status and can run while the agent is working (v1.0.69+); marks sandboxed servers, e.g. `connected (sandboxed)` (v1.0.70+); bare `/mcp`/`/mcp show` always open the unified plugins dashboard, supports MCP 2026-07-28, Windows sign-in via OS auth broker (WAM) (v1.0.81+) |
 | `/lsp` | Manage language server connections |
-| `/skills` | List or manage available skills; alias `/skill` (v1.0.65+); `copilot skill` subcommand available from shell (v1.0.65+); marks disabled skills in `copilot skill list`/JSON output (v1.0.71+) |
-| `/plugin` | Manage installed plugins; `/plugin update --all` updates all plugins at once (v1.0.49+); `/plugins` dashboard and reload without restart (v1.0.69+); pin a plugin to an exact commit with the `sha` field in its source config (v1.0.70+); `copilot plugins marketplace` subcommands (list/add/remove/browse/update) manage marketplaces from the shell (v1.0.71+); `update`/`uninstall` verbs plus `--plugin`/`--mcp`/`--skill` flags target plugins, MCP servers, or skills through one set of subcommands, including `install --skill` (v1.0.72+); enable/disable controls extend to custom instructions, agents, LSP servers, and hooks (v1.0.76+); first-party plugins auto-update to the latest version at session start (v1.0.78+); `/plugin marketplace update [name]` refreshes marketplace catalogs from inside a session (v1.0.80+) |
+| `/skills` | List or manage available skills; alias `/skill` (v1.0.65+); `copilot skill` subcommand available from shell (v1.0.65+); marks disabled skills in `copilot skill list`/JSON output (v1.0.71+); discovers skills (and custom agents) from directories added with `--add-dir` (v1.0.81+) |
+| `/plugin` | Manage installed plugins; `/plugin update --all` updates all plugins at once (v1.0.49+); `/plugins` dashboard and reload without restart (v1.0.69+); pin a plugin to an exact commit with the `sha` field in its source config (v1.0.70+); `copilot plugins marketplace` subcommands (list/add/remove/browse/update) manage marketplaces from the shell (v1.0.71+); `update`/`uninstall` verbs plus `--plugin`/`--mcp`/`--skill` flags target plugins, MCP servers, or skills through one set of subcommands, including `install --skill` (v1.0.72+); enable/disable controls extend to custom instructions, agents, LSP servers, and hooks (v1.0.76+); first-party plugins auto-update to the latest version at session start (v1.0.78+); `/plugin marketplace update [name]` refreshes marketplace catalogs from inside a session (v1.0.80+); dashboard open to everyone, `PLUGINS_DASHBOARD` opt-out removed, flags outdated plugins/marketplaces with an Update action, standalone `/plugins` command removed (v1.0.81+) |
 | `/rubber-duck` | Get an independent critique of the agent's current work (v1.0.49+; enabled by default in v1.0.58+) |
 | `/voice` | Dictate a prompt using local speech-to-text (v1.0.59+); `/voice devices` to choose/persist the microphone (v1.0.71+) |
 | `/every <interval> <prompt>` | Repeat a prompt on a fixed schedule, e.g. `/every 10m check notifications`; supports natural language expressions; alias `/loop` (v1.0.64+) (experimental, v1.0.58+) |
@@ -147,7 +147,7 @@
 | `/chronicle` | View a narrative history of session actions and file changes (v1.0.40+); add `search <query>` to search by keyword (v1.0.49+); add `cost-tips` for personalized token cost recommendations (v1.0.51+); add `skills review` to review proposed draft skill changes (v1.0.66+) |
 | `/feedback` | Submit feedback to GitHub |
 | `/bug` | Alias for `/feedback` — report a bug |
-| `/instructions` | Show active instruction files in effect |
+| `/instructions` | Show active instruction files in effect; each user instruction file is now listed separately (v1.0.81+) |
 
 ### Session Lifecycle
 | Command | Description |
@@ -200,7 +200,8 @@
 | `--session-id=<uuid>` | Resume a known session by UUID, or start a new session with that UUID (v1.0.51+) |
 | `--session-idle-timeout DUR` | Close idle session after duration (e.g., `30m`); disabled by default |
 | `--enable-mcp-server NAME` | Re-enable an MCP server that's disabled in settings, for this run only (v1.0.80+) |
-| `--usage-output-file PATH` | Write final usage/cost metrics to a JSON file when the session ends (v1.0.80+) |
+| `--usage-output-file PATH` | Write final usage/cost metrics to a JSON file when the session ends; includes per-agent usage metrics (v1.0.80+; per-agent breakdown v1.0.81+) |
+| `--with-token` | Read an auth token from stdin for `copilot login`, for scripted/CI logins (v1.0.81+) |
 
 ### Shell Completion
 

@@ -1,5 +1,28 @@
 # Documentation Updates
 
+## 2026-08-30 — Docs updated for v1.0.82
+
+- `README.md`: Bumped version note to v1.0.82; added a "Latest features" bullet for v1.0.82 (message-typing no longer breaks `/worktree`/`/move` while preparing the new worktree, `Ctrl+E` re-expanding a collapsed plan approval card, specific authentication failure messages instead of only the `/login` prompt)
+- `16-new-features.md`: Updated title to v1.0.82; added TOC entry; added a "New in v1.0.82" section covering the three v1.0.82 fixes (no new commands or settings in this release)
+- `04-slash-commands.md`: Added a v1.0.82 note under `/worktree`/`/move` documenting the message-typing fix during worktree preparation
+- `09-plan-mode.md`: Added a v1.0.82 note under Editing the Plan documenting `Ctrl+E` re-expanding a collapsed plan approval card
+- `11-troubleshooting.md`: Added a v1.0.82 note under Login Fails documenting specific authentication failure messages (e.g. `401 Bad credentials`) replacing the generic `/login` prompt
+
+### Feature Summary (v1.0.82)
+- **Fixed:** Typing a message while `/worktree` or `/move` is preparing the new worktree no longer breaks the switch into it
+- **Fixed:** `Ctrl+E` re-expands the plan approval card to show the full plan again
+- **Improved:** Authentication failures show the specific error (e.g. `401 Bad credentials`) instead of only the `/login` prompt
+
+## 2026-08-27 — Docs updated for v1.0.81
+
+- `README.md`: Bumped version note to v1.0.81; added "Latest features" bullets for v1.0.81 (plugins dashboard open to everyone with `PLUGINS_DASHBOARD` opt-out removed, new `copilot app` command, `/plugin` flagging outdated plugins/marketplaces, `defaultMode`/`defaultPermissionMode` settings, `--with-token` login flag, Gemini 3.7 Flash, Grok 4.6 `xhigh` reasoning effort, Auto mode adapting mid-conversation, session restore after crash, skills/agents discovered via `--add-dir`, per-agent `--usage-output-file` metrics)
+- `16-new-features.md`: Updated title to v1.0.81; added TOC entry; added a "New in v1.0.81" section covering the plugins dashboard changes, `copilot app`, `/plugin` update flagging, new settings, `--with-token`, new models/reasoning effort, Auto mode adaptation, session restore, `--add-dir` skill/agent discovery, per-agent usage metrics, MCP 2026-07-28 support, and Windows MCP sign-in via OS auth broker
+- `04-slash-commands.md`: Updated `/plugin` section with the v1.0.81 dashboard-for-everyone change, removed-`/plugins`-command note, and the outdated-plugin flagging/Update action; added a `copilot app` shell-command note under `/app`; added a `--with-token` note under `/login`; added a v1.0.81 note under `/mcp` for the unified dashboard, MCP 2026-07-28, and Windows WAM sign-in; added a v1.0.81 note under `/skills` for `--add-dir` discovery and dashboard unification; added a v1.0.81 note under `/instructions` for per-file display
+- `00-cheat-sheet.md`: Updated `/app`, `/mcp`, `/skills`, `/plugin`, and `/instructions` rows for v1.0.81 changes; added `--with-token` to the command-line flags table; updated `--usage-output-file` for per-agent metrics
+- `22-models-and-costs.md`: Added `Gemini 3.7 Flash` and `Grok 4.6` rows to the available models table; updated the `Auto` row and reasoning-effort notes for v1.0.81
+- `15-copilot-directory.md`: Added `defaultMode` and `defaultPermissionMode` to the example `settings.json` options
+- `01-getting-started.md`: Added a v1.0.81 note under Authentication for `copilot login --with-token`
+
 ## 2026-08-14 — Docs updated for v1.0.80
 
 - `README.md`: Bumped version note to v1.0.80; added "Latest features" bullets for v1.0.80 (new `MAI-Code-1.1-Flash` model, `/plugin marketplace update [name]`, `extraKnownMarketplaces` `autoUpdate` honored from managed settings, `/autopilot`/`/goal` objectives without experimental mode, new `--enable-mcp-server` and `--usage-output-file` flags, sandbox/`copilot init` fixes, breaking Open Plugin Spec plugin layout change, `/settings` Problems tab)
