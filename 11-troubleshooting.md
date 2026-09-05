@@ -314,6 +314,8 @@ copilot
 > /resume  # Continue where you left off
 ```
 
+> **v1.0.83+:** Stopping a timed-out shell command now lets any queued messages run and returns the session to idle, instead of leaving it stuck. A session lock that gets re-entered on the same thread now fails with a reported error instead of freezing the CLI. If an automatic restart can't complete (e.g., after an update), the CLI now shows clearer guidance on how to update manually.
+
 ### Slow Responses
 
 **Problem:**
@@ -475,6 +477,8 @@ copilot
 ```bash
 # Switch to different WiFi or use mobile hotspot
 ```
+
+> **v1.0.83+:** Kerberos proxy authentication now reconnects automatically when the initial challenge answers with `Connection: close`, instead of failing the request. Automatic HTTPS proxy mTLS client certificate support is also available for model and web requests.
 
 ## Git and GitHub Issues
 
@@ -878,6 +882,8 @@ reset
 # or
 tput reset
 ```
+
+> **v1.0.83+:** The `herdr` terminal multiplexer is now correctly detected instead of being mistaken for `tmux`, so the Kitty keyboard protocol, color scheme following, terminal progress, `/copy`, and notifications work correctly in `herdr` panes. The newest line of output also now stays visible above the input box instead of hiding behind it, except while a prompt is pinned to the top of the transcript.
 
 ### Keyboard Shortcuts Don't Work
 

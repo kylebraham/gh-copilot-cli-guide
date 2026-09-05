@@ -428,6 +428,8 @@ Sessions persist across launches, so you can continue where you left off.
 
 > **v1.0.76:** A new Sessions sidebar for managing multiple concurrent sessions — switch between them, spawn new ones, and see their status at a glance — is available behind experimental mode. Turn it on with `/experimental on`.
 
+> **v1.0.83+:** The split Sessions sidebar gains **Recent**, **Created**, **Name**, and classic **None** sort orders, with your selected order remembered across restarts. On Windows 11, running Copilot sessions now show in the **taskbar** with live hover status cards, so you can check progress without switching to the terminal window. CLI startup no longer shows the interrupted-session restore prompt by default.
+
 ## Advanced Context & Session Strategies
 
 Knowing *when* to use `/compact`, `/clear`, or `/resume` — and how to structure long-running project sessions — will make you significantly more effective.

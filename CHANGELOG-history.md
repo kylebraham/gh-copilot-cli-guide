@@ -1,5 +1,31 @@
 # Documentation Updates
 
+## 2026-09-05 — Docs updated for v1.0.83
+
+- `README.md`: Bumped version note to v1.0.83; added "Latest features" bullets for v1.0.83 (Windows 11 taskbar session status with hover cards, Sessions sidebar sort orders, MCP OAuth CIMD support, custom agent fallback model lists with `model-policy: required`, new `claude-fable-5.1` model, retired models removed from `/model` picker, new `forceLoginOrgs` managed setting, breaking sandbox local-network restriction and Linux dependency requirements, sandboxed `gh`/dev-tool auth changes, MCP dashboard/plugin fixes, `--add-dir`/`--plugin-dir` path resolution fix, `--share`/`--share-gist` full-transcript export, autopilot follow-up prompt and goal panel fixes)
+- `16-new-features.md`: Updated title to v1.0.83; added TOC entry; added a "New in v1.0.83" section covering the Windows taskbar, MCP CIMD support, custom agent fallback models, new model, Sessions sidebar sorting, `forceLoginOrgs`, sandbox network/auth hardening, and a batch of MCP/plugin/autopilot/terminal fixes
+- `08-advanced-features.md`: Added a "Fallback Model Lists" subsection under Custom Agents for the `model` list + `model-policy: required` frontmatter; added a CIMD OAuth subsection under MCP along with notes on MCP dashboard consolidation, tool/server restart resilience, and plugin server labeling; added v1.0.83 sandbox notes for the local-network restriction (breaking), Linux dependency requirements, proxy egress restriction, sandboxed `gh`/dev-tool auth, mTLS proxy certs, and `/sandbox policy` grouping
+- `22-models-and-costs.md`: Added a `claude-fable-5.1` row; added a note that retired Claude/Gemini models are removed from `/model` picker results
+- `21-team-setup.md`: Added a "Restricting Sign-In to Approved Organizations" subsection documenting the `forceLoginOrgs` managed setting
+- `17-autopilot-mode.md`: Added a v1.0.83 note under Stopping Autopilot for the follow-up-prompt-disappearing fix and the collapsed goal panel single-line layout fix
+- `04-slash-commands.md`: Added a v1.0.83 note under `/add-dir` for relative-path resolution under `--resume`/`--worktree`/`-C`; updated `/plugin` for bundled built-in plugins in list commands; added a v1.0.83 note under `/share`/`/export` for full-transcript export on resumed sessions; updated `/mcp` for the dashboard consolidation and CIMD support
+- `03-interactive-features.md`: Added a v1.0.83 note under Switching Sessions for the Sessions sidebar sort orders, Windows 11 taskbar status, and default-off restore prompt
+- `11-troubleshooting.md`: Added v1.0.83 notes for `herdr` terminal detection and newest-line visibility (Display Problems), stopped-timed-out-command/session-lock/restart-guidance fixes (CLI Freezes or Hangs), and Kerberos proxy reconnect plus mTLS proxy certs (Network Errors)
+- `00-cheat-sheet.md`: Updated `/add-dir`, `/share`, `/model`, `/mcp`, `/plugin`, and `/sandbox` rows for v1.0.83 changes
+
+### Feature Summary (v1.0.83)
+- **New:** Windows 11 taskbar session status with live hover cards; Sessions sidebar Recent/Created/Name/None sort orders saved across restarts
+- **New:** MCP OAuth Client ID Metadata Document (CIMD) support
+- **New:** Custom agents can list several fallback `model`s tried in order, with `model-policy: required` restricting in-session changes to that list
+- **New:** `claude-fable-5.1` model; retired Claude/Gemini models removed from `/model` picker
+- **New:** `forceLoginOrgs` managed setting pins `copilot login` to approved GitHub organizations
+- **Breaking:** Sandboxed commands on macOS/Linux can no longer reach services on your machine by default (enable "Allow local network" in `/sandbox` for local test suites); Linux sandboxing requires `slirp4netns`, `nsenter`, `iptables`, `ip6tables` on PATH; proxy mode restricts egress to the configured proxy
+- **Improved:** Sandboxed `gh` commands authenticate as the repo's configured account; sandboxed file tools read the same dev-tool paths as shell commands (`sandbox.allowDevToolAccess: false` to opt out); automatic HTTPS proxy mTLS client certs for model/web requests; `/sandbox policy` groups grants by source
+- **Fixed:** `/mcp config` and MCP forms open in the plugins dashboard; MCP tools stay callable after server restarts; enterprise-denied MCP servers wait for managed-policy resolution; plugin-contributed MCP servers no longer mislabeled "User"
+- **Fixed:** Relative `--add-dir`/`--plugin-dir` resolves against the session's working directory under `--resume`/`--worktree`/`-C`; `--share`/`--share-gist` exports the whole transcript for a resumed session
+- **Fixed:** Autopilot follow-up prompts no longer disappear from the timeline; collapsed goal panel reads as a single-line pinned prompt
+- **Fixed:** `herdr` terminal multiplexer detected correctly (no longer mistaken for `tmux`); newest output line stays visible above the input box; timed-out shell command stop lets queued messages run; session lock re-entry reports an error instead of freezing; Kerberos proxy reconnects after `Connection: close`
+
 ## 2026-08-30 — Docs updated for v1.0.82
 
 - `README.md`: Bumped version note to v1.0.82; added a "Latest features" bullet for v1.0.82 (message-typing no longer breaks `/worktree`/`/move` while preparing the new worktree, `Ctrl+E` re-expanding a collapsed plan approval card, specific authentication failure messages instead of only the `/login` prompt)
