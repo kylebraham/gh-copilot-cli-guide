@@ -72,7 +72,7 @@
 | `/continue` | Alias for `/resume` |
 | `/rename` | Rename the current session |
 | Sessions sidebar | Keyboard/mouse navigable: arrows open/focus/select, `Enter` switches, `n` spawns a session, `x` twice closes one; `/settings` can disable it (v1.0.72+); gated behind `/experimental on` for managing multiple concurrent sessions at a glance (v1.0.76+) |
-| `/share` | Share session as markdown, gist, or HTML (`/share html`) |
+| `/share` | Share session as markdown, gist, or HTML (`/share html`); `--share`/`--share-gist` on a resumed session now exports the whole transcript, not just the latest run (v1.0.83+) |
 | `/export` | Alias for `/share` |
 | `/copy` | Copy last response to clipboard |
 | `/env` | Show loaded environment details (instructions, MCP servers, skills, agents, plugins) |
@@ -85,7 +85,7 @@
 | Command | Description |
 |---------|-------------|
 | `/cwd` | Show current working directory; persists across session resumes (v1.0.65+) |
-| `/add-dir` | Add a directory to the active context |
+| `/add-dir` | Add a directory to the active context; a relative `--add-dir`/`--plugin-dir` path resolves against the session's working directory under `--resume=<id>`/`--worktree`, and after `-C` is applied (v1.0.83+) |
 | `/list-dirs` | List all directories currently in context |
 
 ### Code & GitHub
@@ -101,7 +101,7 @@
 ### AI & Models
 | Command | Description |
 |---------|-------------|
-| `/model` | View or switch the active AI model; add `--repo` or `--local` to scope the change to the repo/local config instead of the global default (v1.0.70+); add `--session`/`-s` to change it for just the current session (v1.0.72+); add `plan`/`--plan` to set a model used only in Plan Mode (v1.0.74+); changes are session-scoped by default — use `/config model` to set the future-session default (v1.0.79+); picker groups models into Recent/Recommended/New sections, `Shift+Tab` cycles views (v1.0.79+) |
+| `/model` | View or switch the active AI model; add `--repo` or `--local` to scope the change to the repo/local config instead of the global default (v1.0.70+); add `--session`/`-s` to change it for just the current session (v1.0.72+); add `plan`/`--plan` to set a model used only in Plan Mode (v1.0.74+); changes are session-scoped by default — use `/config model` to set the future-session default (v1.0.79+); picker groups models into Recent/Recommended/New sections, `Shift+Tab` cycles views (v1.0.79+); retired Claude/Gemini models removed from picker results (v1.0.83+) |
 | `/agent` | Configure or inspect the active agent |
 | `/subagents` | Configure subagent model, reasoning effort, and context tier; alias `/agents` (v1.0.62+); default max nesting depth is 4, configurable up to 128 via `subagents.maxDepth` (v1.0.71+) |
 | `/fleet` | Launch parallel subagents for distributed tasks |
@@ -112,10 +112,10 @@
 ### Config & Tools
 | Command | Description |
 |---------|-------------|
-| `/mcp` | Manage MCP (Model Context Protocol) server connections; `/mcp search <query>` to find from registry; `/mcp registry` to browse interactively (v1.0.64+); `/mcp list` shows attached servers and status and can run while the agent is working (v1.0.69+); marks sandboxed servers, e.g. `connected (sandboxed)` (v1.0.70+); bare `/mcp`/`/mcp show` always open the unified plugins dashboard, supports MCP 2026-07-28, Windows sign-in via OS auth broker (WAM) (v1.0.81+) |
+| `/mcp` | Manage MCP (Model Context Protocol) server connections; `/mcp search <query>` to find from registry; `/mcp registry` to browse interactively (v1.0.64+); `/mcp list` shows attached servers and status and can run while the agent is working (v1.0.69+); marks sandboxed servers, e.g. `connected (sandboxed)` (v1.0.70+); bare `/mcp`/`/mcp show` always open the unified plugins dashboard, supports MCP 2026-07-28, Windows sign-in via OS auth broker (WAM) (v1.0.81+); `/mcp config` and add/edit/authenticate forms open in the plugins dashboard, OAuth sign-in gains CIMD support, tools stay callable after server restart, servers from a plugin no longer labelled "User" (v1.0.83+) |
 | `/lsp` | Manage language server connections |
 | `/skills` | List or manage available skills; alias `/skill` (v1.0.65+); `copilot skill` subcommand available from shell (v1.0.65+); marks disabled skills in `copilot skill list`/JSON output (v1.0.71+); discovers skills (and custom agents) from directories added with `--add-dir` (v1.0.81+) |
-| `/plugin` | Manage installed plugins; `/plugin update --all` updates all plugins at once (v1.0.49+); `/plugins` dashboard and reload without restart (v1.0.69+); pin a plugin to an exact commit with the `sha` field in its source config (v1.0.70+); `copilot plugins marketplace` subcommands (list/add/remove/browse/update) manage marketplaces from the shell (v1.0.71+); `update`/`uninstall` verbs plus `--plugin`/`--mcp`/`--skill` flags target plugins, MCP servers, or skills through one set of subcommands, including `install --skill` (v1.0.72+); enable/disable controls extend to custom instructions, agents, LSP servers, and hooks (v1.0.76+); first-party plugins auto-update to the latest version at session start (v1.0.78+); `/plugin marketplace update [name]` refreshes marketplace catalogs from inside a session (v1.0.80+); dashboard open to everyone, `PLUGINS_DASHBOARD` opt-out removed, flags outdated plugins/marketplaces with an Update action, standalone `/plugins` command removed (v1.0.81+) |
+| `/plugin` | Manage installed plugins; `/plugin update --all` updates all plugins at once (v1.0.49+); `/plugins` dashboard and reload without restart (v1.0.69+); pin a plugin to an exact commit with the `sha` field in its source config (v1.0.70+); `copilot plugins marketplace` subcommands (list/add/remove/browse/update) manage marketplaces from the shell (v1.0.71+); `update`/`uninstall` verbs plus `--plugin`/`--mcp`/`--skill` flags target plugins, MCP servers, or skills through one set of subcommands, including `install --skill` (v1.0.72+); enable/disable controls extend to custom instructions, agents, LSP servers, and hooks (v1.0.76+); first-party plugins auto-update to the latest version at session start (v1.0.78+); `/plugin marketplace update [name]` refreshes marketplace catalogs from inside a session (v1.0.80+); dashboard open to everyone, `PLUGINS_DASHBOARD` opt-out removed, flags outdated plugins/marketplaces with an Update action, standalone `/plugins` command removed (v1.0.81+); list commands also show bundled built-in plugins (v1.0.83+) |
 | `/rubber-duck` | Get an independent critique of the agent's current work (v1.0.49+; enabled by default in v1.0.58+) |
 | `/voice` | Dictate a prompt using local speech-to-text (v1.0.59+); `/voice devices` to choose/persist the microphone (v1.0.71+) |
 | `/every <interval> <prompt>` | Repeat a prompt on a fixed schedule, e.g. `/every 10m check notifications`; supports natural language expressions; alias `/loop` (v1.0.64+) (experimental, v1.0.58+) |
@@ -130,7 +130,7 @@
 | `/move <branch>` | Create a new git worktree and switch into it, carrying uncommitted changes along; no longer an alias for `/worktree` (v1.0.71+) |
 | `/worktree new <branch>` | Create a new git worktree and start a fresh conversation in it, instead of continuing the current one (v1.0.79+, replaces experimental `/new-worktree`) |
 | `/allow-all` | Allow all tool calls without per-call confirmation; `/allow-all auto` auto-approves LLM-judged acceptable requests and requires experimental mode (v1.0.69+) |
-| `/sandbox` | Configure the OS-level shell sandbox; groups git/`gh`/keychain auth settings under an Auth tab and shows where sandbox settings are stored (v1.0.79+); `/sandbox policy` shows effective sandbox paths, denials, and network access (v1.0.79+) |
+| `/sandbox` | Configure the OS-level shell sandbox; groups git/`gh`/keychain auth settings under an Auth tab and shows where sandbox settings are stored (v1.0.79+); `/sandbox policy` shows effective sandbox paths, denials, and network access (v1.0.79+), and groups path grants by source and shows detected developer tools (v1.0.83+); on macOS/Linux, sandboxed commands can no longer reach services on your machine by default — enable **Allow local network** for local test suites (v1.0.83+, BREAKING) |
 | `/yolo` | Alias for `/allow-all`; state persists across `/restart` |
 | `/permissions` | Switch between approval modes in one interactive picker (v1.0.78+) |
 | `/reset-allowed-tools` | Reset tool allowlist to default (prompt-per-use) |

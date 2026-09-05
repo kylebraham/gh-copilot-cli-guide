@@ -31,6 +31,7 @@ Understanding how to choose the right model — and when to switch — is one of
 | Claude Opus 4.8 (fast) | `claude-opus-4.8-fast` | Fast | Opus 4.8 quality with faster response times (v1.0.66+) |
 | Claude Opus 5 | `claude-opus-5` | Slower | Newest Opus generation — top-tier reasoning and coding, added v1.0.75 |
 | Claude Fable 5 | `claude-fable-5` | Varies | New Claude Fable family model (v1.0.61+) |
+| Claude Fable 5.1 | `claude-fable-5.1` | Varies | Newest Claude Fable family model (v1.0.83+) |
 | Claude Haiku 4.5 | `claude-haiku-4.5` | Fastest | Quick tasks, fleet subagents, docs, formatting |
 | GPT-5.6 | `gpt-5.6` | Fast | Newest GPT generation — added v1.0.70 |
 | GPT-5.4 | `gpt-5.4` | Fast | Strong alternative for general code generation |
@@ -48,6 +49,8 @@ Understanding how to choose the right model — and when to switch — is one of
 | MAI Code 1.1 Flash | `MAI-Code-1.1-Flash` | Fastest | Microsoft's small-tier coding model with native vision support (v1.0.80+) |
 
 > ⚠️ **Deprecated in v1.0.66:** Claude Opus 4.6 Fast (`claude-opus-4.6-fast`) is deprecated in favor of Claude Opus 4.8 Fast (`claude-opus-4.8-fast`), which offers newer Opus quality at comparable speed.
+
+> **v1.0.83+:** Retired Claude and Gemini models are no longer listed in `/model` picker results, keeping the list limited to models you can actually select.
 
 > **Note:** Multipliers can change as GitHub updates pricing. Always run `/model` to see current multipliers and available models before committing to a long session.
 

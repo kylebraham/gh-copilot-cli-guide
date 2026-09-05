@@ -81,6 +81,12 @@ npm update -g @github/copilot
 ```
 
 **Latest features:**
+- 🖥️ Running Copilot sessions show in the Windows 11 taskbar with live hover status cards; the split Sessions sidebar gains Recent/Created/Name/None sort orders saved across restarts (v1.0.83)
+- 🔐 MCP OAuth sign-in gains Client ID Metadata Document (CIMD) support; custom agents can list several fallback models tried in order, with `model-policy: required` restricting in-session changes to that list; new `claude-fable-5.1` model, retired Claude/Gemini models removed from `/model` picker (v1.0.83)
+- 🏢 New `forceLoginOrgs` managed setting lets enterprise admins pin `copilot login` to approved GitHub organizations (v1.0.83)
+- ⚠️ **Breaking:** Sandboxed commands on macOS/Linux can no longer reach services running on your machine (enable "Allow local network" in `/sandbox` for local test suites); Linux sandboxing now requires `slirp4netns`, `nsenter`, `iptables`, `ip6tables` on PATH, and proxy mode restricts egress to the configured proxy (v1.0.83)
+- 🛠️ Sandboxed `gh` commands authenticate as the repo's configured account; sandboxed file tools read the same dev-tool paths as shell commands (opt out via `sandbox.allowDevToolAccess: false`); `/sandbox policy` groups grants by source (v1.0.83)
+- 🩹 `/mcp config` and MCP forms open in the plugins dashboard; MCP tools stay callable after server restarts; a relative `--add-dir`/`--plugin-dir` resolves against the session's working directory under `--resume`/`--worktree`; `--share`/`--share-gist` exports the whole transcript for a resumed session; a follow-up prompt while autopilot runs no longer disappears (v1.0.83)
 - 🩹 Typing a message no longer breaks `/worktree`/`/move` while the new worktree is being prepared; `Ctrl+E` re-expands a collapsed plan approval card; login failures now show the specific authentication error (e.g. `401 Bad credentials`) instead of only the `/login` prompt (v1.0.82)
 - 🔌 The plugins dashboard (`/plugin`, bare `/mcp`, `/skills`) is now open to everyone; the `PLUGINS_DASHBOARD` opt-out and the legacy skills picker have been removed (v1.0.81)
 - 📱 New `copilot app` command opens the GitHub Copilot app in the current directory; `/plugin` now flags installed plugins/marketplaces with a newer version upstream and offers an Update action (v1.0.81)
@@ -465,4 +471,4 @@ Go to **Actions → Daily Doc Maintenance → Run workflow** to trigger it on de
 
 ---
 
-**Note:** This guide covers GitHub Copilot CLI v1.0.82. Some capabilities may vary by version — run `/update` to stay current.
+**Note:** This guide covers GitHub Copilot CLI v1.0.83. Some capabilities may vary by version — run `/update` to stay current.
