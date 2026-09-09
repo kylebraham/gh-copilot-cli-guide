@@ -408,6 +408,8 @@ Add a directory to the allowed list for file access.
 > /add-dir ../sibling-project
 ```
 
+> **v1.0.83+:** A relative `--add-dir` or `--plugin-dir` path now resolves against the **session's working directory** when used with `--resume=<id>` or `--worktree`, instead of the directory the CLI was launched from. Relative values are also resolved after `-C` is applied, so `-C` no longer has to precede either option on the command line.
+
 **Use when:**
 - Need to access files outside working directory
 - Working with multiple project roots
@@ -1381,6 +1383,8 @@ Manage plugins and plugin marketplaces.
 
 > **v1.0.81+:** The plugins dashboard opened by `/plugin` (as well as bare `/mcp` and `/skills`) is now available to everyone. The `PLUGINS_DASHBOARD` environment variable opt-out and the legacy skills picker it kept alive have been removed — these commands always open the dashboard (`/mcp config` still opens the dedicated MCP wizard). The standalone `/plugins` command has been removed; its resources are covered by `/plugin`, `/mcp`, and `/skills`, with `/subagents` for agents and `/instructions` for instructions. `/plugin` now also flags installed plugins and marketplaces that have a newer version upstream and offers an **Update** action to pull it.
 
+> **v1.0.83+:** `/plugin` and other plugin list commands now also show **bundled built-in plugins**, not just user-installed ones, so you can see everything that contributes commands, agents, or MCP servers to a session in one place.
+
 > **v1.0.80+:** `/plugin marketplace update [name]` refreshes marketplace catalogs directly from within an interactive session, without needing to drop to the shell — omit `name` to refresh all configured marketplaces, or pass one to refresh just that marketplace.
 
 > ⚠️ **Removed in v1.0.81:** The `/plugins` command has been removed. Use `/plugin`, `/mcp`, and `/skills` for plugin, MCP server, and skill management, `/subagents` for agents, and `/instructions` for instructions.
@@ -1871,6 +1875,8 @@ Manage MCP (Model Context Protocol) server configuration.
 
 > **v1.0.81+:** Bare `/mcp` and `/mcp show` (with no server name) now always open the unified plugins dashboard (`/mcp config` still opens the dedicated MCP wizard) — the `PLUGINS_DASHBOARD` opt-out has been removed. The CLI, SDK, IDE, and in-memory clients now support the MCP 2026-07-28 protocol revision. On Windows, remote MCP servers protected by Microsoft Entra ID can sign in through the OS authentication broker (WAM), usually with no prompt; other platforms, `--device-code`, and machines without the broker library keep the browser flow.
 
+> **v1.0.83+:** `/mcp config` and the MCP add/edit/authenticate forms now open in the plugins dashboard instead of a separate MCP manager, so closing a form returns you to the server list. MCP OAuth sign-in gains Client ID Metadata Document (CIMD) support. MCP tools stay callable after a server restarts, and servers configured by your custom agent stay available across built-in sub-agent turns. Servers contributed by a plugin are no longer labelled "User" in the dashboard, and a server from a bundled plugin now shows as built-in and names the plugin it came from.
+
 **MCP Servers extend CLI capabilities:**
 - Database access
 - API integrations
@@ -1972,6 +1978,8 @@ Share session to markdown file, GitHub Gist, or self-contained interactive HTML 
 - Supports `Ctrl+X O` to open the HTML file immediately from the CLI
 
 **File extension handling:** If you provide a custom output path without a file extension, `/share` automatically appends `.md` (for file/gist output) or `.html` (for HTML output).
+
+> **v1.0.83+:** Exporting a resumed session with `--share` or `--share-gist` now writes the **whole transcript**, instead of only the latest run since the session was resumed.
 
 ### /feedback, /bug
 

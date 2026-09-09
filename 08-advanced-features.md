@@ -427,6 +427,16 @@ Or programmatically via the `list_agents` and `read_agent` tools exposed to the 
 
 **Why it matters:** Compute-heavy MCP tools (e.g., long builds, data processing jobs) no longer block your session. You get results asynchronously when the task finishes.
 
+### Client ID Metadata Document (CIMD) Support for OAuth (v1.0.83+)
+
+MCP servers that support OAuth sign-in can now authenticate using a **Client ID Metadata Document (CIMD)** — a JSON document hosted at a URL that describes the OAuth client, instead of requiring a pre-registered client ID and secret.
+
+**Why it matters:** Some MCP servers (and their identity providers) only support CIMD-based dynamic client registration. This lets `/mcp auth` sign in to those servers without manual client registration.
+
+> **v1.0.83+:** `/mcp config` and the MCP add/edit/authenticate forms now open in the **plugins dashboard** instead of a separate MCP manager — closing a form returns you to the server list instead of a dead end. MCP servers configured by your custom agent stay available after built-in sub-agent turns (e.g., `@explore`, `@task`) instead of being torn down, and MCP tools remain callable after an MCP server restarts. An enterprise-denied MCP server can no longer start before the managed allow/deny policy resolves — server startup now waits for the managed-settings fetch instead of racing it. MCP servers contributed by a plugin are no longer labelled "User" in the MCP dashboard, and a server from a bundled plugin now shows as built-in and names the plugin it came from.
+
+---
+
 ---
 
 When Copilot CLI detects an **Azure DevOps repository** as the working context, the built-in GitHub MCP server is automatically scaled back to avoid authentication errors and irrelevant GitHub API calls. No configuration change is needed — the detection is automatic. As of v1.0.48, this also applies when running in prompt (`-p`) or headless mode, matching the existing interactive-mode behavior. As of v1.0.57, instead of being fully disabled, the server now exposes **only the `web_search` tool** in Azure DevOps-only repositories, so web search capability is retained.
@@ -696,6 +706,26 @@ This agent always runs with high reasoning effort, regardless of the session def
 ```
 
 **Why it matters:** Lets you pin high-stakes agents (e.g., security review, architecture planning) to a higher effort level while keeping the rest of the session on a faster, cheaper default.
+
+### Fallback Model Lists (v1.0.83+)
+
+A custom agent's `model` frontmatter field can list **several models**, tried in order until one is available to you:
+
+```yaml
+---
+name: resilient-agent
+model:
+  - claude-opus-5
+  - claude-sonnet-5
+  - gpt-5.6
+model-policy: required
+---
+This agent tries Claude Opus 5 first, falling back to Claude Sonnet 5, then GPT-5.6.
+```
+
+Setting `model-policy: required` keeps any in-session model changes restricted to models on that list, instead of letting the agent switch to an arbitrary model.
+
+**Why it matters:** Keeps an agent running even if your top-choice model is temporarily unavailable or you don't have access to it, without failing the turn or requiring manual intervention.
 
 ## Skills System
 
@@ -1492,6 +1522,10 @@ Set in config:
 > **BREAKING (v1.0.79+):** The sandbox setting `allowDevToolCaches` is renamed `allowDevToolAccess`, since it grants dev-tool config and registries too, not just caches. The old key is no longer read and is ignored silently, so an existing `false` opt-out **reverts to the default (on)** — rename it in `settings.json` and any managed/MDM policy to keep the opt-out in effect.
 
 > **v1.0.80+:** Turning off `sandbox.allowDevToolAccess` now also withholds tool directories discovered on `PATH` and in toolchain environment variables (such as a relocated `CARGO_HOME`) — previously these could leak through even with the setting off. Sandboxed MCP servers launched with `npx` or `uvx` now get a writable Copilot-owned package cache, plus the Windows toolchain and Playwright browser grants they need (requires dev-tool access). A `readonlyPaths` entry nested inside your working directory now correctly blocks writes from the built-in file tools. When an enterprise policy requires the sandbox, `--no-sandbox` now explains that it was ignored instead of silently having no effect, and `copilot init` no longer silently drops `--sandbox`/`--no-sandbox` — the flag now applies to the init session, subject to the same feature gating and enterprise sandbox floor as other entry points.
+
+> ⚠️ **BREAKING (v1.0.83+):** On macOS and Linux, sandboxed commands can no longer reach services running on your machine. On macOS this also blocks a server the command itself starts on `127.0.0.1`, so test suites that bind a local port will fail inside the sandbox — turn on **Allow local network** in `/sandbox` to reach localhost again. Linux sandboxing now additionally requires `slirp4netns`, `nsenter`, `iptables`, `ip6tables`, `iptables-restore`, and `ip6tables-restore` on `PATH`; install them if sandboxed commands start failing to launch. When Linux sandbox proxy mode is enabled, network egress is now restricted to the configured proxy, and proxy mode itself requires `slirp4netns`, `util-linux` 2.35+, `iptables`, and `/dev/net/tun` access.
+
+> **v1.0.83+:** Sandboxed `gh` commands now authenticate as the account configured for the repository instead of always using the Copilot CLI login. Sandboxed file tools now read the same developer-tool paths as sandboxed shell commands, including token-bearing registry config such as `~/.npmrc`; set `sandbox.allowDevToolAccess` to `false` to turn these grants off. Automatic HTTPS proxy mTLS client certificate support is now available for model and web requests. `/sandbox policy` groups path grants by source and shows detected developer tools, making effective policy easier to audit.
 
 > **v1.0.66+:** Session credit limits (the `sessionLimits` setting) must now be at least 30 AI credits, and now apply across the whole current conversation, resetting on `/clear`.
 

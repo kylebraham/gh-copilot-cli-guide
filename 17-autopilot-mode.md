@@ -145,6 +145,8 @@ Autopilot runs until one of these conditions is met:
 
 > **v1.0.76:** Resuming a session (`/resume`) now restores whichever mode it was in — autopilot or Plan Mode — instead of reverting to interactive mode. This keeps the autopilot-only `task_complete` tool available and ensures the mode matches the session you left.
 
+> **v1.0.83+:** A follow-up prompt typed while autopilot is running no longer disappears from the timeline. The collapsed autopilot goal panel now reads as a single-line pinned prompt, keeping the frame it shares with a pinned prompt instead of compressing into a bare band wedged against the chrome above it.
+
 > **v1.0.64:** Autopilot now auto-handles elicitation, `ask_user`, sampling, and permission prompts — including prompts shown at launch with `--autopilot` and during continuation turns — so they no longer surface dialogs during an autonomous run.
 
 Pressing **Ctrl+C** or **Escape** cleanly stops the current autonomous step and autopilot will not resume (v1.0.15+). You can then review what was done, switch back to interactive mode with Shift+Tab, and continue manually.

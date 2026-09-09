@@ -406,6 +406,12 @@ Enterprise administrators can enforce a restrictive sandbox floor via managed se
 
 > **v1.0.77+:** The managed sandbox policy can also be enforced via **native macOS and Windows MDM (Mobile Device Management) settings**, in addition to existing managed-settings mechanisms. This lets IT teams roll out and audit the sandbox floor using the same MDM tooling they already use for other endpoint policies.
 
+### Restricting Sign-In to Approved Organizations (v1.0.83+)
+
+Enterprise admins can pin `copilot login` to a set of approved GitHub organizations using the `forceLoginOrgs` managed setting. Users attempting to sign in with an account that isn't a member of one of the listed organizations are blocked from completing authentication.
+
+**Why use it:** Prevents engineers from authenticating Copilot CLI with a personal or non-approved organization account, keeping usage tied to org-managed billing, policy, and audit trails.
+
 ### Audit Considerations
 
 - Copilot CLI logs sessions to `~/.copilot/logs/` — review these if an automated job behaves unexpectedly

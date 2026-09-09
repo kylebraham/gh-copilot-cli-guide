@@ -1,4 +1,4 @@
-# Latest Features in GitHub Copilot CLI — v1.0.82
+# Latest Features in GitHub Copilot CLI — v1.0.83
 
 This file covers recent additions to GitHub Copilot CLI. Features marked with "Full guide →" have their own dedicated documentation file — the entries here are summaries with links. Features without a dedicated file are covered in full below.
 
@@ -10,6 +10,7 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 3. [Research Command (`/research`)](#research-command-research) — [Full guide →](19-research-command.md)
 
 ### Features covered in this file
+4. [New in v1.0.83](#new-in-v1083)
 4. [New in v1.0.82](#new-in-v1082)
 4. [New in v1.0.81](#new-in-v1081)
 4. [New in v1.0.80](#new-in-v1080)
@@ -91,6 +92,65 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 ---
 
 ---
+
+---
+
+## New in v1.0.83
+
+Released: 2026-09-04
+
+### Windows Taskbar Session Status
+
+Running Copilot sessions now show in the **Windows 11 taskbar** with live hover status cards, so you can check progress without switching to the terminal window.
+
+**Why it matters:** Keep track of a long-running autopilot or fleet task from anywhere in Windows, not just the terminal.
+
+### MCP OAuth via Client ID Metadata Document (CIMD)
+
+MCP OAuth sign-in now supports **Client ID Metadata Document (CIMD)** — a JSON document hosted at a URL that describes the OAuth client, for servers and identity providers that require dynamic client registration instead of a pre-registered client ID/secret. See [Advanced Features — MCP](08-advanced-features.md#client-id-metadata-document-cimd-support-for-oauth-v1083).
+
+**Why it matters:** Lets `/mcp auth` sign in to MCP servers that only support CIMD-based registration, without manual setup.
+
+### Custom Agent Fallback Model Lists
+
+A custom agent's `model` frontmatter field can now list **several models**, tried in order until one is available to you, and `model-policy: required` keeps in-session model changes restricted to that list. See [Advanced Features — Fallback Model Lists](08-advanced-features.md#fallback-model-lists-v1083).
+
+**Why it matters:** Keeps an agent running even if your top-choice model is temporarily unavailable, without failing the turn.
+
+### `claude-fable-5.1` Model
+
+A new `claude-fable-5.1` model joins the Claude Fable family. Retired Claude and Gemini models are also removed from `/model` picker results. See [Models and Costs](22-models-and-costs.md#1-available-models-overview).
+
+### Sessions Sidebar Sorting
+
+The split Sessions sidebar gains **Recent**, **Created**, **Name**, and classic **None** sort orders, with your selected order saved across restarts. See [Interactive Features — Switching Sessions](03-interactive-features.md#switching-sessions).
+
+### `forceLoginOrgs` Managed Setting
+
+Enterprise admins can pin `copilot login` to a set of approved GitHub organizations with the new `forceLoginOrgs` managed setting. See [Team Setup — Restricting Sign-In to Approved Organizations](21-team-setup.md#restricting-sign-in-to-approved-organizations-v1083).
+
+**Why it matters:** Keeps CLI usage tied to org-managed billing, policy, and audit trails instead of a personal account.
+
+### Sandbox Network and Auth Hardening
+
+⚠️ **Breaking:** On macOS and Linux, sandboxed commands can no longer reach services running on your machine — on macOS this also blocks a server the sandboxed command itself starts on `127.0.0.1`, so local test suites that bind a port will fail until you turn on **Allow local network** in `/sandbox`. Linux sandboxing now additionally requires `slirp4netns`, `nsenter`, `iptables`, `ip6tables`, `iptables-restore`, and `ip6tables-restore` on `PATH`, and Linux sandbox proxy mode now restricts network egress to the configured proxy. Sandboxed `gh` commands authenticate as the repository's configured account instead of the Copilot CLI login, sandboxed file tools read the same developer-tool paths as sandboxed shell commands (opt out via `sandbox.allowDevToolAccess: false`), and automatic HTTPS proxy mTLS client certificates are now supported for model and web requests. `/sandbox policy` groups path grants by source and shows detected developer tools. See [Advanced Features — Security Best Practices](08-advanced-features.md).
+
+**Why it matters:** Closes a gap where a sandboxed process could reach other services on your machine, but requires installing a few extra Linux packages and re-enabling local network access for tests that bind ports.
+
+### MCP, Plugin, and Autopilot Fixes
+
+- `/mcp config` and MCP add/edit/authenticate forms open in the plugins dashboard instead of a separate MCP manager, so closing a form returns you to the server list.
+- MCP tools remain callable after an MCP server restarts, and MCP servers configured by your agent stay available across built-in sub-agent turns.
+- Enterprise-denied MCP servers can no longer start before the managed allow/deny policy resolves.
+- MCP servers from a plugin are no longer labelled "User" in the dashboard; bundled-plugin servers show as built-in and name their plugin.
+- `/plugin` and plugin list commands now also show bundled built-in plugins.
+- A relative `--add-dir` or `--plugin-dir` path resolves against the session's working directory under `--resume=<id>` and `--worktree`, and after `-C` is applied. See [Slash Commands — /add-dir](04-slash-commands.md#add-dir-directory).
+- Exporting a resumed session with `--share`/`--share-gist` writes the whole transcript, not just the latest run. See [Slash Commands — /share](04-slash-commands.md#share-export-filegisthtml-path).
+- A follow-up prompt typed while autopilot is running no longer disappears from the timeline; the collapsed autopilot goal panel reads as a single-line pinned prompt. See [Autopilot Mode](17-autopilot-mode.md#stopping-autopilot).
+- The `herdr` terminal multiplexer is correctly detected instead of being mistaken for `tmux`. The newest line of output stays visible above the input box instead of hiding behind it.
+- CLI starts without the interrupted-session restore prompt by default.
+- Stopping a timed-out shell command lets queued messages run and returns the session to idle.
+- Kerberos proxy authentication reconnects after a `Connection: close` challenge response.
 
 ---
 
