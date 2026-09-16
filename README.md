@@ -81,6 +81,10 @@ npm update -g @github/copilot
 ```
 
 **Latest features:**
+- ⌨️ Vim mode is now available to everyone (`/vim` or `editorMode: vim`); new `/config` sidebar configuration screen; `transcriptView: concise` groups tool activity into expandable work summaries (v1.0.85)
+- 🔌 `enable`/`disable` built directly into `copilot plugin`/`mcp`/`skill`; new `copilot instruction list`/`copilot lsp list`; `--json` on plugin/marketplace list and browse commands; new `copilot session import`/`copilot memory import` for the semantic JSONL interchange format; GPT-6 Astra model support (v1.0.85)
+- ⚠️ **Breaking:** `copilot plugins install --skill` replaced by `copilot skill add [--project]`; cross-kind `--kind`/`--scope`/`--mcp`/`--skill` flags removed from `copilot plugins`; `copilot plugins list --json` is now a flat array and `copilot plugins list` reports only plugins (v1.0.85)
+- 🛡️ `/sandbox` gains Network host allow/deny rules layered on top of your configured proxy; managed sandbox sessions can be disabled for the rest of the session from an approved bypass prompt; `--add-dir` rejects invalid paths before session startup (v1.0.85)
 - 🖥️ Running Copilot sessions show in the Windows 11 taskbar with live hover status cards; the split Sessions sidebar gains Recent/Created/Name/None sort orders saved across restarts (v1.0.83)
 - 🔐 MCP OAuth sign-in gains Client ID Metadata Document (CIMD) support; custom agents can list several fallback models tried in order, with `model-policy: required` restricting in-session changes to that list; new `claude-fable-5.1` model, retired Claude/Gemini models removed from `/model` picker (v1.0.83)
 - 🏢 New `forceLoginOrgs` managed setting lets enterprise admins pin `copilot login` to approved GitHub organizations (v1.0.83)
@@ -471,4 +475,4 @@ Go to **Actions → Daily Doc Maintenance → Run workflow** to trigger it on de
 
 ---
 
-**Note:** This guide covers GitHub Copilot CLI v1.0.83. Some capabilities may vary by version — run `/update` to stay current.
+**Note:** This guide covers GitHub Copilot CLI v1.0.85. Some capabilities may vary by version — run `/update` to stay current.

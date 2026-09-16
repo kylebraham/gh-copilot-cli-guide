@@ -1,4 +1,4 @@
-# Latest Features in GitHub Copilot CLI — v1.0.83
+# Latest Features in GitHub Copilot CLI — v1.0.85
 
 This file covers recent additions to GitHub Copilot CLI. Features marked with "Full guide →" have their own dedicated documentation file — the entries here are summaries with links. Features without a dedicated file are covered in full below.
 
@@ -10,6 +10,7 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 3. [Research Command (`/research`)](#research-command-research) — [Full guide →](19-research-command.md)
 
 ### Features covered in this file
+4. [New in v1.0.85](#new-in-v1085)
 4. [New in v1.0.83](#new-in-v1083)
 4. [New in v1.0.82](#new-in-v1082)
 4. [New in v1.0.81](#new-in-v1081)
@@ -92,6 +93,61 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 ---
 
 ---
+
+---
+
+## New in v1.0.85
+
+Released: 2026-09-16
+
+### Vim Mode for Everyone
+
+**Vim mode** is now available to everyone. Turn it on with `/vim` or set `editorMode` to `vim` in `/settings` for modal (normal/insert) editing in the composer, with the current mode shown while you type. See [Slash Commands — /vim](04-slash-commands.md#vim-v1085).
+
+**Why it matters:** If you're used to Vim keybindings, edit and navigate long prompts without reaching for arrow keys or the mouse.
+
+### `/config` Sidebar Configuration Screen
+
+A new `/config` command opens a persistent sidebar configuration screen inside the CLI, complementing the full-screen `/settings` dialog. See [Slash Commands — /config](04-slash-commands.md#config-v1085).
+
+### Concise Transcript View
+
+Set `transcriptView` to `"concise"` in `/settings` to group tool activity into expandable work summaries instead of showing every tool call inline. See [Interactive Features — Timeline Management](03-interactive-features.md#timeline-management).
+
+**Why it matters:** Keeps long turns scannable instead of scrolling through every intermediate tool call.
+
+### Sandbox Network Allow/Deny Rules
+
+`/sandbox` gains Network host allow/deny rules that layer on top of your configured upstream proxy instead of replacing it, and managed (enterprise) sandbox sessions can now be disabled for the rest of the session directly from an approved bypass prompt. See [Advanced Features — Security Best Practices](08-advanced-features.md#file-access-control).
+
+### Session and Memory Import
+
+New `copilot session import` and `copilot memory import` shell commands import sessions and memory entries in a semantic JSONL interchange format. See [Advanced Features — Session and Memory Import](08-advanced-features.md#session-and-memory-import-v1085).
+
+### Plugin/MCP/Skill CLI Command Overhaul
+
+`enable` and `disable` are now built directly into `copilot plugin`, `copilot mcp`, and `copilot skill`, replacing `copilot plugins enable/disable --plugin|--mcp|--skill`. New `copilot instruction list` and `copilot lsp list` commands replace `copilot plugins list --kind instruction/lsp`. `--json` is now supported on `copilot plugin list`, `copilot plugin marketplace list`, and `copilot plugin marketplace browse`. See [Advanced Features — Plugin System](08-advanced-features.md#enabledisable-moved-onto-each-kinds-own-subcommand-v1085).
+
+> ⚠️ **Breaking:** `copilot plugins install --skill` is replaced by `copilot skill add [--project]` — the `--scope` spelling is gone. The cross-kind `--kind`, `--scope`, `--mcp`, and `--skill` flags are removed from `copilot plugins`. `copilot plugins list --json` now emits a flat array of plugins instead of the old `{ plugins, errors }` object. `copilot plugins list` is now an alias of `copilot plugin list` and reports only plugins, no longer MCP servers, skills, instructions, or LSP servers.
+
+### GPT-6 Astra
+
+A new `gpt-6-astra` model is now available in `/model`. See [Models and Costs](22-models-and-costs.md#1-available-models-overview).
+
+### Streamer Mode Masks Model Names
+
+Streamer mode now masks internal model names in `/model`, the footer, and startup diagnostics, and toggling it no longer restarts model initialization.
+
+### Notable Fixes
+
+- Fixed the one-command sandbox bypass on Windows: approving a policy-blocked write escalation now runs the command instead of stopping after the retry.
+- `--add-dir` rejects non-directory and inaccessible paths uniformly and aborts startup before session initialization.
+- `--share=~/notes.md` now writes to your home directory instead of creating a folder named `~` in the current directory.
+- MCP servers no longer fail to load when connected to a running IDE; MCP turns continue even if tool list refresh fails after a tool change.
+- `copilot init` now removes the `.github` directory it created when the run exits without writing an instructions file.
+- Large sessions resume without freezing the interface during context token counting.
+- Command-line parsing moved from Commander to a Rust grammar; `copilot login --host` now works, and `--max-autopilot-continues` no longer accepts scientific notation.
+- Shell completions are generated from the same grammar the CLI parses with, so `copilot <TAB>` offers root flags alongside subcommands.
 
 ---
 

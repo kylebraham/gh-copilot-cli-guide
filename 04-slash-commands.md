@@ -741,6 +741,8 @@ Manage language server configuration for enhanced code intelligence.
 - The AI is missing type or symbol information
 - After installing new language tooling
 
+> **v1.0.85+:** `copilot lsp list` is a new shell subcommand that lists configured LSP servers, replacing `copilot plugins list --kind lsp`.
+
 ## GitHub Integration
 
 ### /init [project-type]
@@ -1116,6 +1118,34 @@ Open an interactive dialog to browse and edit all user settings in one place.
 
 > **v1.0.80+:** Unknown and ineffective settings keys are now moved into an actionable **Problems** tab within `/settings`, instead of being silently ignored — retired CLI-owned keys are also cleaned up automatically.
 
+### /config (v1.0.85+)
+
+Open a sidebar configuration screen inside the CLI.
+
+```
+> /config
+```
+
+**What it does:** Shows a persistent sidebar panel for reviewing and adjusting configuration alongside your conversation, complementing the full-screen `/settings` dialog.
+
+### /vim (v1.0.85+)
+
+Toggle Vim-style modal editing in the composer. Also configurable via `/settings` → `editorMode`.
+
+```
+> /vim
+```
+
+**What it does:** Switches the input composer to modal editing with **normal** and **insert** modes, mirroring familiar Vim navigation and editing keybindings. The current mode is shown while you type.
+
+```bash
+# Set as the default editor mode instead of toggling per-session
+> /settings
+# → set editorMode to "vim"
+```
+
+**Why use it:** If you're used to Vim keybindings, edit and navigate long prompts without reaching for the mouse or arrow keys.
+
 ### /refine <prompt> (v1.0.70+)
 
 Rewrite a rough, stream-of-consciousness prompt into a clear, well-structured one before sending it.
@@ -1330,6 +1360,8 @@ View and toggle custom instruction files.
 
 > **v1.0.81+:** `/instructions` now shows each user instruction file separately, rather than grouping them, making it clearer which specific file is active or disabled.
 
+> **v1.0.85+:** `copilot instruction list` is a new shell subcommand that lists custom instruction files, replacing `copilot plugins list --kind instruction`.
+
 See [Copilot Directory Guide](15-copilot-directory.md) for setup details.
 
 ### /streamer-mode
@@ -1349,6 +1381,8 @@ Toggle streamer mode to hide sensitive details during live streaming or screen s
 - Screen sharing or live streaming your terminal
 - Presenting to an audience
 - You don't want quota or model details visible on screen
+
+> **v1.0.85+:** Streamer mode now masks internal model names in `/model`, the footer, and startup diagnostics, and toggling it no longer restarts model initialization.
 
 ### /plugin [subcommand]
 
@@ -1384,6 +1418,10 @@ Manage plugins and plugin marketplaces.
 > **v1.0.81+:** The plugins dashboard opened by `/plugin` (as well as bare `/mcp` and `/skills`) is now available to everyone. The `PLUGINS_DASHBOARD` environment variable opt-out and the legacy skills picker it kept alive have been removed — these commands always open the dashboard (`/mcp config` still opens the dedicated MCP wizard). The standalone `/plugins` command has been removed; its resources are covered by `/plugin`, `/mcp`, and `/skills`, with `/subagents` for agents and `/instructions` for instructions. `/plugin` now also flags installed plugins and marketplaces that have a newer version upstream and offers an **Update** action to pull it.
 
 > **v1.0.83+:** `/plugin` and other plugin list commands now also show **bundled built-in plugins**, not just user-installed ones, so you can see everything that contributes commands, agents, or MCP servers to a session in one place.
+
+> **v1.0.85+:** `enable` and `disable` are now built directly into `copilot plugin`, `copilot mcp`, and `copilot skill` (e.g. `copilot mcp disable my-server`), replacing `copilot plugins enable/disable --plugin|--mcp|--skill`. `--json` is now supported on `copilot plugin list`, `copilot plugin marketplace list`, and `copilot plugin marketplace browse`. New `copilot instruction list` and `copilot lsp list` commands replace `copilot plugins list --kind instruction` and `--kind lsp`.
+>
+> ⚠️ **Breaking (v1.0.85+):** `copilot plugins install --skill` is replaced by `copilot skill add [--project]` — the `--scope` spelling is gone. The cross-kind `--kind`, `--scope`, `--mcp`, and `--skill` flags are removed from `copilot plugins`; use `copilot mcp` and `copilot skill` instead. `copilot plugins list --json` now emits a flat array of plugins instead of the old `{ plugins, errors }` object — update scripts that read `.plugins`. `copilot plugins list` is now an alias of `copilot plugin list` and reports only plugins, no longer MCP servers, skills, instructions, or LSP servers.
 
 > **v1.0.80+:** `/plugin marketplace update [name]` refreshes marketplace catalogs directly from within an interactive session, without needing to drop to the shell — omit `name` to refresh all configured marketplaces, or pass one to refresh just that marketplace.
 
@@ -1877,6 +1915,8 @@ Manage MCP (Model Context Protocol) server configuration.
 
 > **v1.0.83+:** `/mcp config` and the MCP add/edit/authenticate forms now open in the plugins dashboard instead of a separate MCP manager, so closing a form returns you to the server list. MCP OAuth sign-in gains Client ID Metadata Document (CIMD) support. MCP tools stay callable after a server restarts, and servers configured by your custom agent stay available across built-in sub-agent turns. Servers contributed by a plugin are no longer labelled "User" in the dashboard, and a server from a bundled plugin now shows as built-in and names the plugin it came from.
 
+> **v1.0.85+:** `copilot mcp enable <name>` and `copilot mcp disable <name>` are now built directly into the `copilot mcp` shell subcommand, replacing `copilot plugins enable/disable --mcp`. `/sandbox` gains network host allow/deny rules that layer on top of your configured upstream proxy instead of replacing it. See [Advanced Features — Security Best Practices](08-advanced-features.md#file-access-control).
+
 **MCP Servers extend CLI capabilities:**
 - Database access
 - API integrations
@@ -1917,6 +1957,8 @@ $ copilot skill remove python-expert
 > **v1.0.71+:** `copilot skill list` and its JSON output now mark disabled skills, matching the `/skills list` picker in the interactive session.
 
 > **v1.0.81+:** Skills (and custom agents) are now also discovered from directories added with `--add-dir`, in addition to the default skill/agent locations. `/skills` always opens the unified plugins dashboard — the legacy standalone skills picker has been removed.
+
+> **v1.0.85+:** `copilot skill add [--project]` replaces `copilot plugins install --skill` for installing a skill from a file, URL, or directory — the old `--scope` spelling is gone. `copilot skill enable`/`copilot skill disable` are now built directly into the `copilot skill` subcommand, replacing `copilot plugins enable/disable --skill`.
 
 **Skills are:**
 - Modular expertise packages (e.g., "Python expert", "React patterns")

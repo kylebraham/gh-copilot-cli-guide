@@ -33,6 +33,7 @@ Understanding how to choose the right model — and when to switch — is one of
 | Claude Fable 5 | `claude-fable-5` | Varies | New Claude Fable family model (v1.0.61+) |
 | Claude Fable 5.1 | `claude-fable-5.1` | Varies | Newest Claude Fable family model (v1.0.83+) |
 | Claude Haiku 4.5 | `claude-haiku-4.5` | Fastest | Quick tasks, fleet subagents, docs, formatting |
+| GPT-6 Astra | `gpt-6-astra` | Fast | Newest GPT generation (v1.0.85+) |
 | GPT-5.6 | `gpt-5.6` | Fast | Newest GPT generation — added v1.0.70 |
 | GPT-5.4 | `gpt-5.4` | Fast | Strong alternative for general code generation |
 | GPT-5.3-Codex | `gpt-5.3-codex` | Fast | Code-specialized tasks |
@@ -51,6 +52,8 @@ Understanding how to choose the right model — and when to switch — is one of
 > ⚠️ **Deprecated in v1.0.66:** Claude Opus 4.6 Fast (`claude-opus-4.6-fast`) is deprecated in favor of Claude Opus 4.8 Fast (`claude-opus-4.8-fast`), which offers newer Opus quality at comparable speed.
 
 > **v1.0.83+:** Retired Claude and Gemini models are no longer listed in `/model` picker results, keeping the list limited to models you can actually select.
+
+> **v1.0.85+:** GPT-6 Astra (`gpt-6-astra`) support added. Streamer mode now masks internal model names in `/model`, the footer, and startup diagnostics without restarting model initialization when toggled.
 
 > **Note:** Multipliers can change as GitHub updates pricing. Always run `/model` to see current multipliers and available models before committing to a long session.
 

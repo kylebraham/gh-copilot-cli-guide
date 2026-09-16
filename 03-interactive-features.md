@@ -96,6 +96,8 @@ Mastering keyboard shortcuts makes you significantly more efficient:
 
 The subcommand picker highlights the selected item with a **❯** indicator (v1.0.36+), making it easy to confirm which option you are about to accept.
 
+> **v1.0.85+:** **Vim mode** is now available to everyone. Turn it on with `/vim` or by setting `editorMode` to `vim` in `/settings` for modal editing (normal/insert modes) in the composer — the current mode is shown while you type. See [Slash Commands — /vim](04-slash-commands.md#vim).
+
 ## Interaction Modes
 
 `Shift+Tab` cycles through the available interaction modes:
@@ -200,6 +202,8 @@ Ctrl+X → O     # Open a link from the most recent timeline event
 > When the input prompt is **not** empty, `Ctrl+E` moves the cursor to the end of line and `Ctrl+O` runs the current command while preserving input.
 
 > **v1.0.78+:** Timeline headers show how long each tool call took, right-aligned and ticking live while the call is still running, for calls of at least 5 seconds. This is on by default; disable it with `/settings showToolDurations off`.
+
+> **v1.0.85+:** Set `transcriptView` to `"concise"` in `/settings` to group tool activity into expandable work summaries instead of showing every tool call inline — useful for keeping the timeline scannable during long turns.
 
 ### Why Use Timeline?
 

@@ -1,5 +1,22 @@
 # Documentation Updates
 
+## 2026-09-16 — Docs updated for v1.0.85
+
+- `README.md`: Bumped version note to v1.0.85; added "Latest features" bullets for v1.0.85 (Vim mode generally available, `/config` sidebar, `transcriptView: concise`, plugin/MCP/skill CLI command overhaul including breaking changes, sandbox network allow/deny rules, managed sandbox bypass disable, session/memory import, GPT-6 Astra model)
+- `16-new-features.md`: Updated title to v1.0.85; added TOC entry; added a "New in v1.0.85" section covering Vim mode, `/config`, concise transcript view, sandbox network rules, session/memory import, the plugin/MCP/skill CLI overhaul (with breaking-change callout), GPT-6 Astra, streamer mode masking, and notable fixes
+- `04-slash-commands.md`: Added `/config` and `/vim` command entries under Configuration; updated `/streamer-mode` for model-name masking; updated `/plugin`, `/mcp`, `/skills`, `/instructions`, and `/lsp` sections with v1.0.85 CLI subcommand changes and the breaking-change notes
+- `08-advanced-features.md`: Added an "Enable/Disable Moved Onto Each Kind's Own Subcommand (v1.0.85+)" subsection under Plugin System with the breaking-change callout; added a "Session and Memory Import (v1.0.85+)" subsection under Session Persistence; added v1.0.85 notes under Security Best Practices for sandbox network allow/deny rules, managed bypass disable, and `--add-dir` path validation; added a `--json` note under Plugin Marketplaces
+- `22-models-and-costs.md`: Added a `gpt-6-astra` row; added a note on streamer mode masking model names
+- `03-interactive-features.md`: Added a v1.0.85 note under Mode Shortcuts for Vim mode and under Timeline Management for concise transcript view
+- `00-cheat-sheet.md`: Added `/config` and `/vim` rows; updated `/mcp`, `/lsp`, `/skills`, `/plugin`, `/settings`, and `/sandbox` rows for v1.0.85 changes
+
+### Feature Summary (v1.0.85)
+- **New:** Vim mode (`/vim`, `editorMode: vim`) generally available; `/config` sidebar configuration screen; `transcriptView: concise` grouping tool activity into work summaries
+- **New:** Sandbox Network host allow/deny rules layered on top of the configured upstream proxy; managed sandbox sessions can disable the sandbox for the rest of the session from an approved bypass prompt
+- **New:** `copilot session import`/`copilot memory import` for the semantic JSONL interchange format; GPT-6 Astra model
+- **Breaking:** `copilot plugins install --skill` replaced by `copilot skill add [--project]`; cross-kind `--kind`/`--scope`/`--mcp`/`--skill` flags removed from `copilot plugins`; `copilot plugins list --json` is now a flat array; `copilot plugins list` is a plugin-only alias of `copilot plugin list`
+- **Fixed:** Windows sandbox bypass now runs the command after an approved escalation; `--add-dir` rejects invalid paths before startup; `--share=~/notes.md` writes to the home directory; MCP/IDE bridge load failures; large-session resume freezing; CLI argument parsing moved to a Rust grammar
+
 ## 2026-09-05 — Docs updated for v1.0.83
 
 - `README.md`: Bumped version note to v1.0.83; added "Latest features" bullets for v1.0.83 (Windows 11 taskbar session status with hover cards, Sessions sidebar sort orders, MCP OAuth CIMD support, custom agent fallback model lists with `model-policy: required`, new `claude-fable-5.1` model, retired models removed from `/model` picker, new `forceLoginOrgs` managed setting, breaking sandbox local-network restriction and Linux dependency requirements, sandboxed `gh`/dev-tool auth changes, MCP dashboard/plugin fixes, `--add-dir`/`--plugin-dir` path resolution fix, `--share`/`--share-gist` full-transcript export, autopilot follow-up prompt and goal panel fixes)

@@ -979,6 +979,17 @@ Sessions:
 > /resume abc123
 ```
 
+### Session and Memory Import (v1.0.85+)
+
+New shell commands import sessions and memory entries in a semantic JSONL interchange format:
+
+```bash
+copilot session import <file.jsonl>
+copilot memory import <file.jsonl>
+```
+
+**Why it matters:** Move session history or stored memory between machines or accounts, or restore from an external backup, without re-running the original conversation.
+
 ## Experimental Mode & Autopilot
 
 Copilot CLI includes an experimental mode that unlocks cutting-edge features before they reach general availability.
@@ -1181,6 +1192,8 @@ When configuring marketplaces in `config.json`, use the `extraKnownMarketplaces`
 
 > **v1.0.80+:** The `extraKnownMarketplaces` `autoUpdate` field is now honored from managed (MDM/enterprise server) settings too, not just user settings — administrators can enforce marketplace auto-updates fleet-wide instead of relying on each user's local config.
 
+> **v1.0.85+:** `--json` is now supported on `copilot plugin marketplace list` and `copilot plugin marketplace browse` (in addition to `copilot plugin list`), for scripting marketplace inspection.
+
 ### Pinning a Plugin to an Exact Commit (v1.0.70+)
 
 Add a `sha` field to a plugin's source configuration to lock it to an exact commit, so updates to the source ref (e.g., a branch move) don't silently change what's installed:
@@ -1217,6 +1230,24 @@ copilot plugins help
 `/plugins` (and `copilot plugins`) `enable`/`disable` now cover custom instructions, custom agents, LSP servers, and hooks — not just plugins, MCP servers, and skills. This gives you one consistent way to temporarily turn off any extension without uninstalling it.
 
 **Why it matters:** You can quickly disable a misbehaving hook, an LSP server that's slowing things down, or an instruction file that's steering the agent wrong — then re-enable it later — without deleting configuration.
+
+### Enable/Disable Moved Onto Each Kind's Own Subcommand (v1.0.85+)
+
+`enable` and `disable` are now built directly into `copilot plugin`, `copilot mcp`, and `copilot skill`, replacing the cross-kind `copilot plugins enable/disable --plugin|--mcp|--skill` flags:
+
+```bash
+copilot plugin enable my-plugin
+copilot plugin disable my-plugin
+copilot mcp enable my-server
+copilot mcp disable my-server
+copilot skill enable my-skill
+copilot skill disable my-skill
+```
+
+New `copilot instruction list` and `copilot lsp list` commands replace `copilot plugins list --kind instruction` and `--kind lsp`. `copilot skill add [--project]` replaces `copilot plugins install --skill` for installing a skill from a file, URL, or directory.
+
+> ⚠️ **Breaking (v1.0.85+):** The cross-kind `--kind`, `--scope`, `--mcp`, and `--skill` flags are removed from `copilot plugins` — use `copilot mcp` and `copilot skill` for those resources instead. `copilot plugins list --json` now emits a flat array of plugins instead of the old `{ plugins, errors }` object; update scripts that read `.plugins`. `copilot plugins list` is now an alias of `copilot plugin list` and reports only plugins, no longer MCP servers, skills, instructions, or LSP servers. The `--scope` spelling on `copilot plugins install --skill` is gone entirely — use `copilot skill add --project`.
+
 
 ### Open Plugin Spec v1 Support (v1.0.74+)
 
@@ -1526,6 +1557,8 @@ Set in config:
 > ⚠️ **BREAKING (v1.0.83+):** On macOS and Linux, sandboxed commands can no longer reach services running on your machine. On macOS this also blocks a server the command itself starts on `127.0.0.1`, so test suites that bind a local port will fail inside the sandbox — turn on **Allow local network** in `/sandbox` to reach localhost again. Linux sandboxing now additionally requires `slirp4netns`, `nsenter`, `iptables`, `ip6tables`, `iptables-restore`, and `ip6tables-restore` on `PATH`; install them if sandboxed commands start failing to launch. When Linux sandbox proxy mode is enabled, network egress is now restricted to the configured proxy, and proxy mode itself requires `slirp4netns`, `util-linux` 2.35+, `iptables`, and `/dev/net/tun` access.
 
 > **v1.0.83+:** Sandboxed `gh` commands now authenticate as the account configured for the repository instead of always using the Copilot CLI login. Sandboxed file tools now read the same developer-tool paths as sandboxed shell commands, including token-bearing registry config such as `~/.npmrc`; set `sandbox.allowDevToolAccess` to `false` to turn these grants off. Automatic HTTPS proxy mTLS client certificate support is now available for model and web requests. `/sandbox policy` groups path grants by source and shows detected developer tools, making effective policy easier to audit.
+
+> **v1.0.85+:** `/sandbox` gains **Network** host allow/deny rules that layer on top of your configured upstream proxy instead of replacing it, letting you fine-tune which hosts a sandboxed command can reach without giving up proxy-based egress control. Managed (enterprise) sandbox sessions can now be disabled for the rest of the session directly from an approved bypass prompt, instead of requiring a separate `/sandbox disable`. `--add-dir` now rejects non-directory and inaccessible paths uniformly and aborts startup before session initialization, rather than failing partway through. On Windows, an approved sandbox bypass for a policy-blocked write now runs the command instead of stopping after the permissive retry.
 
 > **v1.0.66+:** Session credit limits (the `sessionLimits` setting) must now be at least 30 AI credits, and now apply across the whole current conversation, resetting on `/clear`.
 
