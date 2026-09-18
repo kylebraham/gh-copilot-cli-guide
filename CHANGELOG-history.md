@@ -1,5 +1,19 @@
 # Documentation Updates
 
+## 2026-09-18 — Docs updated for v1.0.86
+
+- `README.md`: Bumped version note to v1.0.86; added "Latest features" bullets for v1.0.86 (custom agents opting into repository instruction files via `include-custom-instructions: true`, plugin/skill persistence across session resume, `/sandbox policy` local-network reporting fix, autopilot stopping reliably after accepted task completion, background-shell status row wording, and non-dimmed expanded reasoning text)
+- `16-new-features.md`: Updated title to v1.0.86; added TOC entry; added a "New in v1.0.86" section covering `include-custom-instructions`, plugin/skill session-resume persistence, `/sandbox policy` local-network fix, autopilot stop-after-completion fix, and the background-shell status row / transcript-corruption-resume / dimmed-reasoning-text fixes
+- `08-advanced-features.md`: Added an "Opting Into Repository Instruction Files (v1.0.86+)" subsection under Custom Agents; added a v1.0.86+ note under Session Persistence → Resuming Sessions for plugin/skill persistence and recoverable-transcript-corruption resume; added a v1.0.86+ note under Security Best Practices for the `/sandbox policy` local-network reporting fix
+- `13-agents-file.md`: Added a v1.0.86+ note documenting the `include-custom-instructions: true` custom agent frontmatter field
+- `17-autopilot-mode.md`: Added a v1.0.86+ note under Stopping Autopilot for the reliable stop-after-accepted-`task_complete` fix
+- `03-interactive-features.md`: Added a v1.0.86+ note under Timeline Management for non-dimmed expanded reasoning text; added a v1.0.86+ note under Interactive Prompts → Progress Indicators for the background-shell status row wording; added a v1.0.86+ note under Session Management → Switching Sessions for plugin/skill persistence and transcript-corruption-resume
+- `11-troubleshooting.md`: Added a v1.0.86+ note under Session Corrupted for resuming sessions despite recoverable transcript corruption
+
+### Feature Summary (v1.0.86)
+- **New:** Custom agents can set `include-custom-instructions: true` in their frontmatter to also load `AGENTS.md`, `.github/copilot-instructions.md`, and `CLAUDE.md`
+- **Fixed:** Resuming a session without plugin-directory/discovery/working-directory overrides preserves marketplace plugins and skills after reload; sessions resume despite recoverable transcript corruption; `/sandbox policy` reports local-network access using the actual configured setting; autopilot stops reliably after an accepted `task_complete`; the status row says it's waiting for background shells instead of "Working" when one is still running at turn end; expanded reasoning text in the compact timeline is no longer dimmed
+
 ## 2026-09-16 — Docs updated for v1.0.85
 
 - `README.md`: Bumped version note to v1.0.85; added "Latest features" bullets for v1.0.85 (Vim mode generally available, `/config` sidebar, `transcriptView: concise`, plugin/MCP/skill CLI command overhaul including breaking changes, sandbox network allow/deny rules, managed sandbox bypass disable, session/memory import, GPT-6 Astra model)

@@ -97,6 +97,8 @@ Copilot CLI reads custom instructions from multiple locations. All of the follow
 
 > ✅ **v1.0.48 fix:** Instruction files that use unquoted glob patterns in the `applyTo` frontmatter field (e.g., `applyTo: **/*.ts` without surrounding quotes) are now applied correctly. Previously these patterns were silently ignored. Quoted and unquoted patterns both work.
 
+> **v1.0.86+:** Custom agents don't read `AGENTS.md`, `.github/copilot-instructions.md`, or `CLAUDE.md` by default. Add `include-custom-instructions: true` to a custom agent's frontmatter to opt it into loading these repository instruction files alongside its own agent instructions. See [Advanced Features — Custom Agents](08-advanced-features.md#creating-custom-agents).
+
 > ✅ **v1.0.36 fix:** Instruction files placed inside `.gitignored` directories — for example, if `.github/` is listed in `.gitignore` — now load correctly. Previously these files were silently skipped.
 
 > **New: `COPILOT_CUSTOM_INSTRUCTIONS_DIRS`** — Set this environment variable to a colon-separated list of directories. Copilot CLI will load any `*.instructions.md` files found in those directories, allowing team-wide or machine-wide instruction sets outside the repository.

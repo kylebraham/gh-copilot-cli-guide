@@ -727,6 +727,21 @@ Setting `model-policy: required` keeps any in-session model changes restricted t
 
 **Why it matters:** Keeps an agent running even if your top-choice model is temporarily unavailable or you don't have access to it, without failing the turn or requiring manual intervention.
 
+### Opting Into Repository Instruction Files (v1.0.86+)
+
+A custom agent can set `include-custom-instructions: true` in its frontmatter to also load repository instruction files — `AGENTS.md`, `.github/copilot-instructions.md`, and `CLAUDE.md` — alongside its own agent instructions:
+
+```yaml
+---
+name: backend-agent
+model: claude-sonnet-4.6
+include-custom-instructions: true
+---
+This agent specialises in backend development.
+```
+
+**Why it matters:** By default a custom agent only follows the instructions in its own frontmatter body. Setting this field lets it also pick up your team's shared coding standards and conventions from `AGENTS.md` and related files. See [AGENTS.md Guide](13-agents-file.md) for details on repository instruction files.
+
 ## Skills System
 
 **Skills** are modular expertise packages that add specialized capabilities to Copilot CLI. Unlike AGENTS.md (project-specific) or instruction files (style guides), skills provide reusable domain expertise that can be activated across any project.
@@ -978,6 +993,8 @@ Sessions:
 
 > /resume abc123
 ```
+
+> **v1.0.86+:** Resuming an active session without plugin-directory, discovery, or working-directory overrides now preserves marketplace plugins and skills after reload — a configuration read or validation failure no longer discards active plugins. Missing-file and intentional-removal behavior is unchanged. Sessions also resume even when their transcript files contain recoverable corruption.
 
 ### Session and Memory Import (v1.0.85+)
 
@@ -1559,6 +1576,8 @@ Set in config:
 > **v1.0.83+:** Sandboxed `gh` commands now authenticate as the account configured for the repository instead of always using the Copilot CLI login. Sandboxed file tools now read the same developer-tool paths as sandboxed shell commands, including token-bearing registry config such as `~/.npmrc`; set `sandbox.allowDevToolAccess` to `false` to turn these grants off. Automatic HTTPS proxy mTLS client certificate support is now available for model and web requests. `/sandbox policy` groups path grants by source and shows detected developer tools, making effective policy easier to audit.
 
 > **v1.0.85+:** `/sandbox` gains **Network** host allow/deny rules that layer on top of your configured upstream proxy instead of replacing it, letting you fine-tune which hosts a sandboxed command can reach without giving up proxy-based egress control. Managed (enterprise) sandbox sessions can now be disabled for the rest of the session directly from an approved bypass prompt, instead of requiring a separate `/sandbox disable`. `--add-dir` now rejects non-directory and inaccessible paths uniformly and aborts startup before session initialization, rather than failing partway through. On Windows, an approved sandbox bypass for a policy-blocked write now runs the command instead of stopping after the permissive retry.
+
+> **v1.0.86+:** `/sandbox policy` now reports local-network access using your actual configured setting, instead of a value that could drift from what's really in effect.
 
 > **v1.0.66+:** Session credit limits (the `sessionLimits` setting) must now be at least 30 AI credits, and now apply across the whole current conversation, resetting on `/clear`.
 

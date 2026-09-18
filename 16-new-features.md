@@ -1,4 +1,4 @@
-# Latest Features in GitHub Copilot CLI — v1.0.85
+# Latest Features in GitHub Copilot CLI — v1.0.86
 
 This file covers recent additions to GitHub Copilot CLI. Features marked with "Full guide →" have their own dedicated documentation file — the entries here are summaries with links. Features without a dedicated file are covered in full below.
 
@@ -10,6 +10,7 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 3. [Research Command (`/research`)](#research-command-research) — [Full guide →](19-research-command.md)
 
 ### Features covered in this file
+4. [New in v1.0.86](#new-in-v1086)
 4. [New in v1.0.85](#new-in-v1085)
 4. [New in v1.0.83](#new-in-v1083)
 4. [New in v1.0.82](#new-in-v1082)
@@ -93,6 +94,36 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 ---
 
 ---
+
+---
+
+## New in v1.0.86
+
+Released: 2026-09-17
+
+### Custom Agents Can Opt Into Repository Instruction Files
+
+Custom agents can now set `include-custom-instructions: true` in their frontmatter to load repository instruction files (`AGENTS.md`, `.github/copilot-instructions.md`, `CLAUDE.md`) instead of relying only on their own agent instructions. See [Advanced Features — Creating Custom Agents](08-advanced-features.md#creating-custom-agents).
+
+**Why it matters:** Lets a specialized custom agent still follow your team's shared coding standards and conventions instead of ignoring them.
+
+### Plugins and Skills Survive Session Resume
+
+Resuming an active session without plugin-directory, discovery, or working-directory overrides now preserves marketplace plugins and skills after reload — a configuration read or validation failure no longer discards active plugins. Missing-file and intentional-removal behavior is unchanged. See [Advanced Features — Session Persistence](08-advanced-features.md#resuming-sessions).
+
+### `/sandbox policy` Reports Accurate Local-Network Access
+
+`/sandbox policy` now reports local-network access using your actual configured setting instead of a stale value. See [Advanced Features — Security Best Practices](08-advanced-features.md#file-access-control).
+
+### Autopilot Stops After Accepted Task Completion
+
+Autopilot now reliably stops after an accepted `task_complete` instead of continuing to run unexpectedly. See [Autopilot Mode — Stopping Autopilot](17-autopilot-mode.md#stopping-autopilot).
+
+### Notable Fixes
+
+- The status row now says it's waiting for background shells, instead of "Working", when a turn ends while an attached background shell (such as a dev server) is still running.
+- Sessions resume even when transcript files contain recoverable corruption.
+- Expanded reasoning text in the compact timeline is no longer dimmed, so it's as readable as the rest of the timeline.
 
 ---
 

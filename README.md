@@ -81,6 +81,8 @@ npm update -g @github/copilot
 ```
 
 **Latest features:**
+- 🤝 Custom agents can opt into repository instruction files (`AGENTS.md`, `copilot-instructions.md`, `CLAUDE.md`) via `include-custom-instructions: true` in their frontmatter (v1.0.86)
+- 🩹 Resuming a session without plugin-directory/discovery/working-directory overrides now preserves marketplace plugins and skills after reload; sessions resume even when transcript files contain recoverable corruption; `/sandbox policy` reports local-network access using your configured setting; autopilot stops after accepted task completion instead of continuing unexpectedly; the status row now says it's waiting for background shells instead of "Working" when one is still running at turn end; expanded reasoning text in the compact timeline is no longer dimmed (v1.0.86)
 - ⌨️ Vim mode is now available to everyone (`/vim` or `editorMode: vim`); new `/config` sidebar configuration screen; `transcriptView: concise` groups tool activity into expandable work summaries (v1.0.85)
 - 🔌 `enable`/`disable` built directly into `copilot plugin`/`mcp`/`skill`; new `copilot instruction list`/`copilot lsp list`; `--json` on plugin/marketplace list and browse commands; new `copilot session import`/`copilot memory import` for the semantic JSONL interchange format; GPT-6 Astra model support (v1.0.85)
 - ⚠️ **Breaking:** `copilot plugins install --skill` replaced by `copilot skill add [--project]`; cross-kind `--kind`/`--scope`/`--mcp`/`--skill` flags removed from `copilot plugins`; `copilot plugins list --json` is now a flat array and `copilot plugins list` reports only plugins (v1.0.85)
@@ -475,4 +477,4 @@ Go to **Actions → Daily Doc Maintenance → Run workflow** to trigger it on de
 
 ---
 
-**Note:** This guide covers GitHub Copilot CLI v1.0.85. Some capabilities may vary by version — run `/update` to stay current.
+**Note:** This guide covers GitHub Copilot CLI v1.0.86. Some capabilities may vary by version — run `/update` to stay current.

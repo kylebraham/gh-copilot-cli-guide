@@ -205,6 +205,8 @@ Ctrl+X → O     # Open a link from the most recent timeline event
 
 > **v1.0.85+:** Set `transcriptView` to `"concise"` in `/settings` to group tool activity into expandable work summaries instead of showing every tool call inline — useful for keeping the timeline scannable during long turns.
 
+> **v1.0.86+:** Expanded reasoning text in the compact timeline is no longer dimmed, so it's as readable as the rest of the timeline.
+
 ### Why Use Timeline?
 
 - **Review context** - See what was discussed
@@ -322,6 +324,8 @@ Watch progress during long operations:
 ✅ All tests passed!
 ```
 
+> **v1.0.86+:** If a turn ends while an attached background shell (such as a dev server) is still running, the status row now says it's **waiting for background shells** instead of "Working," making it clearer why the CLI hasn't returned to the prompt.
+
 ### Error Handling
 
 If something goes wrong:
@@ -433,6 +437,8 @@ Sessions persist across launches, so you can continue where you left off.
 > **v1.0.76:** A new Sessions sidebar for managing multiple concurrent sessions — switch between them, spawn new ones, and see their status at a glance — is available behind experimental mode. Turn it on with `/experimental on`.
 
 > **v1.0.83+:** The split Sessions sidebar gains **Recent**, **Created**, **Name**, and classic **None** sort orders, with your selected order remembered across restarts. On Windows 11, running Copilot sessions now show in the **taskbar** with live hover status cards, so you can check progress without switching to the terminal window. CLI startup no longer shows the interrupted-session restore prompt by default.
+
+> **v1.0.86+:** Resuming an active session without plugin-directory, discovery, or working-directory overrides now preserves marketplace plugins and skills after reload instead of dropping them on a configuration read/validation failure. Sessions also resume even when their transcript files contain recoverable corruption.
 
 ## Advanced Context & Session Strategies
 
