@@ -20,7 +20,7 @@ Understanding how to choose the right model — and when to switch — is one of
 
 | Model | ID | Speed | Best for |
 |-------|-----|-------|---------|
-| Auto | `auto` | Varies | Let Copilot pick the best model for each session automatically; now adapts model selection as the task evolves during the conversation, not just once at the start (v1.0.81+) |
+| Auto | `auto` | Varies | Let Copilot pick the best model for each session automatically; now adapts model selection as the task evolves during the conversation, not just once at the start (v1.0.81+); supports user and managed startup defaults, with organizations able to set a strict or user-overridable policy for the tier (v1.0.87+) |
 | Claude Sonnet 4.5 | `claude-sonnet-4.5` | Fast | Default — general coding, balanced quality/cost |
 | Claude Sonnet 4.6 | `claude-sonnet-4.6` | Fast | Latest Sonnet — improved reasoning over 4.5 |
 | Claude Sonnet 5 | `claude-sonnet-5` | Fast | Newest Sonnet generation (v1.0.67+) |

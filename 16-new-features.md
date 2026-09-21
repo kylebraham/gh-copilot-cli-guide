@@ -1,4 +1,4 @@
-# Latest Features in GitHub Copilot CLI — v1.0.86
+# Latest Features in GitHub Copilot CLI — v1.0.87
 
 This file covers recent additions to GitHub Copilot CLI. Features marked with "Full guide →" have their own dedicated documentation file — the entries here are summaries with links. Features without a dedicated file are covered in full below.
 
@@ -10,6 +10,7 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 3. [Research Command (`/research`)](#research-command-research) — [Full guide →](19-research-command.md)
 
 ### Features covered in this file
+4. [New in v1.0.87](#new-in-v1087)
 4. [New in v1.0.86](#new-in-v1086)
 4. [New in v1.0.85](#new-in-v1085)
 4. [New in v1.0.83](#new-in-v1083)
@@ -94,6 +95,58 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 ---
 
 ---
+
+---
+
+## New in v1.0.87
+
+Released: 2026-09-21
+
+### Auto Routing Tier Startup Defaults and Organization Policy
+
+The **Auto** model routing tier now supports user and managed startup defaults, along with a strict/user-overridable organization policy for the tier. See [Model Selection Strategy — Available Models Overview](22-models-and-costs.md#1-available-models-overview) and [Team Setup — Advanced: Organization-Level Setup](21-team-setup.md#8-advanced-organization-level-setup).
+
+**Why it matters:** Enterprise admins can set an org-wide default for Auto routing while still choosing whether individual users may override it.
+
+### Steering Prompts Combine and Recall
+
+Consecutive steering prompts sent while the agent is busy, in the same mode, now combine into a single pending message instead of stacking up separately. Press `Up` in an empty chat input to take the pending message back for editing — including any pasted text and attachments — with a recall hint shown in the message. `Ctrl+C` now stops the running turn instead of removing pending prompts one at a time; `Ctrl+Q` queued prompts remain a separate list; `Ctrl+P` browses history without withdrawing prompts. Available for local sessions; commands and prompts already being processed can't be recalled. See [Interactive Features — Queued Messages](03-interactive-features.md#queued-messages).
+
+**Why it matters:** Typing several follow-up thoughts while the agent works no longer clutters the pending-message queue, and you can pull back and edit what you typed instead of losing it.
+
+### `worktreePathTemplate` Setting
+
+A new `worktreePathTemplate` setting decides where `/worktree`, `/move`, `/new`, and `--worktree` create worktrees, for example `~/src/worktrees/{repo}/{branch}`. Supported placeholders are `{repoPath}`, `{repo}`, `{branch}`, and `{branchSlug}`. Leaving it unset keeps the current layout — a `<repo>.worktrees/` directory with slashes in the branch name flattened to dashes. See [.copilot Directory Guide — settings.json](15-copilot-directory.md#settingsjson).
+
+**Why it matters:** Teams that keep worktrees in a shared location outside the repo (e.g. a dedicated worktrees drive) no longer have to move them manually after creation.
+
+### Sandbox Proxies on Windows
+
+Sandbox proxies now work on Windows, and a proxy configured with a username and password now works on every platform. See [Advanced Features — Security Best Practices](08-advanced-features.md#file-access-control).
+
+### Notable Fixes
+
+- Number-key selection in the question dialog now works for choices 10 and beyond.
+- `/keep-alive` (and `/caffeinate`) no longer reports that sleep is prevented when the sleep inhibitor exits immediately on startup instead of acquiring the lock (e.g. no session bus on WSL/containers/headless) — it now reports the failure.
+- Prompt mode exits successfully when a child task fails but the parent recovers.
+- Resuming very large local sessions and continuing with new prompts is now reliable.
+- `--yolo` stays enabled after startup policy checks for authenticated unmanaged sessions.
+- An empty `strictKnownMarketplaces` allowlist now hides and blocks built-in plugin marketplaces, instead of leaving them reachable.
+- Mouse-selected text is now visibly highlighted in the `/help` and `/mcp show` screens.
+- A slow repository git-status check no longer leaves orphaned processes running and consuming memory — the CLI tears down the processes an internal git command started when it times out.
+- MCP auth status warnings stay accurate during reconnects and startup refreshes.
+- The pull request badge and GitHub status tabs remain available after auth or branch refreshes. See [GitHub Integration — Pull Requests Tab Merge Status](07-github-integration.md#pull-requests-tab-merge-status-v1066).
+- A failing MCP server no longer removes other servers' tools.
+- `copilot mcp list` and `copilot mcp get` now report the built-in `github-mcp-server` when you're signed in, instead of showing it only in the interactive `/mcp` view.
+- MCP servers that advertise list-change capabilities but don't implement subscriptions now connect instead of failing.
+- Extension permission handlers approve subagent tool requests without leaving duplicate CLI prompts.
+- Secrets exported in the launching shell are no longer written to debug logs when a session is created or resumed.
+- Managed plugin commands load organization marketplace policy with environment, GitHub CLI, broker, and persisted authentication.
+- Session resume no longer hangs while reconnecting MCP servers.
+- Per-server MCP slow-connection warning thresholds are now configurable with `slowConnectionThresholdMs`.
+- Execution subagents in timeline entries now show live elapsed time.
+- The rubber-duck agent is now enabled for every model family, including low-cost-tier session models. See [Slash Commands — /rubber-duck](04-slash-commands.md#rubber-duck-v1049).
+- Reduced allocation overhead when repainting blank terminal areas.
 
 ---
 

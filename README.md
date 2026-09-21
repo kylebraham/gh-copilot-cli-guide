@@ -81,6 +81,9 @@ npm update -g @github/copilot
 ```
 
 **Latest features:**
+- 🧭 Auto model routing gains user and managed startup defaults, plus a strict/user-overridable organization policy for the tier; consecutive steering prompts sent while the agent is busy now combine into one pending message, with `Up` recalling it for editing and `Ctrl+P` browsing history without withdrawing prompts (v1.0.87)
+- 📁 New `worktreePathTemplate` setting controls where `/worktree`, `/move`, `/new`, and `--worktree` create worktrees using `{repoPath}`/`{repo}`/`{branch}`/`{branchSlug}` placeholders; sandbox proxies now work on Windows, including proxies with a username and password (v1.0.87)
+- 🩹 A failing MCP server no longer removes other servers' tools; session resume no longer hangs while reconnecting MCP servers; `copilot mcp list`/`copilot mcp get` report the built-in `github-mcp-server` when signed in; per-server `slowConnectionThresholdMs` setting; the rubber-duck agent is enabled for every model family and low-cost-tier session models (v1.0.87)
 - 🤝 Custom agents can opt into repository instruction files (`AGENTS.md`, `copilot-instructions.md`, `CLAUDE.md`) via `include-custom-instructions: true` in their frontmatter (v1.0.86)
 - 🩹 Resuming a session without plugin-directory/discovery/working-directory overrides now preserves marketplace plugins and skills after reload; sessions resume even when transcript files contain recoverable corruption; `/sandbox policy` reports local-network access using your configured setting; autopilot stops after accepted task completion instead of continuing unexpectedly; the status row now says it's waiting for background shells instead of "Working" when one is still running at turn end; expanded reasoning text in the compact timeline is no longer dimmed (v1.0.86)
 - ⌨️ Vim mode is now available to everyone (`/vim` or `editorMode: vim`); new `/config` sidebar configuration screen; `transcriptView: concise` groups tool activity into expandable work summaries (v1.0.85)
@@ -477,4 +480,4 @@ Go to **Actions → Daily Doc Maintenance → Run workflow** to trigger it on de
 
 ---
 
-**Note:** This guide covers GitHub Copilot CLI v1.0.86. Some capabilities may vary by version — run `/update` to stay current.
+**Note:** This guide covers GitHub Copilot CLI v1.0.87. Some capabilities may vary by version — run `/update` to stay current.

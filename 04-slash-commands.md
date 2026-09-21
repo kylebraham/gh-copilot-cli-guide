@@ -1019,6 +1019,8 @@ Create a new git worktree and switch the active working directory into it.
 
 > **v1.0.82+:** Typing a message while `/worktree` or `/move` is preparing the new worktree no longer breaks the switch into it.
 
+> **v1.0.87+:** A new `worktreePathTemplate` setting controls where `/worktree`, `/move`, `/new`, and `--worktree` create the worktree directory, using `{repoPath}`, `{repo}`, `{branch}`, and `{branchSlug}` placeholders (e.g. `~/src/worktrees/{repo}/{branch}`). Leaving it unset keeps the existing `<repo>.worktrees/` layout. See [.copilot Directory Guide](15-copilot-directory.md#settingsjson) for the setting.
+
 ### /worktree new (v1.0.79+, replaces experimental /new-worktree)
 
 Create a new git worktree and start a **brand-new conversation** in it, rather than continuing the current one.
@@ -1872,6 +1874,8 @@ Invoke the rubber-duck agent for an independent critique of the agent's current 
 
 > **v1.0.58:** Rubber Duck is now **enabled by default** for all users — no experimental flag needed.
 
+> **v1.0.87+:** The rubber-duck agent is now enabled for every model family, including low-cost-tier session models — it's no longer restricted to a subset of models.
+
 > **v1.0.56:** The rubber-duck agent can be enabled or disabled via the `builtInAgents.rubberDuck` setting in `~/.copilot/settings.json` or `copilot config`.
 
 ### /mcp [subcommand] [server-name]
@@ -1916,6 +1920,8 @@ Manage MCP (Model Context Protocol) server configuration.
 > **v1.0.83+:** `/mcp config` and the MCP add/edit/authenticate forms now open in the plugins dashboard instead of a separate MCP manager, so closing a form returns you to the server list. MCP OAuth sign-in gains Client ID Metadata Document (CIMD) support. MCP tools stay callable after a server restarts, and servers configured by your custom agent stay available across built-in sub-agent turns. Servers contributed by a plugin are no longer labelled "User" in the dashboard, and a server from a bundled plugin now shows as built-in and names the plugin it came from.
 
 > **v1.0.85+:** `copilot mcp enable <name>` and `copilot mcp disable <name>` are now built directly into the `copilot mcp` shell subcommand, replacing `copilot plugins enable/disable --mcp`. `/sandbox` gains network host allow/deny rules that layer on top of your configured upstream proxy instead of replacing it. See [Advanced Features — Security Best Practices](08-advanced-features.md#file-access-control).
+
+> **v1.0.87+:** `copilot mcp list` and `copilot mcp get` now report the built-in `github-mcp-server` when you're signed in, instead of showing it only in the interactive `/mcp` view. A failing MCP server no longer removes other servers' tools, and session resume no longer hangs while reconnecting MCP servers. Configure per-server slow-connection warnings with the `slowConnectionThresholdMs` setting.
 
 **MCP Servers extend CLI capabilities:**
 - Database access
@@ -2054,6 +2060,8 @@ Prevent your system from going to sleep while Copilot CLI is active. Available w
 - You need the session to stay active overnight or during extended operations
 
 **Note:** System sleep inhibition is released automatically when the CLI exits or when you run `/keep-alive` again to toggle it off.
+
+> **v1.0.87+:** `/keep-alive` (and its `/caffeinate` alias) now reports a failure instead of falsely claiming sleep is prevented when the underlying sleep inhibitor exits immediately on startup instead of acquiring the lock — for example, when there's no session bus available on WSL, in containers, or in headless environments.
 
 ### /restart
 

@@ -207,6 +207,8 @@ Ctrl+X → O     # Open a link from the most recent timeline event
 
 > **v1.0.86+:** Expanded reasoning text in the compact timeline is no longer dimmed, so it's as readable as the rest of the timeline.
 
+> **v1.0.87+:** Execution subagent entries in the timeline now show a live elapsed-time counter while they're still running, matching the tool-call duration behavior above.
+
 ### Why Use Timeline?
 
 - **Review context** - See what was discussed
@@ -264,6 +266,8 @@ Press `Ctrl+Q` or `Ctrl+Enter` to queue a message while the agent is running ins
 > **v1.0.76:** A directable queue manager lets you reorder, edit, remove, repeat, and immediately send queued messages instead of only appending to the end of the queue. The queued-messages list no longer shows a blank row or an inflated count, and `Ctrl+C` removes only your own newest queued message.
 
 > **v1.0.79+:** Local sessions can queue prompts, shell commands (`!`), and supported slash commands together, running them in order after the current task finishes — not just plain chat messages.
+
+> **v1.0.87+:** Consecutive **steering prompts** — messages sent while the agent is busy, in the same mode — now combine into a single pending message instead of stacking up separately. Press `Up` in an empty chat input to recall the pending message for editing, including pasted text and attachments; a recall hint is shown in the message. `Ctrl+C` stops the running turn instead of removing pending prompts one at a time. `Ctrl+Q` queued prompts remain a separate list, and `Ctrl+P` still browses history without withdrawing prompts. Available for local sessions only; commands and prompts already being processed can't be recalled.
 
 ### Direct Shell Execution with !
 
@@ -342,6 +346,8 @@ AI: Would you like me to:
   
 > Enter choice (1-3): _
 ```
+
+> **v1.0.87+:** Number-key selection in this dialog now works correctly for choices 10 and beyond.
 
 ## Context Management
 

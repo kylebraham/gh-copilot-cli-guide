@@ -213,6 +213,29 @@ Both `.mcp.json` and `.github/mcp.json` are loaded when present; definitions fro
 
 ---
 
+### `slowConnectionThresholdMs` — Per-Server Slow-Connection Warnings (v1.0.87+)
+
+Add `"slowConnectionThresholdMs"` to any MCP server entry to control how long the CLI waits before warning that the server is slow to connect, instead of using a single fixed threshold for every server:
+
+```json
+{
+  "mcpServers": {
+    "slow-remote-server": {
+      "command": "npx",
+      "args": ["-y", "@example/slow-mcp-server"],
+      "slowConnectionThresholdMs": 15000
+    }
+  }
+}
+```
+
+**Why it matters:** A server that's normally slow to start (e.g., a cold-starting remote service) no longer triggers a misleading slow-connection warning every session.
+
+> **v1.0.87+ MCP reliability fixes:** A failing MCP server no longer removes other servers' tools; MCP auth status warnings stay accurate during reconnects and startup refreshes; MCP servers that advertise list-change capabilities but don't implement subscriptions now connect instead of failing; session resume no longer hangs while reconnecting MCP servers; `copilot mcp list` and `copilot mcp get` report the built-in `github-mcp-server` when you're signed in.
+
+---
+
+
 ### `deferTools` — Keep Server Tools Always Available (v1.0.63+)
 
 When [tool search](https://docs.github.com/en/copilot) is enabled, Copilot may filter out MCP tools to reduce token usage. Add `"deferTools": true` to any server entry to ensure that server's tools are **always** included in the context, regardless of tool search settings:
@@ -1211,6 +1234,8 @@ When configuring marketplaces in `config.json`, use the `extraKnownMarketplaces`
 
 > **v1.0.85+:** `--json` is now supported on `copilot plugin marketplace list` and `copilot plugin marketplace browse` (in addition to `copilot plugin list`), for scripting marketplace inspection.
 
+> **v1.0.87+:** A managed `strictKnownMarketplaces` allowlist that's left **empty** now hides and blocks the built-in plugin marketplaces too, instead of leaving them reachable. If you set `strictKnownMarketplaces`, list every marketplace — including built-in ones — that should remain available.
+
 ### Pinning a Plugin to an Exact Commit (v1.0.70+)
 
 Add a `sha` field to a plugin's source configuration to lock it to an exact commit, so updates to the source ref (e.g., a branch move) don't silently change what's installed:
@@ -1578,6 +1603,8 @@ Set in config:
 > **v1.0.85+:** `/sandbox` gains **Network** host allow/deny rules that layer on top of your configured upstream proxy instead of replacing it, letting you fine-tune which hosts a sandboxed command can reach without giving up proxy-based egress control. Managed (enterprise) sandbox sessions can now be disabled for the rest of the session directly from an approved bypass prompt, instead of requiring a separate `/sandbox disable`. `--add-dir` now rejects non-directory and inaccessible paths uniformly and aborts startup before session initialization, rather than failing partway through. On Windows, an approved sandbox bypass for a policy-blocked write now runs the command instead of stopping after the permissive retry.
 
 > **v1.0.86+:** `/sandbox policy` now reports local-network access using your actual configured setting, instead of a value that could drift from what's really in effect.
+
+> **v1.0.87+:** Sandbox proxies now work on Windows, and a proxy configured with a username and password now works on every platform.
 
 > **v1.0.66+:** Session credit limits (the `sessionLimits` setting) must now be at least 30 AI credits, and now apply across the whole current conversation, resetting on `/clear`.
 

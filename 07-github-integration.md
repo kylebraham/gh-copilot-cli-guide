@@ -304,6 +304,8 @@ You can create a git worktree for any pull request directly from the pull reques
 
 The **Pull requests** tab now shows the merge status for each listed pull request (e.g., clean, blocked, has conflicts) alongside its checks and review status. Press `r` in the tab to refresh the cached statuses on demand instead of waiting for the next automatic refresh.
 
+> **v1.0.87+:** The pull request badge and GitHub status tabs now remain available after an auth or branch refresh, instead of momentarily disappearing.
+
 ---
 
 ## Auto-Linking Issue and PR References (v1.0.60)
