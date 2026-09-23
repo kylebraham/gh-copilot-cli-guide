@@ -127,6 +127,8 @@ Fork the current session into a new, fully independent session. The forked sessi
 
 > **v1.0.64:** `/branch` is now an alias for `/fork`, matching Claude Code's command naming.
 
+> **v1.0.88+:** `/fork` can now run during an active turn, letting you branch off work without waiting for the current turn to finish.
+
 ```
 > /fork
 > /fork my-experiment
@@ -449,6 +451,8 @@ Enable all permissions — all tools, paths, and URLs — in one command.
 > **v1.0.37+:** Individual tool approvals are automatically persisted per-directory by default. Approvals you grant in a session are remembered for future sessions in the same directory, so you do not need to re-approve the same operations each time you restart.
 
 > **v1.0.69+:** An **auto allow-all mode** is available that auto-approves requests an LLM judge evaluates as acceptable, instead of blanket-approving everything. Enabling it via `/allow-all auto` now requires **experimental mode** (`/experimental on` or `--experimental`) — it can no longer be enabled solely with the `AUTO_APPROVAL` environment variable or feature flag.
+
+> **v1.0.88+:** `/allow-all` is now preserved across a failed managed-settings refresh, instead of being silently reset. The CLI also now remembers exact per-path session approvals for a path that doesn't exist yet, without granting access to that path's parent directory as a side effect. Exact grants of this kind are visible in `/list-dirs` and are cleared by `/reset-allowed-tools`.
 
 **⚠️ Use with caution:**
 - Only use in fully trusted, local-only environments

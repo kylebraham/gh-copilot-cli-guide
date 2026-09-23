@@ -58,6 +58,8 @@ copilot -p "List all API endpoints" --output-format json --silent
 
 Each output line is a JSON object describing a step or result from the run, suitable for parsing with `jq` or a script.
 
+> **v1.0.88+:** Prompt mode (`-p`/`--prompt`) now prints a warning when it stops waiting for background tasks (e.g., a dev server or long-running shell) before exiting, and explains how to change the timeout limit — so a script relying on background output isn't left silently guessing why the process exited early.
+
 ### Environment Variables
 
 | Variable | Purpose |

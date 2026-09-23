@@ -81,6 +81,10 @@ npm update -g @github/copilot
 ```
 
 **Latest features:**
+- 🔔 Optional OSC 777 terminal notifications when a turn finishes, for direct Ghostty/WezTerm sessions; text selection now works in bottom-anchored dialogs (including login device codes); freeform `ask_user` prompts insert a new line on `Enter`, submitting with `Ctrl+Enter`/`Ctrl+S` (v1.0.88)
+- 🗂️ Sessions tab rows need `x` then `x` again to confirm dismissal — local sessions are deleted, server-backed sessions are only closed, with the footer stating which; `/allow-all` and exact per-path session approvals now survive a failed managed-settings refresh (v1.0.88)
+- 🤝 A custom agent's `reasoning-effort` applies as soon as the agent is selected instead of only its model; custom-agent startup distinguishes model-list load failures from an empty catalog; `/fork` can run during an active turn (v1.0.88)
+- 🩹 Enterprise managed settings now apply to ACP/AHP/`--server` sessions; MCP tools recover more reliably from transient failures and stay scoped to environment-resolved addresses; session resume preserves pending events when saving fails and no longer stalls on pending MCP permission prompts; namespaced custom skills and ignored skill directories are supported (v1.0.88)
 - 🧭 Auto model routing gains user and managed startup defaults, plus a strict/user-overridable organization policy for the tier; consecutive steering prompts sent while the agent is busy now combine into one pending message, with `Up` recalling it for editing and `Ctrl+P` browsing history without withdrawing prompts (v1.0.87)
 - 📁 New `worktreePathTemplate` setting controls where `/worktree`, `/move`, `/new`, and `--worktree` create worktrees using `{repoPath}`/`{repo}`/`{branch}`/`{branchSlug}` placeholders; sandbox proxies now work on Windows, including proxies with a username and password (v1.0.87)
 - 🩹 A failing MCP server no longer removes other servers' tools; session resume no longer hangs while reconnecting MCP servers; `copilot mcp list`/`copilot mcp get` report the built-in `github-mcp-server` when signed in; per-server `slowConnectionThresholdMs` setting; the rubber-duck agent is enabled for every model family and low-cost-tier session models (v1.0.87)
@@ -480,4 +484,4 @@ Go to **Actions → Daily Doc Maintenance → Run workflow** to trigger it on de
 
 ---
 
-**Note:** This guide covers GitHub Copilot CLI v1.0.87. Some capabilities may vary by version — run `/update` to stay current.
+**Note:** This guide covers GitHub Copilot CLI v1.0.88. Some capabilities may vary by version — run `/update` to stay current.

@@ -330,6 +330,8 @@ Watch progress during long operations:
 
 > **v1.0.86+:** If a turn ends while an attached background shell (such as a dev server) is still running, the status row now says it's **waiting for background shells** instead of "Working," making it clearer why the CLI hasn't returned to the prompt.
 
+> **v1.0.88+:** Copilot CLI can send an optional OSC 777 terminal notification when a turn finishes, for direct sessions in **Ghostty** and **WezTerm** — letting the terminal itself surface a native notification instead of relying on a terminal bell.
+
 ### Error Handling
 
 If something goes wrong:
@@ -348,6 +350,8 @@ AI: Would you like me to:
 ```
 
 > **v1.0.87+:** Number-key selection in this dialog now works correctly for choices 10 and beyond.
+
+> **v1.0.88+:** Text selection now works inside bottom-anchored dialogs, including the login device-code prompt — you can select and copy the code directly instead of retyping it. In freeform `ask_user` prompts, pressing `Enter` now inserts a new line instead of submitting; submit with `Ctrl+Enter` or `Ctrl+S`.
 
 ## Context Management
 
@@ -445,6 +449,8 @@ Sessions persist across launches, so you can continue where you left off.
 > **v1.0.83+:** The split Sessions sidebar gains **Recent**, **Created**, **Name**, and classic **None** sort orders, with your selected order remembered across restarts. On Windows 11, running Copilot sessions now show in the **taskbar** with live hover status cards, so you can check progress without switching to the terminal window. CLI startup no longer shows the interrupted-session restore prompt by default.
 
 > **v1.0.86+:** Resuming an active session without plugin-directory, discovery, or working-directory overrides now preserves marketplace plugins and skills after reload instead of dropping them on a configuration read/validation failure. Sessions also resume even when their transcript files contain recoverable corruption.
+
+> **v1.0.88+:** In the Sessions tab/sidebar, dismissing a row now takes pressing `x` then `x` again to confirm — a **local** session is permanently deleted, while a session backed by a server is only closed, leaving its conversation intact on the server. The footer states which of the two the highlighted row will do, and shows no `x` hint at all for rows that can't be dismissed.
 
 ## Advanced Context & Session Strategies
 

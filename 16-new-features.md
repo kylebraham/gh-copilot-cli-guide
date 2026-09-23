@@ -1,4 +1,4 @@
-# Latest Features in GitHub Copilot CLI — v1.0.87
+# Latest Features in GitHub Copilot CLI — v1.0.88
 
 This file covers recent additions to GitHub Copilot CLI. Features marked with "Full guide →" have their own dedicated documentation file — the entries here are summaries with links. Features without a dedicated file are covered in full below.
 
@@ -10,6 +10,7 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 3. [Research Command (`/research`)](#research-command-research) — [Full guide →](19-research-command.md)
 
 ### Features covered in this file
+4. [New in v1.0.88](#new-in-v1088)
 4. [New in v1.0.87](#new-in-v1087)
 4. [New in v1.0.86](#new-in-v1086)
 4. [New in v1.0.85](#new-in-v1085)
@@ -95,6 +96,63 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 ---
 
 ---
+
+---
+
+## New in v1.0.88
+
+Released: 2026-09-22
+
+### OSC 777 Terminal Notifications
+
+Copilot CLI can now send an optional OSC 777 terminal notification when a turn finishes, for direct sessions in **Ghostty** and **WezTerm**. See [Interactive Features — Progress Indicators](03-interactive-features.md#progress-indicators).
+
+**Why it matters:** The terminal itself can surface a native notification when a long-running turn completes, instead of relying only on a terminal bell or watching the CLI.
+
+### Sessions Tab: Confirm Before Dismissing a Row
+
+Dismissing a row in the Sessions tab now takes pressing `x` then `x` again to confirm. A **local** session is permanently deleted, while a session backed by a server is only closed — its conversation is left intact on the server. The footer states which of the two the highlighted row will do, and shows no `x` hint for rows that can't be dismissed. See [Interactive Features — Switching Sessions](03-interactive-features.md#switching-sessions).
+
+**Why it matters:** Prevents accidentally deleting a local session forever when you only meant to close a server-backed conversation, by making the two outcomes explicit before you confirm.
+
+### `/allow-all` and Exact Path Approvals Survive Managed-Settings Failures
+
+`/allow-all` is now preserved across a failed managed-settings refresh instead of being silently reset. The CLI also remembers exact session approvals for paths that don't exist yet, without granting their parent directory as a side effect — these exact grants are visible in `/list-dirs` and cleared by `/reset-allowed-tools`. See [Slash Commands — /allow-all](04-slash-commands.md#allow-all).
+
+**Why it matters:** A transient settings-refresh failure no longer forces you to re-approve everything, and approving a not-yet-created path no longer silently widens access to its whole parent directory.
+
+### Custom-Agent Reasoning Effort and Startup Reliability
+
+A custom agent's `reasoning-effort` now applies as soon as the agent is selected, instead of only its model. An explicit `--reasoning-effort` flag still wins, and a level the selected model doesn't offer is reported and left unapplied. Custom-agent startup also now distinguishes a model-list load failure from a genuinely empty model catalog, preventing false "unavailable" warnings and silent deselection of a required agent. See [Advanced Features — Setting Reasoning Effort](08-advanced-features.md#setting-reasoning-effort-v1066).
+
+**Why it matters:** High-stakes agents keep their intended reasoning effort reliably, and a flaky model-list fetch no longer causes a required custom agent to silently drop out of a session.
+
+### `/fork` During Active Turns
+
+Run `/fork` while a turn is still in progress to branch off work without waiting for it to finish. See [Slash Commands — /fork](04-slash-commands.md#fork-v1045).
+
+**Why it matters:** Branch an experimental approach the moment you think of it, instead of waiting for the current turn to complete first.
+
+### Notable Fixes
+
+- Text selection now works in bottom-anchored dialogs, including the login device-code prompt.
+- Freeform `ask_user` prompts insert a new line on `Enter`; submit with `Ctrl+Enter` or `Ctrl+S`.
+- A sandboxed network denial caused by a proxy tunnel failure now shows bypass guidance.
+- Deferred MCP tools whose registered name needed sanitizing or shortening are now listed under that name so tool search can find them; deferred tools with no resolvable server name are listed with the others instead of being left out.
+- Prompt mode now warns when it stops waiting for background tasks, and explains how to change the timeout limit.
+- Resuming sessions no longer stalls when MCP permission prompts are pending; MCP tools recover more reliably from transient listing, connection, and OAuth failures.
+- Hook commands without an explicit `cwd` run in the project root again instead of the session's current directory.
+- Enterprise managed settings now apply to ACP mode (`copilot --acp`), AHP-hosted sessions (`copilot --ahp-host`), and the published `--server` session.
+- GitHub MCP scope escalation now uses the CLI OAuth app's registered `/callback` redirect URI.
+- Agents from a plugin mounted with `--plugin-dir` now appear in server-mode sessions.
+- Session and subagent start hooks combine successful `additionalContext` contributions within the hook-output limit.
+- Cached MCP tools stay scoped to environment-resolved server addresses and headers.
+- Session resume preserves pending conversation events when saving fails, and explains that retrying is safe.
+- Namespaced custom skills and ignored skill directories are now supported during skill discovery.
+- MCP and plugin views show server display names and plugin descriptions.
+- Resuming large local sessions keeps transcript memory bounded.
+- Copilot CLI prompts to update GitHub authorization when Connectors need reauthorization.
+- Indexed search supports glob filtering, and `--files` listings have accurate `ripgrep`-fallback behavior.
 
 ---
 

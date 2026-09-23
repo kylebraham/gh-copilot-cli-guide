@@ -459,6 +459,8 @@ Use natural language to express exclusions.
 > Show me all files with TODO comments
 ```
 
+> **v1.0.88+:** Indexed search now supports glob filtering, and `--files` listings have accurate `ripgrep`-fallback behavior when `ripgrep` isn't available or the index isn't ready.
+
 ### Code Analysis
 
 ```

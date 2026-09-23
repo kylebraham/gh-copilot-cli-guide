@@ -52,6 +52,8 @@ copilot --add-github-mcp-tool=search_repositories
 
 > **v1.0.56:** When `gh` CLI is on PATH, the GitHub MCP server automatically omits tools that duplicate `gh` CLI capabilities. This reduces token usage by keeping only tools that aren't already covered by the `gh` CLI. Use `--enable-all-github-mcp-tools` to override and load everything.
 
+> **v1.0.88+:** GitHub MCP scope escalation (prompting to grant additional GitHub permissions) now uses the Copilot CLI OAuth app's registered `/callback` redirect URI, fixing escalation flows that previously could fail depending on how the CLI was launched.
+
 **Common usage with the GitHub MCP active:**
 
 ```
@@ -233,6 +235,8 @@ Add `"slowConnectionThresholdMs"` to any MCP server entry to control how long th
 
 > **v1.0.87+ MCP reliability fixes:** A failing MCP server no longer removes other servers' tools; MCP auth status warnings stay accurate during reconnects and startup refreshes; MCP servers that advertise list-change capabilities but don't implement subscriptions now connect instead of failing; session resume no longer hangs while reconnecting MCP servers; `copilot mcp list` and `copilot mcp get` report the built-in `github-mcp-server` when you're signed in.
 
+> **v1.0.88+ MCP reliability fixes:** MCP tools recover more reliably from transient listing, connection, and OAuth failures instead of leaving the server's tools unavailable for the rest of the session. Cached MCP tools now stay scoped to the environment-resolved server address and headers they were fetched with, rather than being reused across a changed configuration. Deferred MCP tools whose registered name needed sanitizing or shortening are now listed under that sanitized name so tool search can find them, and deferred tools with no resolvable server name are listed alongside the other tools instead of being silently dropped from the reminder. `/mcp` and the plugin views now show each server's display name and each plugin's description for clearer status.
+
 ---
 
 
@@ -311,6 +315,8 @@ copilot --additional-mcp-config='{"mcpServers":{"temp-db":{"command":"npx","args
 ### ACP Client MCP Servers (v1.0.25+)
 
 ACP (Agent Communication Protocol) clients can now supply MCP servers (stdio, HTTP, or SSE transport) when starting or loading a session. This lets external tools and integrations inject their own MCP tooling into the CLI session without any manual config changes.
+
+> **v1.0.88+:** Enterprise managed settings — MCP, permission, and plugin policy — now apply to sessions opened in ACP mode (`copilot --acp`), sessions hosted by AHP clients (`copilot --ahp-host`), and the published `--server` session. Previously these entry points ran with no managed policy applied at all.
 
 ---
 
@@ -674,6 +680,8 @@ See [Fleet Mode — Specialisation](18-fleet-mode.md#specialisation-custom-agent
 
 > **v1.0.73+:** Relative links inside a custom agent's instructions now resolve from the location of the agent file itself, instead of the session's working directory — so an agent file that links to a sibling doc (e.g. `../docs/style-guide.md`) works regardless of which directory you launch the session from.
 
+> **v1.0.88+:** Custom-agent startup now distinguishes a model-list load failure from an empty model catalog, so a transient failure to fetch the model list no longer shows a false "model unavailable" warning or silently deselects a required custom agent. Agents mounted from a plugin loaded via `--plugin-dir` also now appear correctly in server-mode sessions (`copilot --server`).
+
 Custom agents extend capabilities with:
 - Specialized prompts
 - Custom tools
@@ -729,6 +737,8 @@ This agent always runs with high reasoning effort, regardless of the session def
 ```
 
 **Why it matters:** Lets you pin high-stakes agents (e.g., security review, architecture planning) to a higher effort level while keeping the rest of the session on a faster, cheaper default.
+
+> **v1.0.88+:** A custom agent's `reasoning-effort` now applies as soon as the agent is selected, instead of only taking effect when its model is also selected. An explicit `--reasoning-effort` flag still wins over the agent's frontmatter value, and if the currently selected model doesn't offer the requested level, the CLI reports that and leaves the setting unapplied instead of silently ignoring it.
 
 ### Fallback Model Lists (v1.0.83+)
 
@@ -1018,6 +1028,8 @@ Sessions:
 ```
 
 > **v1.0.86+:** Resuming an active session without plugin-directory, discovery, or working-directory overrides now preserves marketplace plugins and skills after reload — a configuration read or validation failure no longer discards active plugins. Missing-file and intentional-removal behavior is unchanged. Sessions also resume even when their transcript files contain recoverable corruption.
+
+> **v1.0.88+:** Resuming a session no longer stalls when there are pending MCP permission prompts to resolve. If saving a session fails, resume now preserves the pending conversation events instead of dropping them, and explains that retrying the save is safe. Resuming large local sessions also keeps transcript memory bounded, for smoother performance on long-running sessions.
 
 ### Session and Memory Import (v1.0.85+)
 
@@ -1430,6 +1442,8 @@ The `userPromptSubmitted` event fires when the user submits a prompt, **before t
 
 > **v1.0.72+:** An `agentStop` hook that always blocks no longer loops indefinitely — the CLI ends the turn after 8 consecutive blocks. `agentStop` hooks now receive a `stop_hook_active` flag in their payload so they can detect a forced continuation and self-limit instead of blocking forever. Lifecycle and subagent hook commands also now run in the current session directory after `/cd`, instead of the directory the session started in.
 
+> **v1.0.88+:** A hook command that doesn't set an explicit `cwd` now runs in the project root again, instead of the session's current directory — repo-relative hook scripts resolve correctly even when the session has changed into a subdirectory. Session-start and subagent-start hooks also now combine successful `additionalContext` contributions from multiple hooks within the hook-output limit, instead of only using the first one.
+
 ---
 
 ### Shell Integration
@@ -1605,6 +1619,8 @@ Set in config:
 > **v1.0.86+:** `/sandbox policy` now reports local-network access using your actual configured setting, instead of a value that could drift from what's really in effect.
 
 > **v1.0.87+:** Sandbox proxies now work on Windows, and a proxy configured with a username and password now works on every platform.
+
+> **v1.0.88+:** A sandboxed network denial caused by a proxy tunnel failure now shows bypass guidance in the error message, instead of a bare denial with no next step.
 
 > **v1.0.66+:** Session credit limits (the `sessionLimits` setting) must now be at least 30 AI credits, and now apply across the whole current conversation, resetting on `/clear`.
 

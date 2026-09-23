@@ -770,6 +770,8 @@ Solutions:
 6. Check repo permissions
 ```
 
+> **v1.0.88+:** When a connected GitHub Connector needs reauthorization, Copilot CLI now prompts you to update GitHub authorization directly, instead of failing silently or requiring you to notice and re-run `/login` on your own.
+
 ### GitHub CLI Not Working
 
 ```
