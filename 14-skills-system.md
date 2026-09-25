@@ -290,6 +290,8 @@ After modifying skill files:
 
 This refreshes all active skills from disk.
 
+> **v1.0.88+:** Skill discovery now supports **namespaced custom skills** (grouping related skills under a shared prefix) and respects ignored skill directories, so skills you've deliberately excluded no longer get picked up during discovery.
+
 ### Pre-Loading Skills in Custom Agents (v1.0.22+)
 
 Custom agents can declare a `skills` field in their frontmatter to automatically load skills into the agent's context at startup — no manual `/skills add` required:

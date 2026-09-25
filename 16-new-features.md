@@ -1,4 +1,4 @@
-# Latest Features in GitHub Copilot CLI — v1.0.83
+# Latest Features in GitHub Copilot CLI — v1.0.88
 
 This file covers recent additions to GitHub Copilot CLI. Features marked with "Full guide →" have their own dedicated documentation file — the entries here are summaries with links. Features without a dedicated file are covered in full below.
 
@@ -10,6 +10,10 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 3. [Research Command (`/research`)](#research-command-research) — [Full guide →](19-research-command.md)
 
 ### Features covered in this file
+4. [New in v1.0.88](#new-in-v1088)
+4. [New in v1.0.87](#new-in-v1087)
+4. [New in v1.0.86](#new-in-v1086)
+4. [New in v1.0.85](#new-in-v1085)
 4. [New in v1.0.83](#new-in-v1083)
 4. [New in v1.0.82](#new-in-v1082)
 4. [New in v1.0.81](#new-in-v1081)
@@ -92,6 +96,200 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 ---
 
 ---
+
+---
+
+## New in v1.0.88
+
+Released: 2026-09-22
+
+### OSC 777 Terminal Notifications
+
+Copilot CLI can now send an optional OSC 777 terminal notification when a turn finishes, for direct sessions in **Ghostty** and **WezTerm**. See [Interactive Features — Progress Indicators](03-interactive-features.md#progress-indicators).
+
+**Why it matters:** The terminal itself can surface a native notification when a long-running turn completes, instead of relying only on a terminal bell or watching the CLI.
+
+### Sessions Tab: Confirm Before Dismissing a Row
+
+Dismissing a row in the Sessions tab now takes pressing `x` then `x` again to confirm. A **local** session is permanently deleted, while a session backed by a server is only closed — its conversation is left intact on the server. The footer states which of the two the highlighted row will do, and shows no `x` hint for rows that can't be dismissed. See [Interactive Features — Switching Sessions](03-interactive-features.md#switching-sessions).
+
+**Why it matters:** Prevents accidentally deleting a local session forever when you only meant to close a server-backed conversation, by making the two outcomes explicit before you confirm.
+
+### `/allow-all` and Exact Path Approvals Survive Managed-Settings Failures
+
+`/allow-all` is now preserved across a failed managed-settings refresh instead of being silently reset. The CLI also remembers exact session approvals for paths that don't exist yet, without granting their parent directory as a side effect — these exact grants are visible in `/list-dirs` and cleared by `/reset-allowed-tools`. See [Slash Commands — /allow-all](04-slash-commands.md#allow-all).
+
+**Why it matters:** A transient settings-refresh failure no longer forces you to re-approve everything, and approving a not-yet-created path no longer silently widens access to its whole parent directory.
+
+### Custom-Agent Reasoning Effort and Startup Reliability
+
+A custom agent's `reasoning-effort` now applies as soon as the agent is selected, instead of only its model. An explicit `--reasoning-effort` flag still wins, and a level the selected model doesn't offer is reported and left unapplied. Custom-agent startup also now distinguishes a model-list load failure from a genuinely empty model catalog, preventing false "unavailable" warnings and silent deselection of a required agent. See [Advanced Features — Setting Reasoning Effort](08-advanced-features.md#setting-reasoning-effort-v1066).
+
+**Why it matters:** High-stakes agents keep their intended reasoning effort reliably, and a flaky model-list fetch no longer causes a required custom agent to silently drop out of a session.
+
+### `/fork` During Active Turns
+
+Run `/fork` while a turn is still in progress to branch off work without waiting for it to finish. See [Slash Commands — /fork](04-slash-commands.md#fork-v1045).
+
+**Why it matters:** Branch an experimental approach the moment you think of it, instead of waiting for the current turn to complete first.
+
+### Notable Fixes
+
+- Text selection now works in bottom-anchored dialogs, including the login device-code prompt.
+- Freeform `ask_user` prompts insert a new line on `Enter`; submit with `Ctrl+Enter` or `Ctrl+S`.
+- A sandboxed network denial caused by a proxy tunnel failure now shows bypass guidance.
+- Deferred MCP tools whose registered name needed sanitizing or shortening are now listed under that name so tool search can find them; deferred tools with no resolvable server name are listed with the others instead of being left out.
+- Prompt mode now warns when it stops waiting for background tasks, and explains how to change the timeout limit.
+- Resuming sessions no longer stalls when MCP permission prompts are pending; MCP tools recover more reliably from transient listing, connection, and OAuth failures.
+- Hook commands without an explicit `cwd` run in the project root again instead of the session's current directory.
+- Enterprise managed settings now apply to ACP mode (`copilot --acp`), AHP-hosted sessions (`copilot --ahp-host`), and the published `--server` session.
+- GitHub MCP scope escalation now uses the CLI OAuth app's registered `/callback` redirect URI.
+- Agents from a plugin mounted with `--plugin-dir` now appear in server-mode sessions.
+- Session and subagent start hooks combine successful `additionalContext` contributions within the hook-output limit.
+- Cached MCP tools stay scoped to environment-resolved server addresses and headers.
+- Session resume preserves pending conversation events when saving fails, and explains that retrying is safe.
+- Namespaced custom skills and ignored skill directories are now supported during skill discovery.
+- MCP and plugin views show server display names and plugin descriptions.
+- Resuming large local sessions keeps transcript memory bounded.
+- Copilot CLI prompts to update GitHub authorization when Connectors need reauthorization.
+- Indexed search supports glob filtering, and `--files` listings have accurate `ripgrep`-fallback behavior.
+
+---
+
+## New in v1.0.87
+
+Released: 2026-09-21
+
+### Auto Routing Tier Startup Defaults and Organization Policy
+
+The **Auto** model routing tier now supports user and managed startup defaults, along with a strict/user-overridable organization policy for the tier. See [Model Selection Strategy — Available Models Overview](22-models-and-costs.md#1-available-models-overview) and [Team Setup — Advanced: Organization-Level Setup](21-team-setup.md#8-advanced-organization-level-setup).
+
+**Why it matters:** Enterprise admins can set an org-wide default for Auto routing while still choosing whether individual users may override it.
+
+### Steering Prompts Combine and Recall
+
+Consecutive steering prompts sent while the agent is busy, in the same mode, now combine into a single pending message instead of stacking up separately. Press `Up` in an empty chat input to take the pending message back for editing — including any pasted text and attachments — with a recall hint shown in the message. `Ctrl+C` now stops the running turn instead of removing pending prompts one at a time; `Ctrl+Q` queued prompts remain a separate list; `Ctrl+P` browses history without withdrawing prompts. Available for local sessions; commands and prompts already being processed can't be recalled. See [Interactive Features — Queued Messages](03-interactive-features.md#queued-messages).
+
+**Why it matters:** Typing several follow-up thoughts while the agent works no longer clutters the pending-message queue, and you can pull back and edit what you typed instead of losing it.
+
+### `worktreePathTemplate` Setting
+
+A new `worktreePathTemplate` setting decides where `/worktree`, `/move`, `/new`, and `--worktree` create worktrees, for example `~/src/worktrees/{repo}/{branch}`. Supported placeholders are `{repoPath}`, `{repo}`, `{branch}`, and `{branchSlug}`. Leaving it unset keeps the current layout — a `<repo>.worktrees/` directory with slashes in the branch name flattened to dashes. See [.copilot Directory Guide — settings.json](15-copilot-directory.md#settingsjson).
+
+**Why it matters:** Teams that keep worktrees in a shared location outside the repo (e.g. a dedicated worktrees drive) no longer have to move them manually after creation.
+
+### Sandbox Proxies on Windows
+
+Sandbox proxies now work on Windows, and a proxy configured with a username and password now works on every platform. See [Advanced Features — Security Best Practices](08-advanced-features.md#file-access-control).
+
+### Notable Fixes
+
+- Number-key selection in the question dialog now works for choices 10 and beyond.
+- `/keep-alive` (and `/caffeinate`) no longer reports that sleep is prevented when the sleep inhibitor exits immediately on startup instead of acquiring the lock (e.g. no session bus on WSL/containers/headless) — it now reports the failure.
+- Prompt mode exits successfully when a child task fails but the parent recovers.
+- Resuming very large local sessions and continuing with new prompts is now reliable.
+- `--yolo` stays enabled after startup policy checks for authenticated unmanaged sessions.
+- An empty `strictKnownMarketplaces` allowlist now hides and blocks built-in plugin marketplaces, instead of leaving them reachable.
+- Mouse-selected text is now visibly highlighted in the `/help` and `/mcp show` screens.
+- A slow repository git-status check no longer leaves orphaned processes running and consuming memory — the CLI tears down the processes an internal git command started when it times out.
+- MCP auth status warnings stay accurate during reconnects and startup refreshes.
+- The pull request badge and GitHub status tabs remain available after auth or branch refreshes. See [GitHub Integration — Pull Requests Tab Merge Status](07-github-integration.md#pull-requests-tab-merge-status-v1066).
+- A failing MCP server no longer removes other servers' tools.
+- `copilot mcp list` and `copilot mcp get` now report the built-in `github-mcp-server` when you're signed in, instead of showing it only in the interactive `/mcp` view.
+- MCP servers that advertise list-change capabilities but don't implement subscriptions now connect instead of failing.
+- Extension permission handlers approve subagent tool requests without leaving duplicate CLI prompts.
+- Secrets exported in the launching shell are no longer written to debug logs when a session is created or resumed.
+- Managed plugin commands load organization marketplace policy with environment, GitHub CLI, broker, and persisted authentication.
+- Session resume no longer hangs while reconnecting MCP servers.
+- Per-server MCP slow-connection warning thresholds are now configurable with `slowConnectionThresholdMs`.
+- Execution subagents in timeline entries now show live elapsed time.
+- The rubber-duck agent is now enabled for every model family, including low-cost-tier session models. See [Slash Commands — /rubber-duck](04-slash-commands.md#rubber-duck-v1049).
+- Reduced allocation overhead when repainting blank terminal areas.
+
+---
+
+## New in v1.0.86
+
+Released: 2026-09-17
+
+### Custom Agents Can Opt Into Repository Instruction Files
+
+Custom agents can now set `include-custom-instructions: true` in their frontmatter to load repository instruction files (`AGENTS.md`, `.github/copilot-instructions.md`, `CLAUDE.md`) instead of relying only on their own agent instructions. See [Advanced Features — Creating Custom Agents](08-advanced-features.md#creating-custom-agents).
+
+**Why it matters:** Lets a specialized custom agent still follow your team's shared coding standards and conventions instead of ignoring them.
+
+### Plugins and Skills Survive Session Resume
+
+Resuming an active session without plugin-directory, discovery, or working-directory overrides now preserves marketplace plugins and skills after reload — a configuration read or validation failure no longer discards active plugins. Missing-file and intentional-removal behavior is unchanged. See [Advanced Features — Session Persistence](08-advanced-features.md#resuming-sessions).
+
+### `/sandbox policy` Reports Accurate Local-Network Access
+
+`/sandbox policy` now reports local-network access using your actual configured setting instead of a stale value. See [Advanced Features — Security Best Practices](08-advanced-features.md#file-access-control).
+
+### Autopilot Stops After Accepted Task Completion
+
+Autopilot now reliably stops after an accepted `task_complete` instead of continuing to run unexpectedly. See [Autopilot Mode — Stopping Autopilot](17-autopilot-mode.md#stopping-autopilot).
+
+### Notable Fixes
+
+- The status row now says it's waiting for background shells, instead of "Working", when a turn ends while an attached background shell (such as a dev server) is still running.
+- Sessions resume even when transcript files contain recoverable corruption.
+- Expanded reasoning text in the compact timeline is no longer dimmed, so it's as readable as the rest of the timeline.
+
+---
+
+## New in v1.0.85
+
+Released: 2026-09-16
+
+### Vim Mode for Everyone
+
+**Vim mode** is now available to everyone. Turn it on with `/vim` or set `editorMode` to `vim` in `/settings` for modal (normal/insert) editing in the composer, with the current mode shown while you type. See [Slash Commands — /vim](04-slash-commands.md#vim-v1085).
+
+**Why it matters:** If you're used to Vim keybindings, edit and navigate long prompts without reaching for arrow keys or the mouse.
+
+### `/config` Sidebar Configuration Screen
+
+A new `/config` command opens a persistent sidebar configuration screen inside the CLI, complementing the full-screen `/settings` dialog. See [Slash Commands — /config](04-slash-commands.md#config-v1085).
+
+### Concise Transcript View
+
+Set `transcriptView` to `"concise"` in `/settings` to group tool activity into expandable work summaries instead of showing every tool call inline. See [Interactive Features — Timeline Management](03-interactive-features.md#timeline-management).
+
+**Why it matters:** Keeps long turns scannable instead of scrolling through every intermediate tool call.
+
+### Sandbox Network Allow/Deny Rules
+
+`/sandbox` gains Network host allow/deny rules that layer on top of your configured upstream proxy instead of replacing it, and managed (enterprise) sandbox sessions can now be disabled for the rest of the session directly from an approved bypass prompt. See [Advanced Features — Security Best Practices](08-advanced-features.md#file-access-control).
+
+### Session and Memory Import
+
+New `copilot session import` and `copilot memory import` shell commands import sessions and memory entries in a semantic JSONL interchange format. See [Advanced Features — Session and Memory Import](08-advanced-features.md#session-and-memory-import-v1085).
+
+### Plugin/MCP/Skill CLI Command Overhaul
+
+`enable` and `disable` are now built directly into `copilot plugin`, `copilot mcp`, and `copilot skill`, replacing `copilot plugins enable/disable --plugin|--mcp|--skill`. New `copilot instruction list` and `copilot lsp list` commands replace `copilot plugins list --kind instruction/lsp`. `--json` is now supported on `copilot plugin list`, `copilot plugin marketplace list`, and `copilot plugin marketplace browse`. See [Advanced Features — Plugin System](08-advanced-features.md#enabledisable-moved-onto-each-kinds-own-subcommand-v1085).
+
+> ⚠️ **Breaking:** `copilot plugins install --skill` is replaced by `copilot skill add [--project]` — the `--scope` spelling is gone. The cross-kind `--kind`, `--scope`, `--mcp`, and `--skill` flags are removed from `copilot plugins`. `copilot plugins list --json` now emits a flat array of plugins instead of the old `{ plugins, errors }` object. `copilot plugins list` is now an alias of `copilot plugin list` and reports only plugins, no longer MCP servers, skills, instructions, or LSP servers.
+
+### GPT-6 Astra
+
+A new `gpt-6-astra` model is now available in `/model`. See [Models and Costs](22-models-and-costs.md#1-available-models-overview).
+
+### Streamer Mode Masks Model Names
+
+Streamer mode now masks internal model names in `/model`, the footer, and startup diagnostics, and toggling it no longer restarts model initialization.
+
+### Notable Fixes
+
+- Fixed the one-command sandbox bypass on Windows: approving a policy-blocked write escalation now runs the command instead of stopping after the retry.
+- `--add-dir` rejects non-directory and inaccessible paths uniformly and aborts startup before session initialization.
+- `--share=~/notes.md` now writes to your home directory instead of creating a folder named `~` in the current directory.
+- MCP servers no longer fail to load when connected to a running IDE; MCP turns continue even if tool list refresh fails after a tool change.
+- `copilot init` now removes the `.github` directory it created when the run exits without writing an instructions file.
+- Large sessions resume without freezing the interface during context token counting.
+- Command-line parsing moved from Commander to a Rust grammar; `copilot login --host` now works, and `--max-autopilot-continues` no longer accepts scientific notation.
+- Shell completions are generated from the same grammar the CLI parses with, so `copilot <TAB>` offers root flags alongside subcommands.
 
 ---
 

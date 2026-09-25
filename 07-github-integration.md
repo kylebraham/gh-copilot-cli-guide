@@ -304,6 +304,8 @@ You can create a git worktree for any pull request directly from the pull reques
 
 The **Pull requests** tab now shows the merge status for each listed pull request (e.g., clean, blocked, has conflicts) alongside its checks and review status. Press `r` in the tab to refresh the cached statuses on demand instead of waiting for the next automatic refresh.
 
+> **v1.0.87+:** The pull request badge and GitHub status tabs now remain available after an auth or branch refresh, instead of momentarily disappearing.
+
 ---
 
 ## Auto-Linking Issue and PR References (v1.0.60)
@@ -767,6 +769,8 @@ Solutions:
 5. Verify Copilot subscription
 6. Check repo permissions
 ```
+
+> **v1.0.88+:** When a connected GitHub Connector needs reauthorization, Copilot CLI now prompts you to update GitHub authorization directly, instead of failing silently or requiring you to notice and re-run `/login` on your own.
 
 ### GitHub CLI Not Working
 

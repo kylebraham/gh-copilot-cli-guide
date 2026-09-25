@@ -52,6 +52,8 @@ copilot --add-github-mcp-tool=search_repositories
 
 > **v1.0.56:** When `gh` CLI is on PATH, the GitHub MCP server automatically omits tools that duplicate `gh` CLI capabilities. This reduces token usage by keeping only tools that aren't already covered by the `gh` CLI. Use `--enable-all-github-mcp-tools` to override and load everything.
 
+> **v1.0.88+:** GitHub MCP scope escalation (prompting to grant additional GitHub permissions) now uses the Copilot CLI OAuth app's registered `/callback` redirect URI, fixing escalation flows that previously could fail depending on how the CLI was launched.
+
 **Common usage with the GitHub MCP active:**
 
 ```
@@ -213,6 +215,31 @@ Both `.mcp.json` and `.github/mcp.json` are loaded when present; definitions fro
 
 ---
 
+### `slowConnectionThresholdMs` — Per-Server Slow-Connection Warnings (v1.0.87+)
+
+Add `"slowConnectionThresholdMs"` to any MCP server entry to control how long the CLI waits before warning that the server is slow to connect, instead of using a single fixed threshold for every server:
+
+```json
+{
+  "mcpServers": {
+    "slow-remote-server": {
+      "command": "npx",
+      "args": ["-y", "@example/slow-mcp-server"],
+      "slowConnectionThresholdMs": 15000
+    }
+  }
+}
+```
+
+**Why it matters:** A server that's normally slow to start (e.g., a cold-starting remote service) no longer triggers a misleading slow-connection warning every session.
+
+> **v1.0.87+ MCP reliability fixes:** A failing MCP server no longer removes other servers' tools; MCP auth status warnings stay accurate during reconnects and startup refreshes; MCP servers that advertise list-change capabilities but don't implement subscriptions now connect instead of failing; session resume no longer hangs while reconnecting MCP servers; `copilot mcp list` and `copilot mcp get` report the built-in `github-mcp-server` when you're signed in.
+
+> **v1.0.88+ MCP reliability fixes:** MCP tools recover more reliably from transient listing, connection, and OAuth failures instead of leaving the server's tools unavailable for the rest of the session. Cached MCP tools now stay scoped to the environment-resolved server address and headers they were fetched with, rather than being reused across a changed configuration. Deferred MCP tools whose registered name needed sanitizing or shortening are now listed under that sanitized name so tool search can find them, and deferred tools with no resolvable server name are listed alongside the other tools instead of being silently dropped from the reminder. `/mcp` and the plugin views now show each server's display name and each plugin's description for clearer status.
+
+---
+
+
 ### `deferTools` — Keep Server Tools Always Available (v1.0.63+)
 
 When [tool search](https://docs.github.com/en/copilot) is enabled, Copilot may filter out MCP tools to reduce token usage. Add `"deferTools": true` to any server entry to ensure that server's tools are **always** included in the context, regardless of tool search settings:
@@ -288,6 +315,8 @@ copilot --additional-mcp-config='{"mcpServers":{"temp-db":{"command":"npx","args
 ### ACP Client MCP Servers (v1.0.25+)
 
 ACP (Agent Communication Protocol) clients can now supply MCP servers (stdio, HTTP, or SSE transport) when starting or loading a session. This lets external tools and integrations inject their own MCP tooling into the CLI session without any manual config changes.
+
+> **v1.0.88+:** Enterprise managed settings — MCP, permission, and plugin policy — now apply to sessions opened in ACP mode (`copilot --acp`), sessions hosted by AHP clients (`copilot --ahp-host`), and the published `--server` session. Previously these entry points ran with no managed policy applied at all.
 
 ---
 
@@ -651,6 +680,8 @@ See [Fleet Mode — Specialisation](18-fleet-mode.md#specialisation-custom-agent
 
 > **v1.0.73+:** Relative links inside a custom agent's instructions now resolve from the location of the agent file itself, instead of the session's working directory — so an agent file that links to a sibling doc (e.g. `../docs/style-guide.md`) works regardless of which directory you launch the session from.
 
+> **v1.0.88+:** Custom-agent startup now distinguishes a model-list load failure from an empty model catalog, so a transient failure to fetch the model list no longer shows a false "model unavailable" warning or silently deselects a required custom agent. Agents mounted from a plugin loaded via `--plugin-dir` also now appear correctly in server-mode sessions (`copilot --server`).
+
 Custom agents extend capabilities with:
 - Specialized prompts
 - Custom tools
@@ -707,6 +738,8 @@ This agent always runs with high reasoning effort, regardless of the session def
 
 **Why it matters:** Lets you pin high-stakes agents (e.g., security review, architecture planning) to a higher effort level while keeping the rest of the session on a faster, cheaper default.
 
+> **v1.0.88+:** A custom agent's `reasoning-effort` now applies as soon as the agent is selected, instead of only taking effect when its model is also selected. An explicit `--reasoning-effort` flag still wins over the agent's frontmatter value, and if the currently selected model doesn't offer the requested level, the CLI reports that and leaves the setting unapplied instead of silently ignoring it.
+
 ### Fallback Model Lists (v1.0.83+)
 
 A custom agent's `model` frontmatter field can list **several models**, tried in order until one is available to you:
@@ -726,6 +759,21 @@ This agent tries Claude Opus 5 first, falling back to Claude Sonnet 5, then GPT-
 Setting `model-policy: required` keeps any in-session model changes restricted to models on that list, instead of letting the agent switch to an arbitrary model.
 
 **Why it matters:** Keeps an agent running even if your top-choice model is temporarily unavailable or you don't have access to it, without failing the turn or requiring manual intervention.
+
+### Opting Into Repository Instruction Files (v1.0.86+)
+
+A custom agent can set `include-custom-instructions: true` in its frontmatter to also load repository instruction files — `AGENTS.md`, `.github/copilot-instructions.md`, and `CLAUDE.md` — alongside its own agent instructions:
+
+```yaml
+---
+name: backend-agent
+model: claude-sonnet-4.6
+include-custom-instructions: true
+---
+This agent specialises in backend development.
+```
+
+**Why it matters:** By default a custom agent only follows the instructions in its own frontmatter body. Setting this field lets it also pick up your team's shared coding standards and conventions from `AGENTS.md` and related files. See [AGENTS.md Guide](13-agents-file.md) for details on repository instruction files.
 
 ## Skills System
 
@@ -979,6 +1027,21 @@ Sessions:
 > /resume abc123
 ```
 
+> **v1.0.86+:** Resuming an active session without plugin-directory, discovery, or working-directory overrides now preserves marketplace plugins and skills after reload — a configuration read or validation failure no longer discards active plugins. Missing-file and intentional-removal behavior is unchanged. Sessions also resume even when their transcript files contain recoverable corruption.
+
+> **v1.0.88+:** Resuming a session no longer stalls when there are pending MCP permission prompts to resolve. If saving a session fails, resume now preserves the pending conversation events instead of dropping them, and explains that retrying the save is safe. Resuming large local sessions also keeps transcript memory bounded, for smoother performance on long-running sessions.
+
+### Session and Memory Import (v1.0.85+)
+
+New shell commands import sessions and memory entries in a semantic JSONL interchange format:
+
+```bash
+copilot session import <file.jsonl>
+copilot memory import <file.jsonl>
+```
+
+**Why it matters:** Move session history or stored memory between machines or accounts, or restore from an external backup, without re-running the original conversation.
+
 ## Experimental Mode & Autopilot
 
 Copilot CLI includes an experimental mode that unlocks cutting-edge features before they reach general availability.
@@ -1181,6 +1244,10 @@ When configuring marketplaces in `config.json`, use the `extraKnownMarketplaces`
 
 > **v1.0.80+:** The `extraKnownMarketplaces` `autoUpdate` field is now honored from managed (MDM/enterprise server) settings too, not just user settings — administrators can enforce marketplace auto-updates fleet-wide instead of relying on each user's local config.
 
+> **v1.0.85+:** `--json` is now supported on `copilot plugin marketplace list` and `copilot plugin marketplace browse` (in addition to `copilot plugin list`), for scripting marketplace inspection.
+
+> **v1.0.87+:** A managed `strictKnownMarketplaces` allowlist that's left **empty** now hides and blocks the built-in plugin marketplaces too, instead of leaving them reachable. If you set `strictKnownMarketplaces`, list every marketplace — including built-in ones — that should remain available.
+
 ### Pinning a Plugin to an Exact Commit (v1.0.70+)
 
 Add a `sha` field to a plugin's source configuration to lock it to an exact commit, so updates to the source ref (e.g., a branch move) don't silently change what's installed:
@@ -1217,6 +1284,24 @@ copilot plugins help
 `/plugins` (and `copilot plugins`) `enable`/`disable` now cover custom instructions, custom agents, LSP servers, and hooks — not just plugins, MCP servers, and skills. This gives you one consistent way to temporarily turn off any extension without uninstalling it.
 
 **Why it matters:** You can quickly disable a misbehaving hook, an LSP server that's slowing things down, or an instruction file that's steering the agent wrong — then re-enable it later — without deleting configuration.
+
+### Enable/Disable Moved Onto Each Kind's Own Subcommand (v1.0.85+)
+
+`enable` and `disable` are now built directly into `copilot plugin`, `copilot mcp`, and `copilot skill`, replacing the cross-kind `copilot plugins enable/disable --plugin|--mcp|--skill` flags:
+
+```bash
+copilot plugin enable my-plugin
+copilot plugin disable my-plugin
+copilot mcp enable my-server
+copilot mcp disable my-server
+copilot skill enable my-skill
+copilot skill disable my-skill
+```
+
+New `copilot instruction list` and `copilot lsp list` commands replace `copilot plugins list --kind instruction` and `--kind lsp`. `copilot skill add [--project]` replaces `copilot plugins install --skill` for installing a skill from a file, URL, or directory.
+
+> ⚠️ **Breaking (v1.0.85+):** The cross-kind `--kind`, `--scope`, `--mcp`, and `--skill` flags are removed from `copilot plugins` — use `copilot mcp` and `copilot skill` for those resources instead. `copilot plugins list --json` now emits a flat array of plugins instead of the old `{ plugins, errors }` object; update scripts that read `.plugins`. `copilot plugins list` is now an alias of `copilot plugin list` and reports only plugins, no longer MCP servers, skills, instructions, or LSP servers. The `--scope` spelling on `copilot plugins install --skill` is gone entirely — use `copilot skill add --project`.
+
 
 ### Open Plugin Spec v1 Support (v1.0.74+)
 
@@ -1356,6 +1441,8 @@ The `userPromptSubmitted` event fires when the user submits a prompt, **before t
 > **v1.0.45+:** The `agentStop` hook now fires correctly when the agent stops via `task_complete`. Previously it was not triggered in that code path.
 
 > **v1.0.72+:** An `agentStop` hook that always blocks no longer loops indefinitely — the CLI ends the turn after 8 consecutive blocks. `agentStop` hooks now receive a `stop_hook_active` flag in their payload so they can detect a forced continuation and self-limit instead of blocking forever. Lifecycle and subagent hook commands also now run in the current session directory after `/cd`, instead of the directory the session started in.
+
+> **v1.0.88+:** A hook command that doesn't set an explicit `cwd` now runs in the project root again, instead of the session's current directory — repo-relative hook scripts resolve correctly even when the session has changed into a subdirectory. Session-start and subagent-start hooks also now combine successful `additionalContext` contributions from multiple hooks within the hook-output limit, instead of only using the first one.
 
 ---
 
@@ -1526,6 +1613,14 @@ Set in config:
 > ⚠️ **BREAKING (v1.0.83+):** On macOS and Linux, sandboxed commands can no longer reach services running on your machine. On macOS this also blocks a server the command itself starts on `127.0.0.1`, so test suites that bind a local port will fail inside the sandbox — turn on **Allow local network** in `/sandbox` to reach localhost again. Linux sandboxing now additionally requires `slirp4netns`, `nsenter`, `iptables`, `ip6tables`, `iptables-restore`, and `ip6tables-restore` on `PATH`; install them if sandboxed commands start failing to launch. When Linux sandbox proxy mode is enabled, network egress is now restricted to the configured proxy, and proxy mode itself requires `slirp4netns`, `util-linux` 2.35+, `iptables`, and `/dev/net/tun` access.
 
 > **v1.0.83+:** Sandboxed `gh` commands now authenticate as the account configured for the repository instead of always using the Copilot CLI login. Sandboxed file tools now read the same developer-tool paths as sandboxed shell commands, including token-bearing registry config such as `~/.npmrc`; set `sandbox.allowDevToolAccess` to `false` to turn these grants off. Automatic HTTPS proxy mTLS client certificate support is now available for model and web requests. `/sandbox policy` groups path grants by source and shows detected developer tools, making effective policy easier to audit.
+
+> **v1.0.85+:** `/sandbox` gains **Network** host allow/deny rules that layer on top of your configured upstream proxy instead of replacing it, letting you fine-tune which hosts a sandboxed command can reach without giving up proxy-based egress control. Managed (enterprise) sandbox sessions can now be disabled for the rest of the session directly from an approved bypass prompt, instead of requiring a separate `/sandbox disable`. `--add-dir` now rejects non-directory and inaccessible paths uniformly and aborts startup before session initialization, rather than failing partway through. On Windows, an approved sandbox bypass for a policy-blocked write now runs the command instead of stopping after the permissive retry.
+
+> **v1.0.86+:** `/sandbox policy` now reports local-network access using your actual configured setting, instead of a value that could drift from what's really in effect.
+
+> **v1.0.87+:** Sandbox proxies now work on Windows, and a proxy configured with a username and password now works on every platform.
+
+> **v1.0.88+:** A sandboxed network denial caused by a proxy tunnel failure now shows bypass guidance in the error message, instead of a bare denial with no next step.
 
 > **v1.0.66+:** Session credit limits (the `sessionLimits` setting) must now be at least 30 AI credits, and now apply across the whole current conversation, resetting on `/clear`.
 

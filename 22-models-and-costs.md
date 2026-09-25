@@ -20,7 +20,7 @@ Understanding how to choose the right model — and when to switch — is one of
 
 | Model | ID | Speed | Best for |
 |-------|-----|-------|---------|
-| Auto | `auto` | Varies | Let Copilot pick the best model for each session automatically; now adapts model selection as the task evolves during the conversation, not just once at the start (v1.0.81+) |
+| Auto | `auto` | Varies | Let Copilot pick the best model for each session automatically; now adapts model selection as the task evolves during the conversation, not just once at the start (v1.0.81+); supports user and managed startup defaults, with organizations able to set a strict or user-overridable policy for the tier (v1.0.87+) |
 | Claude Sonnet 4.5 | `claude-sonnet-4.5` | Fast | Default — general coding, balanced quality/cost |
 | Claude Sonnet 4.6 | `claude-sonnet-4.6` | Fast | Latest Sonnet — improved reasoning over 4.5 |
 | Claude Sonnet 5 | `claude-sonnet-5` | Fast | Newest Sonnet generation (v1.0.67+) |
@@ -33,6 +33,7 @@ Understanding how to choose the right model — and when to switch — is one of
 | Claude Fable 5 | `claude-fable-5` | Varies | New Claude Fable family model (v1.0.61+) |
 | Claude Fable 5.1 | `claude-fable-5.1` | Varies | Newest Claude Fable family model (v1.0.83+) |
 | Claude Haiku 4.5 | `claude-haiku-4.5` | Fastest | Quick tasks, fleet subagents, docs, formatting |
+| GPT-6 Astra | `gpt-6-astra` | Fast | Newest GPT generation (v1.0.85+) |
 | GPT-5.6 | `gpt-5.6` | Fast | Newest GPT generation — added v1.0.70 |
 | GPT-5.4 | `gpt-5.4` | Fast | Strong alternative for general code generation |
 | GPT-5.3-Codex | `gpt-5.3-codex` | Fast | Code-specialized tasks |
@@ -51,6 +52,8 @@ Understanding how to choose the right model — and when to switch — is one of
 > ⚠️ **Deprecated in v1.0.66:** Claude Opus 4.6 Fast (`claude-opus-4.6-fast`) is deprecated in favor of Claude Opus 4.8 Fast (`claude-opus-4.8-fast`), which offers newer Opus quality at comparable speed.
 
 > **v1.0.83+:** Retired Claude and Gemini models are no longer listed in `/model` picker results, keeping the list limited to models you can actually select.
+
+> **v1.0.85+:** GPT-6 Astra (`gpt-6-astra`) support added. Streamer mode now masks internal model names in `/model`, the footer, and startup diagnostics without restarting model initialization when toggled.
 
 > **Note:** Multipliers can change as GitHub updates pricing. Always run `/model` to see current multipliers and available models before committing to a long session.
 

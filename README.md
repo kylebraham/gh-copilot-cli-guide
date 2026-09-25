@@ -81,6 +81,19 @@ npm update -g @github/copilot
 ```
 
 **Latest features:**
+- 🔔 Optional OSC 777 terminal notifications when a turn finishes, for direct Ghostty/WezTerm sessions; text selection now works in bottom-anchored dialogs (including login device codes); freeform `ask_user` prompts insert a new line on `Enter`, submitting with `Ctrl+Enter`/`Ctrl+S` (v1.0.88)
+- 🗂️ Sessions tab rows need `x` then `x` again to confirm dismissal — local sessions are deleted, server-backed sessions are only closed, with the footer stating which; `/allow-all` and exact per-path session approvals now survive a failed managed-settings refresh (v1.0.88)
+- 🤝 A custom agent's `reasoning-effort` applies as soon as the agent is selected instead of only its model; custom-agent startup distinguishes model-list load failures from an empty catalog; `/fork` can run during an active turn (v1.0.88)
+- 🩹 Enterprise managed settings now apply to ACP/AHP/`--server` sessions; MCP tools recover more reliably from transient failures and stay scoped to environment-resolved addresses; session resume preserves pending events when saving fails and no longer stalls on pending MCP permission prompts; namespaced custom skills and ignored skill directories are supported (v1.0.88)
+- 🧭 Auto model routing gains user and managed startup defaults, plus a strict/user-overridable organization policy for the tier; consecutive steering prompts sent while the agent is busy now combine into one pending message, with `Up` recalling it for editing and `Ctrl+P` browsing history without withdrawing prompts (v1.0.87)
+- 📁 New `worktreePathTemplate` setting controls where `/worktree`, `/move`, `/new`, and `--worktree` create worktrees using `{repoPath}`/`{repo}`/`{branch}`/`{branchSlug}` placeholders; sandbox proxies now work on Windows, including proxies with a username and password (v1.0.87)
+- 🩹 A failing MCP server no longer removes other servers' tools; session resume no longer hangs while reconnecting MCP servers; `copilot mcp list`/`copilot mcp get` report the built-in `github-mcp-server` when signed in; per-server `slowConnectionThresholdMs` setting; the rubber-duck agent is enabled for every model family and low-cost-tier session models (v1.0.87)
+- 🤝 Custom agents can opt into repository instruction files (`AGENTS.md`, `copilot-instructions.md`, `CLAUDE.md`) via `include-custom-instructions: true` in their frontmatter (v1.0.86)
+- 🩹 Resuming a session without plugin-directory/discovery/working-directory overrides now preserves marketplace plugins and skills after reload; sessions resume even when transcript files contain recoverable corruption; `/sandbox policy` reports local-network access using your configured setting; autopilot stops after accepted task completion instead of continuing unexpectedly; the status row now says it's waiting for background shells instead of "Working" when one is still running at turn end; expanded reasoning text in the compact timeline is no longer dimmed (v1.0.86)
+- ⌨️ Vim mode is now available to everyone (`/vim` or `editorMode: vim`); new `/config` sidebar configuration screen; `transcriptView: concise` groups tool activity into expandable work summaries (v1.0.85)
+- 🔌 `enable`/`disable` built directly into `copilot plugin`/`mcp`/`skill`; new `copilot instruction list`/`copilot lsp list`; `--json` on plugin/marketplace list and browse commands; new `copilot session import`/`copilot memory import` for the semantic JSONL interchange format; GPT-6 Astra model support (v1.0.85)
+- ⚠️ **Breaking:** `copilot plugins install --skill` replaced by `copilot skill add [--project]`; cross-kind `--kind`/`--scope`/`--mcp`/`--skill` flags removed from `copilot plugins`; `copilot plugins list --json` is now a flat array and `copilot plugins list` reports only plugins (v1.0.85)
+- 🛡️ `/sandbox` gains Network host allow/deny rules layered on top of your configured proxy; managed sandbox sessions can be disabled for the rest of the session from an approved bypass prompt; `--add-dir` rejects invalid paths before session startup (v1.0.85)
 - 🖥️ Running Copilot sessions show in the Windows 11 taskbar with live hover status cards; the split Sessions sidebar gains Recent/Created/Name/None sort orders saved across restarts (v1.0.83)
 - 🔐 MCP OAuth sign-in gains Client ID Metadata Document (CIMD) support; custom agents can list several fallback models tried in order, with `model-policy: required` restricting in-session changes to that list; new `claude-fable-5.1` model, retired Claude/Gemini models removed from `/model` picker (v1.0.83)
 - 🏢 New `forceLoginOrgs` managed setting lets enterprise admins pin `copilot login` to approved GitHub organizations (v1.0.83)
@@ -471,4 +484,4 @@ Go to **Actions → Daily Doc Maintenance → Run workflow** to trigger it on de
 
 ---
 
-**Note:** This guide covers GitHub Copilot CLI v1.0.83. Some capabilities may vary by version — run `/update` to stay current.
+**Note:** This guide covers GitHub Copilot CLI v1.0.88. Some capabilities may vary by version — run `/update` to stay current.

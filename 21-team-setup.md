@@ -412,6 +412,12 @@ Enterprise admins can pin `copilot login` to a set of approved GitHub organizati
 
 **Why use it:** Prevents engineers from authenticating Copilot CLI with a personal or non-approved organization account, keeping usage tied to org-managed billing, policy, and audit trails.
 
+### Auto Routing Tier Defaults and Policy (v1.0.87+)
+
+Enterprise admins can now set a managed startup default for the **Auto** model routing tier, in addition to each user's own default, and can enforce either a **strict** policy (users can't override the tier) or a **user-overridable** policy (users can switch away from the org default for their own sessions).
+
+**Why use it:** Standardize on Auto routing across the org for cost or governance reasons, while still leaving room for teams that need to pin a specific model to override it when a strict policy isn't required.
+
 ### Audit Considerations
 
 - Copilot CLI logs sessions to `~/.copilot/logs/` — review these if an automated job behaves unexpectedly

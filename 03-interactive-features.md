@@ -96,6 +96,8 @@ Mastering keyboard shortcuts makes you significantly more efficient:
 
 The subcommand picker highlights the selected item with a **❯** indicator (v1.0.36+), making it easy to confirm which option you are about to accept.
 
+> **v1.0.85+:** **Vim mode** is now available to everyone. Turn it on with `/vim` or by setting `editorMode` to `vim` in `/settings` for modal editing (normal/insert modes) in the composer — the current mode is shown while you type. See [Slash Commands — /vim](04-slash-commands.md#vim).
+
 ## Interaction Modes
 
 `Shift+Tab` cycles through the available interaction modes:
@@ -201,6 +203,12 @@ Ctrl+X → O     # Open a link from the most recent timeline event
 
 > **v1.0.78+:** Timeline headers show how long each tool call took, right-aligned and ticking live while the call is still running, for calls of at least 5 seconds. This is on by default; disable it with `/settings showToolDurations off`.
 
+> **v1.0.85+:** Set `transcriptView` to `"concise"` in `/settings` to group tool activity into expandable work summaries instead of showing every tool call inline — useful for keeping the timeline scannable during long turns.
+
+> **v1.0.86+:** Expanded reasoning text in the compact timeline is no longer dimmed, so it's as readable as the rest of the timeline.
+
+> **v1.0.87+:** Execution subagent entries in the timeline now show a live elapsed-time counter while they're still running, matching the tool-call duration behavior above.
+
 ### Why Use Timeline?
 
 - **Review context** - See what was discussed
@@ -258,6 +266,8 @@ Press `Ctrl+Q` or `Ctrl+Enter` to queue a message while the agent is running ins
 > **v1.0.76:** A directable queue manager lets you reorder, edit, remove, repeat, and immediately send queued messages instead of only appending to the end of the queue. The queued-messages list no longer shows a blank row or an inflated count, and `Ctrl+C` removes only your own newest queued message.
 
 > **v1.0.79+:** Local sessions can queue prompts, shell commands (`!`), and supported slash commands together, running them in order after the current task finishes — not just plain chat messages.
+
+> **v1.0.87+:** Consecutive **steering prompts** — messages sent while the agent is busy, in the same mode — now combine into a single pending message instead of stacking up separately. Press `Up` in an empty chat input to recall the pending message for editing, including pasted text and attachments; a recall hint is shown in the message. `Ctrl+C` stops the running turn instead of removing pending prompts one at a time. `Ctrl+Q` queued prompts remain a separate list, and `Ctrl+P` still browses history without withdrawing prompts. Available for local sessions only; commands and prompts already being processed can't be recalled.
 
 ### Direct Shell Execution with !
 
@@ -318,6 +328,10 @@ Watch progress during long operations:
 ✅ All tests passed!
 ```
 
+> **v1.0.86+:** If a turn ends while an attached background shell (such as a dev server) is still running, the status row now says it's **waiting for background shells** instead of "Working," making it clearer why the CLI hasn't returned to the prompt.
+
+> **v1.0.88+:** Copilot CLI can send an optional OSC 777 terminal notification when a turn finishes, for direct sessions in **Ghostty** and **WezTerm** — letting the terminal itself surface a native notification instead of relying on a terminal bell.
+
 ### Error Handling
 
 If something goes wrong:
@@ -334,6 +348,10 @@ AI: Would you like me to:
   
 > Enter choice (1-3): _
 ```
+
+> **v1.0.87+:** Number-key selection in this dialog now works correctly for choices 10 and beyond.
+
+> **v1.0.88+:** Text selection now works inside bottom-anchored dialogs, including the login device-code prompt — you can select and copy the code directly instead of retyping it. In freeform `ask_user` prompts, pressing `Enter` now inserts a new line instead of submitting; submit with `Ctrl+Enter` or `Ctrl+S`.
 
 ## Context Management
 
@@ -429,6 +447,10 @@ Sessions persist across launches, so you can continue where you left off.
 > **v1.0.76:** A new Sessions sidebar for managing multiple concurrent sessions — switch between them, spawn new ones, and see their status at a glance — is available behind experimental mode. Turn it on with `/experimental on`.
 
 > **v1.0.83+:** The split Sessions sidebar gains **Recent**, **Created**, **Name**, and classic **None** sort orders, with your selected order remembered across restarts. On Windows 11, running Copilot sessions now show in the **taskbar** with live hover status cards, so you can check progress without switching to the terminal window. CLI startup no longer shows the interrupted-session restore prompt by default.
+
+> **v1.0.86+:** Resuming an active session without plugin-directory, discovery, or working-directory overrides now preserves marketplace plugins and skills after reload instead of dropping them on a configuration read/validation failure. Sessions also resume even when their transcript files contain recoverable corruption.
+
+> **v1.0.88+:** In the Sessions tab/sidebar, dismissing a row now takes pressing `x` then `x` again to confirm — a **local** session is permanently deleted, while a session backed by a server is only closed, leaving its conversation intact on the server. The footer states which of the two the highlighted row will do, and shows no `x` hint at all for rows that can't be dismissed.
 
 ## Advanced Context & Session Strategies
 

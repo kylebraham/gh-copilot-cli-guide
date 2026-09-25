@@ -151,6 +151,11 @@ As of v1.0.35, user-editable settings live in `~/.copilot/settings.json`. This f
   // Which ref /worktree, /worktree new, and --worktree start from: "head" or "default-branch" (v1.0.79+; default is now "head")
   "worktreeBaseRef": "head",
 
+  // Template controlling where /worktree, /move, /new, and --worktree create worktrees (v1.0.87+)
+  // Supported placeholders: {repoPath}, {repo}, {branch}, {branchSlug}
+  // Unset keeps the current layout: a "<repo>.worktrees/" directory with slashes in the branch name flattened to dashes
+  "worktreePathTemplate": "~/src/worktrees/{repo}/{branch}",
+
   // Startup mode and approval behavior for new interactive sessions (v1.0.81+)
   "defaultMode": "default",
   "defaultPermissionMode": "default",
