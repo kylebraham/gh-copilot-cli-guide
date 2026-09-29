@@ -899,6 +899,7 @@ Instructions are read from:
 AGENTS.md                                    # Agent config
 CLAUDE.md                                    # Claude-specific
 GEMINI.md                                    # Gemini-specific
+.claude/rules/**/*.md                        # Claude Code rule files (v1.0.89+)
 ~/.copilot/copilot-instructions.md          # Global
 ```
 
@@ -1298,6 +1299,8 @@ copilot skill enable my-skill
 copilot skill disable my-skill
 ```
 
+> **v1.0.89+:** Direct plugin installs (not from a marketplace) can now be enabled and disabled too. A direct install already recorded as disabled stops loading on startup; re-enable it with `copilot plugin enable`.
+
 New `copilot instruction list` and `copilot lsp list` commands replace `copilot plugins list --kind instruction` and `--kind lsp`. `copilot skill add [--project]` replaces `copilot plugins install --skill` for installing a skill from a file, URL, or directory.
 
 > ⚠️ **Breaking (v1.0.85+):** The cross-kind `--kind`, `--scope`, `--mcp`, and `--skill` flags are removed from `copilot plugins` — use `copilot mcp` and `copilot skill` for those resources instead. `copilot plugins list --json` now emits a flat array of plugins instead of the old `{ plugins, errors }` object; update scripts that read `.plugins`. `copilot plugins list` is now an alias of `copilot plugin list` and reports only plugins, no longer MCP servers, skills, instructions, or LSP servers. The `--scope` spelling on `copilot plugins install --skill` is gone entirely — use `copilot skill add --project`.
@@ -1621,6 +1624,8 @@ Set in config:
 > **v1.0.87+:** Sandbox proxies now work on Windows, and a proxy configured with a username and password now works on every platform.
 
 > **v1.0.88+:** A sandboxed network denial caused by a proxy tunnel failure now shows bypass guidance in the error message, instead of a bare denial with no next step.
+
+> **v1.0.89+:** Sandboxed commands on supported Windows versions can now reach `localhost` when **Local network access** is turned on in `/sandbox`, matching the macOS/Linux behavior.
 
 > **v1.0.66+:** Session credit limits (the `sessionLimits` setting) must now be at least 30 AI credits, and now apply across the whole current conversation, resetting on `/clear`.
 

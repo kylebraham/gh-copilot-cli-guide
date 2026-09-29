@@ -361,9 +361,12 @@ Priority (Highest to Lowest):
 2. .github/copilot-instructions.md            (Copilot ecosystem: CLI + Chat + coding agent)
 3. AGENTS.md                                  (cross-tool: CLI + Claude Code + Codex)
 4. CLAUDE.md / GEMINI.md                      (model-specific)
-5. ~/.copilot/copilot-instructions.md         (user global)
-6. COPILOT_CUSTOM_INSTRUCTIONS_DIRS           (additional dirs via env var; NEW)
+5. .claude/rules/**/*.md                      (Claude Code rule files; v1.0.89+)
+6. ~/.copilot/copilot-instructions.md         (user global)
+7. COPILOT_CUSTOM_INSTRUCTIONS_DIRS           (additional dirs via env var; NEW)
 ```
+
+> **v1.0.89+:** Copilot CLI now also reads Claude Code rule files under `.claude/rules` as custom instructions, so teams that already maintain rules for Claude Code get the same guidance applied without duplicating it into `AGENTS.md` or `CLAUDE.md`.
 
 ### When to Use Each File
 
