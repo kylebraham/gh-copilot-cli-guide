@@ -1,4 +1,4 @@
-# Latest Features in GitHub Copilot CLI — v1.0.89
+# Latest Features in GitHub Copilot CLI — v1.0.90
 
 This file covers recent additions to GitHub Copilot CLI. Features marked with "Full guide →" have their own dedicated documentation file — the entries here are summaries with links. Features without a dedicated file are covered in full below.
 
@@ -10,7 +10,8 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 3. [Research Command (`/research`)](#research-command-research) — [Full guide →](19-research-command.md)
 
 ### Features covered in this file
-4. [New in v1.0.89](#new-in-v1089)
+4. [New in v1.0.90](#new-in-v1090)
+5. [New in v1.0.89](#new-in-v1089)
 4. [New in v1.0.88](#new-in-v1088)
 4. [New in v1.0.87](#new-in-v1087)
 4. [New in v1.0.86](#new-in-v1086)
@@ -99,6 +100,34 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 ---
 
 ---
+
+## New in v1.0.90
+
+Released: 2026-09-30
+
+### New Model: GPT-6.1 Sol
+
+GPT-6.1 Sol (`gpt-6.1-sol`) is now available in the model picker. This newest generation of the Sol family offers improved reasoning and coding capabilities. See [Model Selection Strategy — Available Models Overview](22-models-and-costs.md#1-available-models-overview).
+
+**Why it matters:** Another frontier model option for tasks requiring the latest GPT reasoning and coding performance.
+
+### Improved Tool Call UX and MCP Reliability
+
+Tool calls in compact timeline now collapse when clicked anywhere on the expanded row, giving more intuitive interaction. MCP tools also recover more gracefully after transient discovery failures without requiring a session restart — unchanged catalogs remain available during recovery, and stale tool calls no longer block completion. Voice mode hold-space hints now show even when voice is off or still initializing.
+
+**Why it matters:** Better responsiveness when managing tool output, and more resilient MCP server handling prevents session disruption from temporary glitches.
+
+### Permission and Session Resumption Fixes
+
+Permission prompts now remain answerable after resuming interrupted sessions, fixing a frustrating loss of interactivity. Clipboard operations on Wayland now complete as soon as `wl-copy` accepts input instead of timing out and falling back to an in-process clipboard. Auto-approval now correctly takes into account messages typed while the agent is working, not just during idle periods.
+
+**Why it matters:** Session interruptions are less disruptive, clipboard usage is more responsive on Wayland, and auto-approval logic is more consistent.
+
+### Notable Improvements
+
+- Compaction now returns a summary even when custom instructions ask for tool use.
+- A narrow Sessions sidebar drops keyboard hints that don't fit instead of cutting one off mid-word.
+- Managed Connector authorization URLs are now copyable, making sign-in easier to share or re-attempt.
 
 ## New in v1.0.89
 

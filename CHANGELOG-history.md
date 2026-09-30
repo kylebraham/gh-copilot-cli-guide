@@ -1,5 +1,15 @@
 # Documentation Updates
 
+## 2026-09-30 — Docs updated for v1.0.90
+
+- `README.md`: Bumped version note to v1.0.90
+- `16-new-features.md`: Updated title to v1.0.90; added TOC entry and new "New in v1.0.90" section covering GPT-6.1 Sol model support, improved tool-call UX in compact timeline, MCP transient-failure recovery without session restart, permission-prompt answerability after session resume, Wayland clipboard completion, auto-approval message-awareness fix, compaction summary generation, Sessions sidebar narrow-mode hint truncation, and copyable Connector authorization URL
+- `22-models-and-costs.md`: Added GPT-6.1 Sol (`gpt-6.1-sol`) to the Available Models table; added a v1.0.90+ note on model additions
+
+### Feature Summary (v1.0.90)
+- **New:** GPT-6.1 Sol (`gpt-6.1-sol`) added to the model picker
+- **Fixed:** Tool calls in compact timeline collapse on any click; MCP tools recover after transient discovery failures without session restart; permission prompts remain answerable after session resume; Wayland clipboard operations complete immediately instead of timing out; auto-approval accounts for typed messages during agent work; compaction returns summaries even with tool-use instructions; Sessions sidebar handles hints better in narrow mode; Connector authorization URL is copyable for easier re-authentication
+
 ## 2026-09-29 — Docs updated for v1.0.89
 
 - `README.md`: Bumped version note to v1.0.89; added "Latest features" bullets for v1.0.89 (Claude Opus 5.5/GPT-6 Sol/GPT-6 Luna models, `/model` autocomplete, Auto tier cycling fix with Fast profile removed in favor of Balance, `ask_user`/elicitation click-to-focus, Sessions sidebar blue-dot unread indicator and live tab persistence, `.claude/rules` custom instructions, PR creation following repository templates, Windows sandbox localhost access, direct plugin install enable/disable, `TGREP_FILE_COUNT_THRESHOLD`, copyable Connector authorization URL)

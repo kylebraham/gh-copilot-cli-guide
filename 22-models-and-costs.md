@@ -35,6 +35,7 @@ Understanding how to choose the right model — and when to switch — is one of
 | Claude Fable 5.1 | `claude-fable-5.1` | Varies | Newest Claude Fable family model (v1.0.83+) |
 | Claude Haiku 4.5 | `claude-haiku-4.5` | Fastest | Quick tasks, fleet subagents, docs, formatting |
 | GPT-6 Sol | `gpt-6-sol` | Fast | Newest GPT generation (v1.0.89+) |
+| GPT-6.1 Sol | `gpt-6.1-sol` | Fast | Newest GPT-6 generation (v1.0.90+) |
 | GPT-6 Luna | `gpt-6-luna` | Fast | Newest GPT generation (v1.0.89+) |
 | GPT-6 Astra | `gpt-6-astra` | Fast | Newest GPT generation (v1.0.85+) |
 | GPT-5.6 | `gpt-5.6` | Fast | Newest GPT generation — added v1.0.70 |
@@ -59,6 +60,8 @@ Understanding how to choose the right model — and when to switch — is one of
 > **v1.0.85+:** GPT-6 Astra (`gpt-6-astra`) support added. Streamer mode now masks internal model names in `/model`, the footer, and startup diagnostics without restarting model initialization when toggled.
 
 > **v1.0.89+:** Claude Opus 5.5 (`claude-opus-5.5`), GPT-6 Sol (`gpt-6-sol`), and GPT-6 Luna (`gpt-6-luna`) support added.
+
+> **v1.0.90+:** GPT-6.1 Sol (`gpt-6.1-sol`) support added.
 
 > **Note:** Multipliers can change as GitHub updates pricing. Always run `/model` to see current multipliers and available models before committing to a long session.
 
