@@ -1627,6 +1627,26 @@ Set in config:
 
 > **v1.0.89+:** Sandboxed commands on supported Windows versions can now reach `localhost` when **Local network access** is turned on in `/sandbox`, matching the macOS/Linux behavior.
 
+> **v1.0.91+:** Sandbox proxy certificate authority (CA) commands are now available for fine-grained management:
+>
+> ```bash
+> # Check current CA certificate status
+> copilot sandbox ca check
+>
+> # Create a new proxy CA certificate (replaces /sandbox ca install)
+> copilot sandbox ca create
+>
+> # Trust a CA certificate for sandboxed commands (replaces /sandbox ca install)
+> copilot sandbox ca trust
+>
+> # Rotate the current CA certificate
+> copilot sandbox ca rotate
+>
+> # Remove the proxy CA certificate
+> copilot sandbox ca remove
+> ```
+> Unattended Windows setup now supports CA certificate installation, eliminating manual intervention requirements on Windows systems.
+
 > **v1.0.66+:** Session credit limits (the `sessionLimits` setting) must now be at least 30 AI credits, and now apply across the whole current conversation, resetting on `/clear`.
 
 ### Code Review

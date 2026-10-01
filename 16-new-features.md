@@ -1,4 +1,4 @@
-# Latest Features in GitHub Copilot CLI — v1.0.90
+# Latest Features in GitHub Copilot CLI — v1.0.91
 
 This file covers recent additions to GitHub Copilot CLI. Features marked with "Full guide →" have their own dedicated documentation file — the entries here are summaries with links. Features without a dedicated file are covered in full below.
 
@@ -10,7 +10,8 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 3. [Research Command (`/research`)](#research-command-research) — [Full guide →](19-research-command.md)
 
 ### Features covered in this file
-4. [New in v1.0.90](#new-in-v1090)
+4. [New in v1.0.91](#new-in-v1091)
+5. [New in v1.0.90](#new-in-v1090)
 5. [New in v1.0.89](#new-in-v1089)
 4. [New in v1.0.88](#new-in-v1088)
 4. [New in v1.0.87](#new-in-v1087)
@@ -97,7 +98,41 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 
 ---
 
----
+## New in v1.0.91
+
+Released: 2026-10-01
+
+### Enhanced Sandbox Certificate Authority Management
+
+Sandbox certificate authority (`copilot sandbox ca`) commands are now fully expanded:
+
+- `copilot sandbox ca check` — Check the current CA certificate status
+- `copilot sandbox ca create` — Create a new proxy CA certificate (replaces `/sandbox ca install`)
+- `copilot sandbox ca trust` — Trust a CA certificate for sandboxed commands (replaces `/sandbox ca install`)
+- `copilot sandbox ca rotate` — Rotate the current CA certificate
+- `copilot sandbox ca remove` — Remove the proxy CA certificate
+
+Notably, unattended Windows setup now supports CA certificate installation, eliminating manual intervention steps on Windows systems.
+
+**Why it matters:** Finer-grained control over sandboxed proxy certificate management, and Windows automation no longer requires interactive intervention.
+
+### Shell Pipeline Static Analysis for Execution-Evidence Review
+
+Read-only shell pipelines that are complete and statically analyzable can now enter execution-evidence review, skipping the need for explicit approval. Incomplete or unbound pipelines still require manual approval.
+
+**Why it matters:** Safe, auditable read-only shell commands execute faster without blocking on approval gates.
+
+### Windows Sandbox Network Improvements
+
+Sandboxed commands on Windows can now run even when filesystem enumeration is not supported, with a warning that PowerShell's current location may be incorrect. Node/npm operations that trigger EACCES socket denials now have a sandbox network bypass available, matching behavior on other platforms.
+
+**Why it matters:** Sandboxed command execution is more robust on Windows, and Node.js tools work reliably in restricted environments.
+
+### Improved Telemetry and Session Stability
+
+CLI shutdown now flushes pending telemetry before exit with a bounded delay, ensuring complete usage data collection. Session timeline busy status correctly clears after interrupted turns complete, preventing stuck UI states.
+
+**Why it matters:** Better visibility into CLI usage patterns, and session UIs remain responsive after recoveries.
 
 ---
 

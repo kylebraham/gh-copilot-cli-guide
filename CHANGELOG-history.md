@@ -1,5 +1,17 @@
 # Documentation Updates
 
+## 2026-10-01 — Docs updated for v1.0.91
+
+- `README.md`: Bumped version note to v1.0.91
+- `16-new-features.md`: Updated title to v1.0.91; added TOC entry and new "New in v1.0.91" section covering enhanced sandbox CA management (`copilot sandbox ca` commands), shell pipeline static analysis for execution-evidence review, Windows sandbox network improvements for filesystem-enumeration-unsupported systems and Node/npm EACCES fixes, and improved telemetry/session stability
+- `08-advanced-features.md`: Added v1.0.91+ notes under File Access Control for the new `copilot sandbox ca` subcommands (check, create, trust, rotate, remove) and Windows unattended CA installation support
+
+### Feature Summary (v1.0.91)
+- **New:** `copilot sandbox ca` commands (check, create, trust, rotate, remove) for fine-grained proxy CA management; `/sandbox ca install` replaced by `create` and `trust`
+- **New:** Read-only shell pipelines that are complete and statically analyzable can enter execution-evidence review, skipping explicit approval
+- **Improved:** Sandbox command execution on Windows with filesystem enumeration unsupported; Node/npm EACCES socket denials now have bypass option
+- **Fixed:** CLI shutdown flushes pending telemetry before exit; session timeline busy status clears after interrupted turns complete
+
 ## 2026-09-30 — Docs updated for v1.0.90
 
 - `README.md`: Bumped version note to v1.0.90
