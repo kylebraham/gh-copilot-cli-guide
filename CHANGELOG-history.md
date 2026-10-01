@@ -1,5 +1,52 @@
 # Documentation Updates
 
+## 2026-10-01 — Docs updated for v1.0.91
+
+- `README.md`: Bumped version note to v1.0.91
+- `16-new-features.md`: Updated title to v1.0.91; added TOC entry and new "New in v1.0.91" section covering enhanced sandbox CA management (`copilot sandbox ca` commands), shell pipeline static analysis for execution-evidence review, Windows sandbox network improvements for filesystem-enumeration-unsupported systems and Node/npm EACCES fixes, and improved telemetry/session stability
+- `08-advanced-features.md`: Added v1.0.91+ notes under File Access Control for the new `copilot sandbox ca` subcommands (check, create, trust, rotate, remove) and Windows unattended CA installation support
+
+### Feature Summary (v1.0.91)
+- **New:** `copilot sandbox ca` commands (check, create, trust, rotate, remove) for fine-grained proxy CA management; `/sandbox ca install` replaced by `create` and `trust`
+- **New:** Read-only shell pipelines that are complete and statically analyzable can enter execution-evidence review, skipping explicit approval
+- **Improved:** Sandbox command execution on Windows with filesystem enumeration unsupported; Node/npm EACCES socket denials now have bypass option
+- **Fixed:** CLI shutdown flushes pending telemetry before exit; session timeline busy status clears after interrupted turns complete
+
+## 2026-09-30 — Docs updated for v1.0.90
+
+- `README.md`: Bumped version note to v1.0.90
+- `16-new-features.md`: Updated title to v1.0.90; added TOC entry and new "New in v1.0.90" section covering GPT-6.1 Sol model support, improved tool-call UX in compact timeline, MCP transient-failure recovery without session restart, permission-prompt answerability after session resume, Wayland clipboard completion, auto-approval message-awareness fix, compaction summary generation, Sessions sidebar narrow-mode hint truncation, and copyable Connector authorization URL
+- `22-models-and-costs.md`: Added GPT-6.1 Sol (`gpt-6.1-sol`) to the Available Models table; added a v1.0.90+ note on model additions
+
+### Feature Summary (v1.0.90)
+- **New:** GPT-6.1 Sol (`gpt-6.1-sol`) added to the model picker
+- **Fixed:** Tool calls in compact timeline collapse on any click; MCP tools recover after transient discovery failures without session restart; permission prompts remain answerable after session resume; Wayland clipboard operations complete immediately instead of timing out; auto-approval accounts for typed messages during agent work; compaction returns summaries even with tool-use instructions; Sessions sidebar handles hints better in narrow mode; Connector authorization URL is copyable for easier re-authentication
+
+## 2026-09-29 — Docs updated for v1.0.89
+
+- `README.md`: Bumped version note to v1.0.89; added "Latest features" bullets for v1.0.89 (Claude Opus 5.5/GPT-6 Sol/GPT-6 Luna models, `/model` autocomplete, Auto tier cycling fix with Fast profile removed in favor of Balance, `ask_user`/elicitation click-to-focus, Sessions sidebar blue-dot unread indicator and live tab persistence, `.claude/rules` custom instructions, PR creation following repository templates, Windows sandbox localhost access, direct plugin install enable/disable, `TGREP_FILE_COUNT_THRESHOLD`, copyable Connector authorization URL)
+- `16-new-features.md`: Updated title to v1.0.89; added TOC entry; added a "New in v1.0.89" section covering the new models, `/model` autocomplete and Auto tier cycling/Fast-profile fix, `ask_user`/elicitation click-to-focus, Sessions sidebar unread indicator and tab persistence, `.claude/rules` custom instructions, PR-template-aware PR creation, and a Notable Fixes list (Windows sandbox localhost access, direct plugin install enable/disable, `TGREP_FILE_COUNT_THRESHOLD`, copyable Connector authorization URL, `Esc Esc` prompt take-back, queued exit commands, MCP slash-containing tool-name filters, shell output trailing-metadata removal, timeline auto-follow during selection, managed-MCP-policy extension loading, Git empty-env-var fix, ACP paused-read stability, Gemini nullable-discriminated-union schema fix, GitHub MCP first-startup connection fix, `ask_user` Other-answer isolation, MCP config sibling-entry resilience, direct session deletion, Claude attachment-size auto-recovery, shell-listing running-first order, view-tool flattened `view_range` support)
+- `22-models-and-costs.md`: Added Claude Opus 5.5, GPT-6 Sol, and GPT-6 Luna to the Available Models table; added a v1.0.89+ note on the Auto tier for cycling fix and Fast-profile removal/fallback to Balance; added a v1.0.89+ note under Switching Models for `/model` autocomplete
+- `04-slash-commands.md`: Added a v1.0.89+ note to `/model` for the new models, autocomplete, and Auto tier cycling/Fast-profile fix
+- `03-interactive-features.md`: Added a v1.0.89+ note under Error Handling for `ask_user`/elicitation click-to-focus; added a v1.0.89+ note under Switching Sessions for the blue-dot unread indicator and live tab persistence; added a v1.0.89+ note under Queued Messages for `Esc Esc` prompt take-back and queued exit commands; updated the Essential Shortcuts `Esc` row
+- `13-agents-file.md`: Added `.claude/rules/**/*.md` to the Instruction File Hierarchy with a v1.0.89+ note
+- `08-advanced-features.md`: Added `.claude/rules/**/*.md` to Custom Instructions → Instruction Locations; added a v1.0.89+ note under Enable/Disable for direct plugin install enable/disable; added a v1.0.89+ note under sandbox notes for Windows localhost access
+- `07-github-integration.md`: Added a v1.0.89+ note under Basic Delegation for PR creation following repository pull request templates; added a v1.0.89+ note under Authentication Issues for the copyable Connector authorization URL
+- `05-file-context.md`: Added a v1.0.89+ note under Finding Code for the `TGREP_FILE_COUNT_THRESHOLD` environment variable
+- `00-cheat-sheet.md`: Updated the `Esc` row to mention the v1.0.89 empty-input prompt take-back
+
+### Feature Summary (v1.0.89)
+- **New:** Claude Opus 5.5, GPT-6 Sol, and GPT-6 Luna added to the model picker
+- **New:** `/model` (and `/model plan`) autocompletes model IDs as you type
+- **New:** Left-clicking a supported `ask_user`/elicitation form input focuses it and places the cursor at the clicked position
+- **New:** Sessions sidebar shows a blue dot for sessions that finished a turn you haven't opened yet, and saves opened/closed tabs as they change
+- **New:** Claude Code rule files under `.claude/rules` are read as custom instructions
+- **New:** PR creation follows a repository's pull request template, preserving required sections and checklist structure
+- **New:** Direct (non-marketplace) plugin installs can be enabled and disabled with `copilot plugin enable`/`disable`
+- **New:** `TGREP_FILE_COUNT_THRESHOLD` environment variable configures automatic indexed-search activation
+- **Fixed:** Auto tier cycling in `/model` advances correctly; the unsupported Fast profile is removed and falls back to Balance
+- **Fixed:** Sandboxed commands on supported Windows versions can reach `localhost` when Local network access is on; managed Connector consent shows a copyable authorization URL; `Esc Esc` in an empty chat input takes back an unanswered prompt (local sessions); exit commands can be queued while an agent response is running; `server/tool`/`server/*` MCP filters match slash-containing tool names; shell output no longer shows trailing completion metadata; timeline stops auto-following during text selection; extensions load correctly under enterprise managed MCP policy; Git failures from dropped empty env vars (Git 2.36+); ACP sessions stay connected during paused reads; Gemini nullable-discriminated-union MCP schema fix; GitHub MCP first-startup connection fix; `ask_user` Other-answer isolation across questions; MCP config keeps valid workspace servers despite invalid siblings; deleting old sessions succeeds directly in the CLI; Claude attachment-size-limit auto-recovery; shell listing shows running shells first; view tool honors flattened `view_range` arguments
+
 ## 2026-09-23 — Docs updated for v1.0.88
 
 - `README.md`: Bumped version note to v1.0.88; added "Latest features" bullets for v1.0.88 (OSC 777 terminal notifications for Ghostty/WezTerm, bottom-anchored dialog text selection, `ask_user` newline-on-Enter, Sessions tab dismiss confirmation with local-delete vs server-close distinction, `/allow-all`/exact-path-approval survival across managed-settings refresh failures, custom-agent `reasoning-effort` applying on agent selection, custom-agent startup model-list-failure fix, `/fork` during active turns, ACP/AHP/`--server` managed-settings enforcement, MCP reliability and scoping fixes, skill-discovery namespacing/ignored-directories)

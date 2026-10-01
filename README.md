@@ -81,6 +81,10 @@ npm update -g @github/copilot
 ```
 
 **Latest features:**
+- 🧭 New models: Claude Opus 5.5, GPT-6 Sol, and GPT-6 Luna join the model picker; `/model` now autocompletes model IDs, and the Auto tier's picker cycling is fixed with the unsupported Fast profile removed — a stored Fast preference now falls back to Balance (v1.0.89)
+- 🖱️ Left-clicking a supported `ask_user`/elicitation form input now focuses it and places the cursor at the click position; the Sessions sidebar shows a blue dot on sessions that finished a turn you haven't opened yet, and saves opened/closed tabs as they change instead of only on exit (v1.0.89)
+- 📄 Custom instructions can now come from Claude Code rule files in `.claude/rules`; PR creation via `/delegate` now follows repository pull request templates, preserving required sections and checklist structure (v1.0.89)
+- 🩹 Sandboxed commands on supported Windows versions can reach localhost when **Local network access** is on; direct plugin installs can be enabled/disabled with `copilot plugin enable`/`disable`; a new `TGREP_FILE_COUNT_THRESHOLD` setting controls automatic indexed-search activation; managed Connector consent now shows a copyable authorization URL during connect/reconnect (v1.0.89)
 - 🔔 Optional OSC 777 terminal notifications when a turn finishes, for direct Ghostty/WezTerm sessions; text selection now works in bottom-anchored dialogs (including login device codes); freeform `ask_user` prompts insert a new line on `Enter`, submitting with `Ctrl+Enter`/`Ctrl+S` (v1.0.88)
 - 🗂️ Sessions tab rows need `x` then `x` again to confirm dismissal — local sessions are deleted, server-backed sessions are only closed, with the footer stating which; `/allow-all` and exact per-path session approvals now survive a failed managed-settings refresh (v1.0.88)
 - 🤝 A custom agent's `reasoning-effort` applies as soon as the agent is selected instead of only its model; custom-agent startup distinguishes model-list load failures from an empty catalog; `/fork` can run during an active turn (v1.0.88)
@@ -484,4 +488,4 @@ Go to **Actions → Daily Doc Maintenance → Run workflow** to trigger it on de
 
 ---
 
-**Note:** This guide covers GitHub Copilot CLI v1.0.88. Some capabilities may vary by version — run `/update` to stay current.
+**Note:** This guide covers GitHub Copilot CLI v1.0.91. Some capabilities may vary by version — run `/update` to stay current.

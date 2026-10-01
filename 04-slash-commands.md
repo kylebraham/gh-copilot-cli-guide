@@ -249,6 +249,8 @@ Select or change the AI model.
 > **v1.0.77+:** Reasoning effort can now be left unset — omit it and the server selects the default effort level for the chosen model instead of requiring you to pick one explicitly.
 >
 > **v1.0.79+:** `kimi-k3` is now available as a supported model. See [Model Selection Strategy](22-models-and-costs.md) for details. The model picker also now groups models into **Recent**, **Recommended**, **New**, and other sections; press `Shift+Tab` to cycle between grouping views. `/model` changes are now **session-scoped by default**; use `/config model <model-id>` to set the default model for future sessions instead.
+>
+> **v1.0.89+:** Claude Opus 5.5, GPT-6 Sol, and GPT-6 Luna are now available as supported models. Typing a model ID into the `/model` (and `/model plan`) picker now autocompletes matching IDs. Cycling through the **Auto** tier's routing options now advances correctly, and the unsupported **Fast** profile has been removed — a stored, exported, or resumed Fast preference now falls back to **Balance**. See [Model Selection Strategy](22-models-and-costs.md) for details.
 
 ### /context
 
