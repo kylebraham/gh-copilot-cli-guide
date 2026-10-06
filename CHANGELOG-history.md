@@ -1,5 +1,18 @@
 # Documentation Updates
 
+## 2026-10-06 — Docs updated for v1.0.92
+
+- `README.md`: Bumped version note to v1.0.92
+- `16-new-features.md`: Updated title to v1.0.92; added TOC entry and new "New in v1.0.92" section covering new `copilot config` subcommands (list, read, set, remove), pre-conversation Ctrl+E environment picker for local/cloud selection, improved shell tool output streaming, and comprehensive list of fixes/improvements (Entra token renewal, MCP connection handling, voice runtime errors, large request retry, session performance, custom agent fixes, GitHub auth inheritance, sandbox improvements, UI responsiveness, etc.)
+- `04-slash-commands.md`: Added full documentation for `copilot config` subcommands under Configuration section, including list, read, set, and remove subcommands with examples and use cases
+- `03-interactive-features.md`: Updated Ctrl+E shortcut in Essential Shortcuts table to reflect v1.0.92+ environment picker behavior (choose execution environment at session start)
+
+### Feature Summary (v1.0.92)
+- **New:** `copilot config` subcommands (list, read, set, remove) for scriptable CLI configuration
+- **New:** Pre-conversation Ctrl+E environment picker to choose between local and cloud execution
+- **Improved:** Shell tool calls stream live stdout/stderr reliably; Entra token renewal for MCP servers; HTTP+SSE connection timeout handling
+- **Fixed:** Large request retry after image downscaling; session performance with large file writes; custom agent resolution in ACP tasks; GitHub auth inheritance for remote resume; sandbox Windows temp file handling; MCP server instruction change recovery; many platform-specific fixes
+
 ## 2026-10-01 — Docs updated for v1.0.91
 
 - `README.md`: Bumped version note to v1.0.91

@@ -1,4 +1,4 @@
-# Latest Features in GitHub Copilot CLI — v1.0.91
+# Latest Features in GitHub Copilot CLI — v1.0.92
 
 This file covers recent additions to GitHub Copilot CLI. Features marked with "Full guide →" have their own dedicated documentation file — the entries here are summaries with links. Features without a dedicated file are covered in full below.
 
@@ -10,7 +10,8 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 3. [Research Command (`/research`)](#research-command-research) — [Full guide →](19-research-command.md)
 
 ### Features covered in this file
-4. [New in v1.0.91](#new-in-v1091)
+4. [New in v1.0.92](#new-in-v1092)
+5. [New in v1.0.91](#new-in-v1091)
 5. [New in v1.0.90](#new-in-v1090)
 5. [New in v1.0.89](#new-in-v1089)
 4. [New in v1.0.88](#new-in-v1088)
@@ -95,6 +96,74 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 22. [Project Initialization (`/init`)](#project-initialization-init)
 23. [Enhanced Pull Request Creation (`/delegate`)](#enhanced-pull-request-creation-delegate)
 24. [Staying Up to Date](#staying-up-to-date)
+
+---
+
+## New in v1.0.92
+
+Released: 2026-10-05
+
+### New `copilot config` Subcommands
+
+Copilot now offers explicit configuration commands for reading and setting CLI settings:
+
+- `copilot config list` — List all current configuration settings
+- `copilot config read <key>` — Read the value of a specific setting
+- `copilot config set <key> <value>` — Set a configuration value
+- `copilot config remove <key>` — Remove (unset) a configuration value
+
+These commands replace or augment the need for manually editing configuration files and provide a unified, scriptable interface for CLI configuration.
+
+**Why it matters:** Configuration is now scriptable and discoverable through the CLI itself, making automation and team setup easier.
+
+### Pre-Conversation Environment Picker
+
+Press **Ctrl+E** before sending your first message to choose between **local** and **cloud** execution environments. This picker appears only at the start of a conversation, allowing you to set the execution context early without modifying session settings.
+
+**Why it matters:** Quick environment switching without reaching for `/settings`, ideal for workflows that need to toggle between local and cloud runs frequently.
+
+### Improved Shell Tool Output Streaming
+
+Shell tool calls now stream live stdout and stderr output reliably in the timeline, providing real-time feedback during long-running commands without waiting for completion.
+
+**Why it matters:** Better visibility into command execution progress and faster feedback when debugging or monitoring scripts.
+
+### Notable Fixes and Improvements
+
+- Entra-protected MCP servers can silently renew access-token-only credentials
+- Legacy HTTP+SSE MCP connections no longer hang indefinitely when messages are not acknowledged
+- Voice runtime install errors now show the reason for nuget.org failures, not just fallback 401 errors
+- Compaction keeps your latest prompt when requests exceed context limits
+- Large Anthropic requests rejected by provider size limits now retry after downscaling images or removing attachments
+- Custom agent model entries keep model-bound reasoning effort only when that model is selected
+- Usage reporting preserves provider-reported reasoning token totals when available
+- Sessions no longer slow to a crawl after the agent writes a very large file
+- Sandboxed shells withhold ambient GITHUB_TOKEN unless explicitly configured
+- Plan usage reflects the current billing period after quota resets
+- Custom agents launched through ACP task calls now resolve and run correctly
+- Remote session resume now uses your configured GitHub auth for `--resume` and `--connect`
+- Entra sign-in falls back to browser auth when no broker is available
+- `copilot sandbox ca` commands now respect `--config-dir` (including with `-C`)
+- Search commands avoid sandbox bypass prompts when access is already granted
+- Sandboxed uv commands can write to the uv cache by default when dev tool access is enabled
+- pnpm commands run in sandboxed sessions without lock-file permission errors
+- Pressing `n` repeatedly in the Sessions tab reliably creates each new session
+- Reverse search updates results when command history finishes loading at startup
+- MCP tools recover within the same turn when server instructions change
+- `/experimental` and `/settings` take effect after restart even when launched with an opposing experimental flag
+- Keyboard, paste, and mouse input stay ordered and responsive during rapid interaction
+- Sandboxed shell commands offer a network bypass prompt whenever the proxy blocks a destination
+- Sandboxed scripts that run Git now authenticate with masked credentials and SSH remote rewrites
+- Sub-agents keep working after you replace your GitHub authentication credentials
+- Sandboxed commands on Windows write temporary files to the granted temp directory
+- Prompt-mode sessions fire a single sessionEnd hook after Stop-hook continuations complete
+- Reconnect to remote MCP servers after idle Streamable HTTP sessions expire
+- Messaging a running background agent steers its active turn at the next processing opportunity
+- Context rollovers keep your latest requests in the recovery context
+- Improved first-run startup by extracting the bundled CLI package in a child process
+- Improved startup responsiveness when connecting many MCP servers at once
+- Canvas actions can now return images to the model in invoke_canvas_action
+- Removed retired models from the model picker and supported CLI selections
 
 ---
 

@@ -1136,6 +1136,36 @@ Open a sidebar configuration screen inside the CLI.
 
 **What it does:** Shows a persistent sidebar panel for reviewing and adjusting configuration alongside your conversation, complementing the full-screen `/settings` dialog.
 
+### copilot config [subcommand] (v1.0.92+)
+
+Manage CLI configuration settings from the command line. Unlike `/settings` or `/config`, these are non-interactive subcommands suitable for scripting and automation.
+
+```bash
+# List all current settings
+$ copilot config list
+
+# Read a specific setting
+$ copilot config read auth.github.token
+
+# Set a configuration value
+$ copilot config set auth.github.token "ghp_..."
+
+# Remove a setting (revert to default)
+$ copilot config remove auth.github.token
+```
+
+**Subcommands:**
+- `list` — Display all current configuration settings in key-value format
+- `read <key>` — Read and display the value of a specific setting
+- `set <key> <value>` — Set or update a configuration setting
+- `remove <key>` — Unset a setting and restore its default value
+
+**Why use it:**
+- Scriptable configuration for CI/CD pipelines and automation
+- Discover available settings via `copilot config list`
+- Avoid manual JSON file editing
+- Batch configuration changes in setup scripts
+
 ### /vim (v1.0.85+)
 
 Toggle Vim-style modal editing in the composer. Also configurable via `/settings` → `editorMode`.

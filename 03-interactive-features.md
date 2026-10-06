@@ -50,7 +50,7 @@ Mastering keyboard shortcuts makes you significantly more efficient:
 | `↑` | Previous command | Navigate command history backwards |
 | `↓` | Next command | Navigate command history forwards |
 | `Ctrl+A` | Start of line | Move cursor to beginning (when typing) |
-| `Ctrl+E` | End of line | Move cursor to end (when typing); see Timeline Shortcuts when input is empty |
+| `Ctrl+E` | Environment picker / End of line | When input is empty and at the start of a session: choose between local and cloud execution (v1.0.92+); otherwise move cursor to end of line (when typing); see Timeline Shortcuts when input is empty |
 | `Meta+←` | Previous word | Jump cursor left by word (macOS/Linux) |
 | `Meta+→` | Next word | Jump cursor right by word (macOS/Linux) |
 
