@@ -1,5 +1,11 @@
 # Documentation Updates
 
+## 2026-10-07 — Docs updated for v1.0.93
+
+- `README.md`: Bumped version note to v1.0.93
+- `16-new-features.md`: Added "New in v1.0.93" section (sandbox for all users, `permissions.limitTo`, settings.json-only user settings, MCP config applied between turns, model picker and other improvements)
+- `15-copilot-directory.md`: Noted that `config.json` user-setting keys are ignored as of v1.0.93
+
 ## 2026-10-06 — Docs updated for v1.0.92
 
 - `README.md`: Bumped version note to v1.0.92

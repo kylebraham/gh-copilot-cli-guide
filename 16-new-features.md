@@ -1,4 +1,4 @@
-# Latest Features in GitHub Copilot CLI — v1.0.92
+# Latest Features in GitHub Copilot CLI — v1.0.93
 
 This file covers recent additions to GitHub Copilot CLI. Features marked with "Full guide →" have their own dedicated documentation file — the entries here are summaries with links. Features without a dedicated file are covered in full below.
 
@@ -10,6 +10,7 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 3. [Research Command (`/research`)](#research-command-research) — [Full guide →](19-research-command.md)
 
 ### Features covered in this file
+4. [New in v1.0.93](#new-in-v1093)
 4. [New in v1.0.92](#new-in-v1092)
 5. [New in v1.0.91](#new-in-v1091)
 5. [New in v1.0.90](#new-in-v1090)
@@ -96,6 +97,38 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 22. [Project Initialization (`/init`)](#project-initialization-init)
 23. [Enhanced Pull Request Creation (`/delegate`)](#enhanced-pull-request-creation-delegate)
 24. [Staying Up to Date](#staying-up-to-date)
+
+---
+
+## New in v1.0.93
+
+Released: 2026-10-07
+
+### Command Sandboxing Available to All Users
+
+Command sandboxing is now available to everyone via `/sandbox` and `--sandbox`. Sandbox local-network allowlists now include localhost and loopback hosts.
+
+### Enterprise `permissions.limitTo`
+
+Enterprises can set `permissions.limitTo` to enforce managed domain boundaries for network requests.
+
+### Settings Location Change
+
+User settings are now read only from `~/.copilot/settings.json`. User-setting keys in `~/.copilot/config.json` are ignored — move them to `settings.json`.
+
+### MCP Configuration Applies Between Turns
+
+MCP server configuration changes apply between turns without restarting the session.
+
+### Other Improvements
+
+- Safe `/user` commands run immediately during active turns; unsafe remote commands are rejected without opening dialogs, and commands advertised by relay hosts are queued
+- Model picker's recommended list prioritizes GPT-6.1 Sol, GPT-6 Astra/Luna, and Claude 5.5 models
+- `--context long_context` is honored at startup and `/context` shows an accurate context allowance
+- GitHub.com Connector users can expand GitHub CLI permissions in place and retry connections; connecting without the required GitHub scope now prompts to update authorization
+- Plugin skill commands stay available after reloading enabled plugins
+- Warmed language servers stay running across LSP requests when sandboxing is disabled
+- Clicking a truncated compact shell command expands it
 
 ---
 
