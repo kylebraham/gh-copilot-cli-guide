@@ -1,5 +1,11 @@
 # Documentation Updates
 
+## 2026-10-09 — Docs updated for v1.0.94
+
+- `README.md`: Bumped version note to v1.0.94
+- `16-new-features.md`: Added "New in v1.0.94" section (Claude Haiku 5.5, managed policy for Assisted Permissions, MCP and permission improvements)
+- `22-models-and-costs.md`: Added Claude Haiku 5.5 to the model table
+
 ## 2026-10-07 — Docs updated for v1.0.93
 
 - `README.md`: Bumped version note to v1.0.93

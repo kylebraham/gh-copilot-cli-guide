@@ -1,4 +1,4 @@
-# Latest Features in GitHub Copilot CLI — v1.0.93
+# Latest Features in GitHub Copilot CLI — v1.0.94
 
 This file covers recent additions to GitHub Copilot CLI. Features marked with "Full guide →" have their own dedicated documentation file — the entries here are summaries with links. Features without a dedicated file are covered in full below.
 
@@ -10,6 +10,7 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 3. [Research Command (`/research`)](#research-command-research) — [Full guide →](19-research-command.md)
 
 ### Features covered in this file
+4. [New in v1.0.94](#new-in-v1094)
 4. [New in v1.0.93](#new-in-v1093)
 4. [New in v1.0.92](#new-in-v1092)
 5. [New in v1.0.91](#new-in-v1091)
@@ -97,6 +98,31 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 22. [Project Initialization (`/init`)](#project-initialization-init)
 23. [Enhanced Pull Request Creation (`/delegate`)](#enhanced-pull-request-creation-delegate)
 24. [Staying Up to Date](#staying-up-to-date)
+
+---
+
+## New in v1.0.94
+
+Released: 2026-10-08
+
+### Claude Haiku 5.5
+
+Claude Haiku 5.5 (`claude-haiku-5.5`) is now available in model selection and `--model` completions.
+
+```bash
+copilot --model claude-haiku-5.5
+```
+
+### Managed Policy for Assisted Permissions
+
+Managed policy can disable Assisted Permissions and keep sessions in Manual Approval mode. A policy warning is shown when startup bypass-permission flags are suppressed by managed settings, and update guidance is shown (without blocking prompts) when managed settings request a newer CLI version.
+
+### Other Improvements
+
+- Assisted permissions send visible shell code to the permission judge instead of requiring unnecessary manual approval
+- `copilot mcp add` recovers cleanly after interrupted MCP config initialization
+- MCP enable/disable works before server discovery without starting MCP servers
+- Clicking a Sessions sidebar row reliably switches sessions during split-view reconciliation
 
 ---
 

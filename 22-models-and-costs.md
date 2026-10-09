@@ -34,6 +34,7 @@ Understanding how to choose the right model — and when to switch — is one of
 | Claude Fable 5 | `claude-fable-5` | Varies | New Claude Fable family model (v1.0.61+) |
 | Claude Fable 5.1 | `claude-fable-5.1` | Varies | Newest Claude Fable family model (v1.0.83+) |
 | Claude Haiku 4.5 | `claude-haiku-4.5` | Fastest | Quick tasks, fleet subagents, docs, formatting |
+| Claude Haiku 5.5 | `claude-haiku-5.5` | Fastest | Newest Haiku — quick tasks, fleet subagents, formatting (v1.0.94+) |
 | GPT-6 Sol | `gpt-6-sol` | Fast | Newest GPT generation (v1.0.89+) |
 | GPT-6.1 Sol | `gpt-6.1-sol` | Fast | Newest GPT-6 generation (v1.0.90+) |
 | GPT-6 Luna | `gpt-6-luna` | Fast | Newest GPT generation (v1.0.89+) |
