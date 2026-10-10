@@ -1,4 +1,4 @@
-# Latest Features in GitHub Copilot CLI — v1.0.94
+# Latest Features in GitHub Copilot CLI — v1.0.95
 
 This file covers recent additions to GitHub Copilot CLI. Features marked with "Full guide →" have their own dedicated documentation file — the entries here are summaries with links. Features without a dedicated file are covered in full below.
 
@@ -10,6 +10,7 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 3. [Research Command (`/research`)](#research-command-research) — [Full guide →](19-research-command.md)
 
 ### Features covered in this file
+4. [New in v1.0.95](#new-in-v1095)
 4. [New in v1.0.94](#new-in-v1094)
 4. [New in v1.0.93](#new-in-v1093)
 4. [New in v1.0.92](#new-in-v1092)
@@ -98,6 +99,25 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 22. [Project Initialization (`/init`)](#project-initialization-init)
 23. [Enhanced Pull Request Creation (`/delegate`)](#enhanced-pull-request-creation-delegate)
 24. [Staying Up to Date](#staying-up-to-date)
+
+---
+
+## New in v1.0.95
+
+Released: 2026-10-09
+
+### Microsoft Entra Broker Authentication on macOS
+
+Copilot CLI uses native Microsoft Entra broker authentication on macOS when available, with browser fallback.
+
+### Sandbox `injectHosts` Config Keys
+
+`copilot config` supports sandbox credential `injectHosts` keys, with key completion in Bash, Zsh, and Fish.
+
+### Other Improvements
+
+- `--context` now applies to new and resumed ACP sessions instead of silently using the default or previously saved context tier
+- Managed plugin setup retries hourly or after policy changes instead of on every message failure
 
 ---
 

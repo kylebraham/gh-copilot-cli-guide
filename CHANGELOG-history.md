@@ -1,5 +1,10 @@
 # Documentation Updates
 
+## 2026-10-10 — Docs updated for v1.0.95
+
+- `README.md`: Bumped version note to v1.0.95
+- `16-new-features.md`: Added "New in v1.0.95" section (macOS Entra broker auth, sandbox `injectHosts` config keys, `--context` for ACP sessions, managed plugin setup retries)
+
 ## 2026-10-09 — Docs updated for v1.0.94
 
 - `README.md`: Bumped version note to v1.0.94
