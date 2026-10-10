@@ -1,4 +1,4 @@
-# Latest Features in GitHub Copilot CLI — v1.0.88
+# Latest Features in GitHub Copilot CLI — v1.0.95
 
 This file covers recent additions to GitHub Copilot CLI. Features marked with "Full guide →" have their own dedicated documentation file — the entries here are summaries with links. Features without a dedicated file are covered in full below.
 
@@ -10,6 +10,13 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 3. [Research Command (`/research`)](#research-command-research) — [Full guide →](19-research-command.md)
 
 ### Features covered in this file
+4. [New in v1.0.95](#new-in-v1095)
+4. [New in v1.0.94](#new-in-v1094)
+4. [New in v1.0.93](#new-in-v1093)
+4. [New in v1.0.92](#new-in-v1092)
+5. [New in v1.0.91](#new-in-v1091)
+5. [New in v1.0.90](#new-in-v1090)
+5. [New in v1.0.89](#new-in-v1089)
 4. [New in v1.0.88](#new-in-v1088)
 4. [New in v1.0.87](#new-in-v1087)
 4. [New in v1.0.86](#new-in-v1086)
@@ -95,9 +102,277 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 
 ---
 
----
+## New in v1.0.95
+
+Released: 2026-10-09
+
+### Microsoft Entra Broker Authentication on macOS
+
+Copilot CLI uses native Microsoft Entra broker authentication on macOS when available, with browser fallback.
+
+### Sandbox `injectHosts` Config Keys
+
+`copilot config` supports sandbox credential `injectHosts` keys, with key completion in Bash, Zsh, and Fish.
+
+### Other Improvements
+
+- `--context` now applies to new and resumed ACP sessions instead of silently using the default or previously saved context tier
+- Managed plugin setup retries hourly or after policy changes instead of on every message failure
 
 ---
+
+## New in v1.0.94
+
+Released: 2026-10-08
+
+### Claude Haiku 5.5
+
+Claude Haiku 5.5 (`claude-haiku-5.5`) is now available in model selection and `--model` completions.
+
+```bash
+copilot --model claude-haiku-5.5
+```
+
+### Managed Policy for Assisted Permissions
+
+Managed policy can disable Assisted Permissions and keep sessions in Manual Approval mode. A policy warning is shown when startup bypass-permission flags are suppressed by managed settings, and update guidance is shown (without blocking prompts) when managed settings request a newer CLI version.
+
+### Other Improvements
+
+- Assisted permissions send visible shell code to the permission judge instead of requiring unnecessary manual approval
+- `copilot mcp add` recovers cleanly after interrupted MCP config initialization
+- MCP enable/disable works before server discovery without starting MCP servers
+- Clicking a Sessions sidebar row reliably switches sessions during split-view reconciliation
+
+---
+
+## New in v1.0.93
+
+Released: 2026-10-07
+
+### Command Sandboxing Available to All Users
+
+Command sandboxing is now available to everyone via `/sandbox` and `--sandbox`. Sandbox local-network allowlists now include localhost and loopback hosts.
+
+### Enterprise `permissions.limitTo`
+
+Enterprises can set `permissions.limitTo` to enforce managed domain boundaries for network requests.
+
+### Settings Location Change
+
+User settings are now read only from `~/.copilot/settings.json`. User-setting keys in `~/.copilot/config.json` are ignored — move them to `settings.json`.
+
+### MCP Configuration Applies Between Turns
+
+MCP server configuration changes apply between turns without restarting the session.
+
+### Other Improvements
+
+- Safe `/user` commands run immediately during active turns; unsafe remote commands are rejected without opening dialogs, and commands advertised by relay hosts are queued
+- Model picker's recommended list prioritizes GPT-6.1 Sol, GPT-6 Astra/Luna, and Claude 5.5 models
+- `--context long_context` is honored at startup and `/context` shows an accurate context allowance
+- GitHub.com Connector users can expand GitHub CLI permissions in place and retry connections; connecting without the required GitHub scope now prompts to update authorization
+- Plugin skill commands stay available after reloading enabled plugins
+- Warmed language servers stay running across LSP requests when sandboxing is disabled
+- Clicking a truncated compact shell command expands it
+
+---
+
+## New in v1.0.92
+
+Released: 2026-10-05
+
+### New `copilot config` Subcommands
+
+Copilot now offers explicit configuration commands for reading and setting CLI settings:
+
+- `copilot config list` — List all current configuration settings
+- `copilot config read <key>` — Read the value of a specific setting
+- `copilot config set <key> <value>` — Set a configuration value
+- `copilot config remove <key>` — Remove (unset) a configuration value
+
+These commands replace or augment the need for manually editing configuration files and provide a unified, scriptable interface for CLI configuration.
+
+**Why it matters:** Configuration is now scriptable and discoverable through the CLI itself, making automation and team setup easier.
+
+### Pre-Conversation Environment Picker
+
+Press **Ctrl+E** before sending your first message to choose between **local** and **cloud** execution environments. This picker appears only at the start of a conversation, allowing you to set the execution context early without modifying session settings.
+
+**Why it matters:** Quick environment switching without reaching for `/settings`, ideal for workflows that need to toggle between local and cloud runs frequently.
+
+### Improved Shell Tool Output Streaming
+
+Shell tool calls now stream live stdout and stderr output reliably in the timeline, providing real-time feedback during long-running commands without waiting for completion.
+
+**Why it matters:** Better visibility into command execution progress and faster feedback when debugging or monitoring scripts.
+
+### Notable Fixes and Improvements
+
+- Entra-protected MCP servers can silently renew access-token-only credentials
+- Legacy HTTP+SSE MCP connections no longer hang indefinitely when messages are not acknowledged
+- Voice runtime install errors now show the reason for nuget.org failures, not just fallback 401 errors
+- Compaction keeps your latest prompt when requests exceed context limits
+- Large Anthropic requests rejected by provider size limits now retry after downscaling images or removing attachments
+- Custom agent model entries keep model-bound reasoning effort only when that model is selected
+- Usage reporting preserves provider-reported reasoning token totals when available
+- Sessions no longer slow to a crawl after the agent writes a very large file
+- Sandboxed shells withhold ambient GITHUB_TOKEN unless explicitly configured
+- Plan usage reflects the current billing period after quota resets
+- Custom agents launched through ACP task calls now resolve and run correctly
+- Remote session resume now uses your configured GitHub auth for `--resume` and `--connect`
+- Entra sign-in falls back to browser auth when no broker is available
+- `copilot sandbox ca` commands now respect `--config-dir` (including with `-C`)
+- Search commands avoid sandbox bypass prompts when access is already granted
+- Sandboxed uv commands can write to the uv cache by default when dev tool access is enabled
+- pnpm commands run in sandboxed sessions without lock-file permission errors
+- Pressing `n` repeatedly in the Sessions tab reliably creates each new session
+- Reverse search updates results when command history finishes loading at startup
+- MCP tools recover within the same turn when server instructions change
+- `/experimental` and `/settings` take effect after restart even when launched with an opposing experimental flag
+- Keyboard, paste, and mouse input stay ordered and responsive during rapid interaction
+- Sandboxed shell commands offer a network bypass prompt whenever the proxy blocks a destination
+- Sandboxed scripts that run Git now authenticate with masked credentials and SSH remote rewrites
+- Sub-agents keep working after you replace your GitHub authentication credentials
+- Sandboxed commands on Windows write temporary files to the granted temp directory
+- Prompt-mode sessions fire a single sessionEnd hook after Stop-hook continuations complete
+- Reconnect to remote MCP servers after idle Streamable HTTP sessions expire
+- Messaging a running background agent steers its active turn at the next processing opportunity
+- Context rollovers keep your latest requests in the recovery context
+- Improved first-run startup by extracting the bundled CLI package in a child process
+- Improved startup responsiveness when connecting many MCP servers at once
+- Canvas actions can now return images to the model in invoke_canvas_action
+- Removed retired models from the model picker and supported CLI selections
+
+---
+
+## New in v1.0.91
+
+Released: 2026-10-01
+
+### Enhanced Sandbox Certificate Authority Management
+
+Sandbox certificate authority (`copilot sandbox ca`) commands are now fully expanded:
+
+- `copilot sandbox ca check` — Check the current CA certificate status
+- `copilot sandbox ca create` — Create a new proxy CA certificate (replaces `/sandbox ca install`)
+- `copilot sandbox ca trust` — Trust a CA certificate for sandboxed commands (replaces `/sandbox ca install`)
+- `copilot sandbox ca rotate` — Rotate the current CA certificate
+- `copilot sandbox ca remove` — Remove the proxy CA certificate
+
+Notably, unattended Windows setup now supports CA certificate installation, eliminating manual intervention steps on Windows systems.
+
+**Why it matters:** Finer-grained control over sandboxed proxy certificate management, and Windows automation no longer requires interactive intervention.
+
+### Shell Pipeline Static Analysis for Execution-Evidence Review
+
+Read-only shell pipelines that are complete and statically analyzable can now enter execution-evidence review, skipping the need for explicit approval. Incomplete or unbound pipelines still require manual approval.
+
+**Why it matters:** Safe, auditable read-only shell commands execute faster without blocking on approval gates.
+
+### Windows Sandbox Network Improvements
+
+Sandboxed commands on Windows can now run even when filesystem enumeration is not supported, with a warning that PowerShell's current location may be incorrect. Node/npm operations that trigger EACCES socket denials now have a sandbox network bypass available, matching behavior on other platforms.
+
+**Why it matters:** Sandboxed command execution is more robust on Windows, and Node.js tools work reliably in restricted environments.
+
+### Improved Telemetry and Session Stability
+
+CLI shutdown now flushes pending telemetry before exit with a bounded delay, ensuring complete usage data collection. Session timeline busy status correctly clears after interrupted turns complete, preventing stuck UI states.
+
+**Why it matters:** Better visibility into CLI usage patterns, and session UIs remain responsive after recoveries.
+
+---
+
+## New in v1.0.90
+
+Released: 2026-09-30
+
+### New Model: GPT-6.1 Sol
+
+GPT-6.1 Sol (`gpt-6.1-sol`) is now available in the model picker. This newest generation of the Sol family offers improved reasoning and coding capabilities. See [Model Selection Strategy — Available Models Overview](22-models-and-costs.md#1-available-models-overview).
+
+**Why it matters:** Another frontier model option for tasks requiring the latest GPT reasoning and coding performance.
+
+### Improved Tool Call UX and MCP Reliability
+
+Tool calls in compact timeline now collapse when clicked anywhere on the expanded row, giving more intuitive interaction. MCP tools also recover more gracefully after transient discovery failures without requiring a session restart — unchanged catalogs remain available during recovery, and stale tool calls no longer block completion. Voice mode hold-space hints now show even when voice is off or still initializing.
+
+**Why it matters:** Better responsiveness when managing tool output, and more resilient MCP server handling prevents session disruption from temporary glitches.
+
+### Permission and Session Resumption Fixes
+
+Permission prompts now remain answerable after resuming interrupted sessions, fixing a frustrating loss of interactivity. Clipboard operations on Wayland now complete as soon as `wl-copy` accepts input instead of timing out and falling back to an in-process clipboard. Auto-approval now correctly takes into account messages typed while the agent is working, not just during idle periods.
+
+**Why it matters:** Session interruptions are less disruptive, clipboard usage is more responsive on Wayland, and auto-approval logic is more consistent.
+
+### Notable Improvements
+
+- Compaction now returns a summary even when custom instructions ask for tool use.
+- A narrow Sessions sidebar drops keyboard hints that don't fit instead of cutting one off mid-word.
+- Managed Connector authorization URLs are now copyable, making sign-in easier to share or re-attempt.
+
+## New in v1.0.89
+
+Released: 2026-09-28
+
+### New Models: Claude Opus 5.5, GPT-6 Sol, GPT-6 Luna
+
+Claude Opus 5.5 (`claude-opus-5.5`), GPT-6 Sol (`gpt-6-sol`), and GPT-6 Luna (`gpt-6-luna`) are now available in the model picker. See [Model Selection Strategy — Available Models Overview](22-models-and-costs.md#1-available-models-overview).
+
+**Why it matters:** More frontier model choices to match a task's reasoning needs and cost profile.
+
+### `/model` Autocomplete and Auto Tier Cycling Fix
+
+Typing a model ID into the `/model` (and `/model plan`) argument picker now autocompletes matching IDs instead of requiring an exact match. Separately, cycling through the **Auto** tier's routing options in `/model` now advances correctly, and the unsupported **Fast** profile has been removed — a previously stored, exported, or resumed Fast preference now falls back to **Balance** instead of silently routing on a profile that no longer exists. See [Slash Commands — /model](04-slash-commands.md#model-model) and [Model Selection Strategy — Switching Models](22-models-and-costs.md#5-switching-models).
+
+**Why it matters:** Finding and switching models is faster, and Auto tier selection no longer gets stuck or silently falls back to a removed profile.
+
+### Ask-User and Elicitation Forms: Click to Focus
+
+Left-clicking a supported `ask_user` or elicitation form input now focuses that input and places the cursor at the clicked position, instead of requiring you to tab or arrow into it. See [Interactive Features — Error Handling](03-interactive-features.md#error-handling).
+
+**Why it matters:** Jump straight to the field you want to edit with a click, the way you would in most text inputs.
+
+### Sessions Sidebar: Unread Indicator and Live Tab Persistence
+
+A session in the Sessions sidebar now shows a blue dot when it finished a turn you haven't opened yet, making it easy to spot completed work at a glance. The sidebar also saves which tabs are opened and closed as they change, instead of only when you exit the CLI. See [Interactive Features — Switching Sessions](03-interactive-features.md#switching-sessions).
+
+**Why it matters:** You can tell which background sessions have new results without opening each one, and your tab layout survives an unexpected exit or crash.
+
+### Claude Code Rule Files (`.claude/rules`) as Custom Instructions
+
+Copilot CLI now reads Claude Code rule files under `.claude/rules` as custom instructions, alongside `AGENTS.md`, `CLAUDE.md`, and the other supported instruction files. See [Advanced Features — Custom Instructions](08-advanced-features.md#custom-instructions).
+
+**Why it matters:** Teams that already maintain Claude Code rule files get the same guidance applied in Copilot CLI without duplicating instructions into a separate file.
+
+### PR Creation Follows Repository Pull Request Templates
+
+`/delegate` and other PR-creation flows now follow a repository's pull request template, preserving its required sections and checklist structure instead of generating a free-form description. See [GitHub Integration — Creating Pull Requests with /delegate](07-github-integration.md#creating-pull-requests-with-delegate).
+
+**Why it matters:** PRs opened by Copilot CLI match the format reviewers expect and satisfy repository-enforced template requirements.
+
+### Notable Fixes
+
+- Sandboxed commands on supported Windows versions can access `localhost` when **Local network access** is turned on in `/sandbox`.
+- Direct plugin installs can now be enabled and disabled; a plugin already recorded as disabled stops loading, and `copilot plugin enable` re-enables it.
+- A new `TGREP_FILE_COUNT_THRESHOLD` environment variable configures the file-count threshold that triggers automatic indexed-search activation.
+- Managed Connector consent now shows authorization progress with a copyable authorization URL during connect and reconnect.
+- In local sessions, `Esc Esc` in an empty chat input takes back a prompt whose turn the model hasn't started answering yet, removing it from the conversation instead of just cancelling the display.
+- Exit commands can now be queued while an agent response is still running.
+- `server/tool` and `server/*` MCP tool filters now match tool names that themselves contain a slash.
+- Shell output no longer shows trailing command-completion metadata; the timeline stops auto-following while text selection is active.
+- Extensions no longer fail to load under enterprise managed settings while managed MCP policy is still being applied.
+- Git failures in applications launched from CLI shells when empty environment variables are dropped are fixed, on Git 2.36 or newer.
+- ACP sessions stay connected when clients pause reading large responses.
+- Gemini models no longer fail every request with a 400 invalid-request error when an MCP server exposes a tool whose schema places `type` or `properties` beside `anyOf`, such as a nullable discriminated union.
+- GitHub MCP tools connect correctly on first CLI startup after sign-in.
+- `ask_user` forms keep custom "Other" answers separate across questions.
+- MCP config loading keeps valid workspace servers when a sibling entry is invalid.
+- Deleting old sessions succeeds when run directly in the CLI.
+- Claude requests above attachment size limits now recover automatically before sending.
+- Listing shells shows running shells first, so a background shell is no longer hidden behind a long list of finished ones.
+- The view tool honors line ranges when providers send flattened `view_range` arguments.
 
 ## New in v1.0.88
 

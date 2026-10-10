@@ -20,7 +20,7 @@ Understanding how to choose the right model — and when to switch — is one of
 
 | Model | ID | Speed | Best for |
 |-------|-----|-------|---------|
-| Auto | `auto` | Varies | Let Copilot pick the best model for each session automatically; now adapts model selection as the task evolves during the conversation, not just once at the start (v1.0.81+); supports user and managed startup defaults, with organizations able to set a strict or user-overridable policy for the tier (v1.0.87+) |
+| Auto | `auto` | Varies | Let Copilot pick the best model for each session automatically; now adapts model selection as the task evolves during the conversation, not just once at the start (v1.0.81+); supports user and managed startup defaults, with organizations able to set a strict or user-overridable policy for the tier (v1.0.87+); tier cycling in `/model` now advances correctly, and the unsupported **Fast** profile has been removed — a stored, exported, or resumed Fast preference now falls back to **Balance** (v1.0.89+) |
 | Claude Sonnet 4.5 | `claude-sonnet-4.5` | Fast | Default — general coding, balanced quality/cost |
 | Claude Sonnet 4.6 | `claude-sonnet-4.6` | Fast | Latest Sonnet — improved reasoning over 4.5 |
 | Claude Sonnet 5 | `claude-sonnet-5` | Fast | Newest Sonnet generation (v1.0.67+) |
@@ -30,9 +30,14 @@ Understanding how to choose the right model — and when to switch — is one of
 | Claude Opus 4.8 | `claude-opus-4.8` | Slower | Newest Opus — top-tier reasoning and coding (v1.0.55+) |
 | Claude Opus 4.8 (fast) | `claude-opus-4.8-fast` | Fast | Opus 4.8 quality with faster response times (v1.0.66+) |
 | Claude Opus 5 | `claude-opus-5` | Slower | Newest Opus generation — top-tier reasoning and coding, added v1.0.75 |
+| Claude Opus 5.5 | `claude-opus-5.5` | Slower | Newest Opus generation — top-tier reasoning and coding (v1.0.89+) |
 | Claude Fable 5 | `claude-fable-5` | Varies | New Claude Fable family model (v1.0.61+) |
 | Claude Fable 5.1 | `claude-fable-5.1` | Varies | Newest Claude Fable family model (v1.0.83+) |
 | Claude Haiku 4.5 | `claude-haiku-4.5` | Fastest | Quick tasks, fleet subagents, docs, formatting |
+| Claude Haiku 5.5 | `claude-haiku-5.5` | Fastest | Newest Haiku — quick tasks, fleet subagents, formatting (v1.0.94+) |
+| GPT-6 Sol | `gpt-6-sol` | Fast | Newest GPT generation (v1.0.89+) |
+| GPT-6.1 Sol | `gpt-6.1-sol` | Fast | Newest GPT-6 generation (v1.0.90+) |
+| GPT-6 Luna | `gpt-6-luna` | Fast | Newest GPT generation (v1.0.89+) |
 | GPT-6 Astra | `gpt-6-astra` | Fast | Newest GPT generation (v1.0.85+) |
 | GPT-5.6 | `gpt-5.6` | Fast | Newest GPT generation — added v1.0.70 |
 | GPT-5.4 | `gpt-5.4` | Fast | Strong alternative for general code generation |
@@ -54,6 +59,10 @@ Understanding how to choose the right model — and when to switch — is one of
 > **v1.0.83+:** Retired Claude and Gemini models are no longer listed in `/model` picker results, keeping the list limited to models you can actually select.
 
 > **v1.0.85+:** GPT-6 Astra (`gpt-6-astra`) support added. Streamer mode now masks internal model names in `/model`, the footer, and startup diagnostics without restarting model initialization when toggled.
+
+> **v1.0.89+:** Claude Opus 5.5 (`claude-opus-5.5`), GPT-6 Sol (`gpt-6-sol`), and GPT-6 Luna (`gpt-6-luna`) support added.
+
+> **v1.0.90+:** GPT-6.1 Sol (`gpt-6.1-sol`) support added.
 
 > **Note:** Multipliers can change as GitHub updates pricing. Always run `/model` to see current multipliers and available models before committing to a long session.
 
@@ -199,6 +208,8 @@ This opens a picker showing all available models with their current multipliers.
 > **v1.0.48:** If you are on a token-based billing plan, the picker now displays actual token prices for each model instead of dot indicators, making it easier to compare costs before selecting a model.
 
 > **v1.0.55:** Free and Student plan users on token-based billing were restricted to **Auto** model selection. This restriction was lifted in **v1.0.56** — all plan tiers can now select any model in the picker.
+
+> **v1.0.89+:** Typing a model ID into the `/model` (and `/model plan`) picker now autocompletes matching IDs instead of requiring an exact match.
 
 ### Set for a Single Session (Flag)
 

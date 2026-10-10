@@ -41,7 +41,7 @@ Mastering keyboard shortcuts makes you significantly more efficient:
 | `Ctrl+D` | Shutdown | Quickly exit the CLI |
 | `Ctrl+L` | Clear screen | Clean up visual clutter |
 | `Ctrl+T` | Toggle reasoning display | Show/hide model reasoning output *(new)* |
-| `Esc` | Cancel input / close picker | Clear the current input line or close a picker; press **twice** (`Esc Esc`) to cancel an in-flight AI operation |
+| `Esc` | Cancel input / close picker | Clear the current input line or close a picker; press **twice** (`Esc Esc`) to cancel an in-flight AI operation, or (in an empty input, local sessions, v1.0.89+) take back a prompt the model hasn't started answering yet |
 
 ### Navigation Shortcuts
 
@@ -50,7 +50,7 @@ Mastering keyboard shortcuts makes you significantly more efficient:
 | `↑` | Previous command | Navigate command history backwards |
 | `↓` | Next command | Navigate command history forwards |
 | `Ctrl+A` | Start of line | Move cursor to beginning (when typing) |
-| `Ctrl+E` | End of line | Move cursor to end (when typing); see Timeline Shortcuts when input is empty |
+| `Ctrl+E` | Environment picker / End of line | When input is empty and at the start of a session: choose between local and cloud execution (v1.0.92+); otherwise move cursor to end of line (when typing); see Timeline Shortcuts when input is empty |
 | `Meta+←` | Previous word | Jump cursor left by word (macOS/Linux) |
 | `Meta+→` | Next word | Jump cursor right by word (macOS/Linux) |
 
@@ -269,6 +269,8 @@ Press `Ctrl+Q` or `Ctrl+Enter` to queue a message while the agent is running ins
 
 > **v1.0.87+:** Consecutive **steering prompts** — messages sent while the agent is busy, in the same mode — now combine into a single pending message instead of stacking up separately. Press `Up` in an empty chat input to recall the pending message for editing, including pasted text and attachments; a recall hint is shown in the message. `Ctrl+C` stops the running turn instead of removing pending prompts one at a time. `Ctrl+Q` queued prompts remain a separate list, and `Ctrl+P` still browses history without withdrawing prompts. Available for local sessions only; commands and prompts already being processed can't be recalled.
 
+> **v1.0.89+:** In local sessions, `Esc Esc` in an empty chat input takes back a prompt whose turn the model hasn't started answering yet, removing it from the conversation. Exit commands can now be queued while an agent response is still running.
+
 ### Direct Shell Execution with !
 
 Execute shell commands without AI processing:
@@ -352,6 +354,8 @@ AI: Would you like me to:
 > **v1.0.87+:** Number-key selection in this dialog now works correctly for choices 10 and beyond.
 
 > **v1.0.88+:** Text selection now works inside bottom-anchored dialogs, including the login device-code prompt — you can select and copy the code directly instead of retyping it. In freeform `ask_user` prompts, pressing `Enter` now inserts a new line instead of submitting; submit with `Ctrl+Enter` or `Ctrl+S`.
+
+> **v1.0.89+:** Left-clicking a supported `ask_user`/elicitation form input now focuses that input and places the cursor at the clicked position.
 
 ## Context Management
 
@@ -451,6 +455,8 @@ Sessions persist across launches, so you can continue where you left off.
 > **v1.0.86+:** Resuming an active session without plugin-directory, discovery, or working-directory overrides now preserves marketplace plugins and skills after reload instead of dropping them on a configuration read/validation failure. Sessions also resume even when their transcript files contain recoverable corruption.
 
 > **v1.0.88+:** In the Sessions tab/sidebar, dismissing a row now takes pressing `x` then `x` again to confirm — a **local** session is permanently deleted, while a session backed by a server is only closed, leaving its conversation intact on the server. The footer states which of the two the highlighted row will do, and shows no `x` hint at all for rows that can't be dismissed.
+
+> **v1.0.89+:** A session in the sidebar now shows a blue dot when it finished a turn you haven't opened yet, so you can spot completed background work at a glance. The sidebar also saves which tabs are opened and closed as they change, instead of only when you exit the CLI.
 
 ## Advanced Context & Session Strategies
 
