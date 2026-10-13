@@ -1,4 +1,4 @@
-# Latest Features in GitHub Copilot CLI — v1.0.95
+# Latest Features in GitHub Copilot CLI — v1.0.96
 
 This file covers recent additions to GitHub Copilot CLI. Features marked with "Full guide →" have their own dedicated documentation file — the entries here are summaries with links. Features without a dedicated file are covered in full below.
 
@@ -10,6 +10,7 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 3. [Research Command (`/research`)](#research-command-research) — [Full guide →](19-research-command.md)
 
 ### Features covered in this file
+4. [New in v1.0.96](#new-in-v1096)
 4. [New in v1.0.95](#new-in-v1095)
 4. [New in v1.0.94](#new-in-v1094)
 4. [New in v1.0.93](#new-in-v1093)
@@ -99,6 +100,30 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 22. [Project Initialization (`/init`)](#project-initialization-init)
 23. [Enhanced Pull Request Creation (`/delegate`)](#enhanced-pull-request-creation-delegate)
 24. [Staying Up to Date](#staying-up-to-date)
+
+---
+
+## New in v1.0.96
+
+Released: 2026-10-12
+
+### Sandbox Improvements
+
+- Interactive sandbox settings suggest possible environment secrets and let you add masking hosts before saving
+- `/add-dir` grants sandbox access to added directories for the current session
+
+### Permissions Timeline
+
+The timeline now shows whether you, Assisted Permissions, policy, or unattended fallback made each permission decision.
+
+### Other Improvements
+
+- Model IDs in `/model` and `/config model` are case-insensitive, and canonical IDs are saved
+- `/allow-all` stays available during startup while enterprise policy is still resolving
+- `/user list` shows the authentication source for each signed-in account
+- Retry progress messages appear before recovered responses after transient model failures
+- Model completions no longer show an authentication warning when an account-owned catalog is unavailable while signed out
+- Interactive sessions in git repositories reach the input prompt sooner
 
 ---
 

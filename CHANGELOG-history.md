@@ -1,5 +1,11 @@
 # Documentation Updates
 
+## 2026-10-13 — Docs updated for v1.0.96
+
+- `README.md`: Bumped version note to v1.0.96
+- `16-new-features.md`: Added "New in v1.0.96" section (sandbox secret suggestions and masking hosts, `/add-dir` sandbox access, permission decision timeline, `/user list` auth source, other improvements)
+- `04-slash-commands.md`: Noted `/add-dir` grants sandbox access as of v1.0.96
+
 ## 2026-10-10 — Docs updated for v1.0.95
 
 - `README.md`: Bumped version note to v1.0.95

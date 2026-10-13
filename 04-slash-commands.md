@@ -414,6 +414,8 @@ Add a directory to the allowed list for file access.
 
 > **v1.0.83+:** A relative `--add-dir` or `--plugin-dir` path now resolves against the **session's working directory** when used with `--resume=<id>` or `--worktree`, instead of the directory the CLI was launched from. Relative values are also resolved after `-C` is applied, so `-C` no longer has to precede either option on the command line.
 
+> **v1.0.96+:** `/add-dir` also grants sandbox access to the added directories for the current session.
+
 **Use when:**
 - Need to access files outside working directory
 - Working with multiple project roots
