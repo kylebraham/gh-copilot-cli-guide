@@ -10,6 +10,7 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 3. [Research Command (`/research`)](#research-command-research) — [Full guide →](19-research-command.md)
 
 ### Features covered in this file
+4. [New in v1.0.97](#new-in-v1097)
 4. [New in v1.0.96](#new-in-v1096)
 4. [New in v1.0.95](#new-in-v1095)
 4. [New in v1.0.94](#new-in-v1094)
@@ -100,6 +101,35 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 22. [Project Initialization (`/init`)](#project-initialization-init)
 23. [Enhanced Pull Request Creation (`/delegate`)](#enhanced-pull-request-creation-delegate)
 24. [Staying Up to Date](#staying-up-to-date)
+
+---
+
+## New in v1.0.97
+
+Released: 2026-10-13
+
+### Agent-Scoped Hooks
+
+Custom agents can now define their own declarative hooks, scoped to that agent.
+
+### Autopilot and Permissions
+
+- Autopilot denies a `preToolUse` hook's "ask" decision instead of stopping on a permission dialog nobody is watching
+- In `/config`, managed permission rules are read-only and hidden unless set by your organization
+
+### Other Improvements
+
+- Remote plugin marketplace and plugin fetches retry once with your signed-in GitHub token after HTTPS auth fails
+- All custom agents are discovered even when repositories define more than 100 or nest agent files deeply
+- `/usage` shows billed AI Credits for token-billed sessions, including after resume
+- Inline images render by default on supported terminals; use `/settings inlineImages false` to turn them off
+- Saved settings such as trusted folders and sign-ins are kept when one entry in `config.json` is invalid
+- `--output-format json` redacts secrets while preserving valid variable references
+- Resuming suspended sessions reports interrupted tool calls and avoids replaying canceled writes
+- Skills and custom agents from `--plugin-dir` plugins reach autocomplete and invocation
+- Resumed sessions rebuild plugin hooks from the correct plugin list
+- Synchronous `/task` JSON output includes failed child error and lifecycle events
+- Fixes for TLS-intercepting proxies, GitHub SCP remote parsing, MCP endpoint selection, and Power BI/Bluebird MCP sign-in scopes
 
 ---
 

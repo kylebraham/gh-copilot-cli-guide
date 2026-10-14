@@ -1,5 +1,10 @@
 # Documentation Updates
 
+## 2026-10-14 — Docs updated for v1.0.97
+
+- `README.md`: Bumped version note to v1.0.97
+- `16-new-features.md`: Added "New in v1.0.97" section (agent-scoped hooks, autopilot `preToolUse` "ask" denial, plugin fetch retry, inline images default, other fixes)
+
 ## 2026-10-13 — Docs updated for v1.0.96
 
 - `README.md`: Bumped version note to v1.0.96
