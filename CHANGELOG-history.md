@@ -1,5 +1,12 @@
 # Documentation Updates
 
+## 2026-10-15 — Docs updated for v1.0.98
+
+- `README.md`: Bumped version note to v1.0.98
+- `16-new-features.md`: Added "New in v1.0.98" section (Gemini 4 Argon, `/ask` expand/copy/reopen, hook, MCP, resume and startup input fixes)
+- `22-models-and-costs.md`: Added Gemini 4 Argon
+- `04-slash-commands.md`: Noted `/ask` Ctrl+E / Ctrl+Y / reopen behavior
+
 ## 2026-10-14 — Docs updated for v1.0.97
 
 - `README.md`: Bumped version note to v1.0.97

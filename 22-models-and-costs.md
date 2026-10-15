@@ -48,6 +48,7 @@ Understanding how to choose the right model — and when to switch — is one of
 | Gemini 3.5 Flash | `gemini-3.5-flash` | Fastest | Lightweight Gemini model; now supports a **minimal** reasoning effort level (v1.0.69+) for the quickest possible responses |
 | Gemini 3.6 Flash | `gemini-3.6-flash` | Fastest | Newest Gemini Flash generation, added v1.0.74 |
 | Gemini 3.7 Flash | `gemini-3.7-flash` | Fastest | Newest Gemini Flash generation, added v1.0.81 |
+| Gemini 4 Argon | `gemini-4-argon` | Fast | Gemini 4 generation model, added v1.0.98 |
 | GPT-5.4 mini | `gpt-5.4-mini` | Fastest | Ultra-cheap for trivial or bulk tasks |
 | GPT-4.1 | `gpt-4.1` | Fast | Fast, cost-effective general tasks |
 | Grok 4.5 | `grok-4.5` | Fast | New Grok family model, added v1.0.76 |

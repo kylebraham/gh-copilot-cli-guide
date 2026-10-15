@@ -1534,6 +1534,8 @@ Responses render full markdown, including tables, code blocks, and formatted lin
 
 > **v1.0.48 fix:** The `/ask` dialog no longer displays a follow-up input prompt after answering. It closes cleanly once the answer is shown.
 
+> **v1.0.98:** Expand an `/ask` answer with `Ctrl+E`, copy the entire answer with `Ctrl+Y`, and reopen the last usable completed answer with `/ask` or `/btw`.
+
 ### /env
 
 Show all loaded environment details for the current session.

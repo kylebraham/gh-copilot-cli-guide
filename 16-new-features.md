@@ -10,6 +10,7 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 3. [Research Command (`/research`)](#research-command-research) — [Full guide →](19-research-command.md)
 
 ### Features covered in this file
+4. [New in v1.0.98](#new-in-v1098)
 4. [New in v1.0.97](#new-in-v1097)
 4. [New in v1.0.96](#new-in-v1096)
 4. [New in v1.0.95](#new-in-v1095)
@@ -101,6 +102,29 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 22. [Project Initialization (`/init`)](#project-initialization-init)
 23. [Enhanced Pull Request Creation (`/delegate`)](#enhanced-pull-request-creation-delegate)
 24. [Staying Up to Date](#staying-up-to-date)
+
+---
+
+## New in v1.0.98
+
+Released: 2026-10-14
+
+### Gemini 4 Argon
+
+Added support for the Gemini 4 Argon model (`gemini-4-argon`). Select it with `/model`.
+
+### /ask Improvements
+
+- Expand `/ask` answers with `Ctrl+E`
+- Copy the entire answer with `Ctrl+Y`
+- Reopen the last usable completed answer in the session with `/ask` or `/btw`
+
+### Other Improvements
+
+- Command hooks complete reliably even when child-exit signals are lost under Node
+- `/mcp` commands and MCP status stay synced to the active session after split-view session switches
+- Resuming a session respects abandoned pending-permission work and continues only active permission requests
+- Ordinary characters typed while the input box is still starting up are no longer dropped
 
 ---
 
