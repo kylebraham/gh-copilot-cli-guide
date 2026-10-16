@@ -175,7 +175,9 @@ As of v1.0.35, user-editable settings live in `~/.copilot/settings.json`. This f
 }
 ```
 
-> 💡 If `settings.json` does not yet exist, create it manually. Existing `config.json` user preferences continue to work alongside it.
+> 💡 If `settings.json` does not yet exist, create it manually. 
+
+> **v1.0.93+:** User settings are read only from `settings.json`; user-setting keys left in `config.json` are ignored.
 
 ---
 

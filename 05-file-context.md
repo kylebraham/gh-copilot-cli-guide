@@ -461,6 +461,8 @@ Use natural language to express exclusions.
 
 > **v1.0.88+:** Indexed search now supports glob filtering, and `--files` listings have accurate `ripgrep`-fallback behavior when `ripgrep` isn't available or the index isn't ready.
 
+> **v1.0.89+:** A new `TGREP_FILE_COUNT_THRESHOLD` environment variable configures the file-count threshold that triggers automatic indexed-search activation.
+
 ### Code Analysis
 
 ```

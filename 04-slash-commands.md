@@ -249,6 +249,8 @@ Select or change the AI model.
 > **v1.0.77+:** Reasoning effort can now be left unset — omit it and the server selects the default effort level for the chosen model instead of requiring you to pick one explicitly.
 >
 > **v1.0.79+:** `kimi-k3` is now available as a supported model. See [Model Selection Strategy](22-models-and-costs.md) for details. The model picker also now groups models into **Recent**, **Recommended**, **New**, and other sections; press `Shift+Tab` to cycle between grouping views. `/model` changes are now **session-scoped by default**; use `/config model <model-id>` to set the default model for future sessions instead.
+>
+> **v1.0.89+:** Claude Opus 5.5, GPT-6 Sol, and GPT-6 Luna are now available as supported models. Typing a model ID into the `/model` (and `/model plan`) picker now autocompletes matching IDs. Cycling through the **Auto** tier's routing options now advances correctly, and the unsupported **Fast** profile has been removed — a stored, exported, or resumed Fast preference now falls back to **Balance**. See [Model Selection Strategy](22-models-and-costs.md) for details.
 
 ### /context
 
@@ -411,6 +413,8 @@ Add a directory to the allowed list for file access.
 ```
 
 > **v1.0.83+:** A relative `--add-dir` or `--plugin-dir` path now resolves against the **session's working directory** when used with `--resume=<id>` or `--worktree`, instead of the directory the CLI was launched from. Relative values are also resolved after `-C` is applied, so `-C` no longer has to precede either option on the command line.
+
+> **v1.0.96+:** `/add-dir` also grants sandbox access to the added directories for the current session.
 
 **Use when:**
 - Need to access files outside working directory
@@ -1134,6 +1138,36 @@ Open a sidebar configuration screen inside the CLI.
 
 **What it does:** Shows a persistent sidebar panel for reviewing and adjusting configuration alongside your conversation, complementing the full-screen `/settings` dialog.
 
+### copilot config [subcommand] (v1.0.92+)
+
+Manage CLI configuration settings from the command line. Unlike `/settings` or `/config`, these are non-interactive subcommands suitable for scripting and automation.
+
+```bash
+# List all current settings
+$ copilot config list
+
+# Read a specific setting
+$ copilot config read auth.github.token
+
+# Set a configuration value
+$ copilot config set auth.github.token "ghp_..."
+
+# Remove a setting (revert to default)
+$ copilot config remove auth.github.token
+```
+
+**Subcommands:**
+- `list` — Display all current configuration settings in key-value format
+- `read <key>` — Read and display the value of a specific setting
+- `set <key> <value>` — Set or update a configuration setting
+- `remove <key>` — Unset a setting and restore its default value
+
+**Why use it:**
+- Scriptable configuration for CI/CD pipelines and automation
+- Discover available settings via `copilot config list`
+- Avoid manual JSON file editing
+- Batch configuration changes in setup scripts
+
 ### /vim (v1.0.85+)
 
 Toggle Vim-style modal editing in the composer. Also configurable via `/settings` → `editorMode`.
@@ -1499,6 +1533,8 @@ Responses render full markdown, including tables, code blocks, and formatted lin
 - You want to check facts without the model carrying the question forward
 
 > **v1.0.48 fix:** The `/ask` dialog no longer displays a follow-up input prompt after answering. It closes cleanly once the answer is shown.
+
+> **v1.0.98:** Expand an `/ask` answer with `Ctrl+E`, copy the entire answer with `Ctrl+Y`, and reopen the last usable completed answer with `/ask` or `/btw`.
 
 ### /env
 

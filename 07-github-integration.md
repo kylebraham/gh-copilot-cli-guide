@@ -266,6 +266,8 @@ AI will:
 4. Commit changes
 5. Push and create PR
 
+> **v1.0.89+:** PR creation now follows the repository's pull request template (if one exists), preserving its required sections and checklist structure instead of generating a free-form description.
+
 ### Delegation Best Practices
 
 ✅ **Be specific** - Clear description helps AI understand  
@@ -771,6 +773,8 @@ Solutions:
 ```
 
 > **v1.0.88+:** When a connected GitHub Connector needs reauthorization, Copilot CLI now prompts you to update GitHub authorization directly, instead of failing silently or requiring you to notice and re-run `/login` on your own.
+
+> **v1.0.89+:** Managed Connector consent now shows authorization progress with a copyable authorization URL during connect and reconnect, so you can complete the flow even when a browser can't be opened automatically.
 
 ### GitHub CLI Not Working
 

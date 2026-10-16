@@ -15,7 +15,7 @@
 | `Ctrl+D` | Shutdown (does not queue a message) |
 | `Ctrl+Q` / `Ctrl+Enter` | Queue message while agent is running |
 | `Ctrl+L` | Clear the terminal screen (conversation session preserved) |
-| `Esc` | Cancel input / close picker | Clear the current input line or close a picker; press **twice** (`Esc Esc`) to cancel an in-flight AI operation |
+| `Esc` | Cancel input / close picker | Clear the current input line or close a picker; press **twice** (`Esc Esc`) to cancel an in-flight AI operation; in an empty input (local sessions, v1.0.89+), takes back an unanswered prompt |
 | `↑ / ↓` | Navigate command history |
 | `Shift+Tab` | Cycle modes (interactive → plan) |
 | `Ctrl+S` | Stash/pop current prompt (v1.0.60); slash-command picker still available by typing `/` |
