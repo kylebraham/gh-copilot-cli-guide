@@ -10,6 +10,7 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 3. [Research Command (`/research`)](#research-command-research) — [Full guide →](19-research-command.md)
 
 ### Features covered in this file
+4. [New in v1.0.100](#new-in-v10100)
 4. [New in v1.0.98](#new-in-v1098)
 4. [New in v1.0.97](#new-in-v1097)
 4. [New in v1.0.96](#new-in-v1096)
@@ -102,6 +103,56 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 22. [Project Initialization (`/init`)](#project-initialization-init)
 23. [Enhanced Pull Request Creation (`/delegate`)](#enhanced-pull-request-creation-delegate)
 24. [Staying Up to Date](#staying-up-to-date)
+
+---
+
+## New in v1.0.100
+
+Released: 2026-10-19
+
+> **Note:** v1.0.99 had no stable release; its changes ship in v1.0.100.
+
+### New Flags
+
+- `--disable-client-telemetry` turns off client telemetry uploads from the CLI
+- `--trust-folder` trusts the folder for one-off prompt-mode sessions started with `-p` or piped stdin
+
+```bash
+copilot -p "Summarize this repo" --trust-folder
+```
+
+### /share Action Menu
+
+Run `/share` without arguments to open a full-screen action menu for sharing the current session.
+
+### Sandbox Changes
+
+- Local network access is now allowed by default, so commands can reach localhost and private-network services (reverses the v1.0.83 default)
+- `/sandbox` can keep sandboxing enabled for the current session without enabling it globally
+- Host-rule traffic honors `HTTPS_PROXY` and `HTTP_PROXY` when no sandbox proxy is configured
+- Sandboxed git on github.com can use your `GITHUB_TOKEN` from `credentials.envVars`
+- Prompt to update the sandbox proxy certificate authority when masked hosts change
+- Credential-proxy certificate trust failures are explained, with an approved rerun outside the sandbox
+- Sandboxed commands can write package and build caches when developer tool access is enabled
+
+### Plugins and Skills
+
+- Install verified Skills and plugins from GitHub install links: `copilot plugin install "ghapp://air/install?..."`
+- Trusted repository plugins install and update automatically before chat runs
+- The built-in browser plugin is renamed `browser-use`; existing preferences keep working
+- A skill `allowed-tools` rule keeps commas inside its arguments
+
+### Other Improvements
+
+- Path-specific instruction files in the repository root `.github/instructions` apply automatically when the agent reads or edits a matching file
+- Semantic code search is enabled by default for online sessions
+- `/sessions`, `/session`, and `/resume` use the unified Sessions browser by default
+- `/login` for Microsoft Entra lets you choose a cached account or sign in with a different one
+- Saved `/diff` review comments are kept when reopening an unchanged diff, with an explicit discard action
+- A clear notice appears when administrator-managed settings override your selected model
+- Double `Ctrl+C` exits immediately even when the UI is busy
+- Plan, autopilot, and shell mode badges stay visible while the agent works
+- Fixes for Gemini tool calls, hung MCP servers, Windows startup failures, and context exhaustion with deferred tools
 
 ---
 

@@ -72,7 +72,7 @@
 | `/continue` | Alias for `/resume` |
 | `/rename` | Rename the current session |
 | Sessions sidebar | Keyboard/mouse navigable: arrows open/focus/select, `Enter` switches, `n` spawns a session, `x` twice closes one; `/settings` can disable it (v1.0.72+); gated behind `/experimental on` for managing multiple concurrent sessions at a glance (v1.0.76+) |
-| `/share` | Share session as markdown, gist, or HTML (`/share html`); `--share`/`--share-gist` on a resumed session now exports the whole transcript, not just the latest run (v1.0.83+) |
+| `/share` | Share session as markdown, gist, or HTML (`/share html`); `--share`/`--share-gist` on a resumed session now exports the whole transcript, not just the latest run (v1.0.83+); `/share` with no arguments opens a full-screen action menu (v1.0.100+) |
 | `/export` | Alias for `/share` |
 | `/copy` | Copy last response to clipboard |
 | `/env` | Show loaded environment details (instructions, MCP servers, skills, agents, plugins) |
@@ -132,7 +132,7 @@
 | `/move <branch>` | Create a new git worktree and switch into it, carrying uncommitted changes along; no longer an alias for `/worktree` (v1.0.71+) |
 | `/worktree new <branch>` | Create a new git worktree and start a fresh conversation in it, instead of continuing the current one (v1.0.79+, replaces experimental `/new-worktree`) |
 | `/allow-all` | Allow all tool calls without per-call confirmation; `/allow-all auto` auto-approves LLM-judged acceptable requests and requires experimental mode (v1.0.69+) |
-| `/sandbox` | Configure the OS-level shell sandbox; groups git/`gh`/keychain auth settings under an Auth tab and shows where sandbox settings are stored (v1.0.79+); `/sandbox policy` shows effective sandbox paths, denials, and network access (v1.0.79+), and groups path grants by source and shows detected developer tools (v1.0.83+); on macOS/Linux, sandboxed commands can no longer reach services on your machine by default — enable **Allow local network** for local test suites (v1.0.83+, BREAKING); Network host allow/deny rules layer on top of your configured upstream proxy; managed sessions can disable the sandbox for the rest of the session from an approved bypass prompt (v1.0.85+); `/sandbox policy` reports local-network access using your actual configured setting (v1.0.86+) |
+| `/sandbox` | Configure the OS-level shell sandbox; groups git/`gh`/keychain auth settings under an Auth tab and shows where sandbox settings are stored (v1.0.79+); `/sandbox policy` shows effective sandbox paths, denials, and network access (v1.0.79+), and groups path grants by source and shows detected developer tools (v1.0.83+); on macOS/Linux, sandboxed commands can no longer reach services on your machine by default — enable **Allow local network** for local test suites (v1.0.83+, BREAKING); Network host allow/deny rules layer on top of your configured upstream proxy; managed sessions can disable the sandbox for the rest of the session from an approved bypass prompt (v1.0.85+); `/sandbox policy` reports local-network access using your actual configured setting (v1.0.86+); local network access is allowed by default again and `/sandbox` can enable sandboxing for just the current session (v1.0.100+) |
 | `/yolo` | Alias for `/allow-all`; state persists across `/restart` |
 | `/permissions` | Switch between approval modes in one interactive picker (v1.0.78+) |
 | `/reset-allowed-tools` | Reset tool allowlist to default (prompt-per-use) |
@@ -195,6 +195,8 @@
 | `--allow-tool TOOL` | Allow a specific tool without prompting |
 | `--deny-tool TOOL` | Block a specific tool |
 | `--sandbox` / `--no-sandbox` | Force the OS-level shell sandbox on/off for just this session, without changing your saved sandbox setting; useful alongside `-p` (v1.0.70+); git/`gh` auth inside the sandbox is now opt-in and macOS keychain access defaults off — re-enable via `/sandbox` (v1.0.72+) |
+| `--disable-client-telemetry` | Turn off client telemetry uploads (v1.0.100+) |
+| `--trust-folder` | Trust the folder for one-off `-p` or piped-stdin sessions (v1.0.100+) |
 | `--remote` | Sync session with the remote GitHub repository |
 | `--no-auto-update` | Disable automatic CLI updates |
 | `--output-format FORMAT` | Set output format (e.g., `json`, `text`) |

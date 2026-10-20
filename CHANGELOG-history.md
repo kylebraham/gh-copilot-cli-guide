@@ -1,5 +1,12 @@
 # Documentation Updates
 
+## 2026-10-20 — Docs updated for v1.0.100
+
+- `README.md`: Bumped version note to v1.0.100
+- `16-new-features.md`: Added "New in v1.0.100" section (`--disable-client-telemetry`, `--trust-folder`, `/share` menu, sandbox local-network default, plugin install links, other fixes)
+- `04-slash-commands.md`: Noted `/share` menu and `/sandbox` session option
+- `00-cheat-sheet.md`: Noted `/share` menu, `/sandbox` changes, new flags
+
 ## 2026-10-15 — Docs updated for v1.0.98
 
 - `README.md`: Bumped version note to v1.0.98
