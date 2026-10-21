@@ -10,6 +10,7 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 3. [Research Command (`/research`)](#research-command-research) — [Full guide →](19-research-command.md)
 
 ### Features covered in this file
+4. [New in v1.0.101](#new-in-v10101)
 4. [New in v1.0.100](#new-in-v10100)
 4. [New in v1.0.98](#new-in-v1098)
 4. [New in v1.0.97](#new-in-v1097)
@@ -103,6 +104,47 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 22. [Project Initialization (`/init`)](#project-initialization-init)
 23. [Enhanced Pull Request Creation (`/delegate`)](#enhanced-pull-request-creation-delegate)
 24. [Staying Up to Date](#staying-up-to-date)
+
+---
+
+## New in v1.0.101
+
+Released: 2026-10-20
+
+### Settings and Permissions
+
+- New `assistedApprovalInstructions` setting guides Assisted Permissions confirmation decisions
+- `/config` and `/settings` can set and unset `showReasoning`
+- Shell commands that create and then enter a directory now request path approval instead of being denied early
+- Permission approval prompts explain escalation causes and show a request-specific diagnosis command
+- Extension capability requests use explicit approval instead of the Assisted judge
+
+### Workflows
+
+- Dynamic workflow subagents support native structured output on supported models
+
+### Models
+
+- Local models and loopback providers in `providers.json` no longer block Auto, your saved model, or the default model when signed in to Copilot
+- Model picker marks your administrator-managed model as the default when available
+- The first prompt no longer hangs when no model is selected at startup; Copilot CLI asks you to pick one with `/model` and keeps your prompt
+- Switching only reasoning effort no longer forces compaction in over-budget sessions
+- Switching from GPT models to Gemini no longer fails when earlier turns include custom tool calls; Google models respect registry image limits
+- `/usage` shows just the model name for BYOK rows without a provider label
+
+### MCP and Plugins
+
+- Headless and SDK sessions without an OAuth handler skip MCP connections that need sign-in
+- Entra MCP sign-in recovers from rejected cached tokens; abandoned Microsoft sign-in flows are cancelled cleanly
+- MCP PNG images with ICC color profiles are preserved
+- Team-assigned plugins can be installed from Team-defined GitHub marketplaces
+
+### Other Fixes
+
+- macOS sandboxed commands can reach localhost TCP services when local access is enabled and no host filters apply
+- Copy keys reliably copy mouse selections made immediately after dragging
+- Resuming a session shows the conversation sooner
+- Windows shell commands start reliably in restored sessions and orphaned child processes are cleaned up
 
 ---
 

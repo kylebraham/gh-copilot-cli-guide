@@ -1,5 +1,10 @@
 # Documentation Updates
 
+## 2026-10-21 — Docs updated for v1.0.101
+
+- `README.md`: Bumped version note to v1.0.101
+- `16-new-features.md`: Added "New in v1.0.101" section (`assistedApprovalInstructions`, `showReasoning` via `/config`, workflow structured output, model, MCP and plugin fixes)
+
 ## 2026-10-20 — Docs updated for v1.0.100
 
 - `README.md`: Bumped version note to v1.0.100
