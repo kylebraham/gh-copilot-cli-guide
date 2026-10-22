@@ -10,6 +10,7 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 3. [Research Command (`/research`)](#research-command-research) — [Full guide →](19-research-command.md)
 
 ### Features covered in this file
+4. [New in v1.0.102](#new-in-v10102)
 4. [New in v1.0.101](#new-in-v10101)
 4. [New in v1.0.100](#new-in-v10100)
 4. [New in v1.0.98](#new-in-v1098)
@@ -104,6 +105,32 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 22. [Project Initialization (`/init`)](#project-initialization-init)
 23. [Enhanced Pull Request Creation (`/delegate`)](#enhanced-pull-request-creation-delegate)
 24. [Staying Up to Date](#staying-up-to-date)
+
+---
+
+## New in v1.0.102
+
+Released: 2026-10-21
+
+### Prompt Mode and Permissions
+
+- Prompt mode (`-p` and piped stdin) honors managed Auto model selection
+- Subagents honor custom and MCP tool approvals, avoiding duplicate permission prompts and allowing inherited workflows to run
+
+### Plugins
+
+- Plugin marketplaces accept `git-subdir` sources and long plugin descriptions
+- Chats are no longer blocked by organization plugin preparation while sending messages
+
+### Sandbox
+
+- Long-running sandboxed commands keep running reliably past 10 seconds
+- Sandboxed network traffic honors `NO_PROXY` and `ALL_PROXY` when inheriting host proxy settings
+
+### Other Fixes
+
+- Fish shell completion works when aliases include option aliases like `--effort`
+- Replies cut off by a provider overload error retry with backoff and show the provider's message and request ID
 
 ---
 

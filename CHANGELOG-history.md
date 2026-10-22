@@ -1,5 +1,10 @@
 # Documentation Updates
 
+## 2026-10-22 — Docs updated for v1.0.102
+
+- `README.md`: Bumped version note to v1.0.102
+- `16-new-features.md`: Added "New in v1.0.102" section (prompt mode Auto model, subagent approvals, plugin marketplace `git-subdir`, sandbox proxy and long-running commands, retry on provider overload, other fixes)
+
 ## 2026-10-21 — Docs updated for v1.0.101
 
 - `README.md`: Bumped version note to v1.0.101
