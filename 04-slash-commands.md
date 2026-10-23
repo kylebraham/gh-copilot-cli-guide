@@ -376,6 +376,8 @@ The status output shows **actionable hints** for each connection state, telling 
 - Steer an active session from a different machine
 - Inspect session state without interrupting the active conversation
 
+> ⚠️ **Deprecated in v1.0.103:** The legacy `--remote` / `--no-remote` startup flags were retired in favor of clearer hosting/connection flags. Run `copilot --help` for the current options.
+
 You can also pass `--remote` at startup to connect to an existing remote session immediately.
 
 > **Related:** The `--remote` flag is listed in [CLI Flags](00-cheat-sheet.md#most-useful-command-line-flags).
@@ -1959,6 +1961,8 @@ Manage MCP (Model Context Protocol) server configuration.
 
 > **v1.0.83+:** `/mcp config` and the MCP add/edit/authenticate forms now open in the plugins dashboard instead of a separate MCP manager, so closing a form returns you to the server list. MCP OAuth sign-in gains Client ID Metadata Document (CIMD) support. MCP tools stay callable after a server restarts, and servers configured by your custom agent stay available across built-in sub-agent turns. Servers contributed by a plugin are no longer labelled "User" in the dashboard, and a server from a bundled plugin now shows as built-in and names the plugin it came from.
 
+> **v1.0.100+:** `/sandbox` can keep sandboxing enabled for the current session without enabling it globally, and local network access is now allowed by default.
+
 > **v1.0.85+:** `copilot mcp enable <name>` and `copilot mcp disable <name>` are now built directly into the `copilot mcp` shell subcommand, replacing `copilot plugins enable/disable --mcp`. `/sandbox` gains network host allow/deny rules that layer on top of your configured upstream proxy instead of replacing it. See [Advanced Features — Security Best Practices](08-advanced-features.md#file-access-control).
 
 > **v1.0.87+:** `copilot mcp list` and `copilot mcp get` now report the built-in `github-mcp-server` when you're signed in, instead of showing it only in the interactive `/mcp` view. A failing MCP server no longer removes other servers' tools, and session resume no longer hangs while reconnecting MCP servers. Configure per-server slow-connection warnings with the `slowConnectionThresholdMs` setting.
@@ -2030,6 +2034,8 @@ $ copilot skill remove python-expert
 ### /share, /export [file|gist|html] [path]
 
 Share session to markdown file, GitHub Gist, or self-contained interactive HTML file. `/export` is an alias for `/share`.
+
+> **v1.0.100+:** Run `/share` with no arguments to open a full-screen action menu for sharing the current session.
 
 ```
 # Share to file
