@@ -197,7 +197,7 @@
 | `--sandbox` / `--no-sandbox` | Force the OS-level shell sandbox on/off for just this session, without changing your saved sandbox setting; useful alongside `-p` (v1.0.70+); git/`gh` auth inside the sandbox is now opt-in and macOS keychain access defaults off — re-enable via `/sandbox` (v1.0.72+) |
 | `--disable-client-telemetry` | Turn off client telemetry uploads (v1.0.100+) |
 | `--trust-folder` | Trust the folder for one-off `-p` or piped-stdin sessions (v1.0.100+) |
-| `--remote` | Sync session with the remote GitHub repository |
+| `--remote` | Sync session with the remote GitHub repository (⚠️ retired in v1.0.103 — see `copilot --help` for the new remote launch flags) |
 | `--no-auto-update` | Disable automatic CLI updates |
 | `--output-format FORMAT` | Set output format (e.g., `json`, `text`) |
 | `--print-debug-info` | Print version, terminal capabilities, and env vars, then exit |

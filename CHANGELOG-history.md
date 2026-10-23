@@ -1,5 +1,11 @@
 # Documentation Updates
 
+## 2026-10-23 — Docs updated for v1.0.103
+
+- `README.md`: Bumped version note to v1.0.103
+- `16-new-features.md`: Added "New in v1.0.103" section (remote launch flags, ACP sandbox settings, sandbox grants, session fixes)
+- `00-cheat-sheet.md`, `04-slash-commands.md`: Noted retired legacy `--remote` / `--no-remote` flags
+
 ## 2026-10-22 — Docs updated for v1.0.102
 
 - `README.md`: Bumped version note to v1.0.102

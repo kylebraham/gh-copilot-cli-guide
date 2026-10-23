@@ -10,6 +10,7 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 3. [Research Command (`/research`)](#research-command-research) — [Full guide →](19-research-command.md)
 
 ### Features covered in this file
+4. [New in v1.0.103](#new-in-v10103)
 4. [New in v1.0.102](#new-in-v10102)
 4. [New in v1.0.101](#new-in-v10101)
 4. [New in v1.0.100](#new-in-v10100)
@@ -105,6 +106,36 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 22. [Project Initialization (`/init`)](#project-initialization-init)
 23. [Enhanced Pull Request Creation (`/delegate`)](#enhanced-pull-request-creation-delegate)
 24. [Staying Up to Date](#staying-up-to-date)
+
+---
+
+## New in v1.0.103
+
+Released: 2026-10-22
+
+### Remote Launch Options
+
+- Remote launch options have clearer hosting/connection flags; the legacy `--remote` / `--no-remote` startup flags are retired (see `copilot --help` for the current flags)
+
+### Sandbox
+
+- ACP sessions honor saved sandbox settings and `--sandbox` / `--no-sandbox` flags, including on resume
+- `dnx` commands can use existing .NET and NuGet sandbox grants when developer-tool access is enabled
+- Windows dev-tool shims like `npm.cmd` receive the same sandbox grants as `npm`
+
+### Sessions and UI
+
+- Clicking a completed response code block copies its original code when enabled
+- Cloud replies keep full text when the CLI reconnects after a dropped connection
+- Sessions browser shows a session's recorded title instead of a generic "Session N" fallback
+- Resume sessions under mandatory managed model defaults without rejecting saved preferences
+- Hash mention suggestions refresh automatically when the GitHub client becomes ready
+
+### Other Fixes
+
+- Model-specific default Responses verbosity applies correctly for GPT-5 models unless session verbosity is explicitly set
+- Gemini tool calls avoid 400 schema validation errors for nullable and enum fields
+- Cached local MCP tool snapshots are reused across registered Git worktrees in one repository
 
 ---
 

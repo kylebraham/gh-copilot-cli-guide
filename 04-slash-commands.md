@@ -376,6 +376,8 @@ The status output shows **actionable hints** for each connection state, telling 
 - Steer an active session from a different machine
 - Inspect session state without interrupting the active conversation
 
+> ⚠️ **Deprecated in v1.0.103:** The legacy `--remote` / `--no-remote` startup flags were retired in favor of clearer hosting/connection flags. Run `copilot --help` for the current options.
+
 You can also pass `--remote` at startup to connect to an existing remote session immediately.
 
 > **Related:** The `--remote` flag is listed in [CLI Flags](00-cheat-sheet.md#most-useful-command-line-flags).
