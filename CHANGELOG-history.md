@@ -1,5 +1,10 @@
 # Documentation Updates
 
+## 2026-10-27 — Docs updated for v1.0.104
+
+- `README.md`: Bumped version note to v1.0.104
+- `16-new-features.md`: Added "New in v1.0.104" section (fusion model on Auto, Auto preference fallback, Autopilot background task waiting, Assisted Permissions no longer experimental)
+
 ## 2026-10-23 — Docs updated for v1.0.103
 
 - `README.md`: Bumped version note to v1.0.103

@@ -10,6 +10,7 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 3. [Research Command (`/research`)](#research-command-research) — [Full guide →](19-research-command.md)
 
 ### Features covered in this file
+4. [New in v1.0.104](#new-in-v10104)
 4. [New in v1.0.103](#new-in-v10103)
 4. [New in v1.0.102](#new-in-v10102)
 4. [New in v1.0.101](#new-in-v10101)
@@ -106,6 +107,25 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 22. [Project Initialization (`/init`)](#project-initialization-init)
 23. [Enhanced Pull Request Creation (`/delegate`)](#enhanced-pull-request-creation-delegate)
 24. [Staying Up to Date](#staying-up-to-date)
+
+---
+
+## New in v1.0.104
+
+Released: 2026-10-27
+
+### Models
+
+- Managed model "fusion" now starts sessions on Auto and applies `fusionTier` settings
+- When a saved Auto preference is no longer available, Auto falls back to its default preference instead of failing each turn
+
+### Autopilot
+
+- Interactive and SDK Autopilot sessions keep waiting for attached background tasks instead of stopping after `COPILOT_TASK_WAIT_TIMEOUT_SECONDS`; `-p --autopilot` still honors it
+
+### Permissions
+
+- Assisted Permissions are available without enabling experimental mode
 
 ---
 
