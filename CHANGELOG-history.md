@@ -1,5 +1,10 @@
 # Documentation Updates
 
+## 2026-10-28 — Docs updated for v1.0.105
+
+- `README.md`: Bumped version note to v1.0.105
+- `16-new-features.md`: Added "New in v1.0.105" section (Fusion High/Max in `/model` from long-context sessions)
+
 ## 2026-10-27 — Docs updated for v1.0.104
 
 - `README.md`: Bumped version note to v1.0.104

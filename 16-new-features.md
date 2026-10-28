@@ -10,6 +10,7 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 3. [Research Command (`/research`)](#research-command-research) — [Full guide →](19-research-command.md)
 
 ### Features covered in this file
+4. [New in v1.0.105](#new-in-v10105)
 4. [New in v1.0.104](#new-in-v10104)
 4. [New in v1.0.103](#new-in-v10103)
 4. [New in v1.0.102](#new-in-v10102)
@@ -107,6 +108,16 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 22. [Project Initialization (`/init`)](#project-initialization-init)
 23. [Enhanced Pull Request Creation (`/delegate`)](#enhanced-pull-request-creation-delegate)
 24. [Staying Up to Date](#staying-up-to-date)
+
+---
+
+## New in v1.0.105
+
+Released: 2026-10-28
+
+### Models
+
+- Selecting Copilot Fusion High or Max in `/model` now works from long-context sessions
 
 ---
 
