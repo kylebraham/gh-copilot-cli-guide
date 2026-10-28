@@ -1,5 +1,38 @@
 # Documentation Updates
 
+## 2026-10-28 — Docs updated for v1.0.105
+
+- `README.md`: Bumped version note to v1.0.105
+- `16-new-features.md`: Added "New in v1.0.105" section (Fusion High/Max in `/model` from long-context sessions)
+
+## 2026-10-27 — Docs updated for v1.0.104
+
+- `README.md`: Bumped version note to v1.0.104
+- `16-new-features.md`: Added "New in v1.0.104" section (fusion model on Auto, Auto preference fallback, Autopilot background task waiting, Assisted Permissions no longer experimental)
+
+## 2026-10-23 — Docs updated for v1.0.103
+
+- `README.md`: Bumped version note to v1.0.103
+- `16-new-features.md`: Added "New in v1.0.103" section (remote launch flags, ACP sandbox settings, sandbox grants, session fixes)
+- `00-cheat-sheet.md`, `04-slash-commands.md`: Noted retired legacy `--remote` / `--no-remote` flags
+
+## 2026-10-22 — Docs updated for v1.0.102
+
+- `README.md`: Bumped version note to v1.0.102
+- `16-new-features.md`: Added "New in v1.0.102" section (prompt mode Auto model, subagent approvals, plugin marketplace `git-subdir`, sandbox proxy and long-running commands, retry on provider overload, other fixes)
+
+## 2026-10-21 — Docs updated for v1.0.101
+
+- `README.md`: Bumped version note to v1.0.101
+- `16-new-features.md`: Added "New in v1.0.101" section (`assistedApprovalInstructions`, `showReasoning` via `/config`, workflow structured output, model, MCP and plugin fixes)
+
+## 2026-10-20 — Docs updated for v1.0.100
+
+- `README.md`: Bumped version note to v1.0.100
+- `16-new-features.md`: Added "New in v1.0.100" section (`--disable-client-telemetry`, `--trust-folder`, `/share` menu, sandbox local-network default, plugin install links, other fixes)
+- `04-slash-commands.md`: Noted `/share` menu and `/sandbox` session option
+- `00-cheat-sheet.md`: Noted `/share` menu, `/sandbox` changes, new flags
+
 ## 2026-10-15 — Docs updated for v1.0.98
 
 - `README.md`: Bumped version note to v1.0.98

@@ -10,6 +10,12 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 3. [Research Command (`/research`)](#research-command-research) — [Full guide →](19-research-command.md)
 
 ### Features covered in this file
+4. [New in v1.0.105](#new-in-v10105)
+4. [New in v1.0.104](#new-in-v10104)
+4. [New in v1.0.103](#new-in-v10103)
+4. [New in v1.0.102](#new-in-v10102)
+4. [New in v1.0.101](#new-in-v10101)
+4. [New in v1.0.100](#new-in-v10100)
 4. [New in v1.0.98](#new-in-v1098)
 4. [New in v1.0.97](#new-in-v1097)
 4. [New in v1.0.96](#new-in-v1096)
@@ -102,6 +108,182 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 22. [Project Initialization (`/init`)](#project-initialization-init)
 23. [Enhanced Pull Request Creation (`/delegate`)](#enhanced-pull-request-creation-delegate)
 24. [Staying Up to Date](#staying-up-to-date)
+
+---
+
+## New in v1.0.105
+
+Released: 2026-10-28
+
+### Models
+
+- Selecting Copilot Fusion High or Max in `/model` now works from long-context sessions
+
+---
+
+## New in v1.0.104
+
+Released: 2026-10-27
+
+### Models
+
+- Managed model "fusion" now starts sessions on Auto and applies `fusionTier` settings
+- When a saved Auto preference is no longer available, Auto falls back to its default preference instead of failing each turn
+
+### Autopilot
+
+- Interactive and SDK Autopilot sessions keep waiting for attached background tasks instead of stopping after `COPILOT_TASK_WAIT_TIMEOUT_SECONDS`; `-p --autopilot` still honors it
+
+### Permissions
+
+- Assisted Permissions are available without enabling experimental mode
+
+---
+
+## New in v1.0.103
+
+Released: 2026-10-22
+
+### Remote Launch Options
+
+- Remote launch options have clearer hosting/connection flags; the legacy `--remote` / `--no-remote` startup flags are retired (see `copilot --help` for the current flags)
+
+### Sandbox
+
+- ACP sessions honor saved sandbox settings and `--sandbox` / `--no-sandbox` flags, including on resume
+- `dnx` commands can use existing .NET and NuGet sandbox grants when developer-tool access is enabled
+- Windows dev-tool shims like `npm.cmd` receive the same sandbox grants as `npm`
+
+### Sessions and UI
+
+- Clicking a completed response code block copies its original code when enabled
+- Cloud replies keep full text when the CLI reconnects after a dropped connection
+- Sessions browser shows a session's recorded title instead of a generic "Session N" fallback
+- Resume sessions under mandatory managed model defaults without rejecting saved preferences
+- Hash mention suggestions refresh automatically when the GitHub client becomes ready
+
+### Other Fixes
+
+- Model-specific default Responses verbosity applies correctly for GPT-5 models unless session verbosity is explicitly set
+- Gemini tool calls avoid 400 schema validation errors for nullable and enum fields
+- Cached local MCP tool snapshots are reused across registered Git worktrees in one repository
+
+---
+
+## New in v1.0.102
+
+Released: 2026-10-21
+
+### Prompt Mode and Permissions
+
+- Prompt mode (`-p` and piped stdin) honors managed Auto model selection
+- Subagents honor custom and MCP tool approvals, avoiding duplicate permission prompts and allowing inherited workflows to run
+
+### Plugins
+
+- Plugin marketplaces accept `git-subdir` sources and long plugin descriptions
+- Chats are no longer blocked by organization plugin preparation while sending messages
+
+### Sandbox
+
+- Long-running sandboxed commands keep running reliably past 10 seconds
+- Sandboxed network traffic honors `NO_PROXY` and `ALL_PROXY` when inheriting host proxy settings
+
+### Other Fixes
+
+- Fish shell completion works when aliases include option aliases like `--effort`
+- Replies cut off by a provider overload error retry with backoff and show the provider's message and request ID
+
+---
+
+## New in v1.0.101
+
+Released: 2026-10-20
+
+### Settings and Permissions
+
+- New `assistedApprovalInstructions` setting guides Assisted Permissions confirmation decisions
+- `/config` and `/settings` can set and unset `showReasoning`
+- Shell commands that create and then enter a directory now request path approval instead of being denied early
+- Permission approval prompts explain escalation causes and show a request-specific diagnosis command
+- Extension capability requests use explicit approval instead of the Assisted judge
+
+### Workflows
+
+- Dynamic workflow subagents support native structured output on supported models
+
+### Models
+
+- Local models and loopback providers in `providers.json` no longer block Auto, your saved model, or the default model when signed in to Copilot
+- Model picker marks your administrator-managed model as the default when available
+- The first prompt no longer hangs when no model is selected at startup; Copilot CLI asks you to pick one with `/model` and keeps your prompt
+- Switching only reasoning effort no longer forces compaction in over-budget sessions
+- Switching from GPT models to Gemini no longer fails when earlier turns include custom tool calls; Google models respect registry image limits
+- `/usage` shows just the model name for BYOK rows without a provider label
+
+### MCP and Plugins
+
+- Headless and SDK sessions without an OAuth handler skip MCP connections that need sign-in
+- Entra MCP sign-in recovers from rejected cached tokens; abandoned Microsoft sign-in flows are cancelled cleanly
+- MCP PNG images with ICC color profiles are preserved
+- Team-assigned plugins can be installed from Team-defined GitHub marketplaces
+
+### Other Fixes
+
+- macOS sandboxed commands can reach localhost TCP services when local access is enabled and no host filters apply
+- Copy keys reliably copy mouse selections made immediately after dragging
+- Resuming a session shows the conversation sooner
+- Windows shell commands start reliably in restored sessions and orphaned child processes are cleaned up
+
+---
+
+## New in v1.0.100
+
+Released: 2026-10-19
+
+> **Note:** v1.0.99 had no stable release; its changes ship in v1.0.100.
+
+### New Flags
+
+- `--disable-client-telemetry` turns off client telemetry uploads from the CLI
+- `--trust-folder` trusts the folder for one-off prompt-mode sessions started with `-p` or piped stdin
+
+```bash
+copilot -p "Summarize this repo" --trust-folder
+```
+
+### /share Action Menu
+
+Run `/share` without arguments to open a full-screen action menu for sharing the current session.
+
+### Sandbox Changes
+
+- Local network access is now allowed by default, so commands can reach localhost and private-network services (reverses the v1.0.83 default)
+- `/sandbox` can keep sandboxing enabled for the current session without enabling it globally
+- Host-rule traffic honors `HTTPS_PROXY` and `HTTP_PROXY` when no sandbox proxy is configured
+- Sandboxed git on github.com can use your `GITHUB_TOKEN` from `credentials.envVars`
+- Prompt to update the sandbox proxy certificate authority when masked hosts change
+- Credential-proxy certificate trust failures are explained, with an approved rerun outside the sandbox
+- Sandboxed commands can write package and build caches when developer tool access is enabled
+
+### Plugins and Skills
+
+- Install verified Skills and plugins from GitHub install links: `copilot plugin install "ghapp://air/install?..."`
+- Trusted repository plugins install and update automatically before chat runs
+- The built-in browser plugin is renamed `browser-use`; existing preferences keep working
+- A skill `allowed-tools` rule keeps commas inside its arguments
+
+### Other Improvements
+
+- Path-specific instruction files in the repository root `.github/instructions` apply automatically when the agent reads or edits a matching file
+- Semantic code search is enabled by default for online sessions
+- `/sessions`, `/session`, and `/resume` use the unified Sessions browser by default
+- `/login` for Microsoft Entra lets you choose a cached account or sign in with a different one
+- Saved `/diff` review comments are kept when reopening an unchanged diff, with an explicit discard action
+- A clear notice appears when administrator-managed settings override your selected model
+- Double `Ctrl+C` exits immediately even when the UI is busy
+- Plan, autopilot, and shell mode badges stay visible while the agent works
+- Fixes for Gemini tool calls, hung MCP servers, Windows startup failures, and context exhaustion with deferred tools
 
 ---
 
