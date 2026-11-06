@@ -1,5 +1,10 @@
 # Documentation Updates
 
+## 2026-11-06 — Docs updated for v1.0.106
+
+- `README.md`: Bumped version note to v1.0.106
+- `16-new-features.md`: Added "New in v1.0.106" section (`/code`, unified `/settings` dashboard, GPT-6.1 Terra, `COPILOT_SESSION_CWD`, session @mentions, sandbox extensions, fixes)
+
 ## 2026-10-28 — Docs updated for v1.0.105
 
 - `README.md`: Bumped version note to v1.0.105

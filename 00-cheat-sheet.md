@@ -74,6 +74,7 @@
 | Sessions sidebar | Keyboard/mouse navigable: arrows open/focus/select, `Enter` switches, `n` spawns a session, `x` twice closes one; `/settings` can disable it (v1.0.72+); gated behind `/experimental on` for managing multiple concurrent sessions at a glance (v1.0.76+) |
 | `/share` | Share session as markdown, gist, or HTML (`/share html`); `--share`/`--share-gist` on a resumed session now exports the whole transcript, not just the latest run (v1.0.83+); `/share` with no arguments opens a full-screen action menu (v1.0.100+) |
 | `/export` | Alias for `/share` |
+| `/code` | Open the current session in VS Code (v1.0.106+) |
 | `/copy` | Copy last response to clipboard |
 | `/env` | Show loaded environment details (instructions, MCP servers, skills, agents, plugins) |
 | `/ask` | Ask a quick question without affecting conversation history |

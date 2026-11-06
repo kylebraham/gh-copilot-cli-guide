@@ -10,6 +10,7 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 3. [Research Command (`/research`)](#research-command-research) — [Full guide →](19-research-command.md)
 
 ### Features covered in this file
+4. [New in v1.0.106](#new-in-v10106)
 4. [New in v1.0.105](#new-in-v10105)
 4. [New in v1.0.104](#new-in-v10104)
 4. [New in v1.0.103](#new-in-v10103)
@@ -108,6 +109,41 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 22. [Project Initialization (`/init`)](#project-initialization-init)
 23. [Enhanced Pull Request Creation (`/delegate`)](#enhanced-pull-request-creation-delegate)
 24. [Staying Up to Date](#staying-up-to-date)
+
+---
+
+## New in v1.0.106
+
+Released: 2026-11-05
+
+### Commands and Settings
+
+- New `/code` command opens the current session in VS Code
+- `/settings` now opens the unified dashboard for all users, with global search across settings and local resources
+- New Fusion tier setting in `copilot config`
+- New Sandbox extensions setting runs extension processes inside the sandbox
+- `/agent` shows each agent's selection ID when multiple agents share a display name
+
+### Models
+
+- GPT-6.1 Terra is selectable under New models when available to your account
+- The model picker shows context window size for flat, unpriced, and single-tier models
+
+### Sessions and Integrations
+
+- Opt-in session management tools and @mentions for opted-in local sessions
+- New `COPILOT_SESSION_CWD` variable for launching and expanding LSP and local MCP server configs
+- Sandboxed local MCP servers respect relative filesystem permissions and relative `cwd` settings
+- MCP Entra authentication falls back to the VS Code registration when Copilot CLI preauthorization is unavailable
+
+### Fixes and Improvements
+
+- Terminals report program status, including when attention is needed; Kitty-compatible terminals render inline images
+- Images removed from the prompt are no longer sent, and Ctrl+S can stash the prompt afterwards
+- `copilot --resume <id>` gives up task lookup after 10 seconds instead of hanging
+- Autopilot no longer implements its own recommendation after a review-only request, and shows the saved paused goal when resuming
+- `copilot -p --plan` no longer suggests Shift+Tab to leave Plan mode
+- Empty 404 responses from the service under load are retried
 
 ---
 

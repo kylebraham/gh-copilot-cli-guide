@@ -1107,6 +1107,14 @@ Clears OAuth authentication tokens and signs you out. You'll need to `/login` ag
 
 ## Configuration
 
+### /code (v1.0.106+)
+
+Open the current session in VS Code.
+
+```
+> /code
+```
+
 ### /settings (v1.0.61+)
 
 Open an interactive dialog to browse and edit all user settings in one place.
@@ -1127,6 +1135,8 @@ Open an interactive dialog to browse and edit all user settings in one place.
 > **v1.0.70+:** Add `--repo` or `--local` to scope a settings change to the current repository or local config instead of the global user config: `/settings --repo`. A new setting also controls whether timeline timestamps are shown or hidden.
 
 > **v1.0.71+:** The `/settings` dashboard adds dedicated **Repo** and **Repo (local)** scope tabs, so you can browse and edit repo-scoped settings visually instead of only through the `--repo`/`--local` flags. GitHub MCP toolset and tool selections (`githubMcpToolsets`, `githubMcpTools`, and related settings) now persist via `settings.json` instead of being session-only.
+
+> **v1.0.106+:** `/settings` opens the unified dashboard for all users and adds global search across settings and local resources.
 
 > **v1.0.80+:** Unknown and ineffective settings keys are now moved into an actionable **Problems** tab within `/settings`, instead of being silently ignored — retired CLI-owned keys are also cleaned up automatically.
 
