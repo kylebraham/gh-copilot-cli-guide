@@ -1,5 +1,9 @@
 # Documentation Updates
 
+## 2026-11-07 — Docs updated for v1.0.107
+
+- `README.md`: Bumped version note to v1.0.107 (release notes match v1.0.106; no new features to document)
+
 ## 2026-11-06 — Docs updated for v1.0.106
 
 - `README.md`: Bumped version note to v1.0.106
