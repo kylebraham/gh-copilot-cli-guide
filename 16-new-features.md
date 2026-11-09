@@ -10,6 +10,7 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 3. [Research Command (`/research`)](#research-command-research) — [Full guide →](19-research-command.md)
 
 ### Features covered in this file
+4. [New in v1.0.108](#new-in-v10108)
 4. [New in v1.0.106](#new-in-v10106)
 4. [New in v1.0.105](#new-in-v10105)
 4. [New in v1.0.104](#new-in-v10104)
@@ -109,6 +110,47 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 22. [Project Initialization (`/init`)](#project-initialization-init)
 23. [Enhanced Pull Request Creation (`/delegate`)](#enhanced-pull-request-creation-delegate)
 24. [Staying Up to Date](#staying-up-to-date)
+
+---
+
+## New in v1.0.108
+
+Released: 2026-11-09
+
+### Commands and Settings
+
+- New `/index` commands, with managed shared tgrep indexing enabled by default for eligible repositories
+- New `sandbox.userPolicy.filesystem.enumeratePaths` in `settings.json` for Windows enumerate-only directory grants
+- `/changelog <version>` can retrieve release notes for versions not bundled with the CLI
+- `/limits unset` now clears session AI credit caps for subsequent requests
+- `/plugin install` shows the same deprecation warning as `copilot plugin install`
+- `/experimental on|off` and `/theme <mode>` are marked deprecated in favor of `/settings`; `/mcp disable` is saved across sessions
+- Subcommands of `/pr`, `/lsp`, `/skills`, `/plugin`, `/user` and `/collect-debug-logs` match in any letter case
+
+### Behavior Changes
+
+- Local MCP server environment values in interactive sessions are passed literally; use `${NAME}` to reference a host environment variable
+- Interactive Autopilot waits for your response to MCP input and consent requests instead of declining them
+- With Assisted Permissions, Autopilot no longer stops for permission prompts; the agent tries another approach and reports what it could not do
+- `/permissions default` in Autopilot asks again how to handle permissions on the next prompt
+- With the sandbox on, a running local MCP server restarts after `/cd` to follow the new directory's denied paths
+- `/mcp enable` respects repository settings that disable an MCP server
+- A directory's `.github/mcp.json` is ignored when the same directory has a `.mcp.json`
+- Assisted Permissions judge calls no longer count as separate premium requests
+
+### Fixes and Improvements
+
+- Ctrl+C stops a running `/compact`, as Esc Esc does
+- Ctrl+T shows and hides First Pass reasoning when Fusion is selected through a routing profile
+- `-p --output-format json` includes session start, resume, and model-change events
+- Warning shown when a custom agent's configured skills are missing or cannot be loaded
+- `disabledSkills`, `skills.disable` and `skills.enable` match skill names in any letter case
+- `/model` recovers from a 421 Misdirected Request when listing models
+- PDF attachments on Grok 4.7 and Grok 4.6 fall back to file references; empty PDF or Office attachments no longer fail the turn
+- Headless runs report an error when resuming a session in use by another Copilot process
+- Managed plugin assignments with state `defaultEnabled` install and activate plugins by default
+- Concise transcript mode keeps successful output and diffs collapsed until expanded
+- Many smaller fixes to `/search`, paste handling, `/session info`, MCP forms, and language server file watching
 
 ---
 

@@ -1,5 +1,10 @@
 # Documentation Updates
 
+## 2026-11-09 — Docs updated for v1.0.108
+
+- `README.md`: Bumped version note to v1.0.108
+- `16-new-features.md`: Added "New in v1.0.108" section (`/index`, `enumeratePaths` sandbox setting, `/changelog <version>`, Autopilot and MCP behavior changes, deprecations of `/experimental` and `/theme` arguments, fixes)
+
 ## 2026-11-07 — Docs updated for v1.0.107
 
 - `README.md`: Bumped version note to v1.0.107 (release notes match v1.0.106; no new features to document)
