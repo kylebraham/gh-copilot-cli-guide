@@ -1,5 +1,58 @@
 # Documentation Updates
 
+## 2026-11-11 — Docs updated for v1.0.109
+
+- `README.md`: Bumped version note to v1.0.109
+- `16-new-features.md`: Added "New in v1.0.109" section (sandbox CIDR rules, Claude Fable 5.2, `/init` guidance, `/research` reports, behavior changes, fixes)
+- `22-models-and-costs.md`: Added Claude Fable 5.2
+
+## 2026-11-09 — Docs updated for v1.0.108
+
+- `README.md`: Bumped version note to v1.0.108
+- `16-new-features.md`: Added "New in v1.0.108" section (`/index`, `enumeratePaths` sandbox setting, `/changelog <version>`, Autopilot and MCP behavior changes, deprecations of `/experimental` and `/theme` arguments, fixes)
+
+## 2026-11-07 — Docs updated for v1.0.107
+
+- `README.md`: Bumped version note to v1.0.107 (release notes match v1.0.106; no new features to document)
+
+## 2026-11-06 — Docs updated for v1.0.106
+
+- `README.md`: Bumped version note to v1.0.106
+- `16-new-features.md`: Added "New in v1.0.106" section (`/code`, unified `/settings` dashboard, GPT-6.1 Terra, `COPILOT_SESSION_CWD`, session @mentions, sandbox extensions, fixes)
+
+## 2026-10-28 — Docs updated for v1.0.105
+
+- `README.md`: Bumped version note to v1.0.105
+- `16-new-features.md`: Added "New in v1.0.105" section (Fusion High/Max in `/model` from long-context sessions)
+
+## 2026-10-27 — Docs updated for v1.0.104
+
+- `README.md`: Bumped version note to v1.0.104
+- `16-new-features.md`: Added "New in v1.0.104" section (fusion model on Auto, Auto preference fallback, Autopilot background task waiting, Assisted Permissions no longer experimental)
+
+## 2026-10-23 — Docs updated for v1.0.103
+
+- `README.md`: Bumped version note to v1.0.103
+- `16-new-features.md`: Added "New in v1.0.103" section (remote launch flags, ACP sandbox settings, sandbox grants, session fixes)
+- `00-cheat-sheet.md`, `04-slash-commands.md`: Noted retired legacy `--remote` / `--no-remote` flags
+
+## 2026-10-22 — Docs updated for v1.0.102
+
+- `README.md`: Bumped version note to v1.0.102
+- `16-new-features.md`: Added "New in v1.0.102" section (prompt mode Auto model, subagent approvals, plugin marketplace `git-subdir`, sandbox proxy and long-running commands, retry on provider overload, other fixes)
+
+## 2026-10-21 — Docs updated for v1.0.101
+
+- `README.md`: Bumped version note to v1.0.101
+- `16-new-features.md`: Added "New in v1.0.101" section (`assistedApprovalInstructions`, `showReasoning` via `/config`, workflow structured output, model, MCP and plugin fixes)
+
+## 2026-10-20 — Docs updated for v1.0.100
+
+- `README.md`: Bumped version note to v1.0.100
+- `16-new-features.md`: Added "New in v1.0.100" section (`--disable-client-telemetry`, `--trust-folder`, `/share` menu, sandbox local-network default, plugin install links, other fixes)
+- `04-slash-commands.md`: Noted `/share` menu and `/sandbox` session option
+- `00-cheat-sheet.md`: Noted `/share` menu, `/sandbox` changes, new flags
+
 ## 2026-10-15 — Docs updated for v1.0.98
 
 - `README.md`: Bumped version note to v1.0.98
