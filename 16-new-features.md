@@ -10,6 +10,7 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 3. [Research Command (`/research`)](#research-command-research) — [Full guide →](19-research-command.md)
 
 ### Features covered in this file
+4. [New in v1.0.109](#new-in-v10109)
 4. [New in v1.0.108](#new-in-v10108)
 4. [New in v1.0.106](#new-in-v10106)
 4. [New in v1.0.105](#new-in-v10105)
@@ -110,6 +111,36 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 22. [Project Initialization (`/init`)](#project-initialization-init)
 23. [Enhanced Pull Request Creation (`/delegate`)](#enhanced-pull-request-creation-delegate)
 24. [Staying Up to Date](#staying-up-to-date)
+
+---
+
+## New in v1.0.109
+
+Released: 2026-11-10
+
+### Commands and Settings
+
+- Sandbox host allow and deny rules in settings now accept IPv4/IPv6 CIDR ranges
+- Claude Fable 5.2 is available in the `/model` picker under New models
+- Text typed after `/init` is passed to the model as extra guidance for the generated instructions file; usage is `/init [suppress|<instructions>]`
+- Running `/research` again on the same topic saves a new report instead of overwriting the earlier one
+- `/cd .` and `/add-dir .` keep the current directory in a git repository instead of selecting `.git`
+
+### Behavior Changes
+
+- Backspace at the start of shell input leaves shell mode and keeps the typed text
+- Removing a built-in MCP server with `copilot mcp remove` or `/mcp delete` explains how to disable it instead
+- `-p --output-format json` emits a final result record with an exit status even when a run fails early
+- A mistyped server in your own `mcp-config.json` is reported at startup and in `mcp list`
+- Custom agents added to `.github/agents/` during a session are used without reloading
+- `copilot workflow run` explains that dynamic workflows need experimental features and exits with status 2
+
+### Fixes and Improvements
+
+- MCP tool results returned as base64 text `blob` resources now reach the model
+- The footer's AI credits update as soon as `/compact` finishes
+- Selecting a model that is unavailable shows an error instead of silently switching models
+- Many smaller fixes to permission prompts, `/terminal-setup`, `/voice`, session history, and `copilot help` text
 
 ---
 

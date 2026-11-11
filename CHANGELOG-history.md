@@ -1,5 +1,11 @@
 # Documentation Updates
 
+## 2026-11-11 — Docs updated for v1.0.109
+
+- `README.md`: Bumped version note to v1.0.109
+- `16-new-features.md`: Added "New in v1.0.109" section (sandbox CIDR rules, Claude Fable 5.2, `/init` guidance, `/research` reports, behavior changes, fixes)
+- `22-models-and-costs.md`: Added Claude Fable 5.2
+
 ## 2026-11-09 — Docs updated for v1.0.108
 
 - `README.md`: Bumped version note to v1.0.108
