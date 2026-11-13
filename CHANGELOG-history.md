@@ -1,5 +1,10 @@
 # Documentation Updates
 
+## 2026-11-13 — Docs updated for v1.0.111
+
+- `README.md`: Bumped version note to v1.0.111
+- `16-new-features.md`: Added "New in v1.0.110" and "New in v1.0.111" sections (masked password prompts, JSON `copilot config` reads, regex enterprise permission rules, `--host-allow-session-creation`, `/usage` and `/diff` updates, behavior changes, fixes)
+
 ## 2026-11-11 — Docs updated for v1.0.109
 
 - `README.md`: Bumped version note to v1.0.109

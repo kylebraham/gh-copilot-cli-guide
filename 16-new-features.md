@@ -10,6 +10,8 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 3. [Research Command (`/research`)](#research-command-research) — [Full guide →](19-research-command.md)
 
 ### Features covered in this file
+4. [New in v1.0.111](#new-in-v10111)
+4. [New in v1.0.110](#new-in-v10110)
 4. [New in v1.0.109](#new-in-v10109)
 4. [New in v1.0.108](#new-in-v10108)
 4. [New in v1.0.106](#new-in-v10106)
@@ -111,6 +113,65 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 22. [Project Initialization (`/init`)](#project-initialization-init)
 23. [Enhanced Pull Request Creation (`/delegate`)](#enhanced-pull-request-creation-delegate)
 24. [Staying Up to Date](#staying-up-to-date)
+
+---
+
+## New in v1.0.111
+
+Released: 2026-11-13
+
+### Commands and Settings
+
+- Enterprise-managed Shell, Bash, and PowerShell permission rules support regular expressions
+- `--host-allow-session-creation` lets remote clients create sessions on CLI hosts for one launch without changing saved settings
+- `/usage` refreshes premium request usage so percentages stay current; its activity graph fits narrow terminals and counts only the prompts you typed
+- `/diff` shows a clear notice for binary files and lists staged renames under their new names
+- `/mcp search` installs registry servers with URL variables using the values you enter
+
+### Behavior Changes
+
+- Follow-ups typed while the agent is working run in the order they were typed
+- Prompts sent as a turn finishes run without waiting for background agents
+- Queued slash commands show an error when they fail instead of disappearing silently
+- Permission prompts and questions appear directly in the sub-agent view
+- `copilot plugin enable`, `disable`, `update` and `uninstall` fail and name `config.json` when it cannot be parsed
+- `copilot -p "/compact" --silent` no longer prints the compaction result to stdout
+- `/skills get` and `/mcp` usage text name the `get` and `remove` verbs instead of the retired `info` and `delete`
+
+### Fixes and Improvements
+
+- Duplicate MCP OAuth reconnects are prevented, and OAuth sign-in works through Kerberos (Negotiate) proxies
+- `/rewind` with Conversation + files reports restored files accurately
+- Many smaller fixes to terminal rendering, the Sessions sidebar, screen-reader mode, and `/session` cleanup commands
+
+---
+
+## New in v1.0.110
+
+Released: 2026-11-12
+
+### Commands and Settings
+
+- Experimental: answer git, ssh, and sudo password prompts from agent commands in a masked dialog (enable with `/experimental on`)
+- Read JSON-valued settings, such as hook definitions, with `copilot config <key>` and `/settings show <key>`
+- `/context` shows loaded custom instructions as a separate token count instead of including them in System Prompt
+- `/session prune` and its dry run skip sessions open in other processes and report how many were skipped
+- `/init suppress` immediately hides the Getting started `/init` tip
+- `/worktree HEAD` and `/move HEAD` create a worktree using the branch name `head` instead of failing
+
+### Behavior Changes
+
+- `/compact` respects the session AI credit limit
+- A warning appears when `--yolo` or `--allow-all` is ignored because bypass permissions mode is disabled
+- `/mcp add` and `/mcp edit` no longer overwrite an existing server name or an invalid configuration file
+- `copilot -p` warns on stderr and in JSON output when MCP servers cannot start
+- Hook and memory changes in `/settings` apply without restarting the CLI
+- Custom agents marked `user-invocable: false` appear in `/subagents`
+
+### Fixes and Improvements
+
+- Starting `copilot` from a deleted directory explains how to recover instead of crashing
+- Many smaller fixes to MCP configuration handling, plugin settings, `/diff`, Vim mode, and prompt wrapping
 
 ---
 
