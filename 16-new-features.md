@@ -10,6 +10,7 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 3. [Research Command (`/research`)](#research-command-research) — [Full guide →](19-research-command.md)
 
 ### Features covered in this file
+4. [New in v1.0.112](#new-in-v10112)
 4. [New in v1.0.111](#new-in-v10111)
 4. [New in v1.0.110](#new-in-v10110)
 4. [New in v1.0.109](#new-in-v10109)
@@ -113,6 +114,30 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 22. [Project Initialization (`/init`)](#project-initialization-init)
 23. [Enhanced Pull Request Creation (`/delegate`)](#enhanced-pull-request-creation-delegate)
 24. [Staying Up to Date](#staying-up-to-date)
+
+---
+
+## New in v1.0.112
+
+Released: 2026-11-13
+
+### Behavior Changes
+
+- Subagents respect the session-wide AI credit limit set with `--max-ai-credits`, and resumed sessions count previously used AI credits toward it
+- Each model's recommended context window is used by default; explicit context choices are preserved
+- The built-in GitHub MCP server is unavailable when your organization's policy disables MCP servers
+- `/model plan` refuses extra arguments instead of saving or clearing the plan model
+- `copilot mcp remove` and `/mcp delete` explain that servers passed with `--additional-mcp-config` cannot be removed
+- Team plugins install from marketplaces on a specific branch or tag, or in a repository subfolder
+- `/chronicle cost-tips` includes Copilot App sessions and recommends cheaper models and reasoning settings based on your usage
+
+### Fixes and Improvements
+
+- `/copy` keeps its formatting when pasted into Word, Outlook, or Teams
+- `/diff` respects `.gitattributes` binary settings for untracked files
+- Rewinding to a message sent while the agent was working restores the files changed in reply to it
+- `copilot help sandbox` documents that macOS sandbox host rules block direct TCP connections to local ports
+- Many smaller fixes to terminal rendering with emoji and CJK characters, narrow terminals, `/settings`, `/subagents`, `/plugin`, the Sessions tab, and Vim mode
 
 ---
 

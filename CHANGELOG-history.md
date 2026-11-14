@@ -1,5 +1,10 @@
 # Documentation Updates
 
+## 2026-11-14 — Docs updated for v1.0.112
+
+- `README.md`: Bumped version note to v1.0.112
+- `16-new-features.md`: Added "New in v1.0.112" section (subagent AI credit limits, default context windows, `/model plan` arguments, team plugin marketplaces, `/chronicle cost-tips`, fixes)
+
 ## 2026-11-13 — Docs updated for v1.0.111
 
 - `README.md`: Bumped version note to v1.0.111
