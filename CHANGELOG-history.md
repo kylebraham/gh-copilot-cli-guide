@@ -1,5 +1,10 @@
 # Documentation Updates
 
+## 2026-11-17 — Docs updated for v1.0.113
+
+- `README.md`: Bumped version note to v1.0.113
+- `16-new-features.md`: Added "New in v1.0.113" section (`features.browserUse` managed setting)
+
 ## 2026-11-14 — Docs updated for v1.0.112
 
 - `README.md`: Bumped version note to v1.0.112

@@ -10,6 +10,7 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 3. [Research Command (`/research`)](#research-command-research) — [Full guide →](19-research-command.md)
 
 ### Features covered in this file
+4. [New in v1.0.113](#new-in-v10113)
 4. [New in v1.0.112](#new-in-v10112)
 4. [New in v1.0.111](#new-in-v10111)
 4. [New in v1.0.110](#new-in-v10110)
@@ -114,6 +115,16 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 22. [Project Initialization (`/init`)](#project-initialization-init)
 23. [Enhanced Pull Request Creation (`/delegate`)](#enhanced-pull-request-creation-delegate)
 24. [Staying Up to Date](#staying-up-to-date)
+
+---
+
+## New in v1.0.113
+
+Released: 2026-11-17
+
+### Behavior Changes
+
+- Administrators can disable built-in Browser Use with the managed setting `features.browserUse`, including in running sessions
 
 ---
 
