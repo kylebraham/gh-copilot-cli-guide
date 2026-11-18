@@ -1,5 +1,9 @@
 # Documentation Updates
 
+## 2026-11-18 — Docs updated for v1.0.114
+
+- `README.md`: Bumped version note to v1.0.114 (release notes list only unspecified fixes and changes; no feature docs affected)
+
 ## 2026-11-17 — Docs updated for v1.0.113
 
 - `README.md`: Bumped version note to v1.0.113
