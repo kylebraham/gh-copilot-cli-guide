@@ -32,7 +32,8 @@ Understanding how to choose the right model — and when to switch — is one of
 | Claude Opus 5 | `claude-opus-5` | Slower | Newest Opus generation — top-tier reasoning and coding, added v1.0.75 |
 | Claude Opus 5.5 | `claude-opus-5.5` | Slower | Newest Opus generation — top-tier reasoning and coding (v1.0.89+) |
 | Claude Fable 5 | `claude-fable-5` | Varies | New Claude Fable family model (v1.0.61+) |
-| Claude Fable 5.1 | `claude-fable-5.1` | Varies | Newest Claude Fable family model (v1.0.83+) |
+| Claude Fable 5.1 | `claude-fable-5.1` | Varies | Claude Fable family model Claude Fable family model (v1.0.83+) |
+| Claude Fable 5.2 | `claude-fable-5.2` | Varies | Newest Claude Fable family model (v1.0.109+) |
 | Claude Haiku 4.5 | `claude-haiku-4.5` | Fastest | Quick tasks, fleet subagents, docs, formatting |
 | Claude Haiku 5.5 | `claude-haiku-5.5` | Fastest | Newest Haiku — quick tasks, fleet subagents, formatting (v1.0.94+) |
 | GPT-6 Sol | `gpt-6-sol` | Fast | Newest GPT generation (v1.0.89+) |
