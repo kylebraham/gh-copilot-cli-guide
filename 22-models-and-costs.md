@@ -40,6 +40,7 @@ Understanding how to choose the right model — and when to switch — is one of
 | GPT-6.1 Sol | `gpt-6.1-sol` | Fast | Newest GPT-6 generation (v1.0.90+) |
 | GPT-6 Luna | `gpt-6-luna` | Fast | Newest GPT generation (v1.0.89+) |
 | GPT-6 Astra | `gpt-6-astra` | Fast | Newest GPT generation (v1.0.85+) |
+| GPT-6.2 Astra | `gpt-6.2-astra` | Fast | Newest GPT-6 generation (v1.0.115+) |
 | GPT-5.6 | `gpt-5.6` | Fast | Newest GPT generation — added v1.0.70 |
 | GPT-5.4 | `gpt-5.4` | Fast | Strong alternative for general code generation |
 | GPT-5.3-Codex | `gpt-5.3-codex` | Fast | Code-specialized tasks |
@@ -50,10 +51,12 @@ Understanding how to choose the right model — and when to switch — is one of
 | Gemini 3.6 Flash | `gemini-3.6-flash` | Fastest | Newest Gemini Flash generation, added v1.0.74 |
 | Gemini 3.7 Flash | `gemini-3.7-flash` | Fastest | Newest Gemini Flash generation, added v1.0.81 |
 | Gemini 4 Argon | `gemini-4-argon` | Fast | Gemini 4 generation model, added v1.0.98 |
+| Gemini 4 Hydrogen | `gemini-4-hydrogen` | Fast | Gemini 4 generation model with Extra High reasoning support when available (v1.0.115+) |
 | GPT-5.4 mini | `gpt-5.4-mini` | Fastest | Ultra-cheap for trivial or bulk tasks |
 | GPT-4.1 | `gpt-4.1` | Fast | Fast, cost-effective general tasks |
 | Grok 4.5 | `grok-4.5` | Fast | New Grok family model, added v1.0.76 |
 | Grok 4.6 | `grok-4.6` | Fast | Newest Grok generation; supports `xhigh` reasoning effort (v1.0.81+) |
+| MAI Code 2 Flash | `mai-code-2-flash` | Fastest | Microsoft's small-tier coding model, listed under New models in `/model` (v1.0.115+) |
 | MAI Code 1.1 Flash | `MAI-Code-1.1-Flash` | Fastest | Microsoft's small-tier coding model with native vision support (v1.0.80+) |
 
 > ⚠️ **Deprecated in v1.0.66:** Claude Opus 4.6 Fast (`claude-opus-4.6-fast`) is deprecated in favor of Claude Opus 4.8 Fast (`claude-opus-4.8-fast`), which offers newer Opus quality at comparable speed.
