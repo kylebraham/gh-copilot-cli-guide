@@ -10,6 +10,7 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 3. [Research Command (`/research`)](#research-command-research) — [Full guide →](19-research-command.md)
 
 ### Features covered in this file
+4. [New in v1.0.115](#new-in-v10115)
 4. [New in v1.0.113](#new-in-v10113)
 4. [New in v1.0.112](#new-in-v10112)
 4. [New in v1.0.111](#new-in-v10111)
@@ -115,6 +116,34 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 22. [Project Initialization (`/init`)](#project-initialization-init)
 23. [Enhanced Pull Request Creation (`/delegate`)](#enhanced-pull-request-creation-delegate)
 24. [Staying Up to Date](#staying-up-to-date)
+
+---
+
+## New in v1.0.115
+
+Released: 2026-11-23
+
+### Models
+
+- GPT-6.2 Astra and Gemini 4 Hydrogen (with Extra High reasoning support when available for your account) are available in the model picker
+- MAI-Code-2-Flash is available in `/model` under New models
+- `/model` can manage configured provider models directly; press `Ctrl+X` then `A` to add (and optionally switch to) custom provider models in local sessions
+
+### Commands and Settings
+
+- `showTimelineTimestamps` setting shows start times, end times, and elapsed durations on timeline items
+- `/sandbox` policy shows the GitHub account sandboxed `gh` commands use
+- `sandbox.userPolicy.seatbelt.extraMachLookups` allows specific macOS Mach service lookups in sandboxed commands without enabling Keychain access
+- Windows sandbox package queries are enabled by default; set `sandbox.userPolicy.capabilities` to `[]` to opt out
+- Native extensions can activate lazily when users invoke their declared slash commands
+- ACP editors that support forms get structured clarification questions
+
+### Behavior Changes
+
+- An empty `--available-tools` value (`--available-tools=`) now gives the model no tools instead of every tool
+- `/delegate` explains that a login is needed when you are not signed in
+- `disableAllHooks` leaves hooks from managed policy running
+- The footer shows the current model and reasoning effort when resuming a session
 
 ---
 

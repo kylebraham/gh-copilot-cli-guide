@@ -1,5 +1,11 @@
 # Documentation Updates
 
+## 2026-11-24 — Docs updated for v1.0.115
+
+- `README.md`: Bumped version note to v1.0.115
+- `16-new-features.md`: Added "New in v1.0.115" section (new models, `/model` provider management, `showTimelineTimestamps`, sandbox policy updates, behavior changes)
+- `22-models-and-costs.md`: Added GPT-6.2 Astra, Gemini 4 Hydrogen, and MAI Code 2 Flash
+
 ## 2026-11-18 — Docs updated for v1.0.114
 
 - `README.md`: Bumped version note to v1.0.114 (release notes list only unspecified fixes and changes; no feature docs affected)
