@@ -10,6 +10,7 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 3. [Research Command (`/research`)](#research-command-research) — [Full guide →](19-research-command.md)
 
 ### Features covered in this file
+4. [New in v1.0.116](#new-in-v10116)
 4. [New in v1.0.115](#new-in-v10115)
 4. [New in v1.0.113](#new-in-v10113)
 4. [New in v1.0.112](#new-in-v10112)
@@ -116,6 +117,40 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 22. [Project Initialization (`/init`)](#project-initialization-init)
 23. [Enhanced Pull Request Creation (`/delegate`)](#enhanced-pull-request-creation-delegate)
 24. [Staying Up to Date](#staying-up-to-date)
+
+---
+
+## New in v1.0.116
+
+Released: 2026-11-25
+
+### Settings and Configuration
+
+- `env` setting sets environment variables for every process Copilot starts (shell commands, local LSP and MCP servers, hooks, and extensions), with or without the sandbox
+- Build-time JSON Schema for extension manifests
+- Experimental extensions use Enabled/Disabled controls; existing Load Only settings migrate to disabled with a one-time notice
+- Workspace MCP servers load from `.mcp.json` and `.github/mcp.json` even when the files contain comments or trailing commas
+
+### Interface
+
+- Click "Jump to latest" in the fullscreen timeline to return to the newest output and resume following it
+- Ctrl+T shows or hides Gemini reasoning summaries and saves your choice
+- Closed background sessions appear as saved in the Sessions tab and reopen with their history on Enter
+- The Sessions browser lists cloud sessions beyond the first page
+- Choose the context size for supported models in ACP-compatible editors without changing saved defaults
+
+### MCP Servers
+
+- `/mcp` warns when a plugin and a standalone MCP server connect to the same endpoint and shows how to disable one
+- Startup summarizes MCP server status when attention is needed; `/mcp auth <name>` is required before a browser opens for initial sign-in
+- A prompt passed with `-i`, a repository startup prompt, or a restored schedule waits up to 30 seconds for MCP servers started by trusting the folder
+
+### Behavior Changes
+
+- Plan approval no longer offers the fleet option; start fleet mode with `/fleet`
+- When the sandbox blocks a command, Copilot stops and, if your policy allows it, says you could disable the sandbox for the session
+- `/restart` keeps the custom agent chosen with `/agent`
+- `--log-dir` puts extension process logs in the same directory as the CLI process log
 
 ---
 

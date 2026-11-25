@@ -1,5 +1,10 @@
 # Documentation Updates
 
+## 2026-11-25 — Docs updated for v1.0.116
+
+- `README.md`: Bumped version note to v1.0.116
+- `16-new-features.md`: Added "New in v1.0.116" section (`env` setting, MCP startup/duplicate warnings, plan approval no longer offers fleet, timeline and Sessions improvements)
+
 ## 2026-11-24 — Docs updated for v1.0.115
 
 - `README.md`: Bumped version note to v1.0.115
