@@ -10,6 +10,7 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 3. [Research Command (`/research`)](#research-command-research) — [Full guide →](19-research-command.md)
 
 ### Features covered in this file
+4. [New in v1.0.117](#new-in-v10117)
 4. [New in v1.0.116](#new-in-v10116)
 4. [New in v1.0.115](#new-in-v10115)
 4. [New in v1.0.113](#new-in-v10113)
@@ -117,6 +118,42 @@ This file covers recent additions to GitHub Copilot CLI. Features marked with "F
 22. [Project Initialization (`/init`)](#project-initialization-init)
 23. [Enhanced Pull Request Creation (`/delegate`)](#enhanced-pull-request-creation-delegate)
 24. [Staying Up to Date](#staying-up-to-date)
+
+---
+
+## New in v1.0.117
+
+Released: 2026-11-27
+
+### Settings and Configuration
+
+- `sandbox.userPolicy.network.extraCaCertificates` (user or managed settings) trusts custom CA certificates for sandboxed commands through TLS-intercepting proxies
+- Custom agents can opt in to tools with explicit tool exposure; subagents respect the tool list in their custom agent file, even when it has no prompt
+- Copilot CLI starts without plugins when it cannot read or parse `config.json`, leaving the file unchanged
+
+### Permissions and Autopilot
+
+- Approving an MCP server's tools no longer also approves built-in requests (such as shell commands or memory stores) when the server name matches a built-in permission type
+- Starting in autopilot asks before launching each extension instead of denying all of them
+- Autopilot with Assisted Permissions can retry an automatically denied action once if you ask in a later chat message; the retry still goes through permission review
+- In plan mode, Assisted Permissions asks before actions such as creating a Git branch or installing packages
+- `--trust-folder` from a subdirectory no longer runs the repository root's hooks when `--add-dir` names a folder in the same repository
+
+### Commands and Interface
+
+- `/mcp` commands and `--disable-mcp-server` match server names regardless of capitalization (exact matches take precedence)
+- `/mcp search` explains why a registry server can't be installed
+- `/sandbox policy` warns about grants pointing to broken symlinks
+- The `/model` picker shows service notices and marks retiring models
+- `/tasks` keeps running tasks on one line in narrow terminals and shows the reasoning effort a subagent uses
+- Quitting with `/exit` or Ctrl+D discards queued prompts
+
+### Behavior Changes
+
+- Background agents can continue their conversations after restarting the CLI and resuming a session
+- Shared sessions resume even if their selected model is unavailable, so you can pick another with `/model`
+- Set `COPILOT_MCP_TOOL_CACHE=false` to keep the MCP tool cache disabled across reloads
+- Git commits, branch creation, and stashing work again in linked worktrees that the sandbox can write to
 
 ---
 

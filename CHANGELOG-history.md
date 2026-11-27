@@ -1,5 +1,10 @@
 # Documentation Updates
 
+## 2026-11-27 — Docs updated for v1.0.117
+
+- `README.md`: Bumped version note to v1.0.117
+- `16-new-features.md`: Added "New in v1.0.117" section (`extraCaCertificates` sandbox setting, custom agent tool exposure, permission and autopilot changes, `/mcp` name matching)
+
 ## 2026-11-25 — Docs updated for v1.0.116
 
 - `README.md`: Bumped version note to v1.0.116
